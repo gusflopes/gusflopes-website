@@ -10,6 +10,7 @@ export interface RadarItem {
   id: string;
   title: string;
   excerpt: string;
+  /** Data já formatada para exibição pt-BR (ex: "10 Jun, 2026"). */
   date: string;
   duration: string;
   category: string;
