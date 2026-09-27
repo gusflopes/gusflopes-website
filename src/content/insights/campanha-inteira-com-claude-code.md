@@ -48,7 +48,7 @@ Os horários abaixo são dos commits. Eles mostram o ritmo, não o esforço tota
 
 O plano original falava em Cloudflare Pages com adapter. Acabou mais simples: Astro gerando HTML estático e **um único Worker** servindo tudo, no mesmo padrão que eu já usava em gusflopes.dev. O Worker responde `/api/*` e entrega o resto como arquivo estático. Como é tudo no mesmo domínio, não precisa de CORS e o deploy é um só.
 
-[CONFIRMAR: se a troca de Pages para um Worker único foi decisão sua ao responder as perguntas do plano ou sugestão do agente.]
+A troca foi sugestão do agente: antes de escrever código, ele leu o repositório do meu site principal, viu que ele já roda como Worker com arquivos estáticos e propôs o mesmo padrão para a campanha. Eu aceitei — um deploy só, e o formulário no mesmo domínio.
 
 A rota que importa é `POST /api/leads`. Ela faz rate limit por IP (5 por minuto), valida o corpo com zod, confere o Turnstile no servidor, grava o lead no D1 com a versão do texto de consentimento e dispara a confirmação por e-mail com um arquivo `.ics` do 30/11. O descadastro usa token HMAC e aceita one-click (RFC 8058). Os lembretes de 16/11 e 25/11 saem por Cron Trigger, com uma tabela de log que impede o envio em dobro. E os logs não guardam dado pessoal: só o id do lead, o status e o nome dos campos com erro.
 
@@ -85,7 +85,7 @@ Duas coisas, pelo menos.
 
 **O escopo cresceu.** O prompt dizia, com todas as letras: "não crie `apps/mcp` ainda". O servidor MCP era para depois da campanha. Às 21h23 ele estava no repositório, em beta fechado. Deu certo, e conto no próximo texto como foi. Mas vale o registro: com um agente, o custo de "só mais uma coisa" cai tanto que o escopo precisa de um dono.
 
-[CONFIRMAR: por que você decidiu antecipar o MCP naquela mesma noite.]
+Antecipei porque a campanha promete o simulador e eu queria validá-lo antes de liberar de verdade. Combinei com o agente: o que não ficasse bom no MCP iria para uma versão 2, depois de 30/09. A campanha precisava estar feita, não perfeita.
 
 ## O que foi da IA e o que foi meu
 

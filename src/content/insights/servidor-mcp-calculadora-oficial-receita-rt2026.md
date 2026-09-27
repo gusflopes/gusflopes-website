@@ -46,7 +46,7 @@ rtc-client (tipos do OpenAPI oficial)
 Calculadora RTC da Receita Federal
 ```
 
-O servidor é **stateless**. Uso o `createMcpHandler` do Agents SDK da Cloudflare com o SDK do MCP na versão 2: cada requisição monta o servidor, atende e acaba. Não há sessão nem Durable Object. Deixei anotado onde eles entrariam: sessão com estado (progresso de operação longa, notificações), importação de notas fiscais por usuário e limite de uso com contagem exata. Nenhum desses casos existe hoje. [CONFIRMAR: qual versão da especificação MCP o servidor anuncia e se vale citá-la aqui.]
+O servidor é **stateless**. Uso o `createMcpHandler` do Agents SDK da Cloudflare com o SDK do MCP na versão 2: cada requisição monta o servidor, atende e acaba. Não há sessão nem Durable Object. Deixei anotado onde eles entrariam: sessão com estado (progresso de operação longa, notificações), importação de notas fiscais por usuário e limite de uso com contagem exata. Nenhum desses casos existe hoje. O handler atende a especificação atual, sem estado, e continua aceitando clientes que ainda falam a versão 2025-06-18 — foi essa que o Claude Code negociou nos meus testes.
 
 São seis tools, todas somente leitura:
 
@@ -73,18 +73,18 @@ O servidor vive num caminho próprio (`/rt2026`). Testando com um agente real, a
 
 Toda chamada fica registrada no D1: tool, entrada, resultado (truncado), cliente, país e rótulo da chave, com retenção de 24 meses. Isso está dito nas instruções do servidor, que o agente lê, e na política de privacidade. As instruções também pedem que o usuário não envie dado pessoal. A especificação original previa um modo anônimo que descartava tudo. Para um beta com poucos testadores, preferi auditar cada chamada e ser transparente sobre isso. O modo anônimo com telemetria só agregada continua no desenho para quando abrir.
 
-[CONFIRMAR: por que você decidiu construir o MCP na mesma noite da campanha, e se a escolha do histórico completo no beta foi sua ou sugestão do agente.]
+Construí o MCP na mesma noite porque a campanha promete o simulador, e eu precisava vê-lo funcionando com agente de verdade antes de abrir para qualquer pessoa — daí o beta fechado. O histórico completo foi escolha minha: quero saber tudo o que aconteceu em cada simulação, porque é o uso real que mostra o que melhorar. Por isso ele está declarado nas instruções do servidor e na política de privacidade.
 
 ## O teste que mudou o servidor
 
-Tipos, testes unitários e fixtures dizem se o servidor funciona. Não dizem se um agente vai **usá-lo bem**. Então rodei o Claude Code em modo headless contra o servidor local, conversando como um empresário do Simples. [CONFIRMAR: como foi montado o teste (roteiro, quantas conversas).]
+Tipos, testes unitários e fixtures dizem se o servidor funciona. Não dizem se um agente vai **usá-lo bem**. Então rodei o Claude Code em modo headless contra o servidor local, conversando como um empresário do Simples. O roteiro foi simples: `claude -p` com um `--mcp-config` apontando para o rt2026, a lista de ferramentas liberadas restrita às dele e uma pergunta escrita como um empresário escreveria. Foram duas conversas. A primeira, contra o servidor local: uma consultoria de TI em Campo Grande, faturando R$ 80 mil por mês, 90% para empresas do Lucro Real, com o valor do DAS informado pelo contador. O agente buscou o município, os prazos, as premissas, as classificações dos serviços e só então chamou a comparação — 9 turnos, cerca de US$ 0,43. A segunda, já contra produção: uma loja de roupas em Curitiba, R$ 150 mil por mês, quase tudo para consumidor final — 6 turnos, cerca de US$ 0,26.
 
 Dois problemas apareceram:
 
 1. **O agente inventava dados.** Faltava o valor das compras? Ele supunha um. Faltava a margem? Supunha outra. A simulação saía completa e errada, com cara de certa.
 2. **O agente esquecia a lógica do prazo.** Ele respondia a comparação de números e deixava de fora o que dá sentido à decisão em setembro: quem opta até 30/09 pode cancelar até 30/11; quem não opta perde a janela do primeiro semestre de 2027.
 
-[CONFIRMAR: exemplos concretos do que o agente inventou no teste, se quiser citar.]
+Os exemplos vieram da segunda conversa. Sem que a pergunta dissesse, o agente supôs R$ 75 mil de compras por mês (margem de 50%) e estimou em R$ 2.200 o IBS/CBS dentro do DAS, fazendo a conta do anexo por conta própria. Até avisou que eram suposições — mas a comparação saiu construída sobre elas. E fechou com "continuar no Simples tende a ser a melhor escolha", sem dizer que quem opta até 30/09 ainda pode cancelar até 30/11. A primeira conversa revelou um terceiro ponto, menor: o agente não conseguia confirmar a descrição do código NBS que ele mesmo escolheu. Virou uma consulta a mais dentro de `rt_consultar_classificacoes`.
 
 A correção não foi no código das tools. Foi nas **instruções do servidor**, o texto que todo cliente MCP recebe ao se conectar. Entraram duas coisas. A primeira: "Não invente dados que o usuário não informou (compras, margem, valor do IBS/CBS no DAS). Pergunte antes de simular." A segunda: o contexto do prazo que deve acompanhar toda resposta sobre o Simples, explicado como lógica e não como recomendação, porque a decisão final é da empresa com o contador.
 
