@@ -20,11 +20,12 @@ export const author = {
 } as const;
 
 export const socials = {
-  // Perfil verificado.
+  // Perfis confirmados pelo Gustavo (26/09/2026).
+  linkedin: "https://www.linkedin.com/in/gusflopes/",
+  instagram: "https://www.instagram.com/gusflopes/",
+  youtube: "https://www.youtube.com/@gusflopes",
+  x: "https://x.com/gusflopes",
   github: "https://github.com/gusflopes",
-  // TODO(gusflopes): confirmar o handle real do LinkedIn — "gusflopes" é uma
-  // suposição baseada nos demais perfis; ajustar aqui se for diferente.
-  linkedin: "https://www.linkedin.com/in/gusflopes",
 } as const;
 
 export const newsletter = {

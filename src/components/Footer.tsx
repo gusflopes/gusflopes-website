@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linkedin, Github } from 'lucide-react';
+import { Linkedin, Github, Instagram, Youtube, Twitter } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { NewsletterForm } from './NewsletterForm';
 import { site, socials, newsletter, projetos, comUtm } from '../config/site';
@@ -56,24 +56,24 @@ export function Footer() {
               <li className="text-slate-400">Brasil | Global</li>
             </ul>
             <div className="flex gap-4 mt-4">
-              <a
-                href={socials.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn de Gustavo Lopes"
-                className="text-slate-400 hover:text-white transition-colors"
-              >
-                <Linkedin size={20} />
-              </a>
-              <a
-                href={socials.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub de Gustavo Lopes"
-                className="text-slate-400 hover:text-white transition-colors"
-              >
-                <Github size={20} />
-              </a>
+              {[
+                { href: socials.linkedin, label: 'LinkedIn', Icon: Linkedin },
+                { href: socials.instagram, label: 'Instagram', Icon: Instagram },
+                { href: socials.youtube, label: 'YouTube', Icon: Youtube },
+                { href: socials.x, label: 'X (antigo Twitter)', Icon: Twitter },
+                { href: socials.github, label: 'GitHub', Icon: Github },
+              ].map(({ href, label, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer me"
+                  aria-label={`${label} de Gustavo Lopes`}
+                  className="text-slate-400 hover:text-white transition-colors"
+                >
+                  <Icon size={20} />
+                </a>
+              ))}
             </div>
           </div>
 
