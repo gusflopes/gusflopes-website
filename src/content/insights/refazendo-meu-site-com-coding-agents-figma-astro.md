@@ -77,4 +77,4 @@ Três coisas, para quem está pensando em fazer o mesmo com um sistema da empres
 2. **Peça ao agente para escrever o que ele decidiu não fazer.** A nota sobre a fase 6 e a sobre os imports me pouparam uma discussão comigo mesmo semanas depois.
 3. **O que está fora do repositório é responsabilidade sua.** Painel da Cloudflare, contas, segredos, identidade visual, o que o site deve dizer. O agente trabalha muito bem dentro da caixa. A caixa é você que desenha.
 
-[CONFIRMAR: uma frase sua sobre como foi a experiência — se surpreendeu, frustrou, ou as duas coisas.]
+O que mais me surpreendeu foi o *dogfooding*: testar vários estilos de frontend em paralelo, cada um numa versão, e escolher olhando o resultado, não o mockup. O frontend ficou muito melhor do que eu esperava.

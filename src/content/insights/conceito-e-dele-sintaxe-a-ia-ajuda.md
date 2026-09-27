@@ -41,7 +41,7 @@ O mesmo vale para o canal: ele é conteúdo da nossa família, gerido pelos pais
 
 O primeiro vídeo dessa fase saiu em 26/09: [**"Pedi pra uma IA me ajudar a criar um cubo 3D… e olha no que deu!"**](https://www.youtube.com/watch?v=iVYcXEON5IQ).
 
-[CONFIRMAR: descreva a sessão do cubo — qual ferramenta de IA vocês usaram, em qual linguagem/ambiente (Roblox Studio com Lua? Python?), o que ele pediu, o que deu certo, o que deu errado e o que ele entendeu no final.]
+Usamos o Claude. Ele aproveitou o .NET que já estava instalado no computador e, com WebAssembly, montou uma espécie de jogo que aparece por cima da área de trabalho: vários cubos que conversam, falam e se movimentam, com um monte de recursos. O mais legal foi ver meu filho "adicionando features" por instinto, uma ideia puxando a outra. E, por incrível que pareça, o projeto sempre evoluiu sem quebrar.
 
 O que eu quero registrar a cada sessão é menos o resultado e mais o caminho: o que ele perguntou, onde travou, o que precisou ser explicado de novo. É aí que aparece se o conceito ficou.
 
