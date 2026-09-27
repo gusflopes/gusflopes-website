@@ -100,10 +100,23 @@ A data de publicação e a ordem de escrita são coisas diferentes. Priorize pel
 4. **#26 (primeiro texto da série família)**, junto com o vídeo do YouTube.
 5. O resto, seguindo as datas.
 
-## Pendências com o Gustavo
+## Respostas do Gustavo (27/09/2026)
 
-1. **Grok Bot** e **Jev**: confirmar quais produtos ele quis dizer (ver `docs/pesquisa/coding-agents.md`, "Dúvidas").
-2. **Série família**: datas reais do primeiro jogo e dos jogos solo, idade do filho em cada momento, quais ferramentas de IA usaram, e o que pode ser mostrado (rosto, nome, tela).
-3. **CalcJud**: quando foi construído, e se pode ser citado com nome e métricas.
-4. **Campanha da Reforma**: datas reais de construção da landing e do MCP ("~1 dia"), custo e tempo, e o que pode ser divulgado.
-5. **Datas retroativas**: decidir se adota o "Escrito em … / publicado aqui em …" (recomendado).
+- **Pi**: o pi-coding-agent (Mario Zechner / Earendil) — "um Claude Code mais simples". Confirma a leitura de docs/pesquisa.
+- **Hermes**: "é meu Hermes" — o Hermes Agent (Nous Research) que ele roda como agente pessoal. O artigo 25 pode ser relato de uso próprio, com [CONFIRMAR] para os detalhes do setup dele.
+- **Jev**: "um novo modelo de IA" — o Jev da TypeSafe AI (fora do stealth em 15/09/2026). Artigo 36 confirmado.
+- **Paperclip**: "um meta-harness" — o paperclipai/paperclip. Artigo 27 confirmado; enquadrar como meta-harness (orquestra outros harnesses).
+- **Grok Bot**: sem resposta ainda — manter o 35 em espera.
+
+### Série com o filho (eixo Bastidores) — REPLANEJADA
+
+Fato: Roblox e os jogos com o filho são antigos; **o uso de IA começou agora** (últimas duas semanas). A série é o tema desse período, então as datas ficam entre **2026-09-14 e o presente/futuro próximo** — nada de 2025 ou início de 2026. Os itens 26, 28, 31 e 33 da tabela acima estão com datas antigas e devem ser redatados/reescritos nessa janela. Canal dele: youtube.com/@francisco_gamer.
+
+Antes de escrever, pedir ao Gustavo o material real: o que fizeram com IA (ferramenta, conta usada, projeto no Roblox Studio, trechos de conversa, o que deu certo/errado), o que pode aparecer (nome, rosto, voz, tela) e se o canal pode ser linkado. Regras: uso de IA sempre pela conta do pai e com supervisão (Claude 18+, ChatGPT 13+ com consentimento); canal de menor no YouTube só como conta supervisionada/gerida por responsável; revisar o ECA Digital (Lei 15.211/2025) antes de publicar.
+
+### Ainda pendente
+
+1. **Grok Bot**: qual produto.
+2. **CalcJud**: quando foi construído e se pode ser citado com nome e métricas (artigo 5).
+3. **Campanha da Reforma**: tempo de preparo dos docs, custo real e verba (marcadores no artigo 37).
+4. **Datas retroativas**: adotar ou não o "Escrito em … / publicado aqui em …".

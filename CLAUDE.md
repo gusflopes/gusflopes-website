@@ -98,3 +98,7 @@ Configurado via Docker, no arquivo `.mcp.json` na raiz do repositório (MCP serv
 ```
 
 Para automação Playwright: usar o Task tool com `subagent_type: "general-purpose"`. URL local: `http://localhost:3001`.
+
+## Continuidade
+
+Estado atual, decisões pendentes e próximos passos: `docs/CONTINUAR.md` (leia antes de qualquer tarefa de conteúdo).
