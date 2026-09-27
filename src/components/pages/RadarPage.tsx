@@ -105,7 +105,7 @@ export function RadarPage({ items }: RadarPageProps) {
                 onClick={() => setSelectedCategory(cat)}
                 className={`
                   ${selectedCategory === cat
-                    ? 'bg-orange-500 hover:bg-orange-600 text-white border-orange-500'
+                    ? 'bg-orange-500 hover:bg-orange-600 text-[#1c0a02] border-orange-500'
                     : 'bg-transparent border-slate-700 text-slate-400 hover:text-white hover:border-orange-400'
                   } rounded-full px-4 py-1 h-8 text-xs uppercase tracking-wider font-bold transition-all
                 `}
@@ -129,7 +129,7 @@ export function RadarPage({ items }: RadarPageProps) {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent opacity-80"></div>
 
-                  <Badge className="absolute top-4 left-4 bg-orange-500 hover:bg-orange-600 border-none text-white font-bold uppercase text-[10px] tracking-widest shadow-lg shadow-orange-900/50">
+                  <Badge className="absolute top-4 left-4 bg-orange-500 hover:bg-orange-600 border-none text-[#1c0a02] font-bold uppercase text-[10px] tracking-widest shadow-lg shadow-orange-900/50">
                     {selectedEixo === 'todos' && eixosComConteudo.length > 1
                       ? `${EIXOS[item.eixo].shortLabel} · ${item.category}`
                       : item.category}

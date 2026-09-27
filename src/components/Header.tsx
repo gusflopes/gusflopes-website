@@ -84,7 +84,7 @@ export function Header({ pathname: rawPathname, eixosAtivos = [] }: HeaderProps)
           <Button
             asChild
             variant="outline"
-            className="font-sans border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white bg-transparent rounded-full px-6"
+            className="font-sans border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-[#1c0a02] bg-transparent rounded-full px-6"
           >
             <a href={`mailto:${site.email}`}>Contato</a>
           </Button>
@@ -118,7 +118,7 @@ export function Header({ pathname: rawPathname, eixosAtivos = [] }: HeaderProps)
                 {item.label}
               </a>
             ))}
-            <Button asChild className="font-sans bg-orange-500 text-white hover:bg-orange-600 w-full">
+            <Button asChild className="font-sans bg-orange-500 text-[#1c0a02] hover:bg-orange-600 w-full">
               <a href={`mailto:${site.email}`}>Contato</a>
             </Button>
           </nav>
