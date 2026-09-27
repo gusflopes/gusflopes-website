@@ -9,13 +9,13 @@ export function PrivacyPolicyPage() {
             Política de Privacidade
           </h1>
           <p className="text-slate-400 font-sans text-sm uppercase tracking-wider">
-            Última atualização: Dezembro/2025
+            Última atualização: Setembro/2026
           </p>
         </header>
 
         <div className="prose prose-invert prose-lg max-w-none font-sans text-slate-300 leading-relaxed">
           <p className="text-xl text-slate-200 mb-8 font-serif italic">
-            Bem-vindo(a) ao Gusflopes.dev. A sua privacidade é prioridade. Esta política descreve como coleto, uso e protejo suas informações pessoais, em conformidade com a Lei Geral de Proteção de Dados (LGPD) e alinhado às boas práticas internacionais (GDPR).
+            Esta política descreve, de forma direta, o que o gusflopes.dev faz (e o que não faz) com dados pessoais, em conformidade com a Lei Geral de Proteção de Dados (LGPD).
           </p>
 
           <section className="mb-10">
@@ -26,50 +26,54 @@ export function PrivacyPolicyPage() {
           </section>
 
           <section className="mb-10">
-            <h2 className="text-2xl text-white font-bold mb-4 font-serif">2. Quais dados coletamos</h2>
+            <h2 className="text-2xl text-white font-bold mb-4 font-serif">2. Quais dados este site coleta</h2>
             <ul className="list-disc pl-6 space-y-4">
               <li>
-                <strong className="text-white">Dados fornecidos voluntariamente:</strong> Nome e endereço de e-mail, coletados apenas quando você se inscreve na Newsletter ou preenche o formulário de contato.
+                <strong className="text-white">Nenhum formulário aqui:</strong> o gusflopes.dev não tem formulário de cadastro nem de contato. O contato é feito por e-mail, e você decide o que enviar.
               </li>
               <li>
-                <strong className="text-white">Dados de navegação (Cookies):</strong> Informações anônimas coletadas via Google Analytics (ou similar) para entender como você usa o site, tempo de permanência e artigos mais lidos. Isso ajuda a melhorar o conteúdo técnico oferecido.
+                <strong className="text-white">Sem cookies de rastreamento:</strong> o site não usa Google Analytics, pixels de anúncio nem cookies de rastreamento ou de publicidade.
+              </li>
+              <li>
+                <strong className="text-white">Registros técnicos da hospedagem:</strong> o site é servido pela Cloudflare, que processa dados técnicos de cada acesso (como endereço IP, navegador e página solicitada) para entregar as páginas e proteger contra abuso.
               </li>
             </ul>
           </section>
 
           <section className="mb-10">
-            <h2 className="text-2xl text-white font-bold mb-4 font-serif">3. Como usamos seus dados</h2>
-            <ul className="list-disc pl-6 space-y-4">
-              <li>
-                <strong className="text-white">Newsletter:</strong> Para enviar insights sobre Arquitetura de Software, DDD, IA e atualizações de carreira. (Você pode se descadastrar a qualquer momento através do link no rodapé dos e-mails).
-              </li>
-              <li>
-                <strong className="text-white">Contato:</strong> Para responder às suas solicitações de consultoria, palestras ou dúvidas técnicas.
-              </li>
-              <li>
-                <strong className="text-white">Melhoria contínua:</strong> Para analisar métricas de acesso e otimizar a performance do site.
-              </li>
-            </ul>
-          </section>
-
-          <section className="mb-10">
-            <h2 className="text-2xl text-white font-bold mb-4 font-serif">4. Compartilhamento de dados</h2>
+            <h2 className="text-2xl text-white font-bold mb-4 font-serif">3. Newsletter</h2>
             <p>
-              Seus dados nunca serão vendidos. Eles podem ser compartilhados apenas com ferramentas essenciais para a operação deste site (ex: provedor de disparo de e-mails como Mailchimp/Substack e Google Analytics), que possuem suas próprias políticas de segurança rigorosas.
+              A inscrição na newsletter não acontece neste site. Ela é feita e gerida pela página 
+              <a href="https://reforma-tributaria.gusflopes.dev" className="text-orange-400 hover:text-orange-300 transition-colors">reforma-tributaria.gusflopes.dev</a>, que é a primeira newsletter de gusflopes.dev. Os dados informados lá, os consentimentos e a forma de cancelar estão descritos na 
+              <a href="https://reforma-tributaria.gusflopes.dev/privacidade" className="text-orange-400 hover:text-orange-300 transition-colors">política de privacidade daquela página</a>.
             </p>
           </section>
 
           <section className="mb-10">
-            <h2 className="text-2xl text-white font-bold mb-4 font-serif">5. Seus Direitos</h2>
+            <h2 className="text-2xl text-white font-bold mb-4 font-serif">4. Contato por e-mail</h2>
             <p>
-              Você tem o direito de solicitar o acesso, a correção ou a exclusão total dos seus dados pessoais da minha base a qualquer momento. Basta enviar um e-mail para <a href="mailto:gustavo@gusflopes.dev" className="text-orange-400 hover:text-orange-300 transition-colors">gustavo@gusflopes.dev</a>.
+              Se você escrever para <a href="mailto:gustavo@gusflopes.dev" className="text-orange-400 hover:text-orange-300 transition-colors">gustavo@gusflopes.dev</a>, uso seu nome, e-mail e o conteúdo da mensagem só para responder ao que foi pedido (consultoria, palestra, parceria ou dúvida).
             </p>
           </section>
 
           <section className="mb-10">
-            <h2 className="text-2xl text-white font-bold mb-4 font-serif">6. Transferência Internacional</h2>
+            <h2 className="text-2xl text-white font-bold mb-4 font-serif">5. Conteúdo de terceiros</h2>
             <p>
-              Como utilizo ferramentas globais, alguns dados podem ser processados em servidores fora do Brasil, garantindo sempre que esses parceiros sigam padrões internacionais de segurança de dados.
+              Algumas imagens de artigos são carregadas de serviços externos (como o Unsplash), e alguns textos têm links para outros sites. Ao carregar ou clicar nesses conteúdos, o seu navegador se conecta a esses serviços, que seguem as próprias políticas de privacidade.
+            </p>
+          </section>
+
+          <section className="mb-10">
+            <h2 className="text-2xl text-white font-bold mb-4 font-serif">6. Seus direitos</h2>
+            <p>
+              Pela LGPD, você pode pedir confirmação de tratamento, acesso, correção ou exclusão dos seus dados pessoais a qualquer momento. Basta enviar um e-mail para <a href="mailto:gustavo@gusflopes.dev" className="text-orange-400 hover:text-orange-300 transition-colors">gustavo@gusflopes.dev</a>.
+            </p>
+          </section>
+
+          <section className="mb-10">
+            <h2 className="text-2xl text-white font-bold mb-4 font-serif">7. Transferência internacional</h2>
+            <p>
+              A Cloudflare opera uma rede global, então os dados técnicos de acesso podem ser processados em servidores fora do Brasil, sob as garantias contratuais e de segurança do provedor.
             </p>
           </section>
         </div>
