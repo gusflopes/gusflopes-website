@@ -11,7 +11,7 @@ Site pessoal do Gustavo — marca "ponte entre Negócios e Tecnologia". Astro 6 
 ## Convenções
 
 - Páginas `.astro` são finas: leem a coleção e passam props para um componente-página React em `src/components/pages/` (`client:load`). O corpo markdown entra por slot via `render(entry)`, não pelo React.
-- Toda leitura de coleção passa pelo filtro `publicado` (`src/lib/publicado.ts`): artigo com data futura fica fora do build de produção e só entra num deploy feito na data.
+- Toda leitura de coleção passa pelo filtro `publicado` (`src/lib/publicado.ts`): no build de produção fica fora artigo com data futura (entra num deploy feito na data) ou com `[CONFIRMAR: …]` pendente.
 - Eixo editorial (`engenharia` | `negocios` | `bastidores`) é a fonte única em `src/lib/eixos.ts`; datas no frontmatter em ISO, exibição pt-BR só via `src/lib/format.ts`.
 - Os aliases versionados em `astro.config.mjs` (`vaul@1.1.2 → vaul` etc.) são herança do export do Figma, com cleanup pendente (`NEXT_STEPS.md`).
 - Novo artigo de Radar/Insights: skill `novo-conteudo`. Estado editorial, pendências e pauta: `docs/CONTINUAR.md`.
