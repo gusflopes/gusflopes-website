@@ -8,6 +8,11 @@ import type { EixoResumo } from '../components/Eixos';
 import { EIXO_IDS } from '../lib/eixos';
 import { getArtigos } from '../lib/artigos';
 import { comUtm, projetos } from '../config/site';
+import { fundoResponsivo } from '../lib/imagens';
+import heroImg from '../assets/326189a758fea0fe0e2da42349b6da943b29ba51.png';
+
+// Fundo do hero/Themes: AVIF/WebP responsivos gerados no build (o PNG original tem 2,8 MB).
+const fundo = await fundoResponsivo(heroImg);
 
 const insights = (await getCollection('insights')).sort((a, b) =>
   compareIsoDateDesc(a.data.date, b.data.date)
@@ -62,5 +67,5 @@ const eixos: EixoResumo[] = EIXO_IDS.flatMap((id): EixoResumo[] => {
 
 {/* O layout monta o title da home ("gusflopes.dev — Engenharia e negócio, partes do mesmo sistema") */}
 <Default>
-  <HomePage articles={articles} video={video} eixos={eixos} client:load />
+  <HomePage articles={articles} video={video} eixos={eixos} fundo={fundo} client:load />
 </Default>

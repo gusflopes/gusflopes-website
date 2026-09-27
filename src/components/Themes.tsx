@@ -1,8 +1,9 @@
 import React from 'react';
 import { Code2, Bot, BrainCircuit, Building2, Cloud } from 'lucide-react';
-import bgImage from '../assets/326189a758fea0fe0e2da42349b6da943b29ba51.png?url';
+import { FundoPicture } from './FundoPicture';
+import type { FundoResponsivo } from '../lib/imagens';
 
-export function Themes() {
+export function Themes({ fundo }: { fundo: FundoResponsivo }) {
   const themes = [
     {
       icon: <Code2 size={32} />,
@@ -33,15 +34,9 @@ export function Themes() {
 
   return (
     <section id="about" className="relative py-24 px-6 min-h-[800px] flex items-center justify-center overflow-hidden">
-      {/* Parallax Background */}
-      <div 
-        className="absolute inset-0 z-0 bg-fixed"
-        style={{
-          backgroundImage: `url(${bgImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
+      {/* Fundo responsivo; parallax só a partir de md */}
+      <div className="absolute inset-0 z-0 [clip-path:inset(0)]">
+        <FundoPicture fundo={fundo} />
         {/* Overlay Gradient */}
         <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
