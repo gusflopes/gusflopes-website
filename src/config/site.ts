@@ -15,8 +15,8 @@ export const site = {
 
 export const author = {
   name: "Gustavo Lopes",
-  role: "Tech Lead & Arquiteto de Software",
-  bio: "Tech Lead e Arquiteto de Software. Conecto estratégia, arquitetura e fluxo de entrega para transformar complexidade de negócio em sistemas que evoluem.",
+  role: "Especialista em Tecnologia e Negócios",
+  bio: "Especialista em Tecnologia e Negócios. Advogado, contador e engenheiro de software: aplico Direito e Contabilidade para resolver problemas de negócio com tecnologia e IA.",
 } as const;
 
 export const socials = {

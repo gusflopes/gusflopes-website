@@ -3,19 +3,21 @@ import { Themes } from '../Themes';
 import { Services } from '../Services';
 import { LatestContent, type LatestArticle, type FeaturedVideo } from '../LatestContent';
 import { Eixos, type EixoResumo } from '../Eixos';
+import type { FundoResponsivo } from '../../lib/imagens';
 
 interface HomePageProps {
   articles: LatestArticle[];
   video?: FeaturedVideo;
   eixos?: EixoResumo[];
+  fundo: FundoResponsivo;
 }
 
-export function HomePage({ articles, video, eixos = [] }: HomePageProps) {
+export function HomePage({ articles, video, eixos = [], fundo }: HomePageProps) {
   return (
     <main>
-      <Hero />
+      <Hero fundo={fundo} />
       <Eixos eixos={eixos} />
-      <Themes />
+      <Themes fundo={fundo} />
       <Services />
       <LatestContent articles={articles} video={video} />
     </main>

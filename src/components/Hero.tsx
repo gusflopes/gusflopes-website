@@ -1,19 +1,14 @@
 import React from 'react';
 import { NewsletterForm } from './NewsletterForm';
-import bgImage from '../assets/326189a758fea0fe0e2da42349b6da943b29ba51.png?url';
+import { FundoPicture } from './FundoPicture';
+import type { FundoResponsivo } from '../lib/imagens';
 
-export function Hero() {
+export function Hero({ fundo }: { fundo: FundoResponsivo }) {
   return (
     <section className="relative w-full min-h-screen flex items-center pt-20 overflow-hidden">
-      {/* Background Image with Parallax */}
-      <div
-        className="absolute inset-0 z-0 bg-fixed"
-        style={{
-          backgroundImage: `url(${bgImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
+      {/* Imagem de fundo responsiva (AVIF/WebP); parallax só a partir de md */}
+      <div className="absolute inset-0 z-0 [clip-path:inset(0)]">
+        <FundoPicture fundo={fundo} priority />
         {/* Overlay Gradient to ensure text readability */}
         <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-transparent"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>

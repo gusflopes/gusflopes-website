@@ -28,7 +28,7 @@ Estado das grandes fases:
 ### SEO / meta / infraestrutura de descoberta
 
 - `Default.astro`: canonical, Open Graph completo (`og:type=article` + `article:published_time` + `article:author` em artigos), Twitter Card, `theme-color`, `lang="pt-BR"`.
-- `public/favicon.svg`, `public/og-default.png` (fallback de OG image), `public/robots.txt`.
+- `public/favicon.svg`, `public/og-default.jpg` (fallback de OG image, 1200×630), `public/robots.txt`.
 - Sitemap via `@astrojs/sitemap` (`site` configurado no `astro.config.mjs`) + `<link rel="sitemap">`.
 - RSS em `/rss.xml` (`src/pages/rss.xml.ts`, `@astrojs/rss`): insights + radar locais, ordenado por data, `<language>pt-BR</language>` + `<link rel="alternate">` no layout.
 
@@ -69,7 +69,7 @@ O author footer de `RadarArticlePage.tsx` (~linha 124) e `InsightArticlePage.tsx
 
 ### 5. OG image própria
 
-`public/og-default.png` existe, mas artigos usam a imagem Unsplash como `og:image`. Considerar OG images geradas por artigo (satori/`astro-og-canvas`) com a identidade da marca (slate-950 + laranja + serif).
+`public/og-default.jpg` existe, mas artigos usam a imagem Unsplash como `og:image`. Considerar OG images geradas por artigo (satori/`astro-og-canvas`) com a identidade da marca (slate-950 + laranja + serif).
 
 ### 6. Página `/sobre` dedicada
 
