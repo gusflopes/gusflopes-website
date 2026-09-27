@@ -4,6 +4,7 @@ excerpt: ".NET 10 é LTS, chegou em novembro com ganhos reais de performance e o
 date: "2025-12-02"
 duration: "12 min"
 category: ".NET"
+eixo: "engenharia"
 image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1080&q=80"
 ---
 

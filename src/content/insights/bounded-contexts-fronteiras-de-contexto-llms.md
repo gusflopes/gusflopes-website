@@ -4,6 +4,7 @@ excerpt: "A disciplina que usamos para delimitar modelos de domínio é exatamen
 date: "2026-02-10"
 duration: "11 min"
 category: "Arquitetura"
+eixo: "engenharia"
 image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1080&q=80"
 ---
 

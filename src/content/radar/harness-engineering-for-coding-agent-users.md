@@ -4,6 +4,7 @@ excerpt: "Para deixar agentes de código trabalharem com menos supervisão, é p
 date: "2026-04-02"
 duration: "15 min"
 category: "Arquitetura"
+eixo: "engenharia"
 type: "article"
 isExternal: true
 link: "https://martinfowler.com/articles/harness-engineering.html"

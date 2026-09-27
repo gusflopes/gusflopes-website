@@ -4,6 +4,7 @@ excerpt: "Balanço técnico do ano em que todo fornecedor anunciou agentes: o qu
 date: "2025-12-30"
 duration: "7 min"
 category: "IA"
+eixo: "engenharia"
 type: "article"
 isExternal: false
 link: "/radar/article/retrospectiva-2025-agentes-fora-do-hype"

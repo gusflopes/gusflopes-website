@@ -4,6 +4,7 @@ excerpt: "O anúncio oficial do .NET 10 LTS: runtime mais rápido da história d
 date: "2025-12-02"
 duration: "12 min"
 category: ".NET"
+eixo: "engenharia"
 type: "article"
 isExternal: true
 link: "https://devblogs.microsoft.com/dotnet/announcing-dotnet-10/"

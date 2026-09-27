@@ -4,6 +4,7 @@ excerpt: "Agentes de código viraram usuários da sua plataforma interna — e o
 date: "2026-02-24"
 duration: "7 min"
 category: "DevOps"
+eixo: "engenharia"
 type: "article"
 isExternal: false
 link: "/radar/article/plataforma-interna-era-dos-agentes"

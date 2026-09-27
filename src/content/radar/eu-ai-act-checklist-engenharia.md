@@ -4,6 +4,7 @@ excerpt: "Com as obrigações para sistemas de alto risco se aproximando, o AI A
 date: "2026-05-19"
 duration: "7 min"
 category: "IA"
+eixo: "engenharia"
 type: "article"
 isExternal: false
 link: "/radar/article/eu-ai-act-checklist-engenharia"

@@ -4,6 +4,7 @@ excerpt: "Richard Campbell separa sinal de ruído no mercado de IA: o que já ge
 date: "2026-02-09"
 duration: "52 min"
 category: "IA"
+eixo: "engenharia"
 type: "video"
 isExternal: true
 link: "https://www.youtube.com/watch?v=65TGxZ9yHT0"

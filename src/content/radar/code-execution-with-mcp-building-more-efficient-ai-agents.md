@@ -4,6 +4,7 @@ excerpt: "A Anthropic mostra como expor servidores MCP como APIs de código em v
 date: "2025-12-05"
 duration: "8 min"
 category: "IA"
+eixo: "engenharia"
 type: "article"
 isExternal: true
 link: "https://www.anthropic.com/engineering/code-execution-with-mcp"

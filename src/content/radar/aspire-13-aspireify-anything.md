@@ -4,6 +4,7 @@ excerpt: "Aspire deixa de ser \".NET Aspire\" e vira plataforma poliglota: supor
 date: "2025-12-04"
 duration: "10 min"
 category: ".NET"
+eixo: "engenharia"
 type: "article"
 isExternal: true
 link: "https://devblogs.microsoft.com/aspire/aspire13/"
