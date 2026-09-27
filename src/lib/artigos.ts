@@ -1,4 +1,5 @@
 import { getCollection } from 'astro:content';
+import { publicado } from './publicado';
 import type { InsightArticle } from '../components/pages/InsightsPage';
 import type { EixoId } from './eixos';
 import { compareIsoDateDesc, formatDatePtBR } from './format';
@@ -15,11 +16,11 @@ interface ArtigoOptions {
  * ordenada do mais recente para o mais antigo. Só roda em build (páginas .astro).
  */
 export async function getArtigos({ eixo, incluirRadarLocal = false }: ArtigoOptions = {}) {
-  const insights = await getCollection('insights', ({ data }) => !eixo || data.eixo === eixo);
+  const insights = await getCollection('insights', (e) => publicado(e) && (!eixo || e.data.eixo === eixo));
   const radar = incluirRadarLocal
     ? await getCollection(
         'radar',
-        ({ data }) => !data.isExternal && (!eixo || data.eixo === eixo)
+        (e) => publicado(e) && !e.data.isExternal && (!eixo || e.data.eixo === eixo)
       )
     : [];
 

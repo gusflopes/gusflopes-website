@@ -1,13 +1,14 @@
 import rss, { type RSSFeedItem } from '@astrojs/rss';
 import { getCollection } from 'astro:content';
+import { publicado } from './publicado';
 import type { APIContext } from 'astro';
 import { EIXOS, type EixoId } from './eixos';
 
 /** Feed RSS dos textos autorais (Insights + Radar local), opcionalmente de um eixo só. */
 export async function buildFeed(context: APIContext, eixo?: EixoId) {
   const noEixo = (e: EixoId) => !eixo || e === eixo;
-  const insights = await getCollection('insights', ({ data }) => noEixo(data.eixo));
-  const radar = await getCollection('radar', ({ data }) => !data.isExternal && noEixo(data.eixo));
+  const insights = await getCollection('insights', (e) => publicado(e) && noEixo(e.data.eixo));
+  const radar = await getCollection('radar', (e) => publicado(e) && !e.data.isExternal && noEixo(e.data.eixo));
 
   const items: RSSFeedItem[] = [
     ...insights.map((entry) => ({

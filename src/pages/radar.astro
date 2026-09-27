@@ -1,10 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
+import { publicado } from '../lib/publicado';
 import Default from '../layouts/Default.astro';
 import { RadarPage, type RadarItem } from '../components/pages/RadarPage';
 import { compareIsoDateDesc, formatDatePtBR } from '../lib/format';
 
-const entries = await getCollection('radar');
+const entries = await getCollection('radar', publicado);
 const items: RadarItem[] = entries
   .sort((a, b) => compareIsoDateDesc(a.data.date, b.data.date))
   .map((entry) => ({

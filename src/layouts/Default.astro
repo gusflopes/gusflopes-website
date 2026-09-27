@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { publicado } from '../lib/publicado';
 import { Header } from '../components/Header';
 import { EIXO_IDS } from '../lib/eixos';
 import { Footer } from '../components/Footer';
@@ -37,8 +38,8 @@ const {
 
 // Eixos com conteúdo autoral publicado: só esses aparecem no menu.
 const autorais = [
-  ...(await getCollection('insights')),
-  ...(await getCollection('radar', ({ data }) => !data.isExternal)),
+  ...(await getCollection('insights', publicado)),
+  ...(await getCollection('radar', (e) => publicado(e) && !e.data.isExternal)),
 ];
 const eixosAtivos = EIXO_IDS.filter((id) => autorais.some((e) => e.data.eixo === id));
 

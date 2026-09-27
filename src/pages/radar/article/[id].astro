@@ -1,12 +1,13 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { publicado } from '../../../lib/publicado';
 import type { CollectionEntry } from 'astro:content';
 import Default from '../../../layouts/Default.astro';
 import { RadarArticlePage } from '../../../components/pages/RadarArticlePage';
 import { formatDatePtBR } from '../../../lib/format';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('radar');
+  const entries = await getCollection('radar', publicado);
   return entries
     .filter((entry) => !entry.data.isExternal)
     .map((entry) => ({ params: { id: entry.id }, props: { entry } }));
