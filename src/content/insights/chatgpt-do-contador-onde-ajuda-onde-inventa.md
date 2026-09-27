@@ -52,7 +52,7 @@ Anote quantas respostas vieram certas, quantas vieram erradas e, principalmente,
 
 ## A reforma tributária é o pior cenário para perguntar à IA
 
-Neste momento, a regulamentação da reforma tributária ainda é projeto. O PLP 68/2024 teve o texto-base [aprovado pela Câmara em 10 de julho](https://www.mattosfilho.com.br/unico/regulamentacao-reforma-tributaria-senado/) e está no Senado. O texto vai mudar. Um modelo treinado com dados de meses atrás não conhece a versão que saiu da Câmara, e muito menos a que vai sair do Senado.
+Neste momento, a regulamentação da reforma tributária ainda é projeto. O PLP 68/2024 teve o texto-base [aprovado pela Câmara em 10 de julho](https://www12.senado.leg.br/noticias/materias/2024/07/19/senado-se-prepara-para-avaliar-projeto-que-regulamenta-a-reforma-tributaria) e está no Senado. O texto vai mudar. Um modelo treinado com dados de meses atrás não conhece a versão que saiu da Câmara, e muito menos a que vai sair do Senado.
 
 Se um cliente perguntar ao ChatGPT "como vai ficar a minha empresa com o IVA", a resposta vai misturar a emenda constitucional, versões antigas do projeto, opiniões de blog e completude estatística. Vai parecer um parecer. Não é.
 
