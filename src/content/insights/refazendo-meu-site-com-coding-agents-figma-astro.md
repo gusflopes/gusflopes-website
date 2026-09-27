@@ -27,8 +27,6 @@ Antes de mexer no framework, tirei o site do GitHub Pages e levei para a Cloudfl
 
 É um erro pequeno e instrutivo. O agente partiu de uma suposição razoável (site estático → Pages), e a realidade estava num painel que ele não via. Coding agent não enxerga o que está fora do repositório. Quem enxerga é você.
 
-[CONFIRMAR: se o Worker foi criado assim de propósito ou por acaso no painel.]
-
 ## A migração em cinco fases (e uma que ficou de fora)
 
 A migração seguiu um plano em fases, cada uma com commit próprio, e o build rodando no fim de cada uma:
@@ -51,8 +49,6 @@ A validação não foi só "o build passou". O agente abriu as sete rotas num Ch
 
 O mais útil foi o que ele encontrou navegando. O documento de próximos passos saiu com onze itens, em ordem de criticidade, e os primeiros eram exatamente os problemas da lista lá de cima: o artigo fixo, a rota de insights sem id, o botão de copiar que não copiava, os formulários sem destino, a paginação decorativa. Eu conhecia alguns deles. Outros, não.
 
-[CONFIRMAR: quais desses problemas você já conhecia e quais foram novidade.]
-
 ## Do "migrado" ao "pronto": seis ondas
 
 Com a base no lugar, a pergunta mudou de "funciona?" para "está pronto para receber gente?". Às 21h38 eu mesmo adicionei o `DESIGN.md`, com a identidade visual escrita (cores, tipografia, modos claro e escuro), para o agente ter uma referência que não fosse o próprio código.
@@ -60,8 +56,6 @@ Com a base no lugar, a pergunta mudou de "funciona?" para "está pronto para rec
 Às 22h30 saiu um documento de *launch readiness* com seis ondas e um critério de passagem entre elas, para o site nunca regredir de uma onda para outra: fundação técnica (SEO, favicon, sitemap, render de artigos), captura de leads, páginas de produto para cursos e mentoria, conteúdo inicial, polimento e pós-lançamento.
 
 Uma decisão desse documento contradiz a fase 6, e é bom que contradiga. Para a newsletter, escolhi guardar os leads comigo, em D1 na Cloudflare, com envio pelo Resend, em vez de usar um provedor hospedado. O motivo registrado é querer controle dos dados para usar com IA depois (segmentação, análise, automação). Com isso, a renderização no servidor, que o agente tinha recusado horas antes por falta de caso de uso, ganhou um caso de uso real. O argumento anterior continuava correto; a premissa é que mudou.
-
-[CONFIRMAR: se você quer manter a menção a cursos e mentoria, que eram o foco do site naquele momento.]
 
 ## Estimativas de humano, velocidade de agente
 
@@ -71,7 +65,7 @@ Isso não quer dizer que cinco ondas ficaram prontas em quarenta minutos. Quer d
 
 - **Contas e segredos.** A onda de leads deixou os IDs do D1 e do KV como pendência e escreveu as instruções para eu criar o banco, o namespace e o secret do Resend. O agente não cria conta, não aceita termo de serviço e não deveria ver chave de produção.
 - **Conteúdo.** A onda de conteúdo entregou a estrutura: rota dinâmica, templates de frontmatter e um artigo de teste para validar o pipeline. Os artigos reais, avisa o commit, são comigo. A estimativa dessa onda era "uma semana de produção real", e continua sendo.
-- **Revisão.** Cada onda ficou numa branch própria, empilhada sobre a anterior. [CONFIRMAR: estado das ondas em 04/05 — se já foram revisadas e mergeadas ou se continuam esperando revisão.]
+- **Revisão.** Cada onda ficou numa branch própria, empilhada sobre a anterior. Hoje, 04/05, as cinco continuam esperando revisão.
 
 O gargalo saiu da digitação e foi para a revisão, para as decisões e para o conteúdo. E isso não é defeito do processo. É o processo.
 

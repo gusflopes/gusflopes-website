@@ -47,7 +47,7 @@ O que eu quero registrar a cada sessão é menos o resultado e mais o caminho: o
 
 ## Por que isso está no meu site
 
-Este é o eixo **Bastidores**: projetos reais, feitos com IA, contados por dentro. A campanha da Reforma Tributária é um deles. Este é outro — e, para mim, o mais importante.
+Este é o eixo **Bastidores**: IA vista por dentro, no dia a dia. Esta série é, para mim, a parte mais importante dele.
 
 Tem também um motivo profissional. Tudo o que eu tento ensinar para um escritório de contabilidade ou para um time de engenharia aparece em versão simplificada quando o aluno tem 10 anos: dar contexto curto e claro, pedir uma coisa de cada vez, conferir o que a IA devolveu, guardar versões para poder voltar atrás. Se funciona com ele, funciona com a sua empresa.
 

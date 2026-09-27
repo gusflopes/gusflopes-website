@@ -77,8 +77,6 @@ Para um MEI ou uma microempresa com duas ou três pessoas, as etapas 1 a 3 já t
 
 Existe aqui uma oportunidade para quem já tem a confiança do pequeno empresário. O contador conhece os processos do cliente, sabe onde está o retrabalho e onde os erros aparecem. Ele pode ajudar a identificar a primeira tarefa a ser documentada e ser o parceiro que conduz a adoção. Não precisa ser especialista em IA para isso, precisa conhecer o negócio.
 
-[CONFIRMAR: se o Gustavo aplicou esse roteiro com algum cliente ou no próprio escritório, um relato curto (anonimizado) com o que mudou em cada etapa daria força ao texto.]
-
 ## Resumo em uma linha por etapa
 
 1. **Pessoal:** incentive o uso e proteja os dados.

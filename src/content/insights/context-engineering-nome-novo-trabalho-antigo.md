@@ -71,8 +71,6 @@ Para tarefas grandes, a sugestão é manter um checklist num arquivo Markdown qu
 
 Um exemplo típico de erro por excesso de contexto é a sessão que começou corrigindo um bug, passou por uma refatoração e terminou numa feature nova. Lá pelas tantas, o agente reaplica uma decisão que valia para o bug e não vale para a feature, porque as duas estão no mesmo histórico e nada diz qual prevalece. É conflito puro. A correção é barata: uma sessão por objetivo.
 
-[CONFIRMAR: descreva aqui um caso real seu de erro por excesso de contexto, se houver, com ferramenta e período]
-
 ## E os multiagentes?
 
 O post da Cognition que abriu a discussão é, no fundo, um alerta contra dividir tarefas entre agentes que não compartilham contexto. Os dois princípios deles:

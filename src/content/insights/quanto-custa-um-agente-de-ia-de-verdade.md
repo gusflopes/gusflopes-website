@@ -88,6 +88,4 @@ Pela lógica do modelo, o agente tende a compensar quando três condições apar
 
 Quando falta uma delas, a conta fica apertada. Quando faltam duas, provavelmente é melhor melhorar o processo sem IA primeiro.
 
-[CONFIRMAR: se houver um caso real (do Gustavo ou de cliente, anonimizado) com números de implantação, revisão e economia, incluir aqui como ilustração. Caso contrário, manter só o exemplo hipotético.]
-
 A recomendação, então, é condicional: vale investir num agente **se** a planilha completa, com as cinco linhas, mostrar retorno num prazo que a empresa aceita. O preço do token entra nessa conta, mas quase nunca é o que decide.

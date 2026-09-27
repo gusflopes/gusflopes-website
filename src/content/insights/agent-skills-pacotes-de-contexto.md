@@ -87,8 +87,6 @@ Skills são o mesmo movimento para conhecimento procedimental:
 - **Versionamento e revisão.** Skill de projeto mora no repositório e passa por PR como qualquer código.
 - **Teste com tarefa real.** A recomendação da Anthropic é começar por avaliação: rodar o agente em tarefas representativas, ver onde ele tropeça e escrever skills para essas lacunas, não para tudo o que dá para imaginar.
 
-[CONFIRMAR: se você já migrou instruções longas para skills, descreva aqui o caso, o que virou skill e o que ficou no arquivo de instruções]
-
 ## O cuidado que não dá para pular
 
 Uma skill traz instruções e código que o agente executa. O post é direto: uma skill maliciosa pode introduzir vulnerabilidades ou levar o agente a exfiltrar dados. A orientação é instalar só de fontes confiáveis e, quando a fonte for menos confiável, auditar tudo antes de usar, com atenção a dependências, scripts e instruções que mandem o agente se conectar a destinos externos.

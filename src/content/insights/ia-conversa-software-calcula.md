@@ -1,11 +1,11 @@
 ---
 title: "IA conversa, software calcula: por que eu não deixo um LLM fazer conta que vale dinheiro"
-excerpt: "O modelo de linguagem entende o pedido e explica o resultado. O motor determinístico faz a conta. E toda resposta diz de onde veio cada número. O método por trás do CalcJud, em linguagem de empresário."
+excerpt: "O modelo de linguagem entende o pedido e explica o resultado. O motor determinístico faz a conta. E toda resposta diz de onde veio cada número. O método, em linguagem de empresário."
 date: "2024-11-11"
 duration: "8 min"
 category: "Estratégia"
 eixo: "negocios"
-tags: ["calcjud", "llm", "calculo", "procedencia"]
+tags: ["llm", "calculo", "procedencia"]
 image: "https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?auto=format&fit=crop&w=1080&q=80"
 ---
 
@@ -43,13 +43,11 @@ Nada disso quer dizer que a IA não serve. Ela serve muito, desde que fique no l
 
 E há uma regra que atravessa as três camadas: **procedência em toda resposta.** Cada saída diz qual motor calculou, em qual versão, com quais parâmetros, em qual data e com quais premissas. Se alguém questionar, a trilha está ali.
 
-## Onde isso nasceu: o CalcJud
+## Um exemplo: cálculo judicial
 
-Esse método não surgiu de uma teoria. Veio de um problema concreto: cálculos judiciais. Atualização monetária, juros, índices que mudam com decisões dos tribunais. É o tipo de conta em que um erro pequeno vira um valor grande e em que a outra parte vai conferir cada linha.
+O caso mais claro é o cálculo judicial: atualização monetária, juros, índices que mudam com decisões dos tribunais. É o tipo de conta em que um erro pequeno vira um valor grande e em que a outra parte vai conferir cada linha.
 
-O CalcJud, produto que desenvolvi para esse tipo de cálculo, segue essa separação: o motor de cálculo é determinístico, e a IA fica na interface, ajudando a montar o pedido e a entender o resultado.
-
-[CONFIRMAR: quando o CalcJud foi construído, que tipos de cálculo ele cobre, se a camada de IA já existia em nov/2024 ou se era só o motor, e se pode ser citado com nome e métricas. Ajustar este trecho conforme a história real.]
+Nesse tipo de conta, a separação não é luxo. O motor aplica as regras e os índices, a IA ajuda a montar o pedido e a entender o resultado, e a memória de cálculo mostra de onde saiu cada número.
 
 ## O que isso significa para quem decide
 

@@ -130,8 +130,6 @@ Para testar sem o Claude, existe o MCP Inspector (`npx @modelcontextprotocol/ins
 
 Reinicie o Claude Desktop, e a tool aparece disponível na conversa. Quando o modelo decide usá-la, o app pede sua aprovação antes de executar.
 
-[CONFIRMAR: descreva aqui seu primeiro servidor MCP local, o que ele fazia, quanto tempo levou e o que deu errado no caminho]
-
 ## Por que um padrão importa mais que mais um SDK
 
 Todo fornecedor de modelo já tem "function calling". O que faltava era o mesmo contrato de ferramenta funcionar **fora** de um fornecedor. Hoje o MCP tem um cliente de peso (o Claude Desktop) e algumas ferramentas de desenvolvimento se aproximando. É pouco para chamar de padrão de mercado. Um protocolo só vira padrão quando outros clientes, de outros fornecedores, adotam. Isso ainda não aconteceu, e pode não acontecer.

@@ -85,8 +85,6 @@ Para deixar claro o que fica fora deste desenho:
 - **Não prometa resultado, nem em conteúdo nem na resposta automática.**
 - **Não deixe a IA responder dúvidas técnicas diretamente para o cliente sem revisão.** A resposta é do profissional.
 
-[CONFIRMAR: se o Gustavo ou um escritório parceiro já aplica algum desses fluxos, um relato curto e anonimizado reforçaria o texto. Não citar nenhum escritório pelo nome sem autorização.]
-
 ## Parceria, não substituição
 
 Esse tipo de sistema não substitui o profissional. Ele tira do sócio o trabalho de filtrar e organizar, para que ele possa gastar o tempo com o que só ele faz: entender o problema do cliente e resolver. Para escritórios que querem construir algo assim, o caminho mais seguro é começar pela triagem da demanda recebida, que tem ganho imediato e risco ético baixo, e só depois olhar para conteúdo e carteira.

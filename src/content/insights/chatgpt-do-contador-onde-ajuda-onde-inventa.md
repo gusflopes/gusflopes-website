@@ -48,8 +48,6 @@ Uma forma de calibrar a confiança é fazer ao modelo três perguntas cuja respo
 
 Anote quantas respostas vieram certas, quantas vieram erradas e, principalmente, **se o tom mudou quando ele errou.** Em geral, não muda. É isso que torna o erro perigoso: a resposta errada chega com a mesma segurança da certa.
 
-[CONFIRMAR: se o Gustavo fez esse teste de verdade em 2024, descrever aqui as perguntas, os modelos usados e o resultado. Se não fez, manter o texto como sugestão ao leitor.]
-
 ## A reforma tributária é o pior cenário para perguntar à IA
 
 Neste momento, a regulamentação da reforma tributária ainda é projeto. O PLP 68/2024 teve o texto-base [aprovado pela Câmara em 10 de julho](https://www12.senado.leg.br/noticias/materias/2024/07/19/senado-se-prepara-para-avaliar-projeto-que-regulamenta-a-reforma-tributaria) e está no Senado. O texto vai mudar. Um modelo treinado com dados de meses atrás não conhece a versão que saiu da Câmara, e muito menos a que vai sair do Senado.

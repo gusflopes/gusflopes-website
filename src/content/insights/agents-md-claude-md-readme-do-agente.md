@@ -51,8 +51,6 @@ Se o seu time usa mais de um agente, a pergunta prática é como evitar dois arq
 
 Para outras ferramentas, o site do AGENTS.md documenta a configuração: no Gemini CLI, `"contextFileName": "AGENTS.md"` em `.gemini/settings.json`; no Aider, `read: AGENTS.md` em `.aider.conf.yml`.
 
-[CONFIRMAR: descreva aqui como você organiza os arquivos de instrução nos seus repositórios, se usa link simbólico, import ou arquivos separados]
-
 ## O que colocar
 
 A lista que o site do AGENTS.md sugere é boa: visão geral do projeto, comandos de build e teste, estilo de código, instruções de teste e cuidados de segurança. As [boas práticas do Claude Code](https://www.anthropic.com/engineering/claude-code-best-practices) acrescentam etiqueta do repositório (nome de branch, merge ou rebase), setup do ambiente e comportamentos inesperados do projeto.
