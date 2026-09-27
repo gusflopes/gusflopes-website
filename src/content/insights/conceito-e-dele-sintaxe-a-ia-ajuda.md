@@ -58,6 +58,4 @@ Os próximos textos vão sair conforme as sessões acontecem, sem roteiro fechad
 - **Loop, condição e variável** explicados com o jogo dele — e o que muda quando a IA escreve e ele revisa.
 - **Contexto**: por que "explica de novo" é o bug mais comum, na conversa com a IA e na conversa entre pai e filho.
 - **Versionamento como "salvar o jogo"**: commit, voltar para antes de quebrar, e por que isso é a primeira coisa que eu ensinaria a qualquer time que começa a usar agentes de código.
-- **Três linguagens, o mesmo conceito**: o mesmo loop em Lua, Python e C#.
-
-[CONFIRMAR: ajuste a lista acima ao que vocês de fato planejam fazer nas próximas semanas.]
+- **O mesmo conceito em outra linguagem**: o loop em Lua, do jogo de Roblox que fizemos juntos, e em C#, do jogo dos cubos. Python e outras ficam para depois.
