@@ -8,7 +8,7 @@ description: Cria ou revisa um artigo do gusflopes.dev (Radar ou Insights, em um
 ## Linha editorial
 
 - **Engenharia & IA** e **Negócios**: informativo e impessoal. Nada de "testei", "no meu projeto" ou caso de cliente. Opinião de autor ("a regra que eu seguiria") pode ficar. Poucos textos, escolhidos como referência que envelhece devagar; crônica de lançamento não entra.
-- **Bastidores**: o único eixo pessoal, com foco em entender e ensinar IA (série com o filho, homelab, o próprio site). Projeto paralelo (CalcJud, rt2026/reforma, hublaw…) só com aval, e sem virar vitrine.
+- **Bastidores**: o único eixo pessoal, com foco em entender e ensinar IA: a série com o filho, o homelab, o próprio site e a campanha da Reforma Tributária (landing, servidor MCP multiusuário, contexto para agentes, criativos com IA, ensinar gente a usar IA numa dúvida real). Conte pelo que ensina, não como vitrine. Outros projetos paralelos (CalcJud, hublaw…) só com aval.
 - Relato pessoal nunca é inventado: em Bastidores, o que depende de lembrança do Gustavo fica como `[CONFIRMAR: pergunta]` até ele responder. Fora de Bastidores não se usa esse marcador — o texto é factual.
 - Sem anacronismo: nada citado antes de existir na data do artigo (`docs/pesquisa/linha-do-tempo-ia.md`).
 - Fatos e números com fonte e link; pesquisas diferentes não se comparam como se medissem a mesma coisa.
