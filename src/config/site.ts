@@ -32,8 +32,6 @@ export const newsletter = {
   pitch:
     "Análises sobre engenharia de software, estratégia e o impacto real da IA.",
   ctaLabel: "Assinar Newsletter",
-  // TODO(gusflopes): criar a conta no Buttondown (https://buttondown.com) com o
-  // username "gusflopes" — ou trocar esta action pelo endpoint do provedor
-  // escolhido (o formulário faz POST padrão com o campo "email").
-  action: "https://buttondown.com/api/emails/embed-subscribe/gusflopes",
+  // Inscrição feita na landing da reforma tributária (primeira newsletter de gusflopes.dev).
+  url: "https://reforma-tributaria.gusflopes.dev/?utm_source=gusflopes.dev&utm_medium=site&utm_campaign=newsletter",
 } as const;
