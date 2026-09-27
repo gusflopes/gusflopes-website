@@ -1,12 +1,14 @@
 import { useState, type ReactNode } from 'react';
 import { ArrowLeft, Calendar, Check, Clock, Github, Linkedin, Share2 } from 'lucide-react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
+import { EIXOS, type EixoId } from '../../lib/eixos';
 import { author, socials } from '../../config/site';
 
 export interface RadarArticlePageProps {
   title: string;
   excerpt: string;
   category: string;
+  eixo: EixoId;
   dateFormatted: string;
   duration: string;
   image: string;
@@ -18,6 +20,7 @@ export function RadarArticlePage({
   title,
   excerpt,
   category,
+  eixo,
   dateFormatted,
   duration,
   image,
@@ -47,7 +50,7 @@ export function RadarArticlePage({
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 relative overflow-hidden selection:bg-orange-500/30 selection:text-white">
+    <main className="min-h-screen bg-slate-950 text-slate-200 relative overflow-hidden selection:bg-orange-500/30 selection:text-white">
 
       {/* Background Elements */}
       <div className="fixed inset-0 pointer-events-none z-0">
@@ -82,6 +85,10 @@ export function RadarArticlePage({
         {/* Article Header */}
         <header className="mb-12 text-center md:text-left">
           <div className="flex flex-wrap items-center gap-4 text-xs font-bold uppercase tracking-widest text-orange-500 mb-6 justify-center md:justify-start">
+            <a href={EIXOS[eixo].href} className="hover:text-orange-300 transition-colors">
+              {EIXOS[eixo].shortLabel}
+            </a>
+            <span className="w-1 h-1 bg-slate-700 rounded-full"></span>
             <span>{category}</span>
             <span className="w-1 h-1 bg-slate-700 rounded-full"></span>
             <span className="text-slate-400 flex items-center gap-1">
@@ -141,6 +148,6 @@ export function RadarArticlePage({
         </div>
 
       </article>
-    </div>
+    </main>
   );
 }

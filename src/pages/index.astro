@@ -4,6 +4,10 @@ import Default from '../layouts/Default.astro';
 import { HomePage } from '../components/pages/HomePage';
 import type { LatestArticle, FeaturedVideo } from '../components/LatestContent';
 import { compareIsoDateDesc } from '../lib/format';
+import type { EixoResumo } from '../components/Eixos';
+import { EIXO_IDS } from '../lib/eixos';
+import { getArtigos } from '../lib/artigos';
+import { comUtm, projetos } from '../config/site';
 
 const insights = (await getCollection('insights')).sort((a, b) =>
   compareIsoDateDesc(a.data.date, b.data.date)
@@ -32,9 +36,31 @@ const video: FeaturedVideo | undefined = latestVideo
       isExternal: latestVideo.data.isExternal,
     }
   : undefined;
+
+// Eixos na home: cada um com o texto autoral mais recente. Bastidores entra mesmo sem
+// texto, apontando para o projeto em produção; eixo vazio sem projeto fica de fora.
+const autorais = await getArtigos({ incluirRadarLocal: true });
+const eixos: EixoResumo[] = EIXO_IDS.flatMap((id): EixoResumo[] => {
+  const ultimo = autorais.find((a) => a.eixo === id);
+  const destaque = ultimo ? { title: ultimo.title, href: ultimo.href } : undefined;
+  if (id === 'bastidores') {
+    const reforma = projetos.reforma;
+    return [
+      {
+        id,
+        destaque,
+        projeto: {
+          label: 'Ver o case: Reforma Tributária',
+          href: comUtm(reforma.url, reforma.campanha, 'home-eixos'),
+        },
+      },
+    ];
+  }
+  return destaque ? [{ id, destaque }] : [];
+});
 ---
 
 {/* O layout monta o title da home ("gusflopes.dev — Engenharia e negócio, partes do mesmo sistema") */}
 <Default>
-  <HomePage articles={articles} video={video} client:load />
+  <HomePage articles={articles} video={video} eixos={eixos} client:load />
 </Default>

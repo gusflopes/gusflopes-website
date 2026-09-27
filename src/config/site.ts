@@ -37,3 +37,31 @@ export const newsletter = {
   // escolhido (o formulário faz POST padrão com o campo "email").
   action: "https://buttondown.com/api/emails/embed-subscribe/gusflopes",
 } as const;
+
+/**
+ * Projetos próprios que o site promove (cross-promo). A Reforma Tributária tem
+ * landing própria; aqui ela aparece só como case técnico/de negócio (eixo Bastidores).
+ */
+export const projetos = {
+  reforma: {
+    nome: "Simulador Reforma Tributária",
+    url: "https://reforma-tributaria.gusflopes.dev",
+    mcpUrl: "https://mcp.gusflopes.dev/rt2026",
+    // Campanha ativa na landing — trocar quando a campanha mudar (ex.: após 30/11/2026).
+    campanha: "simples-30-09",
+  },
+} as const;
+
+/**
+ * Anexa UTM padronizada a um link de saída do site.
+ * A landing da reforma lê utm_source/medium/campaign/content e grava junto do lead.
+ * `content` identifica o ponto de clique (ex.: "home-eixos", "footer", "bastidores-hub").
+ */
+export function comUtm(url: string, campaign: string, content: string): string {
+  const u = new URL(url);
+  u.searchParams.set("utm_source", "gusflopes.dev");
+  u.searchParams.set("utm_medium", "site");
+  u.searchParams.set("utm_campaign", campaign);
+  u.searchParams.set("utm_content", content);
+  return u.toString();
+}
