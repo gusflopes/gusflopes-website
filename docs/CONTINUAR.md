@@ -8,7 +8,7 @@ Documento de passagem para a próxima sessão (humana ou de agente). Leia este a
 | --- | --- | --- |
 | Repositório | este (`gusflopes-website`) | `../reforma-tributaria` |
 | No ar em | https://gusflopes.dev | https://reforma-tributaria.gusflopes.dev (landing + leads) e https://mcp.gusflopes.dev/rt2026 (servidor MCP, beta fechado) |
-| Deploy | manual: `pnpm run deploy` (não há CI; push não publica) | `pnpm deploy:web` e `pnpm deploy:mcp` na raiz daquele repo |
+| Deploy | manual: `pnpm run deploy` (não há build ligado ao Git; push não publica) | `pnpm deploy:web` e `pnpm deploy:mcp` na raiz daquele repo |
 | Papel | marca pessoal, 3 eixos editoriais | campanha "opte até 30/09, decida até 30/11", newsletter nº 1 e simulador |
 
 Ligação entre os dois:
@@ -22,26 +22,27 @@ Ligação entre os dois:
 - `main` (publicada em 26/09): evolução de marca + hotfix da newsletter.
 - `feat/conteudo-eixos` (worktree `.worktrees/conteudo`, **não publicada**): tudo abaixo, pronto para revisão.
   - Eixos: **Engenharia & IA** (`/engenharia`), **Negócios** (`/negocios`), **Bastidores** (`/bastidores`); campo `eixo` no schema (`src/lib/eixos.ts`), filtros, RSS por eixo, seção na home.
-  - Correções técnicas: hero em AVIF/WebP (home de 17 s → 3 s de LCP no celular), og 1200×630 `.jpg`, fontes self-hosted, 404 real, bio nova, política de privacidade corrigida, redes no rodapé.
-  - 26 artigos novos (12 Engenharia & IA, 11 Negócios, 3 Bastidores), de jul/2024 a set/2026. **24 têm marcadores `[CONFIRMAR: …]`** onde entra relato pessoal — preencher ou remover antes de publicar.
+  - Correções técnicas: hero em AVIF/WebP (home de 17 s → 3 s de LCP no celular), og 1200×630 `.jpg`, fontes self-hosted, 404 real, bio nova, política de privacidade corrigida, redes no rodapé, botões laranja com texto escuro (contraste 6,85:1).
+  - Curadoria de 27/09: publicados 4 artigos novos de Engenharia & IA, 6 de Negócios e 4 de Bastidores (2 com data futura, 28 e 29/09, ficam fora do build até um deploy na data — `src/lib/publicado.ts`). Os outros 13 estão em `docs/rascunhos/`.
+  - Linha editorial: Engenharia e Negócios informativos, sem relato pessoal; só Bastidores é pessoal (entender e ensinar IA), sem vitrine de projeto paralelo. Detalhes na skill `.claude/skills/novo-conteudo`.
+  - Marcadores `[CONFIRMAR]` restantes: série com o filho (2), `refazendo-meu-site` (1) e `campanha-inteira-com-claude-code` (5, em revisão em outra sessão).
   - Pesquisa com fontes em `docs/pesquisa/` (coding agents, linha do tempo de IA/MCP, negócios, ensino de IA para crianças).
 - Branches de trabalho já mescladas na `feat/conteudo-eixos` (podem ser apagadas): `conteudo/eng-a`, `conteudo/eng-b`, `conteudo/neg`, `conteudo/bas`, `conteudo/fix`.
 
 ## Para publicar a `feat/conteudo-eixos`
 
 1. Revisar o preview: `cd .worktrees/conteudo && pnpm build && pnpm preview`.
-2. Resolver os `[CONFIRMAR]` (`grep -rn CONFIRMAR src/content`).
-3. Decidir o contraste do botão laranja (ver abaixo).
-4. `git checkout main && git merge --no-ff feat/conteudo-eixos && git push && pnpm run deploy`.
+2. Resolver os `[CONFIRMAR]` que restam (`grep -rn CONFIRMAR src/content`).
+3. `git checkout main && git merge --no-ff feat/conteudo-eixos && git push && pnpm run deploy`.
 5. Depois do deploy: conferir `https://gusflopes.dev/nao-existe` (deve dar 404), `https://gusflopes.dev/reforma` (redirect) e atualizar a prévia no LinkedIn Post Inspector (og mudou para `.jpg`).
-   Atenção: o artigo 38 tem data 29/09/2026 — se publicar antes, ele aparece já.
+   Os artigos de 28 e 29/09 só aparecem com um novo `pnpm run deploy` feito na data.
 
 ## Decisões pendentes do Gustavo
 
-1. **Contraste do botão laranja** (branco sobre #F97316 = 2,8:1, reprova): texto escuro `#1c0a02` (6,85:1, recomendado, igual à landing da reforma) ou laranja `#C2410C` com texto branco (5,18:1). Exige atualizar o DESIGN.md. O texto de introdução da página Bastidores (cinza claro sobre creme) também está com pouco contraste.
+1. ~~Contraste do botão laranja~~ — resolvido em 27/09 (texto escuro `#1c0a02`, DESIGN.md atualizado).
 2. **Datas retroativas**: mostrar ou não "Escrito em … / publicado aqui em …".
 3. **Grok Bot**: qual produto (artigo 35 em espera).
-4. **CalcJud**: pode ser citado com nome e detalhes? (artigo 5)
+4. ~~CalcJud~~ — resolvido em 27/09: o artigo 5 virou princípio geral, sem citar o produto.
 5. **Série com o filho**: artigo de abertura escrito (27/09); falta o relato da sessão do cubo 3D ([CONFIRMAR]). Os próximos saem a cada sessão real. Contas e canal: ver esclarecimentos na pauta.
 6. **Analytics**: ligar o Cloudflare Web Analytics (sem cookies) e citar na política de privacidade.
 
