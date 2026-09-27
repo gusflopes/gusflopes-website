@@ -4,6 +4,7 @@ excerpt: "Gateway centralizado, feature embarcada, worker assíncrono ou agente 
 date: "2026-01-13"
 duration: "9 min"
 category: "Arquitetura"
+eixo: "engenharia"
 image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1080&q=80"
 ---
 

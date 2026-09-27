@@ -4,6 +4,7 @@ excerpt: "Entre o comitê que bloqueia tudo e o uso indiscriminado, existe um ca
 date: "2026-03-10"
 duration: "12 min"
 category: "IA"
+eixo: "engenharia"
 image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1080&q=80"
 ---
 

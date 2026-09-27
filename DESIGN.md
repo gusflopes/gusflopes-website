@@ -509,7 +509,7 @@ components:
     variants:
       primary:
         background: brand.primary
-        text: "#FFFFFF"
+        text: "#1C0A02"  # 6,85:1 sobre #F97316 (branco dava 2,8:1 — reprovado WCAG AA)
         hover-background: brand.primary-hover
         hover-transform: "scale(1.05)"
         shadow: "glow-tinted"

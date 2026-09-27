@@ -4,6 +4,7 @@ excerpt: "Quando agentes escrevem boa parte do c√≥digo, o gargalo muda de produ√
 date: "2026-06-02"
 duration: "10 min"
 category: "Carreira"
+eixo: "engenharia"
 image: "https://images.unsplash.com/photo-1605379399642-870262d3d051?auto=format&fit=crop&w=1080&q=80"
 ---
 

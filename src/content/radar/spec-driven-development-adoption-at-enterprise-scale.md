@@ -4,6 +4,7 @@ excerpt: "Como levar Spec-Driven Development do prompt tático para a escala ent
 date: "2026-02-19"
 duration: "20 min"
 category: "IA"
+eixo: "engenharia"
 type: "article"
 isExternal: true
 link: "https://www.infoq.com/articles/enterprise-spec-driven-development/"

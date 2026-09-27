@@ -4,6 +4,7 @@ excerpt: "Novembro de 2025 entregou uma geração inteira de modelos novos em tr
 date: "2025-12-09"
 duration: "6 min"
 category: "IA"
+eixo: "engenharia"
 type: "article"
 isExternal: false
 link: "/radar/article/opus-45-gemini-3-gpt-51-como-escolher"

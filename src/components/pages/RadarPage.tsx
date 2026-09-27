@@ -5,6 +5,7 @@ import { Input } from '../ui/input';
 import { Badge } from '../ui/badge';
 import { Search, Calendar, Clock, ArrowRight, ExternalLink, PlayCircle } from 'lucide-react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
+import { EIXOS, EIXO_LIST, type EixoId } from '../../lib/eixos';
 
 export interface RadarItem {
   id: string;
@@ -14,6 +15,7 @@ export interface RadarItem {
   date: string;
   duration: string;
   category: string;
+  eixo: EixoId;
   type: 'article' | 'video';
   isExternal: boolean;
   link: string;
@@ -28,29 +30,59 @@ interface RadarPageProps {
 export function RadarPage({ items }: RadarPageProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Todos');
+  const [selectedEixo, setSelectedEixo] = useState<EixoId | 'todos'>('todos');
 
-  const categories = ["Todos", "Arquitetura", ".NET", "DevOps", "Carreira", "IA"];
+  const inEixo = items.filter((item) => selectedEixo === 'todos' || item.eixo === selectedEixo);
+  // Categorias derivadas do conteúdo do eixo selecionado.
+  const categories = ['Todos', ...Array.from(new Set(inEixo.map((item) => item.category)))];
+  // Só mostra o filtro de eixo quando há conteúdo em mais de um eixo.
+  const eixosComConteudo = EIXO_LIST.filter((e) => items.some((item) => item.eixo === e.id));
 
-  const filteredItems = items.filter(item => {
-    const matchesSearch = item.title.toLowerCase().includes(searchTerm.toLowerCase()) || item.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+  const term = searchTerm.toLowerCase();
+  const filteredItems = inEixo.filter((item) => {
+    const matchesSearch =
+      item.title.toLowerCase().includes(term) || item.excerpt.toLowerCase().includes(term);
     const matchesCategory = selectedCategory === 'Todos' || item.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
   return (
-    <div className="pt-24 pb-20 px-6 min-h-screen bg-slate-950">
+    <main className="pt-24 pb-20 px-6 min-h-screen bg-slate-950">
       <div className="max-w-7xl mx-auto">
 
         {/* Page Header */}
         <div className="mb-16 text-center relative">
           <h1 className="font-serif text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
-            Radar Técnico
+            Radar
           </h1>
           <p className="font-sans text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Curadoria de artigos, vídeos e recursos sobre .NET, Arquitetura e IA.
+            Curadoria comentada: o que mudou em IA, engenharia e negócios — e por que importa.
           </p>
           <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] bg-orange-500/10 blur-[100px] rounded-full pointer-events-none"></div>
         </div>
+
+        {eixosComConteudo.length > 1 && (
+          <nav aria-label="Filtrar por eixo" className="flex flex-wrap justify-center gap-2 mb-6">
+            {[{ id: 'todos' as const, label: 'Todos os eixos' }, ...eixosComConteudo].map((e) => (
+              <button
+                key={e.id}
+                type="button"
+                aria-pressed={selectedEixo === e.id}
+                onClick={() => {
+                  setSelectedEixo(e.id);
+                  setSelectedCategory('Todos');
+                }}
+                className={`px-4 py-1.5 rounded-full border text-xs font-bold uppercase tracking-widest transition-colors ${
+                  selectedEixo === e.id
+                    ? 'bg-orange-500 border-orange-500 text-slate-950'
+                    : 'border-slate-700 text-slate-300 hover:border-orange-400 hover:text-white'
+                }`}
+              >
+                {e.label}
+              </button>
+            ))}
+          </nav>
+        )}
 
         {/* Search and Filter */}
         <div className="flex flex-col md:flex-row gap-6 mb-12 items-center justify-between bg-slate-900/50 p-6 rounded-xl border border-slate-800 backdrop-blur-sm">
@@ -58,6 +90,7 @@ export function RadarPage({ items }: RadarPageProps) {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-orange-500 transition-colors" size={18} />
             <Input
               placeholder="Buscar no radar..."
+              aria-label="Buscar no radar"
               className="pl-10 bg-slate-950 border-slate-700 focus:ring-orange-500 text-white"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -72,7 +105,7 @@ export function RadarPage({ items }: RadarPageProps) {
                 onClick={() => setSelectedCategory(cat)}
                 className={`
                   ${selectedCategory === cat
-                    ? 'bg-orange-500 hover:bg-orange-600 text-white border-orange-500'
+                    ? 'bg-orange-500 hover:bg-orange-600 text-[#1c0a02] border-orange-500'
                     : 'bg-transparent border-slate-700 text-slate-400 hover:text-white hover:border-orange-400'
                   } rounded-full px-4 py-1 h-8 text-xs uppercase tracking-wider font-bold transition-all
                 `}
@@ -96,8 +129,10 @@ export function RadarPage({ items }: RadarPageProps) {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent opacity-80"></div>
 
-                  <Badge className="absolute top-4 left-4 bg-orange-500 hover:bg-orange-600 border-none text-white font-bold uppercase text-[10px] tracking-widest shadow-lg shadow-orange-900/50">
-                    {item.category}
+                  <Badge className="absolute top-4 left-4 bg-orange-500 hover:bg-orange-600 border-none text-[#1c0a02] font-bold uppercase text-[10px] tracking-widest shadow-lg shadow-orange-900/50">
+                    {selectedEixo === 'todos' && eixosComConteudo.length > 1
+                      ? `${EIXOS[item.eixo].shortLabel} · ${item.category}`
+                      : item.category}
                   </Badge>
 
                   {item.type === 'video' && (
@@ -158,13 +193,13 @@ export function RadarPage({ items }: RadarPageProps) {
             <Button
               variant="link"
               className="text-orange-500 mt-2"
-              onClick={() => {setSearchTerm(''); setSelectedCategory('Todos');}}
+              onClick={() => {setSearchTerm(''); setSelectedCategory('Todos'); setSelectedEixo('todos');}}
             >
               Limpar filtros
             </Button>
           </div>
         )}
       </div>
-    </div>
+    </main>
   );
 }

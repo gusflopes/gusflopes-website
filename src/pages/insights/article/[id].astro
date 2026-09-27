@@ -1,12 +1,13 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { publicado } from '../../../lib/publicado';
 import type { CollectionEntry } from 'astro:content';
 import Default from '../../../layouts/Default.astro';
 import { InsightArticlePage } from '../../../components/pages/InsightArticlePage';
 import { formatDatePtBR } from '../../../lib/format';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('insights');
+  const entries = await getCollection('insights', publicado);
   return entries.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
 }
 
@@ -16,7 +17,7 @@ interface Props {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, excerpt, category, date, duration, image } = entry.data;
+const { title, excerpt, category, eixo, date, duration, image } = entry.data;
 ---
 
 <Default
@@ -30,6 +31,7 @@ const { title, excerpt, category, date, duration, image } = entry.data;
     title={title}
     excerpt={excerpt}
     category={category}
+    eixo={eixo}
     dateFormatted={formatDatePtBR(date)}
     duration={duration}
     image={image}

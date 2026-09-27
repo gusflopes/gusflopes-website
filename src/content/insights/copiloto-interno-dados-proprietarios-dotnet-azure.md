@@ -4,6 +4,7 @@ excerpt: "Como desenhar um copiloto corporativo que responde com os dados da emp
 date: "2025-12-16"
 duration: "12 min"
 category: "IA"
+eixo: "engenharia"
 image: "https://images.unsplash.com/photo-1664526937033-fe2c11f1be25?auto=format&fit=crop&w=1080&q=80"
 ---
 

@@ -1,10 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
+import { publicado } from '../lib/publicado';
 import Default from '../layouts/Default.astro';
 import { RadarPage, type RadarItem } from '../components/pages/RadarPage';
 import { compareIsoDateDesc, formatDatePtBR } from '../lib/format';
 
-const entries = await getCollection('radar');
+const entries = await getCollection('radar', publicado);
 const items: RadarItem[] = entries
   .sort((a, b) => compareIsoDateDesc(a.data.date, b.data.date))
   .map((entry) => ({
@@ -16,8 +17,8 @@ const items: RadarItem[] = entries
 ---
 
 <Default
-  title="Radar Técnico"
-  description="Curadoria de artigos, vídeos e recursos sobre .NET, Arquitetura e IA."
+  title="Radar"
+  description="Curadoria comentada por Gustavo Lopes: o que mudou em IA, engenharia de software e negócios — e por que importa."
 >
   <RadarPage items={items} client:load />
 </Default>

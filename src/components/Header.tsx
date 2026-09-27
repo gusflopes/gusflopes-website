@@ -3,16 +3,19 @@ import { Menu, X } from 'lucide-react';
 import { Button } from './ui/button';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { site } from '../config/site';
+import { EIXOS, type EixoId } from '../lib/eixos';
 import logo from '../assets/cfa6876664fcc921be5a7c0a58c353ea12577968.png?url';
 
 interface HeaderProps {
   pathname: string;
+  /** Eixos com ao menos um texto publicado — eixo vazio não entra no menu. */
+  eixosAtivos?: EixoId[];
 }
 
 /** Normaliza paths para comparação: remove barras finais ('/radar/' → '/radar'). */
 const normalizePath = (p: string) => p.replace(/\/+$/, '') || '/';
 
-export function Header({ pathname: rawPathname }: HeaderProps) {
+export function Header({ pathname: rawPathname, eixosAtivos = [] }: HeaderProps) {
   const pathname = normalizePath(rawPathname);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -30,13 +33,14 @@ export function Header({ pathname: rawPathname }: HeaderProps) {
 
   if (isArticlePage) return null;
 
+  // Eixos primeiro (o "para quem"), depois os formatos e a oferta.
   const navItems = [
-    { label: 'Home', href: '/' },
+    ...eixosAtivos.map((id) => ({ label: EIXOS[id].label, href: EIXOS[id].href })),
     { label: 'Radar', href: '/radar' },
     { label: 'Insights', href: '/insights' },
     { label: 'Trabalhe Comigo', href: '/#consulting' },
-    { label: 'Sobre', href: '/#about' },
   ];
+  const isActive = (href: string) => href !== '/' && !href.includes('#') && pathname.startsWith(href);
 
   const handleClick = (e: React.MouseEvent, href: string) => {
     setIsMenuOpen(false);
@@ -61,14 +65,15 @@ export function Header({ pathname: rawPathname }: HeaderProps) {
           </a>
         </div>
 
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden lg:flex items-center space-x-7">
           {navItems.map((item) => (
             <a
               key={item.label}
+              aria-current={isActive(item.href) ? "page" : undefined}
               href={item.href}
               onClick={(e) => handleClick(e, item.href)}
               className={`font-sans text-sm font-medium uppercase tracking-wide transition-colors ${
-                pathname === item.href
+                isActive(item.href)
                   ? 'text-orange-500'
                   : 'text-gray-300 hover:text-white'
               }`}
@@ -79,14 +84,14 @@ export function Header({ pathname: rawPathname }: HeaderProps) {
           <Button
             asChild
             variant="outline"
-            className="font-sans border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white bg-transparent rounded-full px-6"
+            className="font-sans border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-[#1c0a02] bg-transparent rounded-full px-6"
           >
             <a href={`mailto:${site.email}`}>Contato</a>
           </Button>
         </nav>
 
         <button
-          className="md:hidden text-white"
+          className="lg:hidden text-white"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label={isMenuOpen ? 'Fechar menu' : 'Abrir menu'}
           aria-expanded={isMenuOpen}
@@ -96,15 +101,16 @@ export function Header({ pathname: rawPathname }: HeaderProps) {
       </div>
 
       {isMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-slate-900/95 backdrop-blur-md p-6 border-b border-slate-800 animate-in slide-in-from-top-5">
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-slate-900/95 backdrop-blur-md p-6 border-b border-slate-800 animate-in slide-in-from-top-5">
           <nav className="flex flex-col space-y-4">
             {navItems.map((item) => (
               <a
                 key={item.label}
+                aria-current={isActive(item.href) ? "page" : undefined}
                 href={item.href}
                 onClick={(e) => handleClick(e, item.href)}
                 className={`font-sans text-lg font-medium ${
-                  pathname === item.href
+                  isActive(item.href)
                     ? 'text-orange-500'
                     : 'text-gray-300 hover:text-white'
                 }`}
@@ -112,7 +118,7 @@ export function Header({ pathname: rawPathname }: HeaderProps) {
                 {item.label}
               </a>
             ))}
-            <Button asChild className="font-sans bg-orange-500 text-white hover:bg-orange-600 w-full">
+            <Button asChild className="font-sans bg-orange-500 text-[#1c0a02] hover:bg-orange-600 w-full">
               <a href={`mailto:${site.email}`}>Contato</a>
             </Button>
           </nav>

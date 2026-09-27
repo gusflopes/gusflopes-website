@@ -4,6 +4,7 @@ excerpt: "A abstração oficial de IA do .NET merece o mesmo status que ILogger:
 date: "2026-05-05"
 duration: "11 min"
 category: ".NET"
+eixo: "engenharia"
 image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1080&q=80"
 ---
 

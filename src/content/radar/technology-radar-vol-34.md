@@ -4,6 +4,7 @@ excerpt: "A edição mais dominada por IA da história do Radar alerta para o 'c
 date: "2026-04-15"
 duration: "25 min"
 category: "Arquitetura"
+eixo: "engenharia"
 type: "article"
 isExternal: true
 link: "https://www.thoughtworks.com/content/dam/thoughtworks/documents/radar/2026/04/tr_technology_radar_vol_34_en.pdf"

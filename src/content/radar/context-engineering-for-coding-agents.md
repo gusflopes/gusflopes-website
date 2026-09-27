@@ -4,6 +4,7 @@ excerpt: "Birgitta Böckeler organiza o cardápio explosivo de opções de conte
 date: "2026-02-05"
 duration: "15 min"
 category: "IA"
+eixo: "engenharia"
 type: "article"
 isExternal: true
 link: "https://martinfowler.com/articles/exploring-gen-ai/context-engineering-coding-agents.html"

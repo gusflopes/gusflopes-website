@@ -1,8 +1,9 @@
 import React from 'react';
-import { Linkedin, Github } from 'lucide-react';
+import { Linkedin, Github, Instagram, Youtube, Twitter } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { NewsletterForm } from './NewsletterForm';
-import { site, socials, newsletter } from '../config/site';
+import { site, socials, newsletter, projetos, comUtm } from '../config/site';
+import { EIXO_LIST } from '../lib/eixos';
 import logoLight from '../assets/cfa6876664fcc921be5a7c0a58c353ea12577968.png?url';
 
 export function Footer() {
@@ -26,46 +27,59 @@ export function Footer() {
 
           {/* Links */}
           <div>
-            <h4 className="text-white font-bold mb-4">Links Rápidos</h4>
+            <h2 className="text-white font-bold mb-4">Navegação</h2>
             <ul className="space-y-2 text-sm">
-              <li><a href="/" className="text-slate-400 hover:text-orange-400 transition-colors">Home</a></li>
+              {EIXO_LIST.map((eixo) => (
+                <li key={eixo.id}>
+                  <a href={eixo.href} className="text-slate-400 hover:text-orange-400 transition-colors">{eixo.label}</a>
+                </li>
+              ))}
               <li><a href="/radar" className="text-slate-400 hover:text-orange-400 transition-colors">Radar</a></li>
               <li><a href="/insights" className="text-slate-400 hover:text-orange-400 transition-colors">Insights</a></li>
+              <li><a href="/#about" className="text-slate-400 hover:text-orange-400 transition-colors">Sobre</a></li>
+              <li>
+                <a
+                  href={comUtm(projetos.reforma.url, projetos.reforma.campanha, 'footer')}
+                  className="text-slate-400 hover:text-orange-400 transition-colors"
+                >
+                  Projeto: Reforma Tributária
+                </a>
+              </li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h4 className="text-white font-bold mb-4">Contato</h4>
+            <h2 className="text-white font-bold mb-4">Contato</h2>
             <ul className="space-y-2 text-sm">
               <li><a href={`mailto:${site.email}`} className="text-slate-400 hover:text-orange-400 transition-colors">{site.email}</a></li>
               <li className="text-slate-400">Brasil | Global</li>
             </ul>
             <div className="flex gap-4 mt-4">
-              <a
-                href={socials.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn de Gustavo Lopes"
-                className="text-slate-400 hover:text-white transition-colors"
-              >
-                <Linkedin size={20} />
-              </a>
-              <a
-                href={socials.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub de Gustavo Lopes"
-                className="text-slate-400 hover:text-white transition-colors"
-              >
-                <Github size={20} />
-              </a>
+              {[
+                { href: socials.linkedin, label: 'LinkedIn', Icon: Linkedin },
+                { href: socials.instagram, label: 'Instagram', Icon: Instagram },
+                { href: socials.youtube, label: 'YouTube', Icon: Youtube },
+                { href: socials.x, label: 'X (antigo Twitter)', Icon: Twitter },
+                { href: socials.github, label: 'GitHub', Icon: Github },
+              ].map(({ href, label, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer me"
+                  aria-label={`${label} de Gustavo Lopes`}
+                  className="text-slate-400 hover:text-white transition-colors"
+                >
+                  <Icon size={20} />
+                </a>
+              ))}
             </div>
           </div>
 
           {/* Newsletter */}
           <div>
-            <h4 className="text-white font-bold mb-4">{newsletter.name}</h4>
+            <h2 className="text-white font-bold mb-4">{newsletter.name}</h2>
             <p className="text-slate-400 text-sm mb-4">{newsletter.pitch}</p>
             <NewsletterForm variant="footer" />
           </div>

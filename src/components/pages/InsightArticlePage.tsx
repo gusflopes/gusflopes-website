@@ -1,12 +1,14 @@
 import { useState, type ReactNode } from 'react';
 import { ArrowLeft, Calendar, Check, Clock, Share2 } from 'lucide-react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
+import { EIXOS, type EixoId } from '../../lib/eixos';
 import { author } from '../../config/site';
 
 export interface InsightArticlePageProps {
   title: string;
   excerpt: string;
   category: string;
+  eixo: EixoId;
   dateFormatted: string;
   duration: string;
   image: string;
@@ -18,6 +20,7 @@ export function InsightArticlePage({
   title,
   excerpt,
   category,
+  eixo,
   dateFormatted,
   duration,
   image,
@@ -47,7 +50,7 @@ export function InsightArticlePage({
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F5F0] text-slate-900 relative overflow-hidden selection:bg-orange-200 selection:text-orange-900">
+    <main className="min-h-screen bg-[#F5F5F0] text-slate-900 relative overflow-hidden selection:bg-orange-200 selection:text-orange-900">
 
       {/* Artistic Noise Overlay */}
       <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.03] mix-blend-overlay"
@@ -81,6 +84,10 @@ export function InsightArticlePage({
         {/* Article Header */}
         <header className="mb-12 text-center md:text-left">
           <div className="flex flex-wrap items-center gap-4 text-xs font-bold uppercase tracking-widest text-orange-600 mb-6 justify-center md:justify-start">
+            <a href={EIXOS[eixo].href} className="hover:text-orange-500 transition-colors">
+              {EIXOS[eixo].shortLabel}
+            </a>
+            <span className="w-1 h-1 bg-slate-300 rounded-full"></span>
             <span>{category}</span>
             <span className="w-1 h-1 bg-slate-300 rounded-full"></span>
             <span className="text-slate-400 flex items-center gap-1">
@@ -131,6 +138,6 @@ export function InsightArticlePage({
         </div>
 
       </article>
-    </div>
+    </main>
   );
 }

@@ -4,6 +4,7 @@ excerpt: "Feature com LLM sem eval é deploy no escuro: você não sabe se a tro
 date: "2026-04-07"
 duration: "10 min"
 category: "IA"
+eixo: "engenharia"
 image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1080&q=80"
 ---
 

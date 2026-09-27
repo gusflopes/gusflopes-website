@@ -1,37 +1,67 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { ArrowRight, Search, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
+import { EIXOS, EIXO_LIST, type EixoId } from '../../lib/eixos';
 
 export interface InsightArticle {
   id: string;
   title: string;
   excerpt: string;
   category: string;
+  eixo: EixoId;
+  /** Rota do artigo (insights ou radar local). */
+  href: string;
   /** Data já formatada para exibição pt-BR (ex: "10 Jun, 2026"). */
   date: string;
+  /** Data ISO (YYYY-MM-DD), para ordenação e metadados. */
+  isoDate: string;
   duration: string;
   image: string;
 }
 
 interface InsightsPageProps {
   articles: InsightArticle[];
+  /** Título da página (default: "Insights"). Usado pelas páginas de eixo. */
+  heading?: string;
+  subheading?: string;
+  /** Quando definido, a página é o hub de um eixo: some o filtro de eixo e aparece a linha de público. */
+  eixo?: EixoId;
+  /** Conteúdo extra abaixo do cabeçalho (ex.: destaque de projeto no eixo Bastidores). */
+  aside?: ReactNode;
 }
 
-export function InsightsPage({ articles }: InsightsPageProps) {
+export function InsightsPage({
+  articles,
+  heading = 'Insights',
+  subheading = 'Textos autorais sobre engenharia, negócio e IA aplicada — organizados em três eixos.',
+  eixo,
+  aside,
+}: InsightsPageProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Todos');
+  const [selectedEixo, setSelectedEixo] = useState<EixoId | 'todos'>('todos');
 
-  const categories = ["Todos", "Arquitetura", ".NET", "DevOps", "Carreira", "IA"];
+  const eixoFilter = eixo ?? selectedEixo;
+  const inEixo = articles.filter((a) => eixoFilter === 'todos' || a.eixo === eixoFilter);
+  // Categorias derivadas do conteúdo visível no eixo — nunca um pill que leve a lista vazia.
+  const categories = ['Todos', ...Array.from(new Set(inEixo.map((a) => a.category)))];
 
-  const filteredArticles = articles.filter(article => {
-    const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) || article.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+  const term = searchTerm.toLowerCase();
+  const filteredArticles = inEixo.filter((article) => {
+    const matchesSearch =
+      article.title.toLowerCase().includes(term) || article.excerpt.toLowerCase().includes(term);
     const matchesCategory = selectedCategory === 'Todos' || article.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
+  const selectEixo = (id: EixoId | 'todos') => {
+    setSelectedEixo(id);
+    setSelectedCategory('Todos');
+  };
+
   return (
-    <div className="min-h-screen bg-[#F5F5F0] text-slate-900 relative overflow-hidden selection:bg-orange-200 selection:text-orange-900">
+    <main className="min-h-screen bg-[#F5F5F0] text-slate-900 relative overflow-hidden selection:bg-orange-200 selection:text-orange-900">
       
       {/* Artistic Noise Overlay */}
       <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.03] mix-blend-overlay"
@@ -55,24 +85,54 @@ export function InsightsPage({ articles }: InsightsPageProps) {
              transition={{ duration: 0.8 }}
            >
              <h1 className="font-serif text-4xl md:text-5xl text-slate-900 mb-4 tracking-tight relative inline-block">
-               Insights Técnicos
+               {heading}
                <span className="absolute -right-6 -top-1 text-orange-500">
                  <Sparkles size={20} strokeWidth={1.5} />
                </span>
              </h1>
-             <p className="font-sans text-base text-slate-500 font-light">
-               Arquitetura profunda, filosofia de código e engenharia.
+             <p className="font-sans text-base text-slate-600 font-light max-w-2xl mx-auto">
+               {subheading}
              </p>
+             {eixo && (
+               <p className="mt-3 font-mono text-xs uppercase tracking-wider text-orange-800">
+                 {EIXOS[eixo].publico}
+               </p>
+             )}
            </motion.div>
         </div>
 
+        {/* Eixos — só na listagem geral; nos hubs o eixo já está fixo */}
+        {!eixo && (
+          <nav aria-label="Filtrar por eixo" className="flex flex-wrap justify-center gap-2 mb-8">
+            {[{ id: 'todos' as const, label: 'Todos os eixos' }, ...EIXO_LIST].map((e) => (
+              <button
+                key={e.id}
+                type="button"
+                aria-pressed={selectedEixo === e.id}
+                onClick={() => selectEixo(e.id)}
+                className={`px-4 py-1.5 rounded-full border text-xs font-bold uppercase tracking-widest transition-colors ${
+                  selectedEixo === e.id
+                    ? 'bg-orange-800 border-orange-800 text-white'
+                    : 'border-slate-300 text-slate-600 hover:border-orange-700 hover:text-orange-800'
+                }`}
+              >
+                {e.label}
+              </button>
+            ))}
+          </nav>
+        )}
+
+        {aside && <div className="mb-16">{aside}</div>}
+
         {/* Filters - Minimalist Pill */}
+        {articles.length > 0 && (
         <div className="sticky top-4 z-40 flex justify-center mb-20 pointer-events-none">
            <div className="bg-white/80 backdrop-blur-lg shadow-sm border border-white/20 rounded-full p-1 pl-4 pr-1 flex items-center gap-4 pointer-events-auto">
               <span className="text-slate-400 hidden md:block">
                 <Search size={16} />
               </span>
-              <input 
+              <input
+                aria-label="Buscar artigos"
                 className="bg-transparent border-none outline-none w-32 md:w-64 text-sm text-slate-700 placeholder:text-slate-400 font-sans"
                 placeholder="Filtrar ideias..."
                 value={searchTerm}
@@ -83,8 +143,10 @@ export function InsightsPage({ articles }: InsightsPageProps) {
                 {categories.map(cat => (
                   <button
                     key={cat}
+                    type="button"
+                    aria-pressed={selectedCategory === cat}
                     onClick={() => setSelectedCategory(cat)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors whitespace-nowrap ${selectedCategory === cat ? 'bg-slate-900 text-white' : 'hover:bg-slate-100 text-slate-500'}`}
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors whitespace-nowrap ${selectedCategory === cat ? 'bg-slate-900 text-white' : 'hover:bg-slate-100 text-slate-600'}`}
                   >
                     {cat}
                   </button>
@@ -92,13 +154,14 @@ export function InsightsPage({ articles }: InsightsPageProps) {
               </div>
            </div>
         </div>
+        )}
 
         {/* Masonry-ish Artistic Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-24">
           {filteredArticles.map((article, idx) => (
             <a
               key={article.id}
-              href={`/insights/article/${article.id}`}
+              href={article.href}
               className={`group block ${idx % 2 !== 0 ? 'md:mt-24' : ''}`}
             >
             <motion.article 
@@ -119,21 +182,21 @@ export function InsightsPage({ articles }: InsightsPageProps) {
                 
                 {/* Floating Category Tag */}
                 <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-[10px] uppercase tracking-widest font-bold text-slate-900 z-20">
-                  {article.category}
+                  {eixo ? article.category : `${EIXOS[article.eixo].shortLabel} · ${article.category}`}
                 </div>
               </div>
 
               {/* Content */}
               <div className="relative">
                 {/* Date + reading time */}
-                <div className="mb-3 font-mono text-xs text-slate-400 uppercase tracking-wider">
+                <div className="mb-3 font-mono text-xs text-slate-600 uppercase tracking-wider">
                     {article.date} · {article.duration}
                 </div>
 
                 <h2 className="font-serif text-3xl md:text-4xl text-slate-900 leading-tight mb-4 group-hover:text-orange-600 transition-colors duration-300">
                   {article.title}
                 </h2>
-                <p className="font-sans text-slate-500 leading-relaxed mb-6 font-light group-hover:text-slate-700 transition-colors">
+                <p className="font-sans text-slate-600 leading-relaxed mb-6 font-light group-hover:text-slate-700 transition-colors">
                   {article.excerpt}
                 </p>
                 
@@ -149,13 +212,15 @@ export function InsightsPage({ articles }: InsightsPageProps) {
 
         {/* Empty State */}
         {filteredArticles.length === 0 && (
-          <div className="text-center py-32 opacity-50">
+          <div className="text-center py-32 text-slate-600">
             <p className="font-serif text-2xl italic">O silêncio faz parte da música.</p>
-            <p className="font-sans text-sm mt-2">Nenhum artigo encontrado.</p>
+            <p className="font-sans text-sm mt-2">
+              {articles.length === 0 ? 'Os primeiros textos deste eixo estão a caminho.' : 'Nenhum artigo encontrado.'}
+            </p>
           </div>
         )}
 
       </div>
-    </div>
+    </main>
   );
 }

@@ -1,0 +1,55 @@
+---
+// Página 404 real: o Worker (wrangler.jsonc → not_found_handling: "404-page")
+// serve este arquivo com status 404 para qualquer URL inexistente.
+import Default from '../layouts/Default.astro';
+
+const caminhos = [
+  { href: '/insights', label: 'Insights', desc: 'Textos autorais sobre engenharia, negócio e IA.' },
+  { href: '/radar', label: 'Radar', desc: 'Curadoria comentada do que importa agora.' },
+  { href: '/#consulting', label: 'Trabalhe comigo', desc: 'Consultoria, mentoria e parcerias.' },
+];
+---
+
+<Default
+  title="Página não encontrada"
+  description="O endereço acessado não existe ou mudou de lugar."
+  noindex
+>
+  <main class="pt-32 pb-24 px-6 min-h-screen bg-slate-950 flex items-center">
+    <div class="max-w-3xl mx-auto w-full">
+      <p class="font-mono text-sm uppercase tracking-[0.2em] text-orange-400 mb-6">Erro 404</p>
+      <h1 class="font-serif text-4xl md:text-6xl font-bold text-white leading-tight tracking-tight mb-6">
+        Esta página não existe <br />
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-600">
+          ou mudou de lugar
+        </span>
+      </h1>
+      <p class="font-sans text-lg text-slate-300 leading-relaxed max-w-xl mb-10">
+        O link pode estar quebrado ou o texto foi renomeado. Comece por um destes caminhos:
+      </p>
+
+      <ul class="grid gap-4 md:grid-cols-3 mb-12">
+        {
+          caminhos.map((c) => (
+            <li>
+              <a
+                href={c.href}
+                class="block h-full rounded-lg border border-slate-800 bg-slate-900 p-5 transition-colors hover:border-orange-500/60"
+              >
+                <span class="block font-sans font-bold text-white mb-1">{c.label}</span>
+                <span class="block font-sans text-sm text-slate-400 leading-relaxed">{c.desc}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <a
+        href="/"
+        class="inline-flex items-center justify-center font-sans bg-orange-500 hover:bg-orange-600 text-[#1c0a02] font-bold px-8 h-12 rounded-lg shadow-lg shadow-orange-900/20 transition-colors"
+      >
+        Voltar para o início
+      </a>
+    </div>
+  </main>
+</Default>

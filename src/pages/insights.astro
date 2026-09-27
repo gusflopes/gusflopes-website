@@ -1,22 +1,14 @@
 ---
-import { getCollection } from 'astro:content';
 import Default from '../layouts/Default.astro';
-import { InsightsPage, type InsightArticle } from '../components/pages/InsightsPage';
-import { compareIsoDateDesc, formatDatePtBR } from '../lib/format';
+import { InsightsPage } from '../components/pages/InsightsPage';
+import { getArtigos } from '../lib/artigos';
 
-const entries = await getCollection('insights');
-const articles: InsightArticle[] = entries
-  .sort((a, b) => compareIsoDateDesc(a.data.date, b.data.date))
-  .map((entry) => ({
-    id: entry.id,
-    ...entry.data,
-    date: formatDatePtBR(entry.data.date),
-  }));
+const articles = await getArtigos();
 ---
 
 <Default
   title="Insights"
-  description="Artigos técnicos sobre arquitetura profunda, filosofia de código e engenharia de software."
+  description="Textos autorais de Gustavo Lopes sobre engenharia, negócio e IA aplicada — em três eixos: Engenharia & IA, Negócios e Bastidores."
 >
   <InsightsPage articles={articles} client:load />
 </Default>

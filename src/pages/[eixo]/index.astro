@@ -1,0 +1,56 @@
+---
+import Default from '../../layouts/Default.astro';
+import { InsightsPage } from '../../components/pages/InsightsPage';
+import { getArtigos } from '../../lib/artigos';
+import { EIXOS, EIXO_IDS, type EixoId } from '../../lib/eixos';
+import { comUtm, projetos } from '../../config/site';
+
+export function getStaticPaths() {
+  return EIXO_IDS.map((eixo) => ({ params: { eixo } }));
+}
+
+const eixo = Astro.params.eixo as EixoId;
+const def = EIXOS[eixo];
+// Hub do eixo = textos autorais dos dois formatos (Insights + Radar local).
+const articles = await getArtigos({ eixo, incluirRadarLocal: true });
+const reforma = projetos.reforma;
+---
+
+<Default
+  title={def.label}
+  description={`${def.descricao} ${def.publico}`}
+  noindex={articles.length === 0}
+>
+  <InsightsPage
+    articles={articles}
+    heading={def.label}
+    subheading={def.descricao}
+    eixo={eixo}
+    client:load
+  >
+    {
+      eixo === 'bastidores' && (
+        <aside
+          slot="aside"
+          class="max-w-3xl mx-auto rounded-xl border border-orange-200 bg-white/80 p-6 md:p-8 shadow-sm"
+        >
+          <p class="font-mono text-xs uppercase tracking-wider text-orange-800 mb-2">
+            Projeto em produção
+          </p>
+          <h2 class="font-serif text-2xl md:text-3xl text-slate-900 mb-3">{reforma.nome}</h2>
+          <p class="font-sans text-slate-700 leading-relaxed mb-4">
+            Uma dúvida real de empresário, se vale optar pelo novo regime, virou landing, servidor MCP
+            para vários usuários (em beta) e uma campanha com criativos e copy feitos com IA. O
+            objetivo: ensinar gente a usar IA numa decisão de verdade.
+          </p>
+          <a
+            href={comUtm(reforma.url, reforma.campanha, 'bastidores-hub')}
+            class="inline-flex items-center gap-2 font-sans text-sm font-bold uppercase tracking-widest text-orange-800 hover:text-orange-700"
+          >
+            Ver o projeto →
+          </a>
+        </aside>
+      )
+    }
+  </InsightsPage>
+</Default>
