@@ -112,7 +112,13 @@ A data de publicação e a ordem de escrita são coisas diferentes. Priorize pel
 
 Fato: Roblox e os jogos com o filho são antigos; **o uso de IA começou agora** (últimas duas semanas). A série é o tema desse período, então as datas ficam entre **2026-09-14 e o presente/futuro próximo** — nada de 2025 ou início de 2026. Os itens 26, 28, 31 e 33 da tabela acima estão com datas antigas e devem ser redatados/reescritos nessa janela. Canal dele: youtube.com/@francisco_gamer.
 
-Antes de escrever, pedir ao Gustavo o material real: o que fizeram com IA (ferramenta, conta usada, projeto no Roblox Studio, trechos de conversa, o que deu certo/errado), o que pode aparecer (nome, rosto, voz, tela) e se o canal pode ser linkado. Regras: uso de IA sempre pela conta do pai e com supervisão (Claude 18+, ChatGPT 13+ com consentimento); canal de menor no YouTube só como conta supervisionada/gerida por responsável; revisar o ECA Digital (Lei 15.211/2025) antes de publicar.
+Esclarecimentos do Gustavo (27/09/2026):
+- A IA é usada **com a conta dele (pai)**, com o filho junto; há uma conta separada só para o que fazem juntos — para não misturar assuntos e proteger o filho.
+- O canal é **conteúdo da família**, gerido pelos pais; o que está publicado já passou pelo filtro dos responsáveis. No futuro passa a ser do filho.
+- Histórico: aula de programação na **Ctrl Play** há bastante tempo, micro:bit, Scratch, Roblox. Novo: conceitos e linguagens (**.NET, Python, Lua**) com bastante IA — "ele precisa aprender os conceitos; a sintaxe a IA ajuda" (loop, condições, pensamento sistêmico).
+- Primeiro vídeo da fase com IA: "Pedi pra uma IA me ajudar a criar um cubo 3D… e olha no que deu!" (26/09/2026) — youtube.com/watch?v=iVYcXEON5IQ.
+
+Artigo de abertura já escrito: `conceito-e-dele-sintaxe-a-ia-ajuda.md` (2026-09-27), com [CONFIRMAR] para os detalhes da sessão do cubo. Próximos: um por sessão real, datados depois de cada sessão — temas no fim do artigo de abertura (substituem os itens 26, 28, 31 e 33, que ficam cancelados).
 
 ### Ainda pendente
 

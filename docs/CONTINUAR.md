@@ -42,14 +42,14 @@ Ligação entre os dois:
 2. **Datas retroativas**: mostrar ou não "Escrito em … / publicado aqui em …".
 3. **Grok Bot**: qual produto (artigo 35 em espera).
 4. **CalcJud**: pode ser citado com nome e detalhes? (artigo 5)
-5. **Série com o filho**: material real das últimas duas semanas (ver "Série com o filho" na pauta). Nada foi escrito ainda — de propósito.
+5. **Série com o filho**: artigo de abertura escrito (27/09); falta o relato da sessão do cubo 3D ([CONFIRMAR]). Os próximos saem a cada sessão real. Contas e canal: ver esclarecimentos na pauta.
 6. **Analytics**: ligar o Cloudflare Web Analytics (sem cookies) e citar na política de privacidade.
 
 ## Próximos passos sugeridos
 
 1. Publicar a `feat/conteudo-eixos` (correções técnicas têm impacto imediato em anúncios: velocidade e prévia de link).
 2. Escrever os artigos restantes da pauta: 22 (Pi), 24 (OpenClaw), 25 (Hermes — relato de uso próprio), 27 (Paperclip, como meta-harness), 36 (Jev); 35 (Grok Bot) quando confirmado.
-3. Série com o filho, com datas entre 14/09/2026 e hoje, a partir do material real.
+3. Série com o filho: um texto por sessão real, a partir do artigo de abertura.
 4. Reescrever Hero/Services da home para falar também com empresários (achado P0 da revisão).
 
 ## Regras que valem para todo conteúdo
@@ -58,4 +58,4 @@ Ligação entre os dois:
 - Sem experiência pessoal inventada: relato só com `[CONFIRMAR]` até o Gustavo preencher.
 - Fatos e números com fonte e link; pesquisas diferentes não se comparam como se medissem a mesma coisa.
 - Posicionamento: parceiro da contabilidade e da advocacia; ética OAB (Provimento 205/2021); recomendação condicional.
-- Série com criança: IA sempre pela conta do pai e com supervisão; decidir com o Gustavo o que pode aparecer.
+- Série com o filho: IA pela conta do pai (conta separada para o que fazem juntos), sempre com ele; o canal é da família e já filtrado pelos pais.
