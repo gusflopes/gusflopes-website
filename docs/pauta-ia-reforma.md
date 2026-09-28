@@ -120,7 +120,4 @@ Ordem sugerida: S1 e C3 antes de 30/09; S2–S6 junto com o V2; S7–S11 um por 
   3. Como foi a revisão: commit a commit ou por blocos.
   4. Como foi ver a landing em produção no mesmo dia; algum momento de corrigir o agente.
   5. Custo real da noite (assinatura/tokens) e a verba de mídia colocada. Pode ficar "não divulgado".
-- **Público:**
-  - O `CLAUDE.md` da reforma define o empresário como público de anúncio, e contadores e advogados como parceiros.
-  - Esta pauta trata os três como público de **educação em IA**.
-  - Confirmar se é isso: anúncio para empresário, conteúdo orgânico para os três.
+- ~~Público~~: confirmado em 28/09. **Anúncio pago só para empresário.** Contadores e advogados não são alvo de anúncio, mas o conteúdo orgânico (site, shorts, vídeos) é escrito para que também os alcance e eles possam chegar ao Gustavo por ali.
