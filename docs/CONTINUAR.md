@@ -17,6 +17,8 @@ Ligação entre os dois:
 - O eixo **Bastidores** usa a reforma como case (artigos 37 e 38); o conteúdo tributário em si fica na landing.
 - UTMs: do site para a landing `utm_source=gusflopes.dev`; da landing para o site `utm_source=reforma-tributaria`.
 
+Pauta de publicação da demonstração de IA (artigos, shorts e vídeos, com calendário até 30/11): `docs/pauta-ia-reforma.md`.
+
 ## Onde está cada coisa
 
 - `main` (publicada em 26/09): evolução de marca + hotfix da newsletter.

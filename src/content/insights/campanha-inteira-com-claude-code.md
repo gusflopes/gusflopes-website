@@ -83,7 +83,7 @@ Duas coisas, pelo menos.
 
 **O e-mail não estava ligado no fim da noite.** O código de envio pelo Resend estava pronto e testado, mas o provedor ainda não estava configurado em produção. Em vez de segurar o lançamento, o agente fez o envio trocável (Resend ou o Email Service da própria Cloudflare) e criou uma varredura a cada 30 minutos que manda a confirmação para quem se inscreveu antes do provedor existir. Ninguém perde o e-mail; só recebe mais tarde. O plano grátis do Resend tem limite de 100 e-mails por dia, o que também não serve para uma campanha paga, e isso ficou anotado como pendência.
 
-**O escopo cresceu.** O prompt dizia, com todas as letras: "não crie `apps/mcp` ainda". O servidor MCP era para depois da campanha. Às 21h23 ele estava no repositório, em beta fechado. Deu certo, e conto no próximo texto como foi. Mas vale o registro: com um agente, o custo de "só mais uma coisa" cai tanto que o escopo precisa de um dono.
+**O escopo cresceu.** O prompt dizia, com todas as letras: "não crie `apps/mcp` ainda". O servidor MCP era para depois da campanha. Às 21h23 ele estava no repositório. Deu certo, e conto no próximo texto como foi. Mas vale o registro: com um agente, o custo de "só mais uma coisa" cai tanto que o escopo precisa de um dono.
 
 Antecipei porque a campanha promete o simulador e eu queria validá-lo antes de liberar de verdade. Combinei com o agente: o que não ficasse bom no MCP iria para uma versão 2, depois de 30/09. A campanha precisava estar feita, não perfeita.
 
