@@ -7,7 +7,7 @@ Documento de passagem para a próxima sessão (humana ou de agente). Leia este a
 | | Site principal | Reforma Tributária |
 | --- | --- | --- |
 | Repositório | este (`gusflopes-website`) | `../reforma-tributaria` |
-| No ar em | https://gusflopes.dev | https://reforma-tributaria.gusflopes.dev (landing + leads) e https://mcp.gusflopes.dev/rt2026 (servidor MCP, no ar; acesso por chave) |
+| No ar em | https://gusflopes.dev | https://reforma-tributaria.gusflopes.dev (landing + leads) e https://mcp.gusflopes.dev/rt2026 (servidor MCP, no ar; chave liberada automaticamente) |
 | Deploy | manual: `pnpm run deploy` (não há build ligado ao Git; push não publica) | `pnpm deploy:web` e `pnpm deploy:mcp` na raiz daquele repo |
 | Papel | marca pessoal, 3 eixos editoriais | campanha "opte até 30/09, decida até 30/11", newsletter nº 1 e simulador |
 
