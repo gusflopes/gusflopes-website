@@ -33,7 +33,7 @@ export const socials = {
 export const newsletter = {
   name: "Newsletter",
   pitch:
-    "Análises sobre engenharia de software, estratégia e o impacto real da IA.",
+    "Toda semana: o que mudou em IA, por que importa para quem trabalha ou empreende, e uma coisa prática para testar. Sem hype.",
   ctaLabel: "Assinar Newsletter",
   // TODO(Gustavo): URL da publicação no Substack, sem barra final (ex.: "https://gusflopes.substack.com").
   // Vazia, o botão leva para /newsletter (arquivo das edições) e a inscrição aparece como "em breve".
@@ -54,7 +54,7 @@ export function linkInscricao(content: string): string {
  */
 export const projetos = {
   reforma: {
-    nome: "Simulador Reforma Tributária",
+    nome: "Simulador da Reforma Tributária",
     // A ferramenta (diagnóstico + simulação no motor oficial), não a campanha do Simples da landing.
     url: "https://reforma-tributaria.gusflopes.dev/simulador",
     mcpUrl: "https://mcp.gusflopes.dev/rt2026",

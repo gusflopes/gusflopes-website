@@ -36,13 +36,14 @@ export function Footer() {
               ))}
               <li><a href="/radar" className="text-slate-400 hover:text-orange-400 transition-colors">Radar</a></li>
               <li><a href="/insights" className="text-slate-400 hover:text-orange-400 transition-colors">Insights</a></li>
+              <li><a href="/newsletter" className="text-slate-400 hover:text-orange-400 transition-colors">Newsletter</a></li>
               <li><a href="/#about" className="text-slate-400 hover:text-orange-400 transition-colors">Sobre</a></li>
               <li>
                 <a
                   href={comUtm(projetos.reforma.url, projetos.reforma.campanha, 'footer')}
                   className="text-slate-400 hover:text-orange-400 transition-colors"
                 >
-                  Projeto: Reforma Tributária
+                  {projetos.reforma.nome}
                 </a>
               </li>
             </ul>

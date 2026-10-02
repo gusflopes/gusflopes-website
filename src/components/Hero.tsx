@@ -1,5 +1,6 @@
 import React from 'react';
 import { NewsletterForm } from './NewsletterForm';
+import { newsletter } from '../config/site';
 import { FundoPicture } from './FundoPicture';
 import type { FundoResponsivo } from '../lib/imagens';
 
@@ -37,7 +38,7 @@ export function Hero({ fundo }: { fundo: FundoResponsivo }) {
 
           <div className="pt-4 w-full max-w-lg">
             <p className="font-sans text-sm text-slate-300 mb-3">
-              Análises sobre engenharia de software, estratégia e o impacto real da IA.
+              {newsletter.pitch}
             </p>
             <NewsletterForm variant="hero" />
           </div>
