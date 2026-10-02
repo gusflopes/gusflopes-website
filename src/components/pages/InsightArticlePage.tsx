@@ -3,6 +3,7 @@ import { ArrowLeft, Calendar, Check, Clock, Share2 } from 'lucide-react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { EIXOS, type EixoId } from '../../lib/eixos';
 import { author } from '../../config/site';
+import { SocialLinks } from '../SocialLinks';
 
 export interface InsightArticlePageProps {
   title: string;
@@ -131,9 +132,10 @@ export function InsightArticlePage({
            <div>
              <h4 className="font-sans font-bold text-orange-600 uppercase tracking-widest text-xs mb-2">Sobre o Autor</h4>
              <p className="font-serif text-3xl md:text-4xl text-slate-900 mb-2">{author.name}</p>
-             <p className="text-sm text-slate-600 font-mono max-w-lg leading-relaxed">
+             <p className="text-sm text-slate-600 font-mono max-w-lg leading-relaxed mb-4">
                {author.bio}
              </p>
+             <SocialLinks className="justify-center md:justify-start" linkClassName="text-slate-500 hover:text-slate-900" />
            </div>
         </div>
 

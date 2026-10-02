@@ -103,4 +103,4 @@ O custo de infraestrutura é pequeno: tudo roda na Cloudflare, e a referência q
 
 Resultado ainda não existe. A campanha começou agora, e os números (inscrições, custo por lead, quantos contadores se interessaram) vão num texto próprio quando houver algo honesto para mostrar.
 
-Se quiser ver o projeto funcionando, a landing está em [reforma-tributaria.gusflopes.dev](https://reforma-tributaria.gusflopes.dev/?utm_source=gusflopes.dev&utm_medium=site&utm_campaign=simples-30-09&utm_content=artigo-campanha-inteira-com-claude-code). A lição que fica para quem constrói com agentes: a velocidade vem do agente, mas quem define o que "pronto" significa, e o que nunca pode acontecer, continua sendo você.
+Se quiser ver o projeto funcionando, a landing está em [reforma-tributaria.gusflopes.dev](https://reforma-tributaria.gusflopes.dev/?utm_source=gusflopes.dev&utm_medium=site&utm_campaign=simulador&utm_content=artigo-campanha-inteira-com-claude-code). A lição que fica para quem constrói com agentes: a velocidade vem do agente, mas quem define o que "pronto" significa, e o que nunca pode acontecer, continua sendo você.

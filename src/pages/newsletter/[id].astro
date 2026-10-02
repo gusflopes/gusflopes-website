@@ -1,0 +1,37 @@
+---
+import { getCollection, render } from 'astro:content';
+import { publicado } from '../../lib/publicado';
+import type { CollectionEntry } from 'astro:content';
+import Default from '../../layouts/Default.astro';
+import { NewsletterEdicaoPage } from '../../components/pages/NewsletterEdicaoPage';
+import { formatDatePtBR } from '../../lib/format';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('newsletter', publicado);
+  return entries.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+
+interface Props {
+  entry: CollectionEntry<'newsletter'>;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, excerpt, edicao, date, duration, image, substackUrl } = entry.data;
+---
+
+<Default title={title} description={excerpt} image={image} type="article" publishedDate={date}>
+  <NewsletterEdicaoPage
+    id={entry.id}
+    edicao={edicao}
+    title={title}
+    excerpt={excerpt}
+    dateFormatted={formatDatePtBR(date)}
+    duration={duration}
+    image={image}
+    substackUrl={substackUrl}
+    client:load
+  >
+    <Content />
+  </NewsletterEdicaoPage>
+</Default>

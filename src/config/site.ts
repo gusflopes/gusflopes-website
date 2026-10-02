@@ -25,6 +25,8 @@ export const socials = {
   instagram: "https://www.instagram.com/gusflopes/",
   youtube: "https://www.youtube.com/@gusflopes",
   x: "https://x.com/gusflopes",
+  // Handle confirmado no perfil público do Bluesky (02/10/2026).
+  bluesky: "https://bsky.app/profile/gusflopes.dev",
   github: "https://github.com/gusflopes",
 } as const;
 
@@ -33,9 +35,18 @@ export const newsletter = {
   pitch:
     "Análises sobre engenharia de software, estratégia e o impacto real da IA.",
   ctaLabel: "Assinar Newsletter",
-  // Inscrição feita na landing da reforma tributária (primeira newsletter de gusflopes.dev).
-  url: "https://reforma-tributaria.gusflopes.dev/?utm_source=gusflopes.dev&utm_medium=site&utm_campaign=newsletter",
+  // TODO(Gustavo): URL da publicação no Substack, sem barra final (ex.: "https://gusflopes.substack.com").
+  // Vazia, o botão leva para /newsletter (arquivo das edições) e a inscrição aparece como "em breve".
+  // Preenchida, o botão vai para <substack>/subscribe, /newsletter mostra o formulário embutido
+  // e o ícone do Substack entra nas redes.
+  substack: "",
 } as const;
+
+/** Link de inscrição com UTM do ponto de clique; sem Substack configurado, cai no arquivo do site. */
+export function linkInscricao(content: string): string {
+  if (!newsletter.substack) return "/newsletter";
+  return comUtm(`${newsletter.substack}/subscribe`, "newsletter", content);
+}
 
 /**
  * Projetos próprios que o site promove (cross-promo). A Reforma Tributária tem
@@ -44,10 +55,12 @@ export const newsletter = {
 export const projetos = {
   reforma: {
     nome: "Simulador Reforma Tributária",
-    url: "https://reforma-tributaria.gusflopes.dev",
+    // A ferramenta (diagnóstico + simulação no motor oficial), não a campanha do Simples da landing.
+    url: "https://reforma-tributaria.gusflopes.dev/simulador",
     mcpUrl: "https://mcp.gusflopes.dev/rt2026",
-    // Campanha ativa na landing — trocar quando a campanha mudar (ex.: após 30/11/2026).
-    campanha: "simples-30-09",
+    // Artigo do site que explica o servidor MCP por dentro.
+    artigo: "/insights/article/servidor-mcp-calculadora-oficial-receita-rt2026",
+    campanha: "simulador",
   },
 } as const;
 

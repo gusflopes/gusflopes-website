@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import { publicado } from '../../lib/publicado';
+import Default from '../../layouts/Default.astro';
+import { NewsletterPage } from '../../components/pages/NewsletterPage';
+import { formatDatePtBR } from '../../lib/format';
+import { newsletter } from '../../config/site';
+
+const edicoes = (await getCollection('newsletter', publicado))
+  .sort((a, b) => b.data.edicao - a.data.edicao)
+  .map((e) => ({
+    id: e.id,
+    edicao: e.data.edicao,
+    title: e.data.title,
+    excerpt: e.data.excerpt,
+    dateFormatted: formatDatePtBR(e.data.date),
+  }));
+---
+
+<Default title={newsletter.name} description={newsletter.pitch}>
+  <NewsletterPage edicoes={edicoes} client:load />
+</Default>

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Linkedin, Github, Instagram, Youtube, Twitter } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { NewsletterForm } from './NewsletterForm';
-import { site, socials, newsletter, projetos, comUtm } from '../config/site';
+import { SocialLinks } from './SocialLinks';
+import { site, newsletter, projetos, comUtm } from '../config/site';
 import { EIXO_LIST } from '../lib/eixos';
 import logoLight from '../assets/cfa6876664fcc921be5a7c0a58c353ea12577968.png?url';
 
@@ -55,26 +55,7 @@ export function Footer() {
               <li><a href={`mailto:${site.email}`} className="text-slate-400 hover:text-orange-400 transition-colors">{site.email}</a></li>
               <li className="text-slate-400">Brasil | Global</li>
             </ul>
-            <div className="flex gap-4 mt-4">
-              {[
-                { href: socials.linkedin, label: 'LinkedIn', Icon: Linkedin },
-                { href: socials.instagram, label: 'Instagram', Icon: Instagram },
-                { href: socials.youtube, label: 'YouTube', Icon: Youtube },
-                { href: socials.x, label: 'X (antigo Twitter)', Icon: Twitter },
-                { href: socials.github, label: 'GitHub', Icon: Github },
-              ].map(({ href, label, Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer me"
-                  aria-label={`${label} de Gustavo Lopes`}
-                  className="text-slate-400 hover:text-white transition-colors"
-                >
-                  <Icon size={20} />
-                </a>
-              ))}
-            </div>
+            <SocialLinks className="mt-4" linkClassName="text-slate-400 hover:text-white" />
           </div>
 
           {/* Newsletter */}

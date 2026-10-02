@@ -1,8 +1,9 @@
 import { useState, type ReactNode } from 'react';
-import { ArrowLeft, Calendar, Check, Clock, Github, Linkedin, Share2 } from 'lucide-react';
+import { ArrowLeft, Calendar, Check, Clock, Share2 } from 'lucide-react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { EIXOS, type EixoId } from '../../lib/eixos';
-import { author, socials } from '../../config/site';
+import { author } from '../../config/site';
+import { SocialLinks } from '../SocialLinks';
 
 export interface RadarArticlePageProps {
   title: string;
@@ -136,14 +137,7 @@ export function RadarArticlePage({
              <p className="text-sm text-slate-400 font-mono max-w-lg leading-relaxed mb-4">
                {author.bio}
              </p>
-             <div className="flex items-center gap-4 justify-center md:justify-start">
-               <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-slate-400 hover:text-white transition-colors">
-                 <Linkedin size={20} />
-               </a>
-               <a href={socials.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-slate-400 hover:text-white transition-colors">
-                 <Github size={20} />
-               </a>
-             </div>
+             <SocialLinks className="justify-center md:justify-start" linkClassName="text-slate-400 hover:text-white" />
            </div>
         </div>
 

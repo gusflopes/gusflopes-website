@@ -1,4 +1,5 @@
 import React from 'react';
+import { newsletter } from '../../config/site';
 
 export function PrivacyPolicyPage() {
   return (
@@ -9,7 +10,7 @@ export function PrivacyPolicyPage() {
             Política de Privacidade
           </h1>
           <p className="text-slate-400 font-sans text-sm uppercase tracking-wider">
-            Última atualização: Setembro/2026
+            Última atualização: Outubro/2026
           </p>
         </header>
 
@@ -43,9 +44,15 @@ export function PrivacyPolicyPage() {
           <section className="mb-10">
             <h2 className="text-2xl text-white font-bold mb-4 font-serif">3. Newsletter</h2>
             <p>
-              A inscrição na newsletter não acontece neste site. Ela é feita e gerida pela página 
-              <a href="https://reforma-tributaria.gusflopes.dev" className="text-orange-400 hover:text-orange-300 transition-colors">reforma-tributaria.gusflopes.dev</a>, que é a primeira newsletter de gusflopes.dev. Os dados informados lá, os consentimentos e a forma de cancelar estão descritos na 
-              <a href="https://reforma-tributaria.gusflopes.dev/privacidade" className="text-orange-400 hover:text-orange-300 transition-colors">política de privacidade daquela página</a>.
+              A inscrição na newsletter não acontece neste site.{' '}
+              {newsletter.substack ? (
+                <>
+                  Ela é feita no <a href={newsletter.substack} className="text-orange-400 hover:text-orange-300 transition-colors">Substack</a>, que guarda o seu e-mail, envia as edições e traz o link de descadastro em todo envio, conforme a <a href="https://substack.com/privacy" className="text-orange-400 hover:text-orange-300 transition-colors">política de privacidade do Substack</a>.
+                </>
+              ) : (
+                <>As inscrições abrem em breve; quando abrirem, esta seção dirá onde elas são feitas e geridas.</>
+              )}{' '}
+              Quem se inscreveu pela página <a href="https://reforma-tributaria.gusflopes.dev" className="text-orange-400 hover:text-orange-300 transition-colors">reforma-tributaria.gusflopes.dev</a> tem os dados, os consentimentos e a forma de cancelar descritos na <a href="https://reforma-tributaria.gusflopes.dev/privacidade" className="text-orange-400 hover:text-orange-300 transition-colors">política de privacidade daquela página</a>.
             </p>
           </section>
 

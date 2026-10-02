@@ -68,4 +68,25 @@ const insights = defineCollection({
   }),
 });
 
-export const collections = { radar, insights };
+/**
+ * Edições da newsletter, espelhadas do repositório de marketing
+ * (marketing-brands/gusflopes/content/newsletter/<data>-<slug>/edicao.md).
+ * O e-mail sai pelo Substack; o site guarda o arquivo.
+ */
+const newsletter = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/newsletter' }),
+  schema: z.object({
+    /** Assunto do e-mail. */
+    title: z.string(),
+    /** Pré-cabeçalho (subtítulo no Substack). */
+    excerpt: z.string(),
+    edicao: z.number().int().positive(),
+    date: isoDate,
+    duration: z.string(),
+    image: z.string().url(),
+    /** Link da edição no Substack, preenchido depois do envio. */
+    substackUrl: z.string().url().optional(),
+  }),
+});
+
+export const collections = { radar, insights, newsletter };
