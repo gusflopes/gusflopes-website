@@ -1,4 +1,4 @@
-# Continuar daqui — estado em 27/09/2026
+# Continuar daqui — estado em 27/09/2026 (newsletter e simulador: 02/10)
 
 Documento de passagem para a próxima sessão (humana ou de agente). Leia este arquivo, depois `docs/revisao-site-2026-09.md` e `docs/pauta-editorial.md`.
 
@@ -12,8 +12,8 @@ Documento de passagem para a próxima sessão (humana ou de agente). Leia este a
 | Papel | marca pessoal, 3 eixos editoriais | campanha "opte até 30/09, decida até 30/11", newsletter nº 1 e simulador |
 
 Ligação entre os dois:
-- A newsletter do site é a da reforma: o botão "Assinar Newsletter" leva para a inscrição da landing (o consentimento cobre reforma, tecnologia e IA). Quando houver provedor próprio de newsletter, trocar `newsletter.url` em `src/config/site.ts`.
-- Atalhos: `gusflopes.dev/reforma` e `gusflopes.dev/simulador` redirecionam para a landing (`public/_redirects`, nesta branch).
+- **Newsletter (desde 02/10):** Radar semanal no Substack. `newsletter.substack` em `src/config/site.ts` — vazio, o CTA leva para `/newsletter` ("inscrições em breve"); preenchido, vai para `<substack>/subscribe`. O site guarda o arquivo (`src/content/newsletter/`), espelhado do marketing por `scripts/importar-newsletter.py`. Kit e checklist: `../marketing-brands/gusflopes/content/newsletter/substack.md`.
+- O site promove a **ferramenta** (`/simulador`: diagnóstico + motor oficial), não a campanha do Simples: faixa na home, rodapé, hub de Bastidores. Atalhos `gusflopes.dev/reforma` e `/simulador` vão para o simulador (`public/_redirects`).
 - O eixo **Bastidores** usa a reforma como case (artigos 37 e 38); o conteúdo tributário em si fica na landing.
 - UTMs: do site para a landing `utm_source=gusflopes.dev`; da landing para o site `utm_source=reforma-tributaria`.
 
