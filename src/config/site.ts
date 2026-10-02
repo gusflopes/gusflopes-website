@@ -35,11 +35,11 @@ export const newsletter = {
   pitch:
     "Toda semana: o que mudou em IA, por que importa para quem trabalha ou empreende, e uma coisa prática para testar. Sem hype.",
   ctaLabel: "Assinar Newsletter",
-  // TODO(Gustavo): URL da publicação no Substack, sem barra final (ex.: "https://gusflopes.substack.com").
+  // Publicação no Substack (02/10/2026), sem barra final.
   // Vazia, o botão leva para /newsletter (arquivo das edições) e a inscrição aparece como "em breve".
-  // Preenchida, o botão vai para <substack>/subscribe, /newsletter mostra o formulário embutido
+  // Preenchida, o botão (home, rodapé, /newsletter) vai para <substack>/subscribe com UTM
   // e o ícone do Substack entra nas redes.
-  substack: "",
+  substack: "https://gusflopes.substack.com",
 } as const;
 
 /** Link de inscrição com UTM do ponto de clique; sem Substack configurado, cai no arquivo do site. */
