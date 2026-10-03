@@ -2,6 +2,28 @@
 
 Documento de passagem para a próxima sessão (humana ou de agente). Leia este arquivo, depois `docs/revisao-site-2026-09.md` e `docs/pauta-editorial.md`.
 
+## Estado em 03/10/2026 (fim da sessão newsletter + simulador)
+
+**No ar (deploy de 03/10):** newsletter Radar de IA no Substack (`gusflopes.substack.com`) com arquivo em `/newsletter`
+(edição #1), atalho `/assinar`, Bluesky e Substack nas redes, faixa do simulador na home, `/reforma` e `/simulador` →
+simulador, artigo do rt2026 (29/09), política de privacidade com Substack e Cloudflare Web Analytics.
+
+**Commitado, falta deploy do site** (`pnpm run deploy`, só o Gustavo/aval): foto do autor nos artigos, JSON-LD
+(Person/WebSite/BlogPosting), edições da newsletter no RSS geral.
+
+**Repo `reforma-tributaria` (commit `8be454b`, sem push nem deploy):** landing reescrita para a ferramenta
+(diagnóstico → conector na IA → "converse direto no seu Claude"), sem o texto do Simples/30-09. Antes do
+`pnpm deploy:web`: (1) Gustavo revisa o texto da landing (copy); (2) **validar o OAuth do MCP com um conector real no
+Claude** — a descoberta está certa (protected resource + AuthKit com DCR e CIMD), mas o AuthKit está em **Staging** e
+nunca foi testado ponta a ponta; para uso público, migrar o WorkOS para produção. Publicar em diretório de conectores
+é opcional e vem depois disso.
+
+**Rotina da newsletter:** skill `sync-newsletter` (importa do marketing quando a edição fica pronta, valida, coloca o
+link do Substack depois do envio, pede o deploy).
+
+**Próxima sessão separada (Gustavo):** conectores e analytics — ver item 0 de "Próximos passos sugeridos".
+Redes sociais e bios: repo de marketing, não aqui.
+
 ## Dois projetos, dois repositórios
 
 | | Site principal | Reforma Tributária |
