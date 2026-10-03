@@ -50,6 +50,17 @@ Pauta de publicação da demonstração de IA (artigos, shorts e vídeos, com ca
 
 ## Próximos passos sugeridos
 
+0. **Lembrar o Gustavo (pedido em 03/10): ligar os MCPs de analytics neste repo** (`.mcp.json` na raiz).
+   Analytics do site e da landing ficam aqui; métricas das redes sociais ficam no repo de marketing (trypost).
+   - **Cloudflare Web Analytics** (fonte principal do gusflopes.dev, sem cookies): servidor MCP da Cloudflare para
+     a API GraphQL de analytics (conferir o endereço atual na documentação; skill `cloudflare`). Login OAuth do
+     Gustavo, só leitura. Filtrar por hostname (o mesmo token cobre a landing da reforma).
+   - **GA4** (`G-PKP8H2J89F`, só na landing, com consentimento): `google-analytics-mcp`, oficial, só leitura. Gustavo
+     roda `gcloud auth application-default login` com o escopo `analytics.readonly` e ativa as APIs Analytics Data
+     e Admin num projeto do Google Cloud. Filtrar por hostname `reforma-tributaria.gusflopes.dev`.
+   - Perguntas que isso deve responder: visitas por página e origem, cliques de saída para o Substack
+     (`utm_content` por ponto de clique) e para o simulador.
+
 1. Publicar a `feat/conteudo-eixos` (correções técnicas têm impacto imediato em anúncios: velocidade e prévia de link).
 2. Escrever os artigos restantes da pauta: 22 (Pi), 24 (OpenClaw), 25 (Hermes — relato de uso próprio), 27 (Paperclip, como meta-harness), 36 (Jev); 35 (Grok Bot) quando confirmado.
 3. Série com o filho: um texto por sessão real, a partir do artigo de abertura.
