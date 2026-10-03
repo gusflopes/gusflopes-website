@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Espelha uma edição da newsletter do repositório de marketing para src/content/newsletter/.
+Parte da skill nova-edicao (ver SKILL.md ao lado); rodar a partir da raiz do site.
 
 Uso:
-  python3 scripts/importar-newsletter.py <pasta-da-edicao> --edicao 1 \\
+  python3 .claude/skills/nova-edicao/importar.py <pasta-da-edicao> --edicao 1 \\
       --assunto "Modelo bom virou commodity. Contexto não." \\
       --preheader "4 modelos em 9 dias, ..." [--substack-url https://...] [--duracao "6 min"]
 
@@ -60,6 +61,6 @@ fm = {
 if args.substack_url:
     fm["substackUrl"] = args.substack_url
 cab = "\n".join(f"{k}: {json.dumps(v, ensure_ascii=False)}" for k, v in fm.items())
-destino = Path(__file__).resolve().parent.parent / "src/content/newsletter" / f"{slug}.md"
+destino = Path(__file__).resolve().parents[3] / "src/content/newsletter" / f"{slug}.md"
 destino.write_text(f"---\n{cab}\n---\n\n" + "\n".join(linhas) + "\n", encoding="utf-8")
 print(destino)
