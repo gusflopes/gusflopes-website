@@ -13,10 +13,8 @@ simulador, artigo do rt2026 (29/09), política de privacidade com Substack e Clo
 
 **Repo `reforma-tributaria` (commit `8be454b`, sem push nem deploy):** landing reescrita para a ferramenta
 (diagnóstico → conector na IA → "converse direto no seu Claude"), sem o texto do Simples/30-09. Antes do
-`pnpm deploy:web`: (1) Gustavo revisa o texto da landing (copy); (2) **validar o OAuth do MCP com um conector real no
-Claude** — a descoberta está certa (protected resource + AuthKit com DCR e CIMD), mas o AuthKit está em **Staging** e
-nunca foi testado ponta a ponta; para uso público, migrar o WorkOS para produção. Publicar em diretório de conectores
-é opcional e vem depois disso.
+`pnpm deploy:web`: Gustavo revisa o texto da landing (copy). O OAuth do MCP (WorkOS AuthKit) já foi testado pelo
+Gustavo com um conector real no Claude e funciona. Publicar em diretório de conectores é opcional e vem depois.
 
 **Rotina da newsletter:** skill `sync-newsletter` (importa do marketing quando a edição fica pronta, valida, coloca o
 link do Substack depois do envio, pede o deploy).
@@ -74,9 +72,11 @@ Pauta de publicação da demonstração de IA (artigos, shorts e vídeos, com ca
 
 0. **MCPs de analytics neste repo** (`.mcp.json` na raiz). Analytics do site e da landing ficam aqui; métricas das
    redes sociais ficam no repo de marketing (trypost).
-   - **Cloudflare Web Analytics** — configurado em 03/10: `cloudflare-graphql` → `https://graphql.mcp.cloudflare.com/mcp`.
-     **Falta:** o Gustavo autorizar (Claude Code → `/mcp` → `cloudflare-graphql` → login OAuth) e testar uma consulta.
-     Filtrar por hostname (o mesmo token cobre a landing da reforma).
+   - **Cloudflare Web Analytics** — funcionando desde 03/10: `cloudflare-graphql` → `https://graphql.mcp.cloudflare.com/mcp`
+     (OAuth feito, só leitura). Conta `a4ff6f2d957f8687e7841d91cbb83093`; dataset `rumPageloadEventsAdaptiveGroups`
+     no nível da conta, agrupar por `requestHost`/`requestPath`. A mesma conta cobre gusflopes.dev, a landing da
+     reforma, mcp.gusflopes.dev e outros domínios — sempre filtrar por hostname. O servidor avisa que está
+     *deprecated* em favor de `https://mcp.cloudflare.com/mcp` (API inteira); trocar quando ele parar de funcionar.
    - **GA4** (`G-PKP8H2J89F`, só na landing, com consentimento) — **não configurado** (falta credencial). Passos do
      Gustavo: (1) num projeto do Google Cloud, ativar as APIs Google Analytics Admin e Data; (2) criar um OAuth client
      "Desktop" e baixar o JSON; (3) `gcloud auth application-default login --scopes
