@@ -44,7 +44,7 @@ Pauta de publicação da demonstração de IA (artigos, shorts e vídeos, com ca
 ## Onde está cada coisa
 
 - `main` (publicada em 26/09): evolução de marca + hotfix da newsletter.
-- `feat/conteudo-eixos` (worktree `.worktrees/conteudo`, **não publicada**): tudo abaixo, pronto para revisão.
+- `feat/conteudo-eixos` — **histórico:** já mesclada na `main` (branch e worktree não existem mais). O que ela trouxe:
   - Eixos: **Engenharia & IA** (`/engenharia`), **Negócios** (`/negocios`), **Bastidores** (`/bastidores`); campo `eixo` no schema (`src/lib/eixos.ts`), filtros, RSS por eixo, seção na home.
   - Correções técnicas: hero em AVIF/WebP (home de 17 s → 3 s de LCP no celular), og 1200×630 `.jpg`, fontes self-hosted, 404 real, bio nova, política de privacidade corrigida, redes no rodapé, botões laranja com texto escuro (contraste 6,85:1).
   - Curadoria de 27/09: publicados 4 artigos novos de Engenharia & IA, 6 de Negócios e 4 de Bastidores (2 com data futura, 28 e 29/09, ficam fora do build até um deploy na data — `src/lib/publicado.ts`). Os outros 13 estão em `docs/rascunhos/`.
@@ -53,7 +53,7 @@ Pauta de publicação da demonstração de IA (artigos, shorts e vídeos, com ca
   - Pesquisa com fontes em `docs/pesquisa/` (coding agents, linha do tempo de IA/MCP, negócios, ensino de IA para crianças).
 - Branches de trabalho já mescladas na `feat/conteudo-eixos` (podem ser apagadas): `conteudo/eng-a`, `conteudo/eng-b`, `conteudo/neg`, `conteudo/bas`, `conteudo/fix`.
 
-## Para publicar a `feat/conteudo-eixos`
+## Para publicar a `feat/conteudo-eixos` (histórico — já feito; vale só o checklist pós-deploy do item 5)
 
 1. Revisar o preview: `cd .worktrees/conteudo && pnpm build && pnpm preview`.
 2. Resolver os `[CONFIRMAR]` que restam (`grep -rn CONFIRMAR src/content`).
@@ -72,14 +72,18 @@ Pauta de publicação da demonstração de IA (artigos, shorts e vídeos, com ca
 
 ## Próximos passos sugeridos
 
-0. **Lembrar o Gustavo (pedido em 03/10): ligar os MCPs de analytics neste repo** (`.mcp.json` na raiz).
-   Analytics do site e da landing ficam aqui; métricas das redes sociais ficam no repo de marketing (trypost).
-   - **Cloudflare Web Analytics** (fonte principal do gusflopes.dev, sem cookies): servidor MCP da Cloudflare para
-     a API GraphQL de analytics (conferir o endereço atual na documentação; skill `cloudflare`). Login OAuth do
-     Gustavo, só leitura. Filtrar por hostname (o mesmo token cobre a landing da reforma).
-   - **GA4** (`G-PKP8H2J89F`, só na landing, com consentimento): `google-analytics-mcp`, oficial, só leitura. Gustavo
-     roda `gcloud auth application-default login` com o escopo `analytics.readonly` e ativa as APIs Analytics Data
-     e Admin num projeto do Google Cloud. Filtrar por hostname `reforma-tributaria.gusflopes.dev`.
+0. **MCPs de analytics neste repo** (`.mcp.json` na raiz). Analytics do site e da landing ficam aqui; métricas das
+   redes sociais ficam no repo de marketing (trypost).
+   - **Cloudflare Web Analytics** — configurado em 03/10: `cloudflare-graphql` → `https://graphql.mcp.cloudflare.com/mcp`.
+     **Falta:** o Gustavo autorizar (Claude Code → `/mcp` → `cloudflare-graphql` → login OAuth) e testar uma consulta.
+     Filtrar por hostname (o mesmo token cobre a landing da reforma).
+   - **GA4** (`G-PKP8H2J89F`, só na landing, com consentimento) — **não configurado** (falta credencial). Passos do
+     Gustavo: (1) num projeto do Google Cloud, ativar as APIs Google Analytics Admin e Data; (2) criar um OAuth client
+     "Desktop" e baixar o JSON; (3) `gcloud auth application-default login --scopes
+     https://www.googleapis.com/auth/analytics.readonly,https://www.googleapis.com/auth/cloud-platform
+     --client-id-file=<json>`; (4) informar o ID do projeto. Aí entra no `.mcp.json`:
+     `"google-analytics": {"command": "uvx", "args": ["analytics-mcp"], "env": {"GOOGLE_PROJECT_ID": "<id>"}}`.
+     Filtrar por hostname `reforma-tributaria.gusflopes.dev`.
    - Perguntas que isso deve responder: visitas por página e origem, cliques de saída para o Substack
      (`utm_content` por ponto de clique) e para o simulador.
 
