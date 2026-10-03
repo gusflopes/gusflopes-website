@@ -4,6 +4,7 @@ import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { EIXOS, type EixoId } from '../../lib/eixos';
 import { author } from '../../config/site';
 import { SocialLinks } from '../SocialLinks';
+import fotoAutor from '../../assets/autor.jpg?url';
 
 export interface InsightArticlePageProps {
   title: string;
@@ -126,8 +127,7 @@ export function InsightArticlePage({
         {/* Author Footer */}
         <div className="mt-24 pt-12 border-t border-slate-200 flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
            <div className="w-24 h-24 rounded-full bg-slate-200 overflow-hidden shrink-0 border-4 border-white shadow-lg">
-              {/* Placeholder for author avatar */}
-              <div className="w-full h-full bg-gradient-to-tr from-orange-400 to-purple-600"></div>
+              <img src={fotoAutor} alt={author.name} width={96} height={96} loading="lazy" className="w-full h-full object-cover" />
            </div>
            <div>
              <h4 className="font-sans font-bold text-orange-600 uppercase tracking-widest text-xs mb-2">Sobre o Autor</h4>

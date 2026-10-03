@@ -63,7 +63,7 @@ Estado das grandes fases:
 
 Todas as imagens de conteúdo ainda vêm de `images.unsplash.com` (20 referências no frontmatter; schema usa `z.string().url()`). `ImageWithFallback` é `<img>` puro, sem `loading="lazy"` nem srcset. Caminho: baixar para `src/assets/`, trocar o schema para o helper `image()` do Astro e renderizar com `astro:assets` `<Image />`. Atenção: os cards são React islands — pode exigir pré-otimizar no `.astro` e passar URLs processadas via props.
 
-### 4. Foto real do autor
+### 4. ~~Foto real do autor~~ — feito em 03/10 (`src/assets/autor.jpg`, do avatar do Bluesky) nos dois shells de artigo; falta Hero/About
 
 O author footer de `RadarArticlePage.tsx` (~linha 124) e `InsightArticlePage.tsx` (~linha 122) ainda usa `<div>` com gradient placeholder no lugar do avatar. Adicionar `src/assets/author.jpg` e substituir nos dois shells (e considerar usar também no Hero/seção About).
 
