@@ -12,7 +12,7 @@ Documento de passagem para a próxima sessão (humana ou de agente). Leia este a
 | Papel | marca pessoal, 3 eixos editoriais | campanha "opte até 30/09, decida até 30/11", newsletter nº 1 e simulador |
 
 Ligação entre os dois:
-- **Newsletter (desde 02/10):** Radar de IA no Substack. `newsletter.substack` em `src/config/site.ts` — vazio, o CTA leva para `/newsletter` ("inscrições em breve"); preenchido, vai para `<substack>/subscribe`. O site guarda o arquivo (`src/content/newsletter/`), espelhado do marketing pela skill `nova-edicao`. Kit e checklist: `../marketing-brands/gusflopes/content/newsletter/substack.md`.
+- **Newsletter (desde 02/10):** Radar de IA no Substack. `newsletter.substack` em `src/config/site.ts` — vazio, o CTA leva para `/newsletter` ("inscrições em breve"); preenchido, vai para `<substack>/subscribe`. O site guarda o arquivo (`src/content/newsletter/`), espelhado do marketing pela skill `sync-newsletter`. Kit e checklist: `../marketing-brands/gusflopes/content/newsletter/substack.md`.
 - O site promove a **ferramenta** (`/simulador`: diagnóstico + motor oficial), não a campanha do Simples: faixa na home, rodapé, hub de Bastidores. Atalhos `gusflopes.dev/reforma` e `/simulador` vão para o simulador (`public/_redirects`).
 - O eixo **Bastidores** usa a reforma como case (artigos 37 e 38); o conteúdo tributário em si fica na landing.
 - UTMs: do site para a landing `utm_source=gusflopes.dev`; da landing para o site `utm_source=reforma-tributaria`.

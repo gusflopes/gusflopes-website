@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Espelha uma edição da newsletter do repositório de marketing para src/content/newsletter/.
-Parte da skill nova-edicao (ver SKILL.md ao lado); rodar a partir da raiz do site.
+Parte da skill sync-newsletter (ver SKILL.md ao lado); rodar a partir da raiz do site.
 
 Uso:
-  python3 .claude/skills/nova-edicao/importar.py <pasta-da-edicao> --edicao 1 \\
+  python3 .claude/skills/sync-newsletter/importar.py <pasta-da-edicao> --edicao 1 \\
       --assunto "Modelo bom virou commodity. Contexto não." \\
       --preheader "4 modelos em 9 dias, ..." [--substack-url https://...] [--duracao "6 min"]
 

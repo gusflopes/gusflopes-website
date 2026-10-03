@@ -1,9 +1,9 @@
 ---
-name: nova-edicao
+name: sync-newsletter
 description: Traz uma edição da newsletter Radar de IA (Substack) do repositório de marketing para o arquivo do site em /newsletter, valida e prepara o deploy. Use quando sair ou ficar pronta uma edição nova, quando o texto de uma edição mudar no marketing, ou quando chegar o link do post no Substack.
 ---
 
-# Nova edição da newsletter
+# Sync da newsletter
 
 A newsletter **Radar de IA** sai pelo Substack (`newsletter.substack` em `src/config/site.ts`); o site guarda o
 arquivo em `/newsletter`. A fonte de cada edição é o repositório de marketing — o site é o espelho, nunca editado à mão.
@@ -13,7 +13,7 @@ arquivo em `/newsletter`. A fonte de cada edição é o repositório de marketin
 - Fonte: `../marketing-brands/gusflopes/content/newsletter/<AAAA-MM-DD>-<slug>/` com `edicao.md` (o texto) e
   `README.md` (assunto escolhido, pré-cabeçalho, pendências `[CONFIRMAR]`). Kit da publicação: `../substack.md`.
 - Destino: `src/content/newsletter/<slug>.md` (schema `newsletter` em `src/content.config.ts`).
-- Importação: `python3 .claude/skills/nova-edicao/importar.py <pasta> --edicao N --assunto "…" --preheader "…" [--substack-url …]`.
+- Importação: `python3 .claude/skills/sync-newsletter/importar.py <pasta> --edicao N --assunto "…" --preheader "…" [--substack-url …]`.
   Tira o comentário de instruções, a capa (vira `image`) e o link final para o próprio site.
 
 ## Quando rodar
