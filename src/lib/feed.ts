@@ -38,10 +38,10 @@ export async function buildFeed(context: APIContext, eixo?: EixoId) {
 
   const def = eixo ? EIXOS[eixo] : undefined;
   return rss({
-    title: def ? `gusflopes.dev — ${def.label}` : 'gusflopes.dev — Engenharia e negócio',
+    title: def ? `gusflopes.dev — ${def.label}` : 'gusflopes.dev — Tecnologia e negócio',
     description: def
       ? def.descricao
-      : 'Engenharia e negócio, partes do mesmo sistema: IA aplicada, engenharia de software e bastidores de projetos reais, por Gustavo Lopes.',
+      : 'Tecnologia e negócio, partes do mesmo sistema: IA aplicada, engenharia de software e bastidores de projetos reais, por Gustavo Lopes.',
     site: context.site ?? 'https://gusflopes.dev',
     items,
     customData: '<language>pt-BR</language>',

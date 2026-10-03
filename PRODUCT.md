@@ -26,7 +26,7 @@ Sucesso: leitura até o fim, assinatura da newsletter, contato qualificado.
 ## Positioning
 
 "Ponte entre Negócios e Tecnologia": advogado, contador e engenheiro de software na mesma pessoa — aplica Direito e
-Contabilidade para resolver problemas de negócio com tecnologia e IA. Tese da marca: engenharia e negócio são partes do
+Contabilidade para resolver problemas de negócio com tecnologia e IA. Tese da marca: tecnologia e negócio são partes do
 mesmo sistema.
 
 ## Operating Context
@@ -46,7 +46,7 @@ mesmo sistema.
 
 ## Brand Commitments
 
-- Nome: Gustavo Lopes / gusflopes.dev. Tagline atual: "Engenharia e negócio, partes do mesmo sistema".
+- Nome: Gustavo Lopes / gusflopes.dev. Tagline: "Tecnologia e negócio, partes do mesmo sistema" (03/10: "Engenharia" saiu porque, sem "de software", puxa para engenharia civil/mecânica e não diz nada a quem não é da área; o eixo "Engenharia & IA" segue com esse nome).
 - Voz: direta, sem juridiquês, sem hype; Engenharia e Negócios informativos, Bastidores pessoal.
 - Laranja como cor de assinatura (atual `#F97316`) — a confirmar se é compromisso ou só herança.
 

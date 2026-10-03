@@ -31,7 +31,7 @@ export function Eixos({ eixos }: EixosProps) {
             O que eu escrevo, e para quem
           </h2>
           <p className="font-sans text-slate-300 leading-relaxed">
-            Engenharia e negócio são partes do mesmo sistema — mas cada leitor entra por uma porta.
+            Tecnologia e negócio são partes do mesmo sistema — mas cada leitor entra por uma porta.
           </p>
         </div>
 

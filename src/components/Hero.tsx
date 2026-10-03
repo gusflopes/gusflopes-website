@@ -22,7 +22,7 @@ export function Hero({ fundo }: { fundo: FundoResponsivo }) {
           </p>
 
           <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight drop-shadow-lg">
-            Engenharia e negócio, <br />
+            Tecnologia e negócio, <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-600">
               partes do mesmo sistema
             </span>

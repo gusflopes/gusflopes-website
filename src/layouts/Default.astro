@@ -31,7 +31,7 @@ interface Props {
 
 const {
   title,
-  description = 'Engenharia e negócio, partes do mesmo sistema: arquitetura, plataformas e IA aplicada por Gustavo Lopes.',
+  description = 'Tecnologia e negócio, partes do mesmo sistema: arquitetura, plataformas e IA aplicada por Gustavo Lopes.',
   image = OG_DEFAULT,
   type = 'website',
   publishedDate,
@@ -49,7 +49,7 @@ const pathname = Astro.url.pathname;
 const isHome = pathname === '/';
 
 const pageTitle = isHome
-  ? 'gusflopes.dev — Engenharia e negócio, partes do mesmo sistema'
+  ? 'gusflopes.dev — Tecnologia e negócio, partes do mesmo sistema'
   : `${title ?? 'gusflopes.dev'} — gusflopes.dev`;
 
 const canonicalUrl = new URL(pathname, Astro.site);
@@ -109,7 +109,7 @@ const jsonLd = {
     <link
       rel="alternate"
       type="application/rss+xml"
-      title="gusflopes.dev — Engenharia e negócio"
+      title="gusflopes.dev — Tecnologia e negócio"
       href="/rss.xml"
     />
 

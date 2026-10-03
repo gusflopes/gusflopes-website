@@ -21,7 +21,7 @@ export function Footer() {
               />
             </div>
             <p className="text-slate-400 text-sm leading-relaxed">
-              Engenharia e negócio, partes do mesmo sistema. Arquitetura, plataformas e IA aplicada para sistemas que evoluem.
+              Tecnologia e negócio, partes do mesmo sistema. Arquitetura, plataformas e IA aplicada para sistemas que evoluem.
             </p>
           </div>
 
