@@ -36,6 +36,9 @@ export function PrivacyPolicyPage() {
                 <strong className="text-white">Sem cookies de rastreamento:</strong> o site não usa Google Analytics, pixels de anúncio nem cookies de rastreamento ou de publicidade.
               </li>
               <li>
+                <strong className="text-white">Estatística de visitas sem cookies:</strong> uso o Cloudflare Web Analytics para contar visitas, páginas mais lidas e de onde os leitores chegam. Ele não usa cookies nem identifica você individualmente.
+              </li>
+              <li>
                 <strong className="text-white">Registros técnicos da hospedagem:</strong> o site é servido pela Cloudflare, que processa dados técnicos de cada acesso (como endereço IP, navegador e página solicitada) para entregar as páginas e proteger contra abuso.
               </li>
             </ul>
