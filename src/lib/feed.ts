@@ -4,11 +4,13 @@ import { publicado } from './publicado';
 import type { APIContext } from 'astro';
 import { EIXOS, type EixoId } from './eixos';
 
-/** Feed RSS dos textos autorais (Insights + Radar local), opcionalmente de um eixo só. */
+/** Feed RSS dos textos autorais (Insights + Radar local + edições da newsletter no feed geral), opcionalmente de um eixo só. */
 export async function buildFeed(context: APIContext, eixo?: EixoId) {
   const noEixo = (e: EixoId) => !eixo || e === eixo;
   const insights = await getCollection('insights', (e) => publicado(e) && noEixo(e.data.eixo));
   const radar = await getCollection('radar', (e) => publicado(e) && !e.data.isExternal && noEixo(e.data.eixo));
+  // Newsletter não tem eixo: só entra no feed geral.
+  const edicoes = eixo ? [] : await getCollection('newsletter', publicado);
 
   const items: RSSFeedItem[] = [
     ...insights.map((entry) => ({
@@ -24,6 +26,13 @@ export async function buildFeed(context: APIContext, eixo?: EixoId) {
       pubDate: new Date(`${entry.data.date}T12:00:00.000Z`),
       link: `/radar/article/${entry.id}`,
       categories: [EIXOS[entry.data.eixo].label, entry.data.category, ...entry.data.tags],
+    })),
+    ...edicoes.map((entry) => ({
+      title: `Radar de IA #${entry.data.edicao}: ${entry.data.title}`,
+      description: entry.data.excerpt,
+      pubDate: new Date(`${entry.data.date}T12:00:00.000Z`),
+      link: `/newsletter/${entry.id}`,
+      categories: ['Newsletter'],
     })),
   ].sort((a, b) => (b.pubDate as Date).getTime() - (a.pubDate as Date).getTime());
 

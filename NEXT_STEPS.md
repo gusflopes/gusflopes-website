@@ -79,7 +79,7 @@ Nav aponta para `/#about` (seção da home). Uma página própria permite bio ex
 
 Os 8 insights têm code blocks (Shiki, tema default). O botão "copiar" do design antigo era fake e foi removido — vale reintroduzir de verdade: island pequeno (ou script vanilla no shell) que injeta botão de copy em `pre > code`. Aproveitar para alinhar o tema do Shiki à paleta (ex.: `markdown.shikiConfig.theme` no `astro.config.mjs`).
 
-### 8. Dados estruturados (JSON-LD)
+### 8. ~~Dados estruturados (JSON-LD)~~ — feito em 03/10 (Person em todas as páginas, WebSite na home, BlogPosting nos textos e edições)
 
 Nenhuma página emite JSON-LD. Adicionar `Article` (com author/datePublished) nas páginas de artigo e `Person`/`WebSite` na home — barato e relevante para a estratégia de autoridade.
 

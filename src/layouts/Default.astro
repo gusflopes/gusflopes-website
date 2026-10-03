@@ -13,6 +13,8 @@ import '@fontsource-variable/jetbrains-mono/wght.css';
 import sansLatin from '@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url';
 import serifLatin from '@fontsource-variable/cormorant-garamond/files/cormorant-garamond-latin-wght-normal.woff2?url';
 import '../index.css';
+import fotoAutor from '../assets/autor.jpg?url';
+import { site, author, socials, newsletter } from '../config/site';
 
 // OG padrão: 1200×630, JPG (~95 KB) — a arte do hero recortada no formato das prévias sociais.
 const OG_DEFAULT = '/og-default.jpg';
@@ -52,6 +54,40 @@ const pageTitle = isHome
 
 const canonicalUrl = new URL(pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
+
+// Dados estruturados (schema.org): a pessoa em todas as páginas, o site na home e o artigo nas páginas de texto.
+const pessoa = {
+  '@type': 'Person',
+  '@id': `${site.url}/#autor`,
+  name: author.name,
+  jobTitle: author.role,
+  description: author.bio,
+  url: site.url,
+  image: new URL(fotoAutor, Astro.site).toString(),
+  sameAs: [...Object.values(socials), newsletter.substack].filter(Boolean),
+};
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    pessoa,
+    ...(isHome
+      ? [{ '@type': 'WebSite', '@id': `${site.url}/#site`, url: site.url, name: site.shortName, inLanguage: 'pt-BR', publisher: { '@id': pessoa['@id'] } }]
+      : []),
+    ...(type === 'article'
+      ? [{
+          '@type': 'BlogPosting',
+          headline: title,
+          description,
+          image: ogImage.toString(),
+          datePublished: publishedDate,
+          inLanguage: 'pt-BR',
+          mainEntityOfPage: canonicalUrl.toString(),
+          author: { '@id': pessoa['@id'] },
+          publisher: { '@id': pessoa['@id'] },
+        }]
+      : []),
+  ],
+};
 ---
 
 <!doctype html>
@@ -64,6 +100,7 @@ const ogImage = new URL(image, Astro.site);
     <meta name="author" content="Gustavo Lopes" />
     <meta name="theme-color" content="#0f172a" />
     <link rel="canonical" href={canonicalUrl} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="preload" href={sansLatin} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={serifLatin} as="font" type="font/woff2" crossorigin />
