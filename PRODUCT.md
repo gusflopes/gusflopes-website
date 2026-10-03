@@ -48,7 +48,10 @@ mesmo sistema.
 
 - Nome: Gustavo Lopes / gusflopes.dev. Tagline: "Tecnologia e negócio, partes do mesmo sistema" (03/10: "Engenharia" saiu porque, sem "de software", puxa para engenharia civil/mecânica e não diz nada a quem não é da área; o eixo "Engenharia & IA" segue com esse nome).
 - Voz: direta, sem juridiquês, sem hype; Engenharia e Negócios informativos, Bastidores pessoal.
-- Laranja como cor de assinatura (atual `#F97316`) — a confirmar se é compromisso ou só herança.
+- Cores oficiais (confirmado em 03/10): azul-escuro com laranja (atual `#F97316`). Qualquer direção visual varia mundo,
+  estrutura e tipografia, não a paleta.
+- Referência artística: o quadro do hero (cidade noturna em pinceladas, `src/assets/326189…png`) e Van Gogh são
+  inspiração da marca.
 
 ## Evidence on Hand
 
