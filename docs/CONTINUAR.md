@@ -46,7 +46,7 @@ Pauta de publicação da demonstração de IA (artigos, shorts e vídeos, com ca
 3. **Grok Bot**: qual produto (artigo 35 em espera).
 4. ~~CalcJud~~ — resolvido em 27/09: o artigo 5 virou princípio geral, sem citar o produto.
 5. **Série com o filho**: artigo de abertura escrito (27/09); falta o relato da sessão do cubo 3D ([CONFIRMAR]). Os próximos saem a cada sessão real. Contas e canal: ver esclarecimentos na pauta.
-6. **Analytics**: ligar o Cloudflare Web Analytics (sem cookies) e citar na política de privacidade.
+6. ~~**Analytics**~~ — resolvido em 03/10: o Cloudflare Web Analytics já estava ativo na borda (injeção automática, o mesmo token cobre a landing da reforma; filtre por hostname). A política de privacidade agora cita. GA4 (`G-PKP8H2J89F`) só existe na landing, com consentimento.
 
 ## Próximos passos sugeridos
 
