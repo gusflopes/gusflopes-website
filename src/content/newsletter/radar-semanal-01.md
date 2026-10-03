@@ -4,14 +4,15 @@ excerpt: "4 modelos em 9 dias, a IA virando conta de consumo e o que fazer com i
 edicao: 1
 date: "2026-10-03"
 duration: "6 min"
-image: "https://media.gusflopes.dev/newsletter/2026-10-03/capa.jpg"
+image: "https://media.gusflopes.dev/newsletter/2026-10-03/capa-v3.jpg"
+substackUrl: "https://gusflopes.substack.com/p/modelo-bom-virou-commodity-contexto"
 ---
 
 Em 9 dias saíram quatro modelos de IA novos: GPT-6 Sol e Luna, Claude Opus 5.5, GPT-6.1 Sol e Gemini 4 Argon. Cada um mais barato ou mais rápido que o anterior. Se você tentou acompanhar, deve ter tido a mesma sensação que eu: não dá, e talvez não precise.
 
 Esta semana o meu radar passou por 93 notícias de IA. A conclusão que mais se repetiu não foi sobre modelo. Foi esta: **o modelo virou commodity; o que diferencia agora é o contexto que você dá para ele** — a tarefa bem descrita, os documentos certos, a regra de quando conferir. É isso que eu chamo de método.
 
-Esta é a primeira edição do Radar semanal. Toda semana: o que mudou em IA, por que importa para quem trabalha ou empreende, e uma coisa prática para testar. Sem hype.
+Esta é a primeira edição do Radar de IA. Toda semana: o que mudou em IA, por que importa para quem trabalha ou empreende, e uma coisa prática para testar. Sem hype.
 
 ---
 
@@ -19,7 +20,7 @@ Esta é a primeira edição do Radar semanal. Toda semana: o que mudou em IA, po
 
 ### 1. A IA virou conta de consumo
 
-![Agente que trabalha sozinho gasta sozinho.](https://media.gusflopes.dev/newsletter/2026-10-03/secao-1-consumo.jpg)
+![Agente que trabalha sozinho gasta sozinho.](https://media.gusflopes.dev/newsletter/2026-10-03/secao-1-consumo-v3.jpg)
 
 Duas mudanças de cobrança chegaram juntas.
 
@@ -31,7 +32,7 @@ Duas mudanças de cobrança chegaram juntas.
 
 ### 2. Instrução escrita é o ativo
 
-![Instrução escrita é o ativo.](https://media.gusflopes.dev/newsletter/2026-10-03/secao-2-instrucao.jpg)
+![Instrução escrita é o ativo.](https://media.gusflopes.dev/newsletter/2026-10-03/secao-2-instrucao-v4.jpg)
 
 O Google anunciou as **skills** no Gemini: instruções reutilizáveis, que você escreve uma vez e combina com outras. Chegam ao Workspace em 05/10 e ao app Gemini em 13/10. Os Gems vão para Configurações em 17/11 e, nos planos Business e Enterprise, são removidos em 01/03/2027, com migração automática para rascunho de skill. ([Google](https://workspaceupdates.googleblog.com/2026/09/skills-gemini-app-workspace.html))
 
@@ -41,7 +42,7 @@ Do lado da OpenAI, segundo a imprensa, os GPTs personalizados serão aposentados
 
 ### 3. O agente só sabe o que está documentado
 
-![O agente só sabe o que está documentado.](https://media.gusflopes.dev/newsletter/2026-10-03/secao-3-contexto.jpg)
+![O agente só sabe o que está documentado.](https://media.gusflopes.dev/newsletter/2026-10-03/secao-3-contexto-v4.jpg)
 
 Três anúncios da semana vão na mesma direção:
 
@@ -53,7 +54,7 @@ Três anúncios da semana vão na mesma direção:
 
 ### 4. Seu próximo cliente pode ser um agente
 
-![Seu próximo cliente pode ser um agente.](https://media.gusflopes.dev/newsletter/2026-10-03/secao-4-agentes.jpg)
+![Seu próximo cliente pode ser um agente.](https://media.gusflopes.dev/newsletter/2026-10-03/secao-4-agentes-v4.jpg)
 
 A Shopify liberou para agentes de IA de navegador lerem, preencherem e finalizarem o checkout das lojas elegíveis, sem configuração do lojista, com confirmação do comprador. ([Shopify](https://shopify.dev/changelog/posts/webmcp-support-for-checkout))
 
@@ -94,9 +95,9 @@ Cole esse texto no ChatGPT, no Gemini ou no Claude antes de pedir a tarefa, e co
 
 ---
 
-Esta semana o giro dos quatro modelos virou carrossel no [Instagram](https://www.instagram.com/gusflopes/?utm_source=newsletter&utm_medium=email&utm_campaign=radar-semanal-01) e no [LinkedIn](https://www.linkedin.com/in/gusflopes/?utm_source=newsletter&utm_medium=email&utm_campaign=radar-semanal-01). É lá que eu publico as notícias do dia a dia.
+Esta semana o giro dos quatro modelos virou carrossel no [Instagram](https://www.instagram.com/gusflopes/?utm_source=newsletter&utm_medium=email&utm_campaign=radar-semanal-01) e no [X](https://x.com/gusflopes?utm_source=newsletter&utm_medium=email&utm_campaign=radar-semanal-01). No dia a dia, eu publico as notícias lá e no [LinkedIn](https://www.linkedin.com/in/gusflopes/?utm_source=newsletter&utm_medium=email&utm_campaign=radar-semanal-01).
 
-Se você testar a instrução escrita, me responde este e-mail contando qual tarefa escolheu. Eu leio todas. E se alguém do seu time vive perdido nos lançamentos, encaminha para ele.
+Se você testar a instrução escrita, me conta qual tarefa escolheu, respondendo este e-mail ou nos comentários. Eu leio todas. E se alguém do seu time vive perdido nos lançamentos, encaminha para ele: o Radar de IA chega todo sábado de manhã, de graça.
 
 Até sábado que vem,
 Gustavo
