@@ -1,11 +1,7 @@
 import { useState } from 'react';
-import { Card, CardContent, CardFooter } from '../ui/card';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
-import { Badge } from '../ui/badge';
 import { Search, Calendar, Clock, ArrowRight, ExternalLink, PlayCircle } from 'lucide-react';
-import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { EIXOS, EIXO_LIST, type EixoId } from '../../lib/eixos';
+import { COR_LINHA } from '../../lib/linhas';
 
 export interface RadarItem {
   id: string;
@@ -46,157 +42,150 @@ export function RadarPage({ items }: RadarPageProps) {
     return matchesSearch && matchesCategory;
   });
 
-  return (
-    <main className="pt-24 pb-20 px-6 min-h-screen bg-slate-950">
-      <div className="max-w-7xl mx-auto">
+  const limpar = () => {
+    setSearchTerm('');
+    setSelectedCategory('Todos');
+    setSelectedEixo('todos');
+  };
 
-        {/* Page Header */}
-        <div className="mb-16 text-center relative">
-          <h1 className="font-serif text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
+  return (
+    <main className="min-h-screen bg-noite text-luz">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 md:pt-16 pb-24">
+        <header className="mb-10 md:mb-12 max-w-3xl">
+          <h1 className="text-5xl md:text-7xl leading-none font-extrabold tracking-[-0.035em] text-white">
             Radar
           </h1>
-          <p className="font-sans text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-5 font-serif text-lg md:text-xl leading-relaxed text-nevoa">
             Curadoria comentada: o que mudou em IA, engenharia e negócios — e por que importa.
           </p>
-          <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] bg-orange-500/10 blur-[100px] rounded-full pointer-events-none"></div>
-        </div>
+        </header>
 
         {eixosComConteudo.length > 1 && (
-          <nav aria-label="Filtrar por eixo" className="flex flex-wrap justify-center gap-2 mb-6">
-            {[{ id: 'todos' as const, label: 'Todos os eixos' }, ...eixosComConteudo].map((e) => (
-              <button
-                key={e.id}
-                type="button"
-                aria-pressed={selectedEixo === e.id}
-                onClick={() => {
-                  setSelectedEixo(e.id);
-                  setSelectedCategory('Todos');
-                }}
-                className={`px-4 py-1.5 rounded-full border text-xs font-bold uppercase tracking-widest transition-colors ${
-                  selectedEixo === e.id
-                    ? 'bg-orange-500 border-orange-500 text-slate-950'
-                    : 'border-slate-700 text-slate-300 hover:border-orange-400 hover:text-white'
-                }`}
-              >
-                {e.label}
-              </button>
-            ))}
+          <nav aria-label="Filtrar por eixo" className="flex flex-wrap gap-2 mb-6">
+            {[{ id: 'todos' as const, label: 'Todos os eixos' }, ...eixosComConteudo].map((e) => {
+              const ativo = selectedEixo === e.id;
+              const cor = e.id === 'todos' ? undefined : COR_LINHA[e.id];
+              return (
+                <button
+                  key={e.id}
+                  type="button"
+                  aria-pressed={ativo}
+                  onClick={() => {
+                    setSelectedEixo(e.id);
+                    setSelectedCategory('Todos');
+                  }}
+                  style={cor ? ({ '--linha': cor } as React.CSSProperties) : undefined}
+                  className={`inline-flex items-center gap-2.5 min-h-10 px-4 rounded-full border text-sm font-bold transition-colors ${
+                    ativo ? 'bg-luz border-luz text-noite' : 'border-trilho text-nevoa hover:border-nevoa hover:text-white'
+                  }`}
+                >
+                  {cor && <span className="linha-roundel" aria-hidden="true" />}
+                  {e.label}
+                </button>
+              );
+            })}
           </nav>
         )}
 
-        {/* Search and Filter */}
-        <div className="flex flex-col md:flex-row gap-6 mb-12 items-center justify-between bg-slate-900/50 p-6 rounded-xl border border-slate-800 backdrop-blur-sm">
-          <div className="relative w-full md:w-96 group">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-orange-500 transition-colors" size={18} />
-            <Input
+        {/* Busca e temas */}
+        <div className="flex flex-col md:flex-row md:items-center gap-4 pb-6 mb-10 border-b border-trilho">
+          <label className="relative flex items-center md:w-80 shrink-0">
+            <Search size={16} aria-hidden="true" className="absolute left-3.5 text-nevoa pointer-events-none" />
+            <input
+              type="search"
               placeholder="Buscar no radar..."
               aria-label="Buscar no radar"
-              className="pl-10 bg-slate-950 border-slate-700 focus:ring-orange-500 text-white"
+              className="w-full h-11 pl-10 pr-3 rounded-md bg-noite-2 border border-trilho text-[0.95rem] text-luz placeholder:text-nevoa/80 focus:outline-none focus:border-laranja-claro"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-          </div>
-
-          <div className="flex flex-wrap gap-2 justify-center">
-            {categories.map(cat => (
-              <Button
+          </label>
+          <div className="flex flex-wrap gap-1.5">
+            {categories.map((cat) => (
+              <button
                 key={cat}
-                variant={selectedCategory === cat ? "default" : "outline"}
+                type="button"
+                aria-pressed={selectedCategory === cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`
-                  ${selectedCategory === cat
-                    ? 'bg-orange-500 hover:bg-orange-600 text-[#1c0a02] border-orange-500'
-                    : 'bg-transparent border-slate-700 text-slate-400 hover:text-white hover:border-orange-400'
-                  } rounded-full px-4 py-1 h-8 text-xs uppercase tracking-wider font-bold transition-all
-                `}
+                className={`min-h-9 px-3 rounded-md text-[0.8rem] font-bold uppercase tracking-[0.06em] transition-colors whitespace-nowrap ${
+                  selectedCategory === cat ? 'bg-laranja text-brasa' : 'text-nevoa hover:text-white hover:bg-noite-2'
+                }`}
               >
                 {cat}
-              </Button>
+              </button>
             ))}
           </div>
         </div>
 
-        {/* Grid */}
+        {/* Serviço expresso: trilho tracejado; textos autorais são estações, links externos são paradas de passagem */}
         {filteredItems.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredItems.map((item) => (
-              <Card key={item.id} className="bg-slate-900/80 backdrop-blur-md border-2 border-slate-800 hover:border-orange-500/50 transition-all duration-300 hover:-translate-y-2 group overflow-hidden flex flex-col h-full">
-                <div className="relative h-48 overflow-hidden">
-                  <ImageWithFallback
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent opacity-80"></div>
-
-                  <Badge className="absolute top-4 left-4 bg-orange-500 hover:bg-orange-600 border-none text-[#1c0a02] font-bold uppercase text-[10px] tracking-widest shadow-lg shadow-orange-900/50">
-                    {selectedEixo === 'todos' && eixosComConteudo.length > 1
-                      ? `${EIXOS[item.eixo].shortLabel} · ${item.category}`
-                      : item.category}
-                  </Badge>
-
-                  {item.type === 'video' && (
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <div className="bg-slate-950/50 backdrop-blur-sm p-3 rounded-full border border-white/20 group-hover:scale-110 transition-transform duration-300">
-                         <PlayCircle size={32} className="text-white fill-white/20" />
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <CardContent className="p-6 flex-grow">
-                  <div className="flex items-center justify-between gap-4 text-xs text-slate-500 mb-4 font-mono">
-                    <div className="flex items-center gap-3">
-                        <span className="flex items-center gap-1"><Calendar size={12} /> {item.date}</span>
-                        <span className="flex items-center gap-1">
-                            <Clock size={12} /> {item.duration}
-                        </span>
-                    </div>
-                    {item.isExternal && (
-                         <Badge variant="outline" className="text-[10px] text-slate-400 border-slate-700 bg-slate-900/50">
-                            {item.source}
-                         </Badge>
-                    )}
+          <ol className="list-none m-0 p-0 max-w-3xl">
+            {filteredItems.map((item, idx) => {
+              const ultimo = idx === filteredItems.length - 1;
+              return (
+                <li key={item.id} className="flex gap-5">
+                  <div
+                    aria-hidden="true"
+                    className={`trilhos ${idx === 0 ? 'trilhos-inicio' : ''} ${ultimo ? 'trilhos-fim' : ''}`}
+                  >
+                    <span data-tracejado style={{ '--linha': 'var(--color-trilho)' } as React.CSSProperties}>
+                      {item.isExternal ? (
+                        <span className="block mt-[0.6rem] w-2.5 h-2.5 rounded-full relative z-[1]" style={{ background: COR_LINHA[item.eixo] }} />
+                      ) : (
+                        <span className="estacao-ponto" style={{ borderColor: COR_LINHA[item.eixo] }} />
+                      )}
+                    </span>
                   </div>
-
-                  <h3 className="font-serif text-xl font-bold text-white mb-3 leading-tight group-hover:text-orange-400 transition-colors">
-                    {item.title}
-                  </h3>
-                  <p className="font-sans text-sm text-slate-400 leading-relaxed line-clamp-3">
-                    {item.excerpt}
-                  </p>
-                </CardContent>
-
-                <CardFooter className="p-6 pt-0 mt-auto">
-                  {item.isExternal ? (
-                      <Button asChild variant="link" className="p-0 text-orange-500 hover:text-orange-300 font-bold uppercase text-xs tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all">
-                        <a href={item.link} target="_blank" rel="noopener noreferrer">
-                            {item.type === 'video' ? 'Assistir Agora' : 'Ler na Fonte'}
-                            <ExternalLink size={14} />
-                        </a>
-                      </Button>
-                  ) : (
-                      <Button asChild variant="link" className="p-0 text-orange-500 hover:text-orange-300 font-bold uppercase text-xs tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all">
-                        <a href={item.link}>
-                            {item.type === 'video' ? 'Assistir Vídeo' : 'Ler Artigo'}
-                            <ArrowRight size={14} />
-                        </a>
-                      </Button>
-                  )}
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
+                  <article className="min-w-0 flex-1 pb-12 flex flex-col">
+                    <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.8rem] font-semibold text-nevoa">
+                      <span className="inline-flex items-center gap-1.5 tabular-nums"><Calendar size={12} aria-hidden="true" /> {item.date}</span>
+                      <span className="inline-flex items-center gap-1.5"><Clock size={12} aria-hidden="true" /> {item.duration}</span>
+                      {item.isExternal && (
+                        <span className="px-2 py-0.5 rounded-sm border border-trilho text-[0.72rem] text-nevoa">{item.source}</span>
+                      )}
+                    </p>
+                    <p className="mt-2 text-[0.75rem] font-bold uppercase tracking-[0.1em]" style={{ color: COR_LINHA[item.eixo] }}>
+                      {selectedEixo === 'todos' && eixosComConteudo.length > 1
+                        ? `${EIXOS[item.eixo].shortLabel} · ${item.category}`
+                        : item.category}
+                    </p>
+                    <h2 className="mt-1.5 text-xl md:text-[1.4rem] leading-snug font-extrabold tracking-[-0.015em] text-white">
+                      {item.type === 'video' && <PlayCircle size={20} aria-hidden="true" className="inline -mt-1 mr-2 text-laranja-claro" />}
+                      {item.title}
+                    </h2>
+                    <p className="mt-2 font-serif text-[1.02rem] leading-relaxed text-nevoa line-clamp-3">
+                      {item.excerpt}
+                    </p>
+                    {item.isExternal ? (
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group mt-4 inline-flex items-center gap-2 self-start min-h-8 text-xs font-bold uppercase tracking-[0.1em] text-laranja-claro hover:text-white"
+                      >
+                        {item.type === 'video' ? 'Assistir Agora' : 'Ler na Fonte'}
+                        <ExternalLink size={14} aria-hidden="true" />
+                      </a>
+                    ) : (
+                      <a
+                        href={item.link}
+                        className="group mt-4 inline-flex items-center gap-2 self-start min-h-8 text-xs font-bold uppercase tracking-[0.1em] text-laranja-claro hover:text-white"
+                      >
+                        {item.type === 'video' ? 'Assistir Vídeo' : 'Ler Artigo'}
+                        <ArrowRight size={14} aria-hidden="true" className="transition-transform group-hover:translate-x-1" />
+                      </a>
+                    )}
+                  </article>
+                </li>
+              );
+            })}
+          </ol>
         ) : (
-          <div className="text-center py-24 border-2 border-dashed border-slate-800 rounded-xl">
-            <p className="text-slate-500 font-sans">Nenhum item encontrado para sua busca.</p>
-            <Button
-              variant="link"
-              className="text-orange-500 mt-2"
-              onClick={() => {setSearchTerm(''); setSelectedCategory('Todos'); setSelectedEixo('todos');}}
-            >
+          <div className="py-20 border-t border-trilho">
+            <p className="text-nevoa">Nenhum item encontrado para sua busca.</p>
+            <button type="button" className="mt-3 min-h-10 text-sm font-bold text-laranja-claro hover:text-white" onClick={limpar}>
               Limpar filtros
-            </Button>
+            </button>
           </div>
         )}
       </div>

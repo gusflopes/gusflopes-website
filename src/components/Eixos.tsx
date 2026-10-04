@@ -1,5 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 import { EIXOS, type EixoId } from '../lib/eixos';
+import { COR_LINHA } from '../lib/linhas';
 
 export interface EixoResumo {
   id: EixoId;
@@ -14,67 +15,71 @@ interface EixosProps {
 }
 
 /**
- * Seção da home que apresenta os eixos editoriais — cada card diz para quem é o eixo
- * e aponta para o texto mais recente (ou para um projeto, no caso de Bastidores).
- * A página só recebe eixos que têm algo para mostrar.
+ * Quadro de linhas (sobre o papel): cada eixo é uma linha que atravessa a página na sua
+ * cor, com o público, a descrição e o texto mais recente. A página só recebe eixos que
+ * têm algo para mostrar.
  */
 export function Eixos({ eixos }: EixosProps) {
   if (eixos.length === 0) return null;
 
-  const cols = eixos.length === 3 ? 'md:grid-cols-3' : eixos.length === 2 ? 'md:grid-cols-2' : '';
-
   return (
-    <section aria-labelledby="eixos-title" className="bg-slate-950 py-20 px-6 border-t border-slate-800">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-12 text-center max-w-2xl mx-auto">
-          <h2 id="eixos-title" className="font-serif text-3xl md:text-4xl font-bold text-white mb-4">
+    <section aria-labelledby="eixos-title" className="papel bg-papel text-tinta py-20 md:py-24 px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="mb-12 md:mb-14 max-w-2xl">
+          <h2 id="eixos-title" className="text-3xl md:text-[2.6rem] leading-[1.08] font-extrabold tracking-[-0.02em] text-noite mb-4">
             O que eu escrevo, e para quem
           </h2>
-          <p className="font-sans text-slate-300 leading-relaxed">
+          <p className="font-serif text-lg leading-relaxed text-tinta-2">
             Tecnologia e negócio são partes do mesmo sistema — mas cada leitor entra por uma porta.
           </p>
         </div>
 
-        <div className={`grid grid-cols-1 ${cols} gap-6 max-w-5xl mx-auto`}>
+        <ul className="list-none m-0 p-0 grid gap-12 md:gap-14">
           {eixos.map(({ id, destaque, projeto }) => {
             const eixo = EIXOS[id];
+            const cor = COR_LINHA[id];
             return (
-              <article
-                key={id}
-                className="h-full flex flex-col rounded-xl bg-slate-900/80 border-2 border-orange-500/60 shadow-[0_0_15px_-3px_rgba(249,115,22,0.15)] p-8 transition-all duration-300 hover:border-orange-400 hover:shadow-[0_0_25px_-5px_rgba(249,115,22,0.4)]"
-              >
-                <h3 className="font-serif text-2xl font-bold text-white mb-2">
-                  <a href={eixo.href} className="hover:text-orange-300 transition-colors">
-                    {eixo.label}
-                  </a>
-                </h3>
-                <p className="font-mono text-xs uppercase tracking-wider text-orange-400 mb-4">
-                  {eixo.publico}
-                </p>
-                <p className="font-sans text-slate-300 leading-relaxed mb-6 flex-grow">{eixo.descricao}</p>
+              <li key={id} className="relative pt-7">
+                {/* a linha atravessa a página, com a estação terminal à esquerda */}
+                <span aria-hidden="true" className="absolute left-0 right-0 top-0 h-1.5 rounded-full" style={{ background: cor }} />
+                <span aria-hidden="true" className="absolute -top-[5px] left-0 w-4 h-4 rounded-full bg-papel border-[3px] border-noite" />
 
-                {destaque && (
-                  <p className="font-sans text-sm text-slate-400 mb-6">
-                    <span className="block font-mono text-xs uppercase tracking-wider text-slate-400 mb-1">
-                      Mais recente
-                    </span>
-                    <a href={destaque.href} className="text-slate-200 hover:text-orange-300 transition-colors">
-                      {destaque.title}
+                <article className="grid md:grid-cols-12 gap-x-10 gap-y-5">
+                  <div className="md:col-span-4">
+                    <h3 className="text-2xl md:text-[1.7rem] font-extrabold tracking-[-0.015em] text-noite">
+                      <a href={eixo.href} className="hover:underline decoration-2 underline-offset-[6px]" style={{ textDecorationColor: cor }}>
+                        {eixo.label}
+                      </a>
+                    </h3>
+                    <p className="mt-2 text-[0.95rem] font-semibold leading-snug text-tinta">{eixo.publico}</p>
+                  </div>
+
+                  <p className="md:col-span-4 font-serif text-[1.05rem] leading-relaxed text-tinta-2">{eixo.descricao}</p>
+
+                  <div className="md:col-span-4 flex flex-col gap-4">
+                    {destaque && (
+                      <p className="text-sm text-tinta-2">
+                        <span className="block text-xs font-bold uppercase tracking-[0.1em] text-tinta-2 mb-1.5">
+                          Mais recente
+                        </span>
+                        <a href={destaque.href} className="text-base font-semibold leading-snug text-noite hover:text-laranja-fundo">
+                          {destaque.title}
+                        </a>
+                      </p>
+                    )}
+                    <a
+                      href={destaque ? eixo.href : projeto?.href ?? eixo.href}
+                      className="mt-auto inline-flex items-center gap-2 self-start text-sm font-bold uppercase tracking-[0.06em] text-laranja-fundo hover:text-noite transition-colors"
+                    >
+                      {destaque ? `Ler ${eixo.shortLabel}` : projeto?.label ?? `Ver ${eixo.shortLabel}`}
+                      <ArrowRight size={16} aria-hidden="true" />
                     </a>
-                  </p>
-                )}
-
-                <a
-                  href={destaque ? eixo.href : projeto?.href ?? eixo.href}
-                  className="mt-auto inline-flex items-center gap-2 font-sans text-sm font-bold uppercase tracking-wide text-orange-400 hover:text-orange-300 transition-colors"
-                >
-                  {destaque ? `Ler ${eixo.shortLabel}` : projeto?.label ?? `Ver ${eixo.shortLabel}`}
-                  <ArrowRight size={16} />
-                </a>
-              </article>
+                  </div>
+                </article>
+              </li>
             );
           })}
-        </div>
+        </ul>
       </div>
     </section>
   );

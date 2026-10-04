@@ -1,5 +1,3 @@
-import { Card } from './ui/card';
-import { Button } from './ui/button';
 import { Play, ArrowRight } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
@@ -30,86 +28,75 @@ export function LatestContent({ articles, video }: LatestContentProps) {
   }
 
   return (
-    <section className="bg-slate-900 py-20 px-6 pb-24 border-t border-slate-800">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+    <section className="bg-noite-2 py-20 md:py-24 px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-16">
 
-          {/* Articles Column */}
-          {articles.length > 0 && (
-            <div>
-              <h3 className="font-serif text-2xl font-bold text-white mb-8 border-l-4 border-orange-500 pl-4 drop-shadow-lg">
-                Ideias recentes
-              </h3>
-              <div className="space-y-6">
-                {articles.map((article) => (
-                  <Card key={article.id} className="bg-slate-900/80 backdrop-blur-md border-2 border-orange-500/40 overflow-hidden group hover:border-orange-400 shadow-[0_0_10px_-3px_rgba(249,115,22,0.1)] hover:shadow-[0_0_20px_-5px_rgba(249,115,22,0.3)] transition-all duration-300">
-                    <div className="flex flex-col sm:flex-row h-full">
-                      <div className="sm:w-1/3 h-48 sm:h-auto relative overflow-hidden">
-                        <ImageWithFallback
-                          src={article.image}
-                          alt={article.title}
-                          className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
-                        />
-                        <div className="absolute inset-0 bg-orange-900/20 group-hover:bg-transparent transition-colors"></div>
-                      </div>
-                      <div className="flex-1 p-6 flex flex-col justify-between">
-                        <div>
-                          <span className="font-sans text-orange-400 text-xs font-bold uppercase tracking-wider mb-2 block drop-shadow-sm">
-                            {article.category}
-                          </span>
-                          <h4 className="font-serif text-white font-bold text-lg mb-2 group-hover:text-orange-300 transition-colors leading-tight">
-                            {article.title}
-                          </h4>
-                        </div>
-                        <Button asChild variant="link" className="font-sans text-slate-300 hover:text-white p-0 w-fit flex items-center gap-2 mt-4 font-medium">
-                          <a href={article.link}>
-                            Ler Mais <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                          </a>
-                        </Button>
-                      </div>
+        {/* Articles Column */}
+        {articles.length > 0 && (
+          <div>
+            <h3 className="text-2xl md:text-[1.75rem] font-extrabold tracking-[-0.015em] text-white mb-8">
+              Ideias recentes
+            </h3>
+            <ul className="list-none m-0 p-0 divide-y divide-trilho border-y border-trilho">
+              {articles.map((article) => (
+                <li key={article.id}>
+                  <a href={article.link} className="group flex gap-5 py-6 items-start">
+                    <div className="w-28 sm:w-36 shrink-0 aspect-[4/3] overflow-hidden rounded bg-noite">
+                      <ImageWithFallback
+                        src={article.image}
+                        alt=""
+                        className="object-cover w-full h-full"
+                      />
                     </div>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Video Column */}
-          {video && (
-            <div>
-              <h3 className="font-serif text-2xl font-bold text-white mb-8 border-l-4 border-orange-500 pl-4 drop-shadow-lg">
-                Vídeo em Destaque
-              </h3>
-              <a
-                href={video.link}
-                {...(video.isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                className="block h-[calc(100%-4rem)]"
-              >
-                <Card className="bg-slate-900/80 backdrop-blur-md border-2 border-orange-500/60 overflow-hidden group h-full shadow-[0_0_15px_-3px_rgba(249,115,22,0.2)] hover:border-orange-400 hover:shadow-[0_0_25px_-5px_rgba(249,115,22,0.4)] transition-all duration-300">
-                  <div className="relative h-full min-h-[300px]">
-                    <ImageWithFallback
-                      src={video.image}
-                      alt={video.title}
-                      className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity"
-                    />
-                    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-gradient-to-t from-slate-950/80 to-transparent">
-                      <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-orange-900/50 group-hover:scale-110 transition-transform cursor-pointer">
-                        <Play fill="white" className="text-white ml-1" size={32} />
-                      </div>
-                      <h4 className="font-serif text-2xl md:text-3xl font-bold text-white mb-2">
-                        {video.title}
+                    <div className="min-w-0">
+                      <span className="block text-xs font-bold uppercase tracking-[0.1em] text-laranja-claro mb-2">
+                        {article.category}
+                      </span>
+                      <h4 className="text-lg md:text-xl font-bold leading-snug text-white group-hover:underline decoration-laranja decoration-2 underline-offset-4">
+                        {article.title}
                       </h4>
-                      <p className="font-sans text-slate-300 max-w-md">
-                        {video.excerpt}
-                      </p>
+                      <span className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-nevoa group-hover:text-white">
+                        Ler Mais <ArrowRight size={14} aria-hidden="true" className="transition-transform group-hover:translate-x-1" />
+                      </span>
                     </div>
-                  </div>
-                </Card>
-              </a>
-            </div>
-          )}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
-        </div>
+        {/* Video Column */}
+        {video && (
+          <div>
+            <h3 className="text-2xl md:text-[1.75rem] font-extrabold tracking-[-0.015em] text-white mb-8">
+              Vídeo em Destaque
+            </h3>
+            <a
+              href={video.link}
+              {...(video.isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              className="group block"
+            >
+              <div className="relative aspect-video overflow-hidden rounded bg-noite">
+                <ImageWithFallback
+                  src={video.image}
+                  alt=""
+                  className="w-full h-full object-cover"
+                />
+                <span className="absolute left-4 bottom-4 grid place-items-center w-14 h-14 rounded-full bg-laranja text-brasa shadow-[0_8px_20px_-8px_rgb(0_0_0/0.6)] ring-4 ring-noite/60 transition-transform group-hover:scale-105">
+                  <Play fill="currentColor" size={24} className="ml-1" aria-hidden="true" />
+                </span>
+              </div>
+              <h4 className="mt-5 text-xl md:text-2xl font-bold leading-snug text-white group-hover:underline decoration-laranja decoration-2 underline-offset-4">
+                {video.title}
+              </h4>
+              <p className="mt-2 font-serif text-[1.05rem] leading-relaxed text-nevoa">
+                {video.excerpt}
+              </p>
+            </a>
+          </div>
+        )}
+
       </div>
     </section>
   );

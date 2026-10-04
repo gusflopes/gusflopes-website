@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import { Button } from './ui/button';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { site } from '../config/site';
 import { EIXOS, type EixoId } from '../lib/eixos';
+import { COR_LINHA } from '../lib/linhas';
 import logo from '../assets/cfa6876664fcc921be5a7c0a58c353ea12577968.png?url';
 
 interface HeaderProps {
@@ -15,27 +15,30 @@ interface HeaderProps {
 /** Normaliza paths para comparação: remove barras finais ('/radar/' → '/radar'). */
 const normalizePath = (p: string) => p.replace(/\/+$/, '') || '/';
 
+interface NavItem {
+  label: string;
+  href: string;
+  /** Cor da linha (eixos); formatos e oferta ficam sem placa. */
+  linha?: string;
+}
+
+/**
+ * Barra de sinalização: sempre noturna e fixa no topo. Cada eixo leva a placa (roundel)
+ * da sua linha; o item ativo ganha o trilho por baixo, na cor da linha.
+ */
 export function Header({ pathname: rawPathname, eixosAtivos = [] }: HeaderProps) {
   const pathname = normalizePath(rawPathname);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const isHome = pathname === '/';
-  // Páginas de artigo escondem o Header — match por prefixo para cobrir
-  // tanto /insights/article (legado) quanto /insights/article/<id> e /radar/article/<id>.
+  // Páginas de texto têm a própria moldura (linha + estação) e escondem esta barra.
   const isArticlePage =
     pathname.startsWith('/insights/article') || pathname.startsWith('/radar/article/');
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 10);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   if (isArticlePage) return null;
 
   // Eixos primeiro (o "para quem"), depois os formatos e a oferta.
-  const navItems = [
-    ...eixosAtivos.map((id) => ({ label: EIXOS[id].label, href: EIXOS[id].href })),
+  const navItems: NavItem[] = [
+    ...eixosAtivos.map((id) => ({ label: EIXOS[id].label, href: EIXOS[id].href, linha: COR_LINHA[id] })),
     { label: 'Radar', href: '/radar' },
     { label: 'Insights', href: '/insights' },
     { label: 'Trabalhe Comigo', href: '/#consulting' },
@@ -51,76 +54,79 @@ export function Header({ pathname: rawPathname, eixosAtivos = [] }: HeaderProps)
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 px-6 py-6 transition-all duration-300 ${
-        isScrolled || !isHome
-          ? 'bg-slate-950/80 backdrop-blur-md border-b border-white/5'
-          : 'bg-transparent border-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div>
-          <a href="/" onClick={(e) => handleClick(e, '/')}>
-            <ImageWithFallback src={logo} alt="Gusflopes.dev" className="h-12 w-auto" />
-          </a>
-        </div>
+    <header className="sticky top-0 z-50 bg-noite/95 backdrop-blur-sm border-b border-trilho">
+      <div className="max-w-7xl mx-auto h-16 px-4 sm:px-6 flex items-center justify-between gap-6">
+        <a href="/" onClick={(e) => handleClick(e, '/')} className="shrink-0">
+          <ImageWithFallback src={logo} alt="Gusflopes.dev" className="h-10 w-auto" />
+        </a>
 
-        <nav className="hidden lg:flex items-center space-x-7">
-          {navItems.map((item) => (
-            <a
-              key={item.label}
-              aria-current={isActive(item.href) ? "page" : undefined}
-              href={item.href}
-              onClick={(e) => handleClick(e, item.href)}
-              className={`font-sans text-sm font-medium uppercase tracking-wide transition-colors ${
-                isActive(item.href)
-                  ? 'text-orange-500'
-                  : 'text-gray-300 hover:text-white'
-              }`}
-            >
-              {item.label}
-            </a>
-          ))}
-          <Button
-            asChild
-            variant="outline"
-            className="font-sans border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-[#1c0a02] bg-transparent rounded-full px-6"
+        <nav className="hidden lg:flex items-stretch h-full gap-1">
+          {navItems.map((item) => {
+            const ativo = isActive(item.href);
+            return (
+              <a
+                key={item.label}
+                aria-current={ativo ? 'page' : undefined}
+                href={item.href}
+                onClick={(e) => handleClick(e, item.href)}
+                style={{ '--linha': item.linha ?? 'var(--color-laranja)' } as React.CSSProperties}
+                className={`relative flex items-center gap-2 px-3 text-[0.9rem] font-semibold transition-colors after:absolute after:left-3 after:right-3 after:bottom-0 after:h-1 after:rounded-t-sm after:bg-[var(--linha)] after:transition-transform after:origin-bottom ${
+                  ativo ? 'text-white after:scale-y-100' : 'text-nevoa hover:text-white after:scale-y-0 hover:after:scale-y-100'
+                }`}
+              >
+                {item.linha && <span className="linha-roundel" aria-hidden="true" />}
+                {item.label}
+              </a>
+            );
+          })}
+          <a
+            href={`mailto:${site.email}`}
+            className="self-center ml-3 inline-flex items-center h-9 px-4 rounded-full border border-laranja text-laranja-claro text-[0.9rem] font-semibold transition-colors hover:bg-laranja hover:text-brasa"
           >
-            <a href={`mailto:${site.email}`}>Contato</a>
-          </Button>
+            Contato
+          </a>
         </nav>
 
         <button
-          className="lg:hidden text-white"
+          type="button"
+          className="lg:hidden grid place-items-center w-11 h-11 -mr-2 text-luz"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label={isMenuOpen ? 'Fechar menu' : 'Abrir menu'}
           aria-expanded={isMenuOpen}
+          aria-controls="menu-movel"
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {isMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-slate-900/95 backdrop-blur-md p-6 border-b border-slate-800 animate-in slide-in-from-top-5">
-          <nav className="flex flex-col space-y-4">
+        <div id="menu-movel" className="lg:hidden absolute top-full left-0 right-0 bg-noite-2 border-b border-trilho">
+          <nav className="flex flex-col px-4 sm:px-6 py-3">
             {navItems.map((item) => (
               <a
                 key={item.label}
-                aria-current={isActive(item.href) ? "page" : undefined}
+                aria-current={isActive(item.href) ? 'page' : undefined}
                 href={item.href}
                 onClick={(e) => handleClick(e, item.href)}
-                className={`font-sans text-lg font-medium ${
-                  isActive(item.href)
-                    ? 'text-orange-500'
-                    : 'text-gray-300 hover:text-white'
+                style={{ '--linha': item.linha ?? 'var(--color-laranja)' } as React.CSSProperties}
+                className={`flex items-center gap-3 py-3 text-lg font-semibold border-b border-trilho/70 ${
+                  isActive(item.href) ? 'text-white' : 'text-nevoa hover:text-white'
                 }`}
               >
+                {item.linha ? (
+                  <span className="linha-roundel" aria-hidden="true" />
+                ) : (
+                  <span className="w-3" aria-hidden="true" />
+                )}
                 {item.label}
               </a>
             ))}
-            <Button asChild className="font-sans bg-orange-500 text-[#1c0a02] hover:bg-orange-600 w-full">
-              <a href={`mailto:${site.email}`}>Contato</a>
-            </Button>
+            <a
+              href={`mailto:${site.email}`}
+              className="mt-4 mb-2 inline-flex items-center justify-center h-12 rounded-md bg-laranja text-brasa font-bold"
+            >
+              Contato
+            </a>
           </nav>
         </div>
       )}

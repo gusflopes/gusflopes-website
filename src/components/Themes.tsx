@@ -1,100 +1,69 @@
-import React from 'react';
-import { Code2, Bot, BrainCircuit, Building2, Cloud } from 'lucide-react';
-import { FundoPicture } from './FundoPicture';
-import type { FundoResponsivo } from '../lib/imagens';
-
-export function Themes({ fundo }: { fundo: FundoResponsivo }) {
+/**
+ * "Sobre": a trajetória à esquerda e os cinco temas como uma linha com cinco estações
+ * à direita — a mesma gramática do mapa, em tinta sobre o papel.
+ */
+export function Themes() {
   const themes = [
     {
-      icon: <Code2 size={32} />,
       title: "Domínio & Arquitetura",
       description: "DDD, arquitetura de software e .NET para traduzir regras de negócio complexas em sistemas claros, resilientes e preparados para evoluir."
     },
     {
-      icon: <Bot size={32} />,
       title: "Dados & IA Aplicada",
       description: "Data Mesh, agentes e IA aplicada com contexto, governança e propósito. Tecnologia emergente tratada como capacidade de negócio, não como demonstração."
     },
     {
-      icon: <BrainCircuit size={32} />,
       title: "Fluxo & Entrega",
       description: "DevOps e DORA Metrics para tornar o trabalho visível, reduzir atritos e melhorar continuamente a capacidade de entregar software com qualidade."
     },
     {
-      icon: <Building2 size={32} />,
       title: "Estratégia & Governança",
       description: "Decisões tecnológicas conectadas a valor, risco e sustentabilidade. Uma perspectiva formada também por Direito, Contabilidade e Gestão Financeira."
     },
     {
-      icon: <Cloud size={32} />,
       title: "Times & Plataformas",
       description: "Team Topologies e Platform Engineering para criar limites claros, reduzir carga cognitiva e dar mais autonomia aos times de produto."
     }
   ];
 
   return (
-    <section id="about" className="relative py-24 px-6 min-h-[800px] flex items-center justify-center overflow-hidden">
-      {/* Fundo responsivo; parallax só a partir de md */}
-      <div className="absolute inset-0 z-0 [clip-path:inset(0)]">
-        <FundoPicture fundo={fundo} />
-        {/* Overlay Gradient */}
-        <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto relative z-10 w-full">
-        <div className="text-center mb-16 max-w-3xl mx-auto">
-          <h2 className="font-serif text-3xl md:text-5xl font-bold text-white mb-6 drop-shadow-lg">
-            Engenharia é mais do que código
-          </h2>
-          <p className="font-sans text-lg text-slate-200 font-medium leading-relaxed drop-shadow-md">
-            Minha trajetória entre <span className="text-orange-400 font-bold">Direito, Contabilidade, gestão e tecnologia</span> moldou uma visão sistêmica da engenharia de software.
-            Analiso domínio, arquitetura, times e fluxo de entrega como partes do mesmo problema: criar capacidade para o negócio evoluir.
-          </p>
-          <p className="font-sans text-base text-slate-300 leading-relaxed mt-5 drop-shadow-md">
-            Hoje, aplico essa perspectiva como líder técnico no sistema de precificação de locação veicular de uma plataforma de mobilidade do Grupo Volkswagen.
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-8 items-center">
-          {/* Top Row - 3 items */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
-            {themes.slice(0, 3).map((theme, index) => (
-              <div key={index} className="group relative h-full">
-                <div className="h-full w-full rounded-xl bg-slate-900/80 backdrop-blur-md border-2 border-orange-500/80 shadow-[0_0_15px_-3px_rgba(249,115,22,0.3)] flex flex-col items-start text-left p-8 transition-all duration-500 hover:scale-[1.02] hover:bg-slate-900/90 hover:border-orange-400 hover:shadow-[0_0_25px_-5px_rgba(249,115,22,0.5)]">
-                  <div className="mb-6 text-orange-400 group-hover:text-orange-300 transition-colors">
-                    {theme.icon}
-                  </div>
-                  <h3 className="font-serif text-xl font-bold text-white mb-4 leading-tight">
-                    {theme.title}
-                  </h3>
-                  <p className="font-sans text-base text-slate-300 leading-relaxed mb-6">
-                    {theme.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Bottom Row - 2 items */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl md:mt-2">
-            {themes.slice(3, 5).map((theme, index) => (
-              <div key={index + 3} className="group relative h-full">
-                <div className="h-full w-full rounded-xl bg-slate-900/80 backdrop-blur-md border-2 border-orange-500/80 shadow-[0_0_15px_-3px_rgba(249,115,22,0.3)] flex flex-col items-start text-left p-8 transition-all duration-500 hover:scale-[1.02] hover:bg-slate-900/90 hover:border-orange-400 hover:shadow-[0_0_25px_-5px_rgba(249,115,22,0.5)]">
-                  <div className="mb-6 text-orange-400 group-hover:text-orange-300 transition-colors">
-                    {theme.icon}
-                  </div>
-                  <h3 className="font-serif text-xl font-bold text-white mb-4 leading-tight">
-                    {theme.title}
-                  </h3>
-                  <p className="font-sans text-base text-slate-300 leading-relaxed mb-6">
-                    {theme.description}
-                  </p>
-                </div>
-              </div>
-            ))}
+    <section id="about" aria-labelledby="about-title" className="papel bg-papel text-tinta py-20 md:py-28 px-4 sm:px-6 border-t border-fio">
+      <div className="max-w-6xl mx-auto grid lg:grid-cols-12 gap-x-14 gap-y-12">
+        <div className="lg:col-span-5">
+          <div className="lg:sticky lg:top-28">
+            <h2 id="about-title" className="text-3xl md:text-[2.6rem] leading-[1.08] font-extrabold tracking-[-0.02em] text-noite mb-6">
+              Engenharia é mais do que código
+            </h2>
+            <p className="font-serif text-lg leading-relaxed text-tinta">
+              Minha trajetória entre <strong className="font-semibold text-laranja-fundo">Direito, Contabilidade, gestão e tecnologia</strong> moldou uma visão sistêmica da engenharia de software.
+              Analiso domínio, arquitetura, times e fluxo de entrega como partes do mesmo problema: criar capacidade para o negócio evoluir.
+            </p>
+            <p className="font-serif text-base leading-relaxed text-tinta-2 mt-5">
+              Hoje, aplico essa perspectiva como líder técnico no sistema de precificação de locação veicular de uma plataforma de mobilidade do Grupo Volkswagen.
+            </p>
           </div>
         </div>
+
+        <ol className="lg:col-span-7 list-none m-0 p-0">
+          {themes.map((theme, i) => (
+            <li key={theme.title} className="relative flex gap-5 pb-10 last:pb-0">
+              {/* trilho: começa na primeira estação e termina na última */}
+              <span
+                aria-hidden="true"
+                className={`absolute left-[calc(0.5rem-2.5px)] w-[5px] bg-noite ${i === 0 ? 'top-2' : 'top-0'} ${i === themes.length - 1 ? 'h-2' : 'bottom-0'}`}
+              />
+              <span aria-hidden="true" className="relative z-[1] mt-1 w-4 h-4 shrink-0 rounded-full bg-papel border-[3px] border-noite" />
+              <div>
+                <h3 className="text-xl md:text-[1.35rem] font-extrabold tracking-[-0.01em] text-noite leading-tight">
+                  {theme.title}
+                </h3>
+                <p className="mt-2 font-serif text-[1.05rem] leading-relaxed text-tinta-2 max-w-[56ch]">
+                  {theme.description}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );

@@ -5,6 +5,7 @@ import type { CollectionEntry } from 'astro:content';
 import Default from '../../../layouts/Default.astro';
 import { RadarArticlePage } from '../../../components/pages/RadarArticlePage';
 import { formatDatePtBR } from '../../../lib/format';
+import { getPosicao } from '../../../lib/artigos';
 
 export async function getStaticPaths() {
   const entries = await getCollection('radar', publicado);
@@ -19,6 +20,8 @@ interface Props {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
+// Linha (eixo) e estação do texto: anterior/próxima e baldeações.
+const posicao = await getPosicao(`/radar/article/${entry.id}`);
 const { title, excerpt, category, eixo, date, duration, image } = entry.data;
 ---
 
@@ -37,6 +40,7 @@ const { title, excerpt, category, eixo, date, duration, image } = entry.data;
     dateFormatted={formatDatePtBR(date)}
     duration={duration}
     image={image}
+    posicao={posicao}
     client:load
   >
     <Content />

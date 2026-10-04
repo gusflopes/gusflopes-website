@@ -1,8 +1,7 @@
 import { useState, type ReactNode } from 'react';
-import { ArrowRight, Search, Sparkles } from 'lucide-react';
-import { motion } from 'motion/react';
-import { ImageWithFallback } from '../figma/ImageWithFallback';
+import { ArrowRight, Search } from 'lucide-react';
 import { EIXOS, EIXO_LIST, type EixoId } from '../../lib/eixos';
+import { COR_LINHA } from '../../lib/linhas';
 
 export interface InsightArticle {
   id: string;
@@ -60,166 +59,141 @@ export function InsightsPage({
     setSelectedCategory('Todos');
   };
 
+  // Trilhos paralelos: um por linha (eixo) presente na lista visível.
+  const linhas = EIXO_LIST.filter((e) => filteredArticles.some((a) => a.eixo === e.id));
+
   return (
-    <main className="min-h-screen bg-[#F5F5F0] text-slate-900 relative overflow-hidden selection:bg-orange-200 selection:text-orange-900">
-      
-      {/* Artistic Noise Overlay */}
-      <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.03] mix-blend-overlay"
-           style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E")` }}>
-      </div>
-
-      {/* Organic Fluid Backgrounds - "Polimórfia" Interpretation */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-          <div className="absolute -top-20 -right-20 w-[600px] h-[600px] bg-orange-200/30 rounded-full blur-[100px] mix-blend-multiply animate-pulse duration-[10000ms]"></div>
-          <div className="absolute top-1/3 -left-20 w-[500px] h-[500px] bg-slate-300/40 rounded-full blur-[80px] mix-blend-multiply"></div>
-          <div className="absolute -bottom-40 right-1/3 w-[600px] h-[600px] bg-orange-100/40 rounded-full blur-[120px] mix-blend-multiply"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6 pt-32 pb-20 relative z-10">
-        
-        {/* Header - Artistic/Typography Focused */}
-        <div className="mb-12 text-center relative">
-           <motion.div 
-             initial={{ opacity: 0, y: 20 }}
-             animate={{ opacity: 1, y: 0 }}
-             transition={{ duration: 0.8 }}
-           >
-             <h1 className="font-serif text-4xl md:text-5xl text-slate-900 mb-4 tracking-tight relative inline-block">
-               {heading}
-               <span className="absolute -right-6 -top-1 text-orange-500">
-                 <Sparkles size={20} strokeWidth={1.5} />
-               </span>
-             </h1>
-             <p className="font-sans text-base text-slate-600 font-light max-w-2xl mx-auto">
-               {subheading}
-             </p>
-             {eixo && (
-               <p className="mt-3 font-mono text-xs uppercase tracking-wider text-orange-800">
-                 {EIXOS[eixo].publico}
-               </p>
-             )}
-           </motion.div>
-        </div>
+    <main className="min-h-screen bg-noite text-luz">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 md:pt-16 pb-24">
+        <header className="mb-10 md:mb-12 max-w-3xl">
+          {eixo && (
+            <span
+              className="inline-flex items-center rounded-full px-3.5 py-1 mb-5 text-sm font-extrabold text-brasa"
+              style={{ background: COR_LINHA[eixo] }}
+              aria-hidden="true"
+            >
+              {articles.length}
+            </span>
+          )}
+          <h1 className="text-4xl md:text-6xl leading-[1.04] font-extrabold tracking-[-0.03em] text-white">
+            {heading}
+          </h1>
+          <p className="mt-5 font-serif text-lg md:text-xl leading-relaxed text-nevoa">{subheading}</p>
+          {eixo && (
+            <p className="mt-4 text-sm font-semibold text-ambar">{EIXOS[eixo].publico}</p>
+          )}
+        </header>
 
         {/* Eixos — só na listagem geral; nos hubs o eixo já está fixo */}
         {!eixo && (
-          <nav aria-label="Filtrar por eixo" className="flex flex-wrap justify-center gap-2 mb-8">
-            {[{ id: 'todos' as const, label: 'Todos os eixos' }, ...EIXO_LIST].map((e) => (
-              <button
-                key={e.id}
-                type="button"
-                aria-pressed={selectedEixo === e.id}
-                onClick={() => selectEixo(e.id)}
-                className={`px-4 py-1.5 rounded-full border text-xs font-bold uppercase tracking-widest transition-colors ${
-                  selectedEixo === e.id
-                    ? 'bg-orange-800 border-orange-800 text-white'
-                    : 'border-slate-300 text-slate-600 hover:border-orange-700 hover:text-orange-800'
-                }`}
-              >
-                {e.label}
-              </button>
-            ))}
+          <nav aria-label="Filtrar por eixo" className="flex flex-wrap gap-2 mb-6">
+            {[{ id: 'todos' as const, label: 'Todos os eixos' }, ...EIXO_LIST].map((e) => {
+              const ativo = selectedEixo === e.id;
+              const cor = e.id === 'todos' ? undefined : COR_LINHA[e.id];
+              return (
+                <button
+                  key={e.id}
+                  type="button"
+                  aria-pressed={ativo}
+                  onClick={() => selectEixo(e.id)}
+                  style={cor ? ({ '--linha': cor } as React.CSSProperties) : undefined}
+                  className={`inline-flex items-center gap-2.5 min-h-10 px-4 rounded-full border text-sm font-bold transition-colors ${
+                    ativo
+                      ? 'bg-luz border-luz text-noite'
+                      : 'border-trilho text-nevoa hover:border-nevoa hover:text-white'
+                  }`}
+                >
+                  {cor && <span className="linha-roundel" aria-hidden="true" />}
+                  {e.label}
+                </button>
+              );
+            })}
           </nav>
         )}
 
-        {aside && <div className="mb-16">{aside}</div>}
+        {aside && <div className="mb-12">{aside}</div>}
 
-        {/* Filters - Minimalist Pill */}
+        {/* Busca e temas */}
         {articles.length > 0 && (
-        <div className="sticky top-4 z-40 flex justify-center mb-20 pointer-events-none">
-           <div className="bg-white/80 backdrop-blur-lg shadow-sm border border-white/20 rounded-full p-1 pl-4 pr-1 flex items-center gap-4 pointer-events-auto">
-              <span className="text-slate-400 hidden md:block">
-                <Search size={16} />
-              </span>
+          <div className="flex flex-col md:flex-row md:items-center gap-4 pb-6 mb-10 border-b border-trilho">
+            <label className="relative flex items-center md:w-72 shrink-0">
+              <Search size={16} aria-hidden="true" className="absolute left-3.5 text-nevoa pointer-events-none" />
               <input
                 aria-label="Buscar artigos"
-                className="bg-transparent border-none outline-none w-32 md:w-64 text-sm text-slate-700 placeholder:text-slate-400 font-sans"
+                type="search"
+                className="w-full h-11 pl-10 pr-3 rounded-md bg-noite-2 border border-trilho text-[0.95rem] text-luz placeholder:text-nevoa/80 focus:outline-none focus:border-laranja-claro"
                 placeholder="Filtrar ideias..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
-              <div className="h-6 w-px bg-slate-200 mx-2"></div>
-              <div className="flex gap-1 overflow-x-auto max-w-[200px] md:max-w-none no-scrollbar">
-                {categories.map(cat => (
-                  <button
-                    key={cat}
-                    type="button"
-                    aria-pressed={selectedCategory === cat}
-                    onClick={() => setSelectedCategory(cat)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors whitespace-nowrap ${selectedCategory === cat ? 'bg-slate-900 text-white' : 'hover:bg-slate-100 text-slate-600'}`}
-                  >
-                    {cat}
-                  </button>
-                ))}
-              </div>
-           </div>
-        </div>
+            </label>
+            <div className="flex flex-wrap gap-1.5">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  aria-pressed={selectedCategory === cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`min-h-9 px-3 rounded-md text-[0.85rem] font-semibold transition-colors whitespace-nowrap ${
+                    selectedCategory === cat ? 'bg-laranja text-brasa' : 'text-nevoa hover:text-white hover:bg-noite-2'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
         )}
 
-        {/* Masonry-ish Artistic Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-24">
-          {filteredArticles.map((article, idx) => (
-            <a
-              key={article.id}
-              href={article.href}
-              className={`group block ${idx % 2 !== 0 ? 'md:mt-24' : ''}`}
-            >
-            <motion.article 
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className="flex flex-col h-full"
-            >
-              {/* Image Container with Morphing Mask Effect */}
-              <div className="relative mb-8 overflow-hidden rounded-lg aspect-[4/3]">
-                <div className="absolute inset-0 bg-orange-500/10 mix-blend-multiply z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <ImageWithFallback 
-                  src={article.image} 
-                  alt={article.title}
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0"
-                />
-                
-                {/* Floating Category Tag */}
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-[10px] uppercase tracking-widest font-bold text-slate-900 z-20">
-                  {eixo ? article.category : `${EIXOS[article.eixo].shortLabel} · ${article.category}`}
+        {/* As estações, na ordem do mais recente para o mais antigo, cada uma no trilho da sua linha */}
+        {filteredArticles.length > 0 && (
+          <ol className="list-none m-0 p-0">
+            {filteredArticles.map((article, idx) => (
+              <li
+                key={article.id}
+                className="flex gap-5 md:gap-8"
+              >
+                <div className={`trilhos ${idx === 0 ? 'trilhos-inicio' : ''} ${idx === filteredArticles.length - 1 ? 'trilhos-fim' : ''}`} aria-hidden="true">
+                  {linhas.map((l) => (
+                    <span key={l.id} style={{ '--linha': COR_LINHA[l.id] } as React.CSSProperties}>
+                      {l.id === article.eixo && <span className="estacao-ponto" />}
+                    </span>
+                  ))}
                 </div>
-              </div>
-
-              {/* Content */}
-              <div className="relative">
-                {/* Date + reading time */}
-                <div className="mb-3 font-mono text-xs text-slate-600 uppercase tracking-wider">
-                    {article.date} · {article.duration}
-                </div>
-
-                <h2 className="font-serif text-3xl md:text-4xl text-slate-900 leading-tight mb-4 group-hover:text-orange-600 transition-colors duration-300">
-                  {article.title}
-                </h2>
-                <p className="font-sans text-slate-600 leading-relaxed mb-6 font-light group-hover:text-slate-700 transition-colors">
-                  {article.excerpt}
-                </p>
-                
-                <div className="flex items-center gap-2 text-slate-900 font-bold text-xs uppercase tracking-widest group/btn w-fit">
-                  Ler Artigo
-                  <ArrowRight size={14} className="transition-transform duration-300 group-hover/btn:translate-x-2" />
-                </div>
-              </div>
-            </motion.article>
-            </a>
-          ))}
-        </div>
+                <a href={article.href} className="group block min-w-0 flex-1 pb-12 md:pb-14">
+                  <article>
+                    <p className="flex flex-wrap gap-x-3 gap-y-1 text-[0.8rem] font-semibold uppercase tracking-[0.08em] text-nevoa">
+                      <span className="tabular-nums">{article.date} · {article.duration}</span>
+                      <span style={{ color: COR_LINHA[article.eixo] }}>
+                        {eixo ? article.category : `${EIXOS[article.eixo].shortLabel} · ${article.category}`}
+                      </span>
+                    </p>
+                    <h2 className="mt-2.5 max-w-3xl text-2xl md:text-[1.9rem] leading-[1.15] font-extrabold tracking-[-0.02em] text-white group-hover:underline decoration-2 underline-offset-[6px]" style={{ textDecorationColor: COR_LINHA[article.eixo] }}>
+                      {article.title}
+                    </h2>
+                    <p className="mt-3 font-serif text-[1.05rem] md:text-lg leading-relaxed text-nevoa max-w-[65ch]">
+                      {article.excerpt}
+                    </p>
+                    <span className="mt-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.1em] text-laranja-claro group-hover:text-white">
+                      Ler Artigo
+                      <ArrowRight size={14} aria-hidden="true" className="transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </article>
+                </a>
+              </li>
+            ))}
+          </ol>
+        )}
 
         {/* Empty State */}
         {filteredArticles.length === 0 && (
-          <div className="text-center py-32 text-slate-600">
-            <p className="font-serif text-2xl italic">O silêncio faz parte da música.</p>
-            <p className="font-sans text-sm mt-2">
+          <div className="py-24 text-nevoa">
+            <p className="font-serif text-2xl italic text-luz">O silêncio faz parte da música.</p>
+            <p className="text-sm mt-2">
               {articles.length === 0 ? 'Os primeiros textos deste eixo estão a caminho.' : 'Nenhum artigo encontrado.'}
             </p>
           </div>
         )}
-
       </div>
     </main>
   );

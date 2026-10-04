@@ -7,13 +7,16 @@ import type { LatestArticle, FeaturedVideo } from '../components/LatestContent';
 import { compareIsoDateDesc } from '../lib/format';
 import type { EixoResumo } from '../components/Eixos';
 import { EIXO_IDS } from '../lib/eixos';
-import { getArtigos } from '../lib/artigos';
+import { getArtigos, getTrechos } from '../lib/artigos';
 import { comUtm, projetos } from '../config/site';
 import { fundoResponsivo } from '../lib/imagens';
 import heroImg from '../assets/326189a758fea0fe0e2da42349b6da943b29ba51.png';
 
-// Fundo do hero/Themes: AVIF/WebP responsivos gerados no build (o PNG original tem 2,8 MB).
+// O quadro (apagado, atrás do mapa das linhas): AVIF/WebP responsivos gerados no build (o PNG original tem 2,8 MB).
 const fundo = await fundoResponsivo(heroImg);
+
+// Mapa da rede no topo: as estações (textos) mais recentes de cada linha (eixo).
+const trechos = await getTrechos(4);
 
 const insights = (await getCollection('insights', publicado)).sort((a, b) =>
   compareIsoDateDesc(a.data.date, b.data.date)
@@ -68,5 +71,5 @@ const eixos: EixoResumo[] = EIXO_IDS.flatMap((id): EixoResumo[] => {
 
 {/* O layout monta o title da home ("gusflopes.dev — Tecnologia e negócio, partes do mesmo sistema") */}
 <Default>
-  <HomePage articles={articles} video={video} eixos={eixos} fundo={fundo} client:load />
+  <HomePage articles={articles} video={video} eixos={eixos} trechos={trechos} fundo={fundo} client:load />
 </Default>

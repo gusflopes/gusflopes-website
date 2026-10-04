@@ -16,6 +16,7 @@ export interface NewsletterEdicaoPageProps {
   children?: ReactNode;
 }
 
+/** Edição da newsletter: moldura noturna, leitura no papel, inscrição no fim. */
 export function NewsletterEdicaoPage({
   id,
   edicao,
@@ -28,43 +29,52 @@ export function NewsletterEdicaoPage({
   children,
 }: NewsletterEdicaoPageProps) {
   return (
-    <main className="pt-32 pb-24 px-6 min-h-screen bg-slate-950 text-slate-200">
-      <article className="max-w-3xl mx-auto">
-        <a
-          href="/newsletter"
-          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-orange-500 transition-colors mb-8"
-        >
-          <ArrowLeft size={14} />
-          Todas as edições
-        </a>
-
-        <header className="mb-10">
-          <p className="font-mono text-xs uppercase tracking-wider text-orange-400 mb-4">
+    <main style={{ '--linha': 'var(--color-laranja)' } as React.CSSProperties}>
+      <div className="bg-noite text-luz">
+        <header className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 md:pt-10 pb-12 md:pb-16">
+          <a
+            href="/newsletter"
+            className="inline-flex items-center gap-2 min-h-11 text-xs font-bold uppercase tracking-[0.1em] text-nevoa hover:text-white transition-colors mb-8"
+          >
+            <ArrowLeft size={14} aria-hidden="true" />
+            Todas as edições
+          </a>
+          {/* serviço semanal: trilho tracejado */}
+          <span
+            aria-hidden="true"
+            className="block max-w-4xl h-1.5 mb-8 bg-[repeating-linear-gradient(to_right,var(--color-laranja)_0_18px,transparent_18px_26px)]"
+          />
+          <p className="text-[0.8rem] font-bold uppercase tracking-[0.1em] text-laranja-claro tabular-nums mb-4">
             Edição #{edicao} · {dateFormatted} · {duration} leitura
           </p>
-          <h1 className="font-serif text-4xl md:text-5xl text-white leading-tight mb-6">{title}</h1>
-          <p className="font-sans text-xl text-slate-400 font-light leading-relaxed">{excerpt}</p>
+          <h1 className="max-w-4xl text-[2.1rem] sm:text-5xl lg:text-[3.4rem] leading-[1.06] font-extrabold tracking-[-0.025em] text-white">
+            {title}
+          </h1>
+          <p className="mt-6 max-w-[60ch] font-serif text-lg md:text-[1.3rem] leading-relaxed text-nevoa">{excerpt}</p>
           {substackUrl && (
-            <p className="mt-4 text-sm">
-              <a href={substackUrl} target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:text-orange-300">
+            <p className="mt-5 text-sm">
+              <a href={substackUrl} target="_blank" rel="noopener noreferrer" className="font-bold text-laranja-claro hover:text-white">
                 Ler no Substack →
               </a>
             </p>
           )}
         </header>
+      </div>
 
-        <div className="mb-12 rounded-xl overflow-hidden border border-slate-800">
-          <ImageWithFallback src={image} alt={title} className="w-full h-auto" />
-        </div>
+      <div className="papel bg-papel text-tinta">
+        <article className="max-w-3xl mx-auto px-4 sm:px-6 pt-10 md:pt-14 pb-16">
+          <div className="mb-12 rounded overflow-hidden bg-fio">
+            <ImageWithFallback src={image} alt={title} className="w-full h-auto" />
+          </div>
+          <div className="prosa mx-auto">{children}</div>
+        </article>
+      </div>
 
-        <div className="prose prose-invert prose-lg max-w-none font-sans text-slate-300 leading-relaxed prose-headings:font-serif prose-headings:font-medium prose-headings:text-white prose-a:text-orange-400 hover:prose-a:text-orange-300 prose-strong:text-white prose-img:rounded-lg">
-          {children}
-        </div>
-
-        <div className="mt-16">
+      <div className="bg-noite px-4 sm:px-6 py-14">
+        <div className="max-w-3xl mx-auto">
           <NewsletterCta content={`edicao-${id}`} />
         </div>
-      </article>
+      </div>
     </main>
   );
 }

@@ -7,23 +7,28 @@ import { SocialLinks } from './SocialLinks';
  */
 export function NewsletterCta({ content }: { content: string }) {
   return (
-    <div className="rounded-xl border border-orange-500/40 bg-slate-900/70 p-6 md:p-8">
-      <p className="font-sans text-slate-300 leading-relaxed mb-5">{newsletter.pitch}</p>
+    <div className="relative rounded-md bg-noite-2 p-6 md:p-8 overflow-hidden">
+      {/* o serviço semanal: trilho tracejado laranja no topo da caixa */}
+      <span
+        aria-hidden="true"
+        className="absolute left-0 right-0 top-0 h-1.5 bg-[repeating-linear-gradient(to_right,var(--color-laranja)_0_18px,transparent_18px_26px)]"
+      />
+      <p className="font-serif text-lg text-luz leading-relaxed mb-6 max-w-[56ch]">{newsletter.pitch}</p>
       {newsletter.substack ? (
         <a
           href={linkInscricao(content)}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center font-sans bg-orange-500 hover:bg-orange-600 text-[#1c0a02] font-bold px-8 h-12 rounded-lg transition-colors"
+          className="inline-flex items-center justify-center bg-laranja hover:bg-laranja-claro text-brasa font-bold px-7 min-h-12 rounded-md transition-colors"
         >
           {newsletter.ctaLabel}
         </a>
       ) : (
         <>
-          <p className="font-sans text-sm text-slate-400 mb-3">
+          <p className="text-sm text-nevoa mb-3">
             As inscrições abrem em breve. Enquanto isso, as notícias do dia a dia estão nas redes:
           </p>
-          <SocialLinks linkClassName="text-slate-400 hover:text-white" />
+          <SocialLinks linkClassName="text-nevoa hover:text-white" />
         </>
       )}
     </div>
