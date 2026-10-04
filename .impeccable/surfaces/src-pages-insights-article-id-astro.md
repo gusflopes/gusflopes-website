@@ -22,3 +22,10 @@ FIRST VIEWPORT: barra azul-escuro com voltar/compartilhar; faixa de metadados em
 FORM: sistema tipográfico concreto aplicado a leitura; 1º da lista (direção fixada pelo dono); seed key: n/a.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+
+## Rodada 2 — hubs, fim do artigo, newsletter
+
+- **Hubs** (achar o próximo texto): linhas de tabela; o dia como numeral leve e largo, "Mês, ano" e duração em rótulo; o texto mais recente (sem filtro) tem a célula de data em plano laranja e o título em 900 caixa-alta. Bastidores: o simulador vira grade de células com metadados ao lado do título e a ação como célula laranja.
+- **Fim do artigo** (saber quem escreveu e continuar): grade de duas células sobre azul — autor (foto, nome em estreita, "Sobre o Autor" em linha de metadados depois do nome, bio, redes) e o plano laranja da newsletter.
+- **Newsletter** (assinar e achar uma edição): plano laranja de inscrição; "Edições" em abertura estreita; cada edição com "Edição #N · data" numa célula ao lado do título, o número em numeral grande. Página da edição: metadados e linha-fina numa coluna de células ao lado da abertura; "Ler no Substack" com seta SVG.
+- **404 e legais**: abertura gerada do título, metadados ("Erro 404", "Última atualização") em célula ao lado; uma linha vazada só ("DE LUGAR").

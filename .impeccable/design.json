@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-04T01:32:01.189Z",
+  "generatedAt": "2026-10-04T12:00:00.000Z",
   "title": "Design System: gusflopes.dev",
   "extensions": {
     "colorMeta": {
@@ -67,6 +67,18 @@
       "leitura": {
         "displayName": "Leitura",
         "purpose": "Corpo dos textos."
+      },
+      "abertura-estreita": {
+        "displayName": "Abertura estreita",
+        "purpose": "Títulos de seção (Archivo 850/62, word-spacing .12em), mesmas regras da abertura com métricas próprias."
+      },
+      "bloco-celula": {
+        "displayName": "Bloco de célula",
+        "purpose": "Nomes curtos de temas e serviços: duas linhas justificadas na largura da célula, \"&\" em laranja."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Datas e números de edição: Archivo 250/125, algarismos tabulares."
       }
     },
     "shadows": [],
@@ -141,14 +153,32 @@
       "description": "Título como bloco de tipo; linhas em cqi, uma vazada.",
       "html": "<h1 class=\"ds-ab\"><span style=\"--fit:24\">Agent</span><span class=\"v\" style=\"--fit:23\">Skills<b>:</b></span></h1>",
       "css": ".ds-ab{container-type:inline-size;background:#0b1a33;color:#f2f4f7;margin:0;padding:16px}.ds-ab span{display:block;font:900 min(calc(var(--fit)*1cqi),8rem)/.92 \"Archivo Variable\",sans-serif;letter-spacing:-.02em;text-transform:uppercase}.ds-ab .v{color:transparent;-webkit-text-stroke:2px #f2f4f7}.ds-ab b{color:#f97316;-webkit-text-stroke:0}"
+    },
+    {
+      "name": "Célula laranja de ação",
+      "kind": "custom",
+      "refersTo": "celula-acao",
+      "description": "A célula inteira é o link: rótulo estreito 850/62 em caixa-alta e seta no canto; hover vira papel.",
+      "html": "<a class=\"ds-cel\" href=\"#\"><span>Fazer o diagnóstico</span><span aria-hidden=\"true\">→</span></a>",
+      "css": ".ds-cel{display:flex;flex-direction:column;justify-content:space-between;min-height:9rem;padding:24px;background:#f97316;color:#1c0a02;font:850 2.25rem/.9 \"Archivo Variable\",sans-serif;font-stretch:62%;text-transform:uppercase;text-decoration:none}.ds-cel:hover{background:#f2f4f7;color:#0b1a33}"
+    },
+    {
+      "name": "Célula de data",
+      "kind": "custom",
+      "refersTo": "data-celula",
+      "description": "Dia como numeral 250/125, \"Mês, ano\" e duração como rótulo; no texto mais recente vira plano laranja.",
+      "html": "<p class=\"ds-data\"><span class=\"n\">29</span><span>Set, 2026 · 8 min</span></p>",
+      "css": ".ds-data{display:inline-flex;flex-direction:column;gap:8px;padding:12px;background:#f97316;color:#1c0a02;font:650 .8125rem/1.35 \"Archivo Variable\",sans-serif;font-stretch:75%;letter-spacing:.12em;text-transform:uppercase}.ds-data .n{font-weight:250;font-stretch:125%;font-size:4.25rem;line-height:.82;letter-spacing:-.04em}"
     }
   ],
   "narrative": {
     "northStar": "A palavra como construção",
     "overview": "O site é uma peça de poesia concreta brasileira composta com a disciplina da escola de Ulm: a tese da marca é montada como bloco de tipo, e todo o resto é grade rígida, filete e campo de cor chapado.",
     "keyCharacteristics": [
-      "Aberturas tipográficas geradas do título",
-      "Grade de filetes e células por gap sobre azul",
+      "Aberturas tipográficas geradas do título, em duas instâncias (larga e estreita)",
+      "Grade de filetes e células por gap de 2px sobre o campo",
+      "Laranja como plano estrutural: a ação principal de cada região é uma célula laranja",
+      "Números só quando codificam algo verdadeiro (data, edição, ordem)",
       "Cantos retos, zero sombra",
       "Leitura calma em Source Serif 4",
       "Uma janela laranja com o quadro por página, no máximo"
@@ -156,7 +186,7 @@
     "rules": [
       {
         "name": "The Two Fields Rule",
-        "body": "Toda seção é azul-escuro ou papel frio, inteira.",
+        "body": "Toda região é azul-escuro ou papel frio; um campo carrega várias seções. Na home, no máximo três trocas de campo (hoje duas).",
         "section": "colors"
       },
       {
@@ -183,6 +213,16 @@
         "name": "The Flat Plane Rule",
         "body": "Se algo precisa se destacar, muda de campo ou de peso — não ganha sombra.",
         "section": "elevation"
+      },
+      {
+        "name": "The Orange Plane Rule",
+        "body": "Laranja chapado ocupa uma célula inteira quando marca a ação principal da região (newsletter, diagnóstico, simulador) ou a ordem real (o texto mais recente). Sobre ele, botão azul.",
+        "section": "colors"
+      },
+      {
+        "name": "The Meta Cell Rule",
+        "body": "Nada de rótulo acima de título: metadados vão numa célula ao lado ou numa linha depois do título.",
+        "section": "layout"
       }
     ],
     "dos": [
