@@ -130,7 +130,8 @@
     height: 1.5rem;
     border-width: 4px;
     border-color: var(--linha, var(--color-laranja));
-    box-shadow: 0 0 0 3px var(--color-noite), 0 0 0 5px var(--color-luz);
+    outline: 2px solid var(--color-luz);
+    outline-offset: 3px;
   }
 
   a:hover > .estacao-ponto,
@@ -147,7 +148,8 @@
     height: 0.75rem;
     border-radius: 999px;
     background: var(--linha, var(--color-laranja));
-    box-shadow: 0 0 0 2px var(--color-noite), 0 0 0 3.5px var(--linha, var(--color-laranja));
+    outline: 1.5px solid var(--linha, var(--color-laranja));
+    outline-offset: 2px;
   }
 
   /* ------------------------------------------------------------------
@@ -176,6 +178,13 @@
     background: var(--linha);
   }
 
+
+  /* com passagem de baldeação, a linha nasce na passagem (à esquerda das estações) */
+  @media (min-width: 768px) {
+    .mapa-trilho-ligado::before {
+      left: calc(-3rem + 1.1rem);
+    }
+  }
 
   @media (max-width: 767px) {
     .mapa-trilho {

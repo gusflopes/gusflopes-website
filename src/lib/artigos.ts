@@ -94,7 +94,9 @@ export async function getTrechos(n = 4): Promise<TrechoLinha[]> {
   const rede = await getRede();
   return EIXO_IDS.flatMap((eixo) => {
     const linha = rede.filter((e) => e.eixo === eixo);
-    return linha.length ? [{ eixo, total: linha.length, estacoes: linha.slice(-n).map(semTags) }] : [];
+    return linha.length
+      ? [{ eixo, total: linha.length, estacoes: linha.slice(-n).map(semTags), conectada: linha.some((e) => e.baldeacao) }]
+      : [];
   });
 }
 

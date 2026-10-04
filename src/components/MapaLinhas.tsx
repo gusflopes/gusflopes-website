@@ -10,19 +10,31 @@ import { COR_LINHA, type TrechoLinha } from '../lib/linhas';
 export function MapaLinhas({ trechos, nivel = 2 }: { trechos: TrechoLinha[]; nivel?: 2 | 3 }) {
   if (trechos.length === 0) return null;
   const H = nivel === 2 ? 'h2' : 'h3';
+  // Passagem de baldeação (desktop): liga as placas das linhas que têm ao menos uma
+  // estação com tag em comum com outra linha — só dado real.
+  const conectadas = trechos.map((t) => t.estacoes.some((e) => e.baldeacao) || t.conectada === true);
+  const primeira = conectadas.indexOf(true);
+  const ultima = conectadas.lastIndexOf(true);
+  const temPassagem = primeira >= 0 && ultima > primeira;
   return (
     <ol className="relative grid gap-9 md:gap-11 list-none m-0 p-0">
-      {trechos.map(({ eixo, estacoes, total }) => {
+      {trechos.map(({ eixo, estacoes, total }, i) => {
         const def = EIXOS[eixo];
         return (
-          <li key={eixo} style={{ '--linha': COR_LINHA[eixo] } as React.CSSProperties}>
+          <li key={eixo} className="relative" style={{ '--linha': COR_LINHA[eixo] } as React.CSSProperties}>
+            {temPassagem && i >= primeira && i < ultima && (
+              <span
+                aria-hidden="true"
+                className="hidden md:block absolute left-[0.8rem] top-4 -bottom-[calc(2.75rem+1rem)] w-[10px] border-x-[2.5px] border-luz/80"
+              />
+            )}
             <H className="mb-4 md:mb-5">
               <a
                 href={def.href}
                 className="group inline-flex items-center gap-3 text-[0.95rem] font-extrabold tracking-[0.01em] text-white"
               >
                 <span
-                  className="inline-flex items-center gap-2 rounded-full pl-1.5 pr-3 py-1 text-brasa"
+                  className="relative inline-flex items-center gap-2 rounded-full pl-1.5 pr-3 py-1 text-brasa"
                   style={{ background: COR_LINHA[eixo] }}
                 >
                   <span aria-hidden="true" className="grid place-items-center w-6 h-6 rounded-full bg-noite text-luz text-xs tabular-nums font-bold">
@@ -37,7 +49,7 @@ export function MapaLinhas({ trechos, nivel = 2 }: { trechos: TrechoLinha[]; niv
                 />
               </a>
             </H>
-            <ol className="mapa-trilho">
+            <ol className={`mapa-trilho ${temPassagem ? 'md:ml-12 mapa-trilho-ligado' : ''}`}>
               {estacoes.map((e) => (
                 <li key={e.href} className="min-w-0">
                   <a

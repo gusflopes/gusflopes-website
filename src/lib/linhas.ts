@@ -33,6 +33,8 @@ export interface TrechoLinha {
   eixo: EixoId;
   total: number;
   estacoes: Estacao[];
+  /** Alguma estação da linha (mesmo fora do trecho) faz baldeação com outra linha. */
+  conectada?: boolean;
 }
 
 /** Posição de um texto na sua linha, para o cabeçalho e o anterior/próximo do artigo. */
