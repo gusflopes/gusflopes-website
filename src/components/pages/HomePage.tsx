@@ -19,7 +19,7 @@ export function HomePage({ articles, video, eixos = [], fundo }: HomePageProps) 
       <Hero fundo={fundo} />
       <Eixos eixos={eixos} />
       <Ferramenta />
-      <Themes fundo={fundo} />
+      <Themes />
       <Services />
       <LatestContent articles={articles} video={video} />
     </main>

@@ -1,45 +1,79 @@
-import React from 'react';
+import type { CSSProperties } from 'react';
 import { NewsletterForm } from './NewsletterForm';
 import { newsletter } from '../config/site';
-import { FundoPicture } from './FundoPicture';
+import { larguraEm } from '../lib/abertura';
 import type { FundoResponsivo } from '../lib/imagens';
+
+/**
+ * Linhas da tese, montadas à mão sobre as mesmas medidas do sistema de abertura:
+ * cada linha ocupa uma fração da largura do bloco (1 = largura toda). O texto é exatamente a
+ * tagline; a quebra é a composição.
+ */
+const TESE: { texto: string; fracao: number; estilo?: 'menor' | 'vazado' }[] = [
+  { texto: 'Tecnologia', fracao: 1 },
+  { texto: 'e negócio,', fracao: 0.4, estilo: 'menor' },
+  { texto: 'partes do', fracao: 1 },
+  { texto: 'mesmo', fracao: 0.5, estilo: 'vazado' },
+  { texto: 'sistema', fracao: 0.7 },
+];
+
+const fit = (texto: string, fracao: number) =>
+  Math.round(((97 * fracao) / larguraEm(texto.toLocaleUpperCase('pt-BR'))) * 100) / 100;
+
+/** O quadro dentro do bloco laranja girado: AVIF/WebP responsivos, recortados pela janela. */
+function Janela({ fundo }: { fundo: FundoResponsivo }) {
+  const sizes = '(min-width: 1024px) 420px, 60vw';
+  return (
+    <div className="janela" aria-hidden="true">
+      <div className="janela-quadro">
+        <picture>
+          <source type="image/avif" srcSet={fundo.avif} sizes={sizes} />
+          <source type="image/webp" srcSet={fundo.webp} sizes={sizes} />
+          <img src={fundo.src} alt="" width={fundo.width} height={fundo.height} decoding="async" loading="eager" />
+        </picture>
+      </div>
+    </div>
+  );
+}
 
 export function Hero({ fundo }: { fundo: FundoResponsivo }) {
   return (
-    <section className="relative w-full min-h-screen flex items-center pt-20 overflow-hidden">
-      {/* Imagem de fundo responsiva (AVIF/WebP); parallax só a partir de md */}
-      <div className="absolute inset-0 z-0 [clip-path:inset(0)]">
-        <FundoPicture fundo={fundo} priority />
-        {/* Overlay Gradient to ensure text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+    <section aria-labelledby="tese" className="campo-azul pt-[72px] overflow-hidden">
+      <div className="moldura pt-10 md:pt-10 pb-10 md:pb-10">
+        {/* Bloco da tese: contêiner de tamanho para as linhas escalarem pela largura */}
+        <div className="tese relative [container-type:inline-size] lg:w-[min(72%,calc((100svh-380px)/0.62))]">
+          <h1 id="tese" className="m-0 text-papel">
+            {TESE.map((l, i) => (
+              <span key={l.texto}>
+                <span
+                  className={`abertura-linha ${l.estilo === 'menor' ? '!text-laranja !py-[0.35em]' : ''}`}
+                  data-estilo={l.estilo === 'vazado' ? 'vazado' : 'cheio'}
+                  style={{ '--fit': fit(l.texto, l.fracao), '--teto': '20rem' } as CSSProperties}
+                >
+                  {l.texto}
+                </span>
+                {i < TESE.length - 1 ? ' ' : null}
+              </span>
+            ))}
+          </h1>
+          {/* A janela: única aparição do quadro na página, à direita de MESMO / SISTEMA */}
+          <div className="absolute right-[1cqi] bottom-[3cqi] w-[27cqi] lg:w-[30cqi] lg:-right-[24cqi] lg:bottom-[6cqi]">
+            <Janela fundo={fundo} />
+          </div>
+        </div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
-        <div className="max-w-3xl space-y-6">
-          <p className="font-sans text-sm md:text-base font-bold uppercase tracking-[0.2em] text-orange-400 drop-shadow-md">
-            Estratégia · Arquitetura · Fluxo · IA aplicada
-          </p>
-
-          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight drop-shadow-lg">
-            Tecnologia e negócio, <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-600">
-              partes do mesmo sistema
-            </span>
-          </h1>
-
-          <p className="font-sans text-xl md:text-2xl text-orange-100 font-medium max-w-2xl drop-shadow-md">
+      <div className="moldura">
+        <div className="grid gap-y-6 gap-x-[var(--gutter)] lg:grid-cols-12 border-t-2 border-papel pt-5 pb-12 md:pb-14">
+          <p className="rotulo lg:col-span-12 text-laranja">Estratégia · Arquitetura · Fluxo · IA aplicada</p>
+          <p className="lg:col-span-5 font-sans font-medium [font-stretch:87%] text-[1.375rem] md:text-[1.625rem] leading-[1.18] text-papel text-balance">
             Arquitetura, plataformas e IA aplicada para transformar complexidade em sistemas que evoluem.
           </p>
-
-          <p className="font-sans text-lg text-gray-300 max-w-xl leading-relaxed">
+          <p className="lg:col-span-4 font-serif text-[1.0625rem] leading-relaxed text-ceu-claro">
             Conecto decisões técnicas aos objetivos da organização para ampliar autonomia, melhorar o fluxo de entrega e gerar valor continuamente.
           </p>
-
-          <div className="pt-4 w-full max-w-lg">
-            <p className="font-sans text-sm text-slate-300 mb-3">
-              {newsletter.pitch}
-            </p>
+          <div className="lg:col-span-3 flex flex-col gap-4 items-start">
+            <p className="font-sans [font-stretch:87%] text-[0.9375rem] leading-snug text-ceu-claro">{newsletter.pitch}</p>
             <NewsletterForm variant="hero" />
           </div>
         </div>

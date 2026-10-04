@@ -1,99 +1,63 @@
-import React from 'react';
-import { Code2, Bot, BrainCircuit, Building2, Cloud } from 'lucide-react';
-import { FundoPicture } from './FundoPicture';
-import type { FundoResponsivo } from '../lib/imagens';
+import { Abertura } from './Abertura';
 
-export function Themes({ fundo }: { fundo: FundoResponsivo }) {
-  const themes = [
-    {
-      icon: <Code2 size={32} />,
-      title: "Domínio & Arquitetura",
-      description: "DDD, arquitetura de software e .NET para traduzir regras de negócio complexas em sistemas claros, resilientes e preparados para evoluir."
-    },
-    {
-      icon: <Bot size={32} />,
-      title: "Dados & IA Aplicada",
-      description: "Data Mesh, agentes e IA aplicada com contexto, governança e propósito. Tecnologia emergente tratada como capacidade de negócio, não como demonstração."
-    },
-    {
-      icon: <BrainCircuit size={32} />,
-      title: "Fluxo & Entrega",
-      description: "DevOps e DORA Metrics para tornar o trabalho visível, reduzir atritos e melhorar continuamente a capacidade de entregar software com qualidade."
-    },
-    {
-      icon: <Building2 size={32} />,
-      title: "Estratégia & Governança",
-      description: "Decisões tecnológicas conectadas a valor, risco e sustentabilidade. Uma perspectiva formada também por Direito, Contabilidade e Gestão Financeira."
-    },
-    {
-      icon: <Cloud size={32} />,
-      title: "Times & Plataformas",
-      description: "Team Topologies e Platform Engineering para criar limites claros, reduzir carga cognitiva e dar mais autonomia aos times de produto."
-    }
-  ];
+const themes = [
+  {
+    title: 'Domínio & Arquitetura',
+    description:
+      'DDD, arquitetura de software e .NET para traduzir regras de negócio complexas em sistemas claros, resilientes e preparados para evoluir.',
+  },
+  {
+    title: 'Dados & IA Aplicada',
+    description:
+      'Data Mesh, agentes e IA aplicada com contexto, governança e propósito. Tecnologia emergente tratada como capacidade de negócio, não como demonstração.',
+  },
+  {
+    title: 'Fluxo & Entrega',
+    description:
+      'DevOps e DORA Metrics para tornar o trabalho visível, reduzir atritos e melhorar continuamente a capacidade de entregar software com qualidade.',
+  },
+  {
+    title: 'Estratégia & Governança',
+    description:
+      'Decisões tecnológicas conectadas a valor, risco e sustentabilidade. Uma perspectiva formada também por Direito, Contabilidade e Gestão Financeira.',
+  },
+  {
+    title: 'Times & Plataformas',
+    description:
+      'Team Topologies e Platform Engineering para criar limites claros, reduzir carga cognitiva e dar mais autonomia aos times de produto.',
+  },
+];
 
+/** "Sobre": trajetória em coluna de leitura e os cinco temas como tabela de grade, sem cards. */
+export function Themes() {
   return (
-    <section id="about" className="relative py-24 px-6 min-h-[800px] flex items-center justify-center overflow-hidden">
-      {/* Fundo responsivo; parallax só a partir de md */}
-      <div className="absolute inset-0 z-0 [clip-path:inset(0)]">
-        <FundoPicture fundo={fundo} />
-        {/* Overlay Gradient */}
-        <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto relative z-10 w-full">
-        <div className="text-center mb-16 max-w-3xl mx-auto">
-          <h2 className="font-serif text-3xl md:text-5xl font-bold text-white mb-6 drop-shadow-lg">
-            Engenharia é mais do que código
-          </h2>
-          <p className="font-sans text-lg text-slate-200 font-medium leading-relaxed drop-shadow-md">
-            Minha trajetória entre <span className="text-orange-400 font-bold">Direito, Contabilidade, gestão e tecnologia</span> moldou uma visão sistêmica da engenharia de software.
-            Analiso domínio, arquitetura, times e fluxo de entrega como partes do mesmo problema: criar capacidade para o negócio evoluir.
-          </p>
-          <p className="font-sans text-base text-slate-300 leading-relaxed mt-5 drop-shadow-md">
-            Hoje, aplico essa perspectiva como líder técnico no sistema de precificação de locação veicular de uma plataforma de mobilidade do Grupo Volkswagen.
-          </p>
+    <section id="about" aria-labelledby="about-title" className="campo-papel py-20 md:py-28">
+      <div className="moldura grid gap-12 lg:grid-cols-12 lg:gap-x-[var(--gutter)]">
+        <div className="lg:col-span-5">
+          <div className="lg:sticky lg:top-28">
+            <Abertura id="about-title" as="h2" titulo="Engenharia é mais do que código" eixo="engenharia" teto={6.5} />
+          </div>
         </div>
 
-        <div className="flex flex-col gap-8 items-center">
-          {/* Top Row - 3 items */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
-            {themes.slice(0, 3).map((theme, index) => (
-              <div key={index} className="group relative h-full">
-                <div className="h-full w-full rounded-xl bg-slate-900/80 backdrop-blur-md border-2 border-orange-500/80 shadow-[0_0_15px_-3px_rgba(249,115,22,0.3)] flex flex-col items-start text-left p-8 transition-all duration-500 hover:scale-[1.02] hover:bg-slate-900/90 hover:border-orange-400 hover:shadow-[0_0_25px_-5px_rgba(249,115,22,0.5)]">
-                  <div className="mb-6 text-orange-400 group-hover:text-orange-300 transition-colors">
-                    {theme.icon}
-                  </div>
-                  <h3 className="font-serif text-xl font-bold text-white mb-4 leading-tight">
-                    {theme.title}
-                  </h3>
-                  <p className="font-sans text-base text-slate-300 leading-relaxed mb-6">
-                    {theme.description}
-                  </p>
-                </div>
-              </div>
-            ))}
+        <div className="lg:col-span-7">
+          <div className="max-w-[62ch] font-serif text-[1.1875rem] leading-relaxed text-tinta">
+            <p>
+              Minha trajetória entre <strong className="font-semibold text-laranja-fundo">Direito, Contabilidade, gestão e tecnologia</strong> moldou uma visão sistêmica da engenharia de software.
+              Analiso domínio, arquitetura, times e fluxo de entrega como partes do mesmo problema: criar capacidade para o negócio evoluir.
+            </p>
+            <p className="mt-5 text-tinta-2">
+              Hoje, aplico essa perspectiva como líder técnico no sistema de precificação de locação veicular de uma plataforma de mobilidade do Grupo Volkswagen.
+            </p>
           </div>
 
-          {/* Bottom Row - 2 items */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl md:mt-2">
-            {themes.slice(3, 5).map((theme, index) => (
-              <div key={index + 3} className="group relative h-full">
-                <div className="h-full w-full rounded-xl bg-slate-900/80 backdrop-blur-md border-2 border-orange-500/80 shadow-[0_0_15px_-3px_rgba(249,115,22,0.3)] flex flex-col items-start text-left p-8 transition-all duration-500 hover:scale-[1.02] hover:bg-slate-900/90 hover:border-orange-400 hover:shadow-[0_0_25px_-5px_rgba(249,115,22,0.5)]">
-                  <div className="mb-6 text-orange-400 group-hover:text-orange-300 transition-colors">
-                    {theme.icon}
-                  </div>
-                  <h3 className="font-serif text-xl font-bold text-white mb-4 leading-tight">
-                    {theme.title}
-                  </h3>
-                  <p className="font-sans text-base text-slate-300 leading-relaxed mb-6">
-                    {theme.description}
-                  </p>
-                </div>
+          <dl className="mt-14 border-t-2 border-azul">
+            {themes.map((theme) => (
+              <div key={theme.title} className="grid gap-2 md:grid-cols-[minmax(0,15rem)_minmax(0,1fr)] md:gap-8 py-5 border-b border-filete">
+                <dt className="display text-[1.25rem] uppercase leading-[1.02] text-azul">{theme.title}</dt>
+                <dd className="font-serif text-[1.0625rem] leading-relaxed text-tinta">{theme.description}</dd>
               </div>
             ))}
-          </div>
+          </dl>
         </div>
       </div>
     </section>

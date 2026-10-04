@@ -3,75 +3,517 @@
 
 @plugin "@tailwindcss/typography";
 
+/*
+ * Concretismo — sistema tipográfico do gusflopes.dev.
+ * Dois campos (azul-escuro e papel frio), laranja em blocos chapados, grade de filetes,
+ * cantos retos, sem sombra e sem vidro. Archivo variável faz display (900/100) e rótulos
+ * (600/75); Source Serif 4 faz a leitura. Fontes importadas em src/layouts/Default.astro.
+ */
 @theme {
-  /* Fontes self-hosted via @fontsource-variable (importadas em src/layouts/Default.astro). */
-  --font-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", sans-serif;
-  --font-serif: "Cormorant Garamond Variable", "Cormorant Garamond", serif;
-  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", monospace;
+  --font-sans: "Archivo Variable", "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Source Serif 4 Variable", "Source Serif 4", Georgia, serif;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace;
+
+  --color-azul: #0b1a33;
+  --color-azul-2: #13284d;
+  --color-azul-3: #1d3866;
+  --color-papel: #f2f4f7;
+  --color-papel-2: #e4e9f0;
+  --color-filete: #c9d3e0;
+  --color-tinta: #0b1a33;
+  --color-tinta-2: #4a5872;
+  --color-ceu: #8fb3d9;
+  --color-ceu-claro: #b7c6da;
+  --color-laranja: #f97316;
+  --color-laranja-claro: #fb923c;
+  --color-laranja-palido: #fdba74;
+  --color-laranja-fundo: #c2410c;
+  --color-laranja-tinta: #1c0a02;
+}
+
+:root {
+  --azul: #0b1a33;
+  --azul-2: #13284d;
+  --papel: #f2f4f7;
+  --laranja: #f97316;
+  --laranja-fundo: #c2410c;
+  --ceu: #8fb3d9;
+  --tinta-2: #4a5872;
+  --filete: #c9d3e0;
+  /* largura útil e gutter da grade */
+  --gutter: clamp(16px, 4vw, 48px);
+  --largura: 1240px;
+  color-scheme: light;
+  scrollbar-color: var(--laranja) var(--azul);
+  -webkit-text-size-adjust: 100%;
 }
 
 @layer base {
-  h1,
-  h2,
-  h3 {
-    font-family: var(--font-serif);
-    font-weight: var(--font-weight-medium);
-  }
-
-  h4,
-  h5,
-  h6 {
-    font-family: var(--font-sans);
+  html {
+    background: var(--azul);
   }
 
   body {
     font-family: var(--font-sans);
+    font-stretch: 100%;
+    background: var(--azul);
+    color: var(--papel);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-sans);
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: var(--laranja);
+    color: #1c0a02;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--laranja);
+    outline-offset: 3px;
+    border-radius: 0;
+  }
+
+  .campo-papel :focus-visible {
+    outline-color: var(--laranja-fundo);
+  }
+
+  a {
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: 0.08em;
+  }
+
+  input::placeholder {
+    color: var(--tinta-2);
+    opacity: 1;
+  }
+
+  input,
+  textarea {
+    caret-color: var(--laranja-fundo);
   }
 }
 
 @layer components {
-  /*
-   * Code blocks gerados pelo Shiki (markdown das Content Collections).
-   * O tema default do Astro (github-dark) define cores via inline style;
-   * aqui ajustamos apenas moldura, espaçamento e tipografia para o tema do site.
-   */
-  .prose pre.astro-code {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    padding: 1.5rem;
-    border-radius: 0.75rem;
-    border: 1px solid rgb(30 41 59); /* slate-800 */
-    box-shadow: 0 0 30px -10px rgb(0 0 0 / 0.5);
-    font-size: 0.875rem;
-    line-height: 1.75;
+  /* Moldura: largura útil com gutter fixo da grade. */
+  .moldura {
+    width: 100%;
+    max-width: calc(var(--largura) + 2 * var(--gutter));
+    margin-inline: auto;
+    padding-inline: var(--gutter);
   }
 
-  .prose pre.astro-code code {
+  .campo-azul {
+    background: var(--azul);
+    color: var(--papel);
+  }
+
+  .campo-papel {
+    background: var(--papel);
+    color: var(--azul);
+  }
+
+  /* Rótulo: Archivo estreito em caixa-alta (o "Archivo Narrow" do sistema). */
+  .rotulo {
+    font-family: var(--font-sans);
+    font-stretch: 75%;
+    font-weight: 650;
+    font-size: 0.8125rem;
+    line-height: 1.2;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* Display: o "Archivo Black" do sistema. */
+  .display {
+    font-family: var(--font-sans);
+    font-weight: 900;
+    font-stretch: 100%;
+    letter-spacing: -0.02em;
+    line-height: 0.9;
+  }
+
+  /* Botão primário: bloco laranja chapado, texto escuro, canto reto. */
+  .botao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    min-height: 3.25rem;
+    padding: 0 1.6rem;
+    background: var(--laranja);
+    color: #1c0a02;
+    font-family: var(--font-sans);
+    font-weight: 800;
+    font-stretch: 87%;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1), color 160ms;
+  }
+  .botao:hover {
+    background: var(--papel);
+    color: var(--azul);
+  }
+  .campo-papel .botao:hover {
+    background: var(--azul);
+    color: var(--papel);
+  }
+
+  /* Link de ação: rótulo com seta, sublinhado de bloco no hover. */
+  .acao {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-family: var(--font-sans);
+    font-stretch: 75%;
+    font-weight: 750;
+    font-size: 0.875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--laranja);
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0 2px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    padding-bottom: 3px;
+    transition: background-size 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .acao:hover {
+    background-size: 100% 2px;
+  }
+  .campo-papel .acao {
+    color: var(--laranja-fundo);
+  }
+
+  /* ---------- Abertura tipográfica (src/lib/abertura.ts) ---------- */
+  .abertura {
+    container-type: inline-size;
+    margin: 0;
+    font-family: var(--font-sans);
+    color: var(--papel);
+    overflow-x: clip;
+    overflow-clip-margin: 4px;
+  }
+  .abertura-linha {
+    display: block;
+    width: fit-content;
+    white-space: nowrap;
+    font-weight: 900;
+    font-stretch: 100%;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 0.92;
+    font-size: min(calc(var(--fit) * 1cqi), var(--teto, 8rem));
+    margin-inline-start: calc(var(--recuo, 0) * 1cqi);
+    padding-block: 0.02em;
+  }
+  .abertura[data-alinhamento="end"] .abertura-linha {
+    margin-inline-start: auto;
+  }
+  .abertura-linha[data-estilo="vazado"] {
+    color: transparent;
+    -webkit-text-stroke: max(1.5px, 0.022em) currentColor;
+    -webkit-text-stroke-color: var(--papel);
+  }
+  .abertura-sep {
+    color: var(--laranja);
+    -webkit-text-stroke: 0;
+  }
+  .abertura-cauda {
+    display: block;
+    margin-top: 0.9em;
+    max-width: 34ch;
+    font-weight: 500;
+    font-stretch: 87%;
+    font-size: clamp(1.25rem, 1rem + 1.2vw, 2rem);
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    text-transform: none;
+    color: var(--ceu);
+    text-wrap: balance;
+  }
+  .abertura[data-alinhamento="end"] .abertura-cauda {
+    margin-inline-start: auto;
+    text-align: right;
+  }
+
+  .campo-papel .abertura {
+    color: var(--azul);
+  }
+  .campo-papel .abertura-linha[data-estilo="vazado"] {
+    -webkit-text-stroke-color: var(--azul);
+  }
+  .campo-papel .abertura-sep {
+    color: var(--laranja-fundo);
+  }
+  .campo-papel .abertura-cauda {
+    color: var(--tinta-2);
+  }
+
+  /* ---------- Janela laranja: o quadro recortado num bloco girado ---------- */
+  .janela {
+    position: relative;
+    aspect-ratio: 1;
+    background: var(--laranja);
+    transform: rotate(12deg);
+    overflow: hidden;
+  }
+  .janela-quadro {
+    position: absolute;
+    inset: 9%;
+    overflow: hidden;
+    background: var(--azul-2);
+  }
+  .janela-quadro img {
+    position: absolute;
+    inset: -30%;
+    width: 160%;
+    height: 160%;
+    max-width: none;
+    object-fit: cover;
+    transform: rotate(-12deg) translateY(var(--desliza, 0%));
+  }
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .janela-quadro img {
+        animation: janela-desliza linear both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 100%;
+      }
+    }
+  }
+
+  /* ---------- Corpo de leitura (markdown) ---------- */
+  .leitura {
+    font-family: var(--font-serif);
+    font-size: 1.1875rem;
+    line-height: 1.7;
+    color: #0b1a33;
+    max-width: 68ch;
+    font-optical-sizing: auto;
+  }
+  .leitura > * + * {
+    margin-top: 1.15em;
+  }
+  .leitura :where(h2) {
+    font-family: var(--font-sans);
+    font-weight: 850;
+    font-stretch: 100%;
+    font-size: 1.75rem;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin-top: 2.4em;
+    margin-bottom: 0.6em;
+    padding-top: 0.7em;
+    border-top: 2px solid #0b1a33;
+  }
+  .leitura :where(h3) {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    font-stretch: 87%;
+    font-size: 1.3125rem;
+    line-height: 1.2;
+    margin-top: 2em;
+    margin-bottom: 0.4em;
+  }
+  .leitura :where(h4) {
+    font-family: var(--font-sans);
+    font-stretch: 75%;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 1.8em;
+  }
+  .leitura :where(h2 + *, h3 + *, h4 + *) {
+    margin-top: 0;
+  }
+  .leitura :where(a) {
+    color: var(--laranja-fundo);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+  .leitura :where(a:hover) {
+    text-decoration-thickness: 2px;
+    color: #0b1a33;
+  }
+  .leitura :where(strong) {
+    font-weight: 700;
+  }
+  .leitura :where(ul, ol) {
+    padding-left: 1.4em;
+  }
+  .leitura :where(ul) {
+    list-style: none;
+  }
+  .leitura :where(ul > li) {
+    position: relative;
+  }
+  .leitura :where(ul > li)::before {
+    content: "";
+    position: absolute;
+    left: -1.1em;
+    top: 0.62em;
+    width: 0.42em;
+    height: 0.42em;
+    background: var(--laranja);
+  }
+  .leitura :where(ol) {
+    list-style: decimal;
+  }
+  .leitura :where(ol > li)::marker {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    color: var(--laranja-fundo);
+  }
+  .leitura :where(li + li) {
+    margin-top: 0.45em;
+  }
+  .leitura :where(blockquote) {
+    margin-block: 2em;
+    padding: 1.1em 0 1.1em 1.4em;
+    border-top: 2px solid #0b1a33;
+    border-bottom: 1px solid var(--filete);
+    font-size: 1.25rem;
+    line-height: 1.55;
+    font-style: italic;
+    position: relative;
+  }
+  .leitura :where(blockquote)::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1.45em;
+    width: 0.5em;
+    height: 0.5em;
+    background: var(--laranja);
+  }
+  .leitura :where(blockquote p + p) {
+    margin-top: 0.8em;
+  }
+  .leitura :where(hr) {
+    border: 0;
+    height: 2px;
+    width: 4rem;
+    background: var(--laranja);
+    margin-block: 3em;
+  }
+  .leitura :where(:not(pre) > code) {
+    font-family: var(--font-mono);
+    font-size: 0.84em;
+    background: #e4e9f0;
+    color: #0b1a33;
+    padding: 0.1em 0.35em;
+  }
+  .leitura :where(pre) {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.7;
+    padding: 1.4rem 1.5rem;
+    overflow-x: auto;
+    background: #0b1a33 !important;
+    color: #f2f4f7;
+    border-top: 4px solid var(--laranja);
+    max-width: 100%;
+    tab-size: 2;
+  }
+  .leitura :where(pre code) {
     background: transparent;
     padding: 0;
-    font-family: var(--font-mono);
-    font-weight: 400;
+    font-size: inherit;
+    color: inherit;
   }
+  .leitura :where(table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    font-variant-numeric: tabular-nums;
+    display: block;
+    overflow-x: auto;
+  }
+  .leitura :where(thead th) {
+    text-align: left;
+    font-stretch: 75%;
+    font-weight: 750;
+    font-size: 0.8125rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-bottom: 2px solid #0b1a33;
+    padding: 0.6em 0.8em 0.5em 0;
+    vertical-align: bottom;
+  }
+  .leitura :where(td) {
+    border-bottom: 1px solid var(--filete);
+    padding: 0.65em 0.8em 0.65em 0;
+    vertical-align: top;
+  }
+  .leitura :where(img) {
+    max-width: 100%;
+    height: auto;
+  }
+  .leitura :where(figure, img) {
+    margin-block: 2em;
+  }
+  .leitura :where(figcaption) {
+    font-family: var(--font-sans);
+    font-stretch: 87%;
+    font-size: 0.875rem;
+    color: var(--tinta-2);
+    margin-top: 0.6em;
+  }
+  .leitura :where(iframe, video) {
+    max-width: 100%;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+  }
+}
 
-  /* Remove as crases que o plugin typography injeta ao redor do code inline */
-  .prose :where(code)::before,
-  .prose :where(code)::after {
-    content: none;
+@keyframes janela-desliza {
+  from {
+    --desliza: -7%;
   }
+  to {
+    --desliza: 7%;
+  }
+}
 
-  /* Code inline legível em cada tema de artigo */
-  .prose-invert :where(:not(pre) > code) {
-    background-color: rgb(30 41 59 / 0.7); /* slate-800 */
-    color: rgb(253 186 116); /* orange-300 */
-    border-radius: 0.25rem;
-    padding: 0.125rem 0.375rem;
-    font-weight: 500;
-  }
+@property --desliza {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0%;
+}
 
-  .prose-slate :where(:not(pre) > code) {
-    background-color: rgb(226 232 240 / 0.8); /* slate-200 */
-    border-radius: 0.25rem;
-    padding: 0.125rem 0.375rem;
-    font-weight: 500;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
 }
