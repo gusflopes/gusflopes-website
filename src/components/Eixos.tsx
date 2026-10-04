@@ -66,7 +66,7 @@ export function Eixos({ eixos }: EixosProps) {
                         <li key={t.href} className="border-b border-filete">
                           <a
                             href={t.href}
-                            className="group grid grid-cols-[4.25rem_minmax(0,1fr)] gap-x-4 gap-y-1 py-3 hover:bg-papel-2/70 transition-colors"
+                            className="group grid grid-cols-[4.25rem_minmax(0,1fr)] gap-x-4 gap-y-1 py-3 hover:bg-papel-3 transition-colors"
                           >
                             <time dateTime={t.isoDate} className="row-span-2 flex flex-col gap-1.5 pt-0.5">
                               <span className="flex items-start gap-1.5">

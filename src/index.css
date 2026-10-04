@@ -5,7 +5,7 @@
 
 /*
  * Concretismo — sistema tipográfico do gusflopes.dev.
- * Dois campos (azul-escuro e papel frio), laranja em blocos chapados, grade de filetes,
+ * Dois campos (azul-escuro e papel quente #FFF8F2, com o creme #FDEED9 de destaque), laranja em blocos chapados, grade de filetes,
  * cantos retos, sem sombra e sem vidro. Archivo variável faz display (900/100) e rótulos
  * (600/75); Source Serif 4 faz a leitura. Fontes importadas em src/layouts/Default.astro.
  */
@@ -17,11 +17,14 @@
   --color-azul: #0b1a33;
   --color-azul-2: #13284d;
   --color-azul-3: #1d3866;
-  --color-papel: #f2f4f7;
-  --color-papel-2: #e4e9f0;
-  --color-filete: #c9d3e0;
+  /* Claros quentes da Shelfye.ai (04/10): papel de leitura, creme de destaque, tons para aninhar. */
+  --color-papel: #fff8f2;
+  --color-creme: #fdeed9;
+  --color-papel-2: #eee7e1;
+  --color-papel-3: #f9f2ec;
+  --color-filete: #e6d9c8;
   --color-tinta: #0b1a33;
-  --color-tinta-2: #4a5872;
+  --color-tinta-2: #475569;
   --color-ceu: #8fb3d9;
   --color-ceu-claro: #b7c6da;
   --color-laranja: #f97316;
@@ -43,12 +46,14 @@
 :root {
   --azul: #0b1a33;
   --azul-2: #13284d;
-  --papel: #f2f4f7;
+  --papel: #fff8f2;
+  --creme: #fdeed9;
+  --papel-2: #eee7e1;
   --laranja: #f97316;
   --laranja-fundo: #c2410c;
   --ceu: #8fb3d9;
-  --tinta-2: #4a5872;
-  --filete: #c9d3e0;
+  --tinta-2: #475569;
+  --filete: #e6d9c8;
   /* largura útil e gutter da grade */
   --gutter: clamp(16px, 4vw, 48px);
   --largura: 1240px;
@@ -92,7 +97,8 @@
     border-radius: 0;
   }
 
-  .campo-papel :focus-visible {
+  .campo-papel :focus-visible,
+  .campo-creme :focus-visible {
     outline-color: var(--laranja-fundo);
   }
 
@@ -128,6 +134,13 @@
 
   .campo-papel {
     background: var(--papel);
+    color: var(--azul);
+  }
+
+  /* Creme: o claro quente de destaque — caixas e o claro que antecede um bloco escuro. Herda as regras do papel. */
+  .campo-papel.campo-creme,
+  .campo-creme {
+    background: var(--creme);
     color: var(--azul);
   }
 
@@ -174,7 +187,8 @@
     background: var(--papel);
     color: var(--azul);
   }
-  .campo-papel .botao:hover {
+  .campo-papel .botao:hover,
+  .campo-creme .botao:hover {
     background: var(--azul);
     color: var(--papel);
   }
@@ -201,7 +215,8 @@
   .acao:hover {
     text-decoration-color: currentColor;
   }
-  .campo-papel .acao {
+  .campo-papel .acao,
+  .campo-creme .acao {
     color: var(--laranja-fundo);
   }
   .campo-papel .campo-azul .acao {
@@ -596,7 +611,7 @@
   .leitura :where(:not(pre) > code) {
     font-family: var(--font-mono);
     font-size: 0.84em;
-    background: #e4e9f0;
+    background: var(--papel-2);
     color: #0b1a33;
     padding: 0.1em 0.35em;
   }
@@ -607,7 +622,7 @@
     padding: 1.4rem 1.5rem;
     overflow-x: auto;
     background: #0b1a33 !important;
-    color: #f2f4f7;
+    color: var(--papel);
     max-width: 100%;
     tab-size: 2;
   }

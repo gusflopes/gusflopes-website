@@ -102,7 +102,7 @@ export function RadarPage({ items }: RadarPageProps) {
                     <a
                       href={item.link}
                       {...(item.isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                      className="group grid gap-x-[var(--gutter)] gap-y-3 py-7 md:grid-cols-12 hover:bg-papel-2/70 transition-colors"
+                      className="group grid gap-x-[var(--gutter)] gap-y-3 py-7 md:grid-cols-12 hover:bg-papel-3 transition-colors"
                     >
                       <DataCelula data={item.date} duracao={item.duration} destaque={!term && selectedCategory === 'Todos' && selectedEixo === 'todos' && idx === 0} />
                       <div className="md:col-span-7">

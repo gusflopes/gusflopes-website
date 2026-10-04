@@ -209,7 +209,7 @@ export function InsightsPage({
               const destaque = semFiltro && idx === 0;
               return (
                 <li key={article.id} className="border-t-2 border-laranja first:border-t-0">
-                  <a href={article.href} className="group grid gap-x-[var(--gutter)] gap-y-4 py-7 md:grid-cols-12 hover:bg-papel-2/70 transition-colors">
+                  <a href={article.href} className="group grid gap-x-[var(--gutter)] gap-y-4 py-7 md:grid-cols-12 hover:bg-papel-3 transition-colors">
                     <DataCelula iso={article.isoDate} duracao={article.duration} destaque={destaque} />
                     <div className="md:col-span-7">
                       <h2

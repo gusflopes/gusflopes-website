@@ -31,7 +31,7 @@ export function Services() {
   const degrau = ['lg:mt-0', 'lg:mt-60', 'lg:mt-[26rem]'];
 
   return (
-    <section id="consulting" aria-labelledby="consulting-title" className="campo-papel pt-10 md:pt-14 pb-20 md:pb-28 relative">
+    <section id="consulting" aria-labelledby="consulting-title" className="campo-papel campo-creme pt-10 md:pt-14 pb-20 md:pb-28 relative">
       <div id="courses" className="absolute top-0" />
       <div className="moldura">
         {/* Costura entre temas e serviços (os dois no papel): filete laranja de 2px na largura da grade. */}

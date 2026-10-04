@@ -20,7 +20,7 @@ export interface ArtigoLeituraProps {
 
 /**
  * Casca comum dos textos (Insights e Radar local): barra azul-escuro, abertura tipográfica
- * gerada do título (forma pelo eixo) e o corpo em coluna de serifa sobre papel frio.
+ * gerada do título (forma pelo eixo) e o corpo em coluna de serifa sobre papel quente.
  * A foto de banco do frontmatter não entra na página — segue só como imagem de prévia (OG).
  */
 export function ArtigoLeitura({ title, excerpt, category, eixo, dateFormatted, duration, voltar, children }: ArtigoLeituraProps) {
@@ -109,7 +109,7 @@ export function ArtigoLeitura({ title, excerpt, category, eixo, dateFormatted, d
               metadados ao lado, bio; e o plano laranja da newsletter fechando a linha.
             */}
             <footer className="lg:col-start-4 lg:col-span-9 mt-20 grid gap-[2px] bg-azul border-2 border-azul md:grid-cols-12">
-              <div className="campo-papel md:col-span-7 grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-5 gap-y-4 p-5 md:p-7">
+              <div className="campo-creme md:col-span-7 grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-5 gap-y-4 p-5 md:p-7">
                 <img src={fotoAutor} alt={author.name} width={96} height={96} loading="lazy" className="w-[5.5rem] h-[5.5rem] object-cover grayscale contrast-110" />
                 <div className="flex flex-col justify-between gap-2">
                   <p className="font-sans font-[850] [font-stretch:62%] uppercase text-[2rem] md:text-[2.5rem] leading-[0.9] tracking-[-0.01em] text-azul">{author.name}</p>
