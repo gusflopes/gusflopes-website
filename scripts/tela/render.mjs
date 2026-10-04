@@ -98,7 +98,7 @@ export function telaSharp({ semente, largura, altura, escala = 1, material, para
  * Composição "tela + faixa sólida com título" — OG do site (faixa azul-escuro) e capa do
  * Substack (faixa papel). O fio laranja separa a pintura da faixa, como na home.
  */
-export async function capaComTitulo({ semente, titulo, rotulo, largura = 1200, altura = 630, tema = 'noite', assinatura = 'gusflopes.dev' }) {
+export async function capaComTitulo({ semente, titulo, rotulo, largura = 1200, altura = 630, tema = 'noite', assinatura = 'gusflopes.dev', params }) {
   const claro = tema === 'papel';
   const fundo = claro ? '#F2F4F7' : CORES.noite;
   const corTitulo = claro ? CORES.noite : '#F5F7FA';
@@ -112,7 +112,7 @@ export async function capaComTitulo({ semente, titulo, rotulo, largura = 1200, a
 
   const [tela, rot, tit, ass] = await Promise.all([
     // a faixa pintada é a janela centrada da capa do texto, na escala fixa (1 px de arquivo = 1 px de tela)
-    janelaSharp({ semente, papel: 'capa', janela: { ...centroCapa(largura, alturaTela) }, larguraArquivo: largura }).resize(largura, alturaTela).png().toBuffer(),
+    janelaSharp({ semente, papel: 'capa', janela: { ...centroCapa(largura, alturaTela) }, larguraArquivo: largura, params }).resize(largura, alturaTela).png().toBuffer(),
     rotulo ? texto({ conteudo: rotulo.toUpperCase(), familia: 'hanken', peso: 700, px: Math.round(21 * s), cor: corRotulo, espacamento: 0.12 }) : null,
     tituloQueCabe({ conteudo: titulo, largura: larguraTexto, tamanhos: [58, 52, 46, 40].map((n) => Math.round(n * s)), maxLinhas: 3, familia: 'literata', peso: 600, cor: corTitulo, entrelinha: 1.12 }),
     texto({ conteudo: assinatura, familia: 'hanken', peso: 600, px: Math.round(22 * s), cor: corAssin }),

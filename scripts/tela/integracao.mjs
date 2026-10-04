@@ -16,19 +16,26 @@ import os from 'node:os';
 import { Worker } from 'node:worker_threads';
 import { janelaRaw, capaComTitulo } from './render.mjs';
 import { VERSAO, MATERIAL_PADRAO } from './pincel.mjs';
-import { PAPEIS, ABERTURA, QUALIDADE, caminhoTela, caminhoOg } from './config.mjs';
+import { PAPEIS, ABERTURA, ARQUETIPO_FAIXA, QUALIDADE, caminhoTela, caminhoOg, paramsCapa, ARQUETIPO_CONVITE } from './config.mjs';
 
 const EIXO_LABEL = { engenharia: 'Engenharia & IA', negocios: 'Negócios', bastidores: 'Bastidores' };
 /** Faixas de abertura dos hubs: semente = nome da página. */
-export const FAIXAS = ['insights', 'radar', 'newsletter', 'engenharia', 'negocios', 'bastidores', 'nao-encontrada'];
+export const FAIXAS = ['insights', 'radar', 'engenharia', 'negocios', 'bastidores'];
 /**
  * Telas com papel próprio fora dos textos: [grupo, nome, papel, semente]. Cada papel tem a sua
  * semente — nunca a mesma tela repetida como textura. Ver src/lib/telas.ts.
  */
 export const TELAS_PAPEL = [
-  ['home', 'portas', 'capitulo', 'O que eu escrevo, e para quem'], // abre os três eixos
-  ['home', 'ferramenta', 'close', 'Simulador da Reforma Tributária'], // close de uma luz: "experimente"
-  ['marca', 'newsletter', 'close', 'Radar de IA'], // a tela da newsletter (a mesma semente da capa do Substack)
+  // três estratos ao lado das três portas: a tela tem a estrutura da lista
+  ['home', 'portas', 'capitulo', 'O que eu escrevo, e para quem', { arquetipo: 'faixas', bandas: 3 }],
+  // o pintor chegando perto: o único close (2,5×) do site, uma corrente de vento vista de perto
+  ['home', 'ferramenta', 'close', 'Simulador da Reforma Tributária', { arquetipo: 'vento' }],
+  // a fala: ondas largas na tela de projeção do vídeo
+  ['home', 'video', 'projecao', 'Vídeo em Destaque', { arquetipo: 'ondas' }],
+  // a tela da newsletter (semente da capa no Substack): correntes que passam, 1:1
+  ['marca', 'newsletter', 'convite', 'Radar de IA', { arquetipo: ARQUETIPO_CONVITE }],
+  ['marca', 'newsletter-fita', 'fita', 'Radar de IA', { arquetipo: 'horizonte' }],
+  ['marca', 'nao-encontrada', 'painel', 'nao-encontrada', { arquetipo: 'massas' }],
 ];
 
 function frontmatter(arquivo) {
@@ -78,7 +85,7 @@ export async function executar(t) {
     for (const [jn, j] of Object.entries(PAPEIS[t.papel].janelas)) {
       if (!j.larguras) continue;
       const maior = Math.max(...j.larguras);
-      const r = janelaRaw({ semente: t.semente, papel: t.papel, janela: jn, larguraArquivo: maior, material: MATERIAL_PADRAO });
+      const r = janelaRaw({ semente: t.semente, papel: t.papel, janela: jn, larguraArquivo: maior, material: MATERIAL_PADRAO, params: t.params });
       const base = sharp(r.data, { raw: { width: r.width, height: r.height, channels: 3 } });
       const png = await base.png({ compressionLevel: 1 }).toBuffer();
       const tarefas = [];
@@ -95,7 +102,7 @@ export async function executar(t) {
       await Promise.all(tarefas);
     }
   } else if (t.tipo === 'og') {
-    const img = await capaComTitulo({ semente: t.semente, titulo: t.titulo, rotulo: t.rotulo });
+    const img = await capaComTitulo({ semente: t.semente, titulo: t.titulo, rotulo: t.rotulo, params: t.params });
     await img.jpeg({ quality: QUALIDADE.jpg, mozjpeg: true }).toFile(t.arquivo);
   }
 }
@@ -151,28 +158,28 @@ export async function gerarTelas({ raiz, producao, log = console.log }) {
     for (const a of arquivos) fs.mkdirSync(path.dirname(path.join(pub, a)), { recursive: true });
     tarefas.push(tarefa);
   };
-  const papel = (chave, grupo, nome, papelNome, semente) =>
-    job(chave, semente, arquivosJanela(grupo, nome, papelNome), { tipo: 'papel', pub, grupo, nome, papel: papelNome, semente });
+  const papel = (chave, grupo, nome, papelNome, semente, params = {}) =>
+    job(chave, `${semente}|${JSON.stringify(params)}`, arquivosJanela(grupo, nome, papelNome), { tipo: 'papel', pub, grupo, nome, papel: papelNome, semente, params });
 
   // Abertura da home
-  papel('home', 'home', 'abertura', 'abertura', ABERTURA.semente);
+  papel('home', 'home', 'abertura', 'abertura', ABERTURA.semente, ABERTURA.params);
 
   // Telas com papel próprio na home: cada uma com sua semente (nunca a mesma tela repetida).
-  for (const [grupo, nome, p, semente] of TELAS_PAPEL) papel(`${grupo}:${nome}`, grupo, nome, p, semente);
+  for (const [grupo, nome, p, semente, params] of TELAS_PAPEL) papel(`${grupo}:${nome}`, grupo, nome, p, semente, params);
 
   // OG padrão (home e páginas sem texto próprio): a tagline em faixa sólida sob a tela
   const ogPadrao = caminhoOg('site', 'padrao');
   job('og:padrao', ABERTURA.semente, [ogPadrao], { tipo: 'og', arquivo: path.join(pub, ogPadrao), semente: ABERTURA.semente, titulo: ABERTURA.semente });
 
   // Faixas dos hubs e dos eixos
-  for (const nome of FAIXAS) papel(`faixa:${nome}`, 'faixa', nome, 'faixa', nome);
+  for (const nome of FAIXAS) papel(`faixa:${nome}`, 'faixa', nome, 'faixa', nome, ARQUETIPO_FAIXA[nome] ? { arquetipo: ARQUETIPO_FAIXA[nome] } : {});
 
   // Capas e OG por texto (semente = slug: estável mesmo se o título for revisado)
   for (const e of entradas) {
-    papel(`capa:${e.colecao}/${e.id}`, e.colecao, e.id, 'capa', e.id);
+    papel(`capa:${e.colecao}/${e.id}`, e.colecao, e.id, 'capa', e.id, paramsCapa(e.eixo));
     if (e.colecao === 'radar' && e.isExternal) continue; // item externo não tem página nem OG
     const og = caminhoOg(e.colecao, e.id);
-    job(`og:${e.colecao}/${e.id}`, `${e.id}|${e.title}|${e.eixo}`, [og], { tipo: 'og', arquivo: path.join(pub, og), semente: e.id, titulo: e.title, rotulo: EIXO_LABEL[e.eixo] });
+    job(`og:${e.colecao}/${e.id}`, `${e.id}|${e.title}|${e.eixo}`, [og], { tipo: 'og', arquivo: path.join(pub, og), semente: e.id, titulo: e.title, rotulo: EIXO_LABEL[e.eixo], params: paramsCapa(e.eixo) });
   }
 
   const t0 = Date.now();

@@ -18,7 +18,7 @@ export const PAPEIS = {
     mestre: [1440, 450],
     janelas: {
       larga: { x: 0, y: 0, w: 1440, h: 450, larguras: [1440, 2160], margem: 24 },
-      estreita: { x: 500, y: 110, w: 400, h: 250, larguras: [400, 800], margem: 30 },
+      estreita: { x: 500, y: 40, w: 400, h: 250, larguras: [400, 800], margem: 30 },
     },
   },
   /** Faixa de abertura dos hubs e dos eixos: 6:1 no desktop (5:1 no tablet), 3:1 no celular. */
@@ -32,12 +32,14 @@ export const PAPEIS = {
   },
   /** Capa de um texto: cabeçalho panorâmico do artigo, recorte 16:9 nos cards e no celular, OG e Substack. */
   capa: {
-    mestre: [1600, 460],
+    mestre: [1600, 600],
     janelas: {
-      larga: centro(1600, 460, 1440, 420, { larguras: [1440, 2160] }),
-      recorte: centro(1600, 460, 448, 252, { larguras: [448, 896], margem: 36 }),
-      og: centro(1600, 460, 1200, 252, { so: 'luz' }),
-      substack: centro(1600, 460, 1456, 326, { so: 'luz' }),
+      larga: centro(1600, 600, 1440, 420, { larguras: [1440, 2160] }),
+      recorte: centro(1600, 600, 448, 252, { larguras: [448, 896], margem: 36 }),
+      /** Retrato 4:5 — o destaque dos hubs e a coluna da abertura do texto (nunca a mesma panorâmica da faixa). */
+      retrato: centro(1600, 600, 464, 580, { larguras: [464, 928] }),
+      og: centro(1600, 600, 1200, 252, { so: 'luz' }),
+      substack: centro(1600, 600, 1456, 326, { so: 'luz' }),
     },
   },
   /**
@@ -45,27 +47,80 @@ export const PAPEIS = {
    * nunca atrás dele. Recorte vertical no desktop, faixa baixa no celular.
    */
   capitulo: {
-    mestre: [440, 720],
+    mestre: [440, 1040],
     janelas: {
-      coluna: { x: 0, y: 0, w: 440, h: 720, larguras: [440, 880], margem: 30 },
-      estreita: { x: 20, y: 280, w: 400, h: 160, larguras: [400, 800], semLuz: true }, // no celular, só o campo de traços: as luzes ficam para as outras telas
+      coluna: { x: 0, y: 0, w: 440, h: 1040, larguras: [440, 880], margem: 30 },
+      estreita: { x: 20, y: 440, w: 400, h: 160, larguras: [400, 800], semLuz: true }, // no celular, só o campo de traços: as luzes ficam para as outras telas
     },
   },
   /**
-   * Close de traço: um trecho pequeno da mestre exibido 2,5× maior (o pintor chegando perto).
-   * É a única ampliação permitida; nenhum formato mostra o traço MENOR que a escala fixa.
+   * Close de traço da Ferramenta: um trecho pequeno da mestre exibido 2,5× maior (o pintor chegando
+   * perto). É a única ampliação permitida e só existe na Ferramenta; nenhum formato mostra o traço
+   * MENOR que a escala fixa. Meia seção no desktop (~680×560), faixa no celular.
    */
   close: {
-    mestre: [224, 120],
+    mestre: [272, 224],
     ampliacao: 2.5,
     janelas: {
-      quadro: { x: 0, y: 0, w: 224, h: 120, larguras: [560, 1120] },
+      quadro: { x: 0, y: 0, w: 272, h: 224, larguras: [680, 1360] },
+      estreita: { x: 58, y: 68, w: 156, h: 88, larguras: [390, 780] },
+    },
+  },
+  /**
+   * Tela de projeção do vídeo em destaque na home: 16:9 ao lado do texto, sangrando até a borda
+   * direita no desktop; recorte central no celular.
+   */
+  projecao: {
+    mestre: [800, 450],
+    janelas: {
+      quadro: { x: 0, y: 0, w: 800, h: 450, larguras: [800, 1200] },
+      estreita: { x: 200, y: 112, w: 400, h: 225, larguras: [400, 800] },
+    },
+  },
+  /**
+   * Convite da newsletter (caixa no fim dos textos e no arquivo): coluna estreita ao lado do texto,
+   * ou faixa baixa quando a caixa empilha. Em escala 1:1 — nunca o close da Ferramenta.
+   */
+  convite: {
+    mestre: [560, 320],
+    janelas: {
+      lado: { x: 0, y: 0, w: 200, h: 320, larguras: [200, 400] },
+      topo: { x: 20, y: 85, w: 520, h: 150, larguras: [520, 1040] },
+    },
+  },
+  /** Fita: faixa fina sob a faixa do título (abertura do arquivo da newsletter). */
+  fita: {
+    mestre: [1440, 120],
+    janelas: {
+      larga: { x: 0, y: 0, w: 1440, h: 120, larguras: [1440, 2160] },
+      estreita: { x: 520, y: 20, w: 400, h: 80, larguras: [400, 800] },
+    },
+  },
+  /** Painel alto da página 404, ao lado da mensagem (faixa no celular). */
+  painel: {
+    mestre: [560, 800],
+    janelas: {
+      quadro: { x: 0, y: 0, w: 560, h: 800, larguras: [560, 1120] },
+      estreita: { x: 80, y: 300, w: 400, h: 200, larguras: [400, 800] },
     },
   },
 };
 
 /** Abertura da home: semente fixa (a tagline). */
-export const ABERTURA = { semente: 'Tecnologia e negócio, partes do mesmo sistema' };
+export const ABERTURA = { semente: 'Tecnologia e negócio, partes do mesmo sistema', params: { arquetipo: 'horizonte', luz: 1.5 } };
+
+/**
+ * Arquétipo de cada faixa de hub (semente = nome da página). Cada página ganha uma estrutura
+ * grande própria; quem não está aqui fica com o arquétipo sorteado pela semente.
+ */
+export const ARQUETIPO_FAIXA = {
+  insights: 'manchas', // muitas ideias espalhadas, nenhuma no centro
+  radar: 'vento', // o fluxo de notícias atravessando
+  engenharia: 'massas', // blocos que se encontram
+  negocios: 'ondas', // ciclos longos
+  bastidores: 'faixas', // camadas do processo
+  'nao-encontrada': 'vento',
+};
 
 /** Qualidade por formato: textura de pincel comprime mal, então AVIF/WebP seguram o peso. */
 export const QUALIDADE = { avif: 40, avifHi: 30, webp: 60, webpHi: 48, jpg: 76 };
@@ -75,3 +130,13 @@ export const caminhoOg = (grupo, nome) => `/og/${grupo}/${nome}.jpg`;
 
 /** Só as fotos genéricas de banco (Unsplash) são trocadas pela tela; capa autoral fica. */
 export const ehFotoGenerica = (url = '') => /(^|\.)unsplash\.com\//.test(url.replace(/^https?:\/\//, ''));
+
+/** Arquétipo da tela do convite da newsletter (caixa no fim de todo texto e no arquivo). */
+export const ARQUETIPO_CONVITE = 'vento';
+
+/**
+ * Capa de um texto: a semente sorteia o arquétipo, mas nunca o da faixa de Insights, o da faixa
+ * do eixo do texto (a capa aparece logo abaixo dessas faixas, no destaque do hub) nem o do convite
+ * da newsletter (que fecha a página do texto) — telas da mesma página não repetem anatomia.
+ */
+export const paramsCapa = (eixo) => ({ evita: [ARQUETIPO_FAIXA.insights, ARQUETIPO_FAIXA[eixo], ARQUETIPO_CONVITE].filter(Boolean) });
