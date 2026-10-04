@@ -18,6 +18,6 @@ const edicoes = (await getCollection('newsletter', publicado))
   }));
 ---
 
-<Default title={newsletter.name} description={newsletter.pitch}>
+<Default title={newsletter.name} description={newsletter.pitch} fechoNewsletter>
   <NewsletterPage edicoes={edicoes} fundo={await fundoQuadro()} client:load />
 </Default>

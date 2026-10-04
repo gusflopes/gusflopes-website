@@ -217,8 +217,10 @@ O papel frio `#F2F4F7` e a areia acinzentada `#D9D4CB` saíram (decisão do dono
 - **petróleo `#315B6F`** (texto branco 7,4:1; como texto, 7,0:1 no papel e 6,4:1 no creme) / **`#457183`** (texto só no papel ou grande): cor do eixo Engenharia & IA (placa da cabeça de coluna e `PlacaEixo`); metadados no claro (`.claro .meta`); o "&" da ponte no claro.
 - **areia `#AA9C87`** (texto tinta 6,5:1): cor do eixo Negócios.
 - **ferrugem `#8A4C1B`** (texto branco 6,7:1): cor do eixo Bastidores e a sexta casa ("hoje") do quadro do Sobre. Nunca encosta em texto `#C2410C` nem no laranja chapado: pelo menos uma célula de distância.
-- **ardósia `#648188`** = **a voz de outro**: filete de 3px das citações no corpo do artigo e da fonte externa no índice do Radar (curadoria comenta a voz de alguém). Sem texto (3,96:1).
-- **marrom `#907A5F`** = **a assinatura do autor**: fio de 2px sobre a frase-tese do Sobre e sobre a caixa do autor no fim do artigo. Sem texto (3,89:1). `#50372A` fica reservado.
+- **ardósia `#648188`** = **a voz de outro**: filete de 3px na legenda do vídeo em destaque da home (a fala de um terceiro) e na fonte externa do índice do Radar. Texto ao lado em tinta ou `#475569`; a ardósia nunca leva texto (3,96:1).
+- **marrom `#907A5F`** = **a assinatura do autor**: fio de 2px sobre a frase-tese do Sobre e sobre a caixa do autor, e o filete de 3px dos destaques (blockquote) dos artigos, que são frases do próprio autor. Sem texto (3,89:1). `#50372A` fica reservado.
+- **Duotone das capas** (`.capa-duotone .capa-<eixo>`): toda capa de hub e de artigo vira noite + cor do eixo só com CSS (cinza multiplicado sobre a cor do eixo e clareado até a noite); a capa que não carrega mostra o mesmo campo. Foto e fallback ficam da mesma família.
+- **Cabeçalho de tabela** no artigo: campo petróleo `#315B6F` com texto papel (7:1).
 - **Placa do eixo** (`PlacaEixo`, `.placa-*`): o eixo como placa chapada com texto AA, com peso real. Na moldura do hub (com o público), em cada linha do índice geral e do Radar, nos metadados do artigo; e como capa quando a foto não carrega.
 
 ### Named Rules
@@ -307,13 +309,14 @@ Busca com régua inferior de 1px, ícone de lupa à esquerda e foco que escurece
 - **Abas de eixo** nos hubs: texto com sublinhado de 2px laranja, coladas na base da moldura azul.
 
 ### Moldura de leitura (componente-assinatura)
-`ArtigoShell` serve Insights, Radar e newsletter. No topo, o cabeçalho azul: título em display, deck em Literata, uma régua e os metadados (placa do eixo · categoria · data · leitura; o ponto médio fica preso ao item seguinte). A moldura termina num recorte do quadro, e a capa atravessa essa passagem para o papel (sem foto, a capa vira a placa do eixo). Embaixo, a coluna `.leitura` em papel. No fim, numa faixa de creme: a caixa da newsletter (fio laranja de 2px em cima) e o bloco do autor sob o fio marrom (nome em Literata, "Sobre o Autor" como metadado abaixo). No corpo:
+`ArtigoShell` serve Insights, Radar e newsletter. No topo, o cabeçalho azul: título em display, deck em Literata, uma régua e os metadados (placa do eixo · categoria · data · leitura; o ponto médio fica preso ao item seguinte). A moldura termina num recorte do quadro, inteiro como passagem: no desktop a capa (em duotone do eixo) sobrepõe no máximo o terço de baixo dele; no celular o recorte vem antes e a capa depois, no papel. Embaixo, a coluna `.leitura` em papel. No fim, numa faixa de creme: a caixa da newsletter (fio laranja de 2px em cima; nessas páginas a coluna Newsletter do rodapé vira link laranja com seta, para não repetir o botão chapado) e o bloco do autor sob o fio marrom (nome em Literata, "Sobre o Autor" como metadado abaixo). No corpo:
+- sumário feito dos H2 reais (`Sumario`, sem rótulo visível, landmark "Sumário do artigo" só para leitor de tela): a partir de 1200px, fixo na margem esquerda sobre um fio neutro de 1px, com a marca laranja de 5px no item da seção em leitura; abaixo disso, um bloco em creme logo depois do primeiro parágrafo, não fixo e sem barra de progresso;
 - links em tinta com sublinhado `#F97316` de 2px (hover: `#9A3412`);
-- marcadores de lista quadrados em `#F97316`;
+- marcadores de lista quadrados em `#F97316`; números das listas ordenadas em `#C2410C` (Hanken 700);
 - H2 com o fio quente de 1px na largura da coluna e a marca laranja de 5px por cima (a mesma linha do índice);
-- citação em itálico com o filete ardósia de 3px;
+- destaque (blockquote) em itálico com o filete marrom de 3px (a frase é do autor);
 - `hr` como filete laranja de 3px;
-- tabelas em Hanken com números tabulares e fios;
+- tabelas em Hanken com números tabulares, cabeçalho em campo petróleo com texto papel e fios quentes;
 - código inline em chip `#EEE7E1`;
 - blocos de código Shiki com fundo `noite` (sangram a coluna no celular).
 

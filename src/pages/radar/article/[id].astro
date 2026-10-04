@@ -19,7 +19,8 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { Content } = await render(entry);
+const { Content, headings } = await render(entry);
+const sumario = headings.filter((h) => h.depth === 2).map(({ slug, text }) => ({ slug, text }));
 const { title, excerpt, category, eixo, date, duration, image } = entry.data;
 ---
 
@@ -29,6 +30,7 @@ const { title, excerpt, category, eixo, date, duration, image } = entry.data;
   image={image}
   type="article"
   publishedDate={date}
+  fechoNewsletter
 >
   <RadarArticlePage
     title={title}
@@ -39,6 +41,7 @@ const { title, excerpt, category, eixo, date, duration, image } = entry.data;
     duration={duration}
     image={image}
     fundo={await fundoQuadro()}
+    sumario={sumario}
     client:load
   >
     <Content />

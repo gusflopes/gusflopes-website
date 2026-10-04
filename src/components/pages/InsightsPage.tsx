@@ -183,13 +183,13 @@ export function InsightsPage({
                     <ArrowRight size={15} aria-hidden="true" />
                   </span>
                 </div>
-                <div className="aspect-square sm:aspect-[4/3] overflow-hidden rounded-[3px] bg-papel-3 self-start">
+                <div className={`capa-duotone capa-${EIXO_COR[article.eixo]} aspect-square sm:aspect-[4/3] overflow-hidden rounded-[3px] self-start`}>
                   <ImageWithFallback
                     src={article.image}
                     alt=""
                     loading="lazy"
                     className="w-full h-full object-cover"
-                    fallbackClassName={`placa-${EIXO_COR[article.eixo]}`}
+                    fallbackClassName="bg-transparent"
                   />
                 </div>
               </a>

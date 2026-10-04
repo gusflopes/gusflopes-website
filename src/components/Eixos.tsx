@@ -162,7 +162,10 @@ function Porta({ resumo, larga = false, className = '' }: { resumo: EixoResumo; 
   );
 }
 
-/** A foto da primeira página: o vídeo em destaque, com a legenda embaixo. */
+/**
+ * A foto da primeira página: o vídeo em destaque, com a legenda embaixo. É a voz de outro (a fala
+ * de um terceiro que o site comenta), então a legenda leva o filete ardósia, a cor do quadro dessa função.
+ */
 function Video({ video }: { video: FeaturedVideo }) {
   return (
     <a
@@ -181,7 +184,7 @@ function Video({ video }: { video: FeaturedVideo }) {
           <Play size={17} fill="currentColor" className="ml-0.5" aria-hidden="true" />
         </span>
       </div>
-      <div>
+      <div className="border-l-[3px] border-ardosia pl-4 md:pl-5">
         <h3 className="font-serif font-normal text-[1.25rem] md:text-[1.3125rem] leading-[1.25] text-tinta group-hover:text-laranja-fundo transition-colors">
           {video.title}
         </h3>

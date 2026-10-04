@@ -21,7 +21,7 @@ const { Content } = await render(entry);
 const { title, excerpt, edicao, date, duration, image, substackUrl } = entry.data;
 ---
 
-<Default title={title} description={excerpt} image={image} type="article" publishedDate={date}>
+<Default title={title} description={excerpt} image={image} type="article" publishedDate={date} fechoNewsletter>
   <NewsletterEdicaoPage
     id={entry.id}
     edicao={edicao}

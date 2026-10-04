@@ -7,7 +7,7 @@ import logoLight from '../assets/cfa6876664fcc921be5a7c0a58c353ea12577968.png?ur
 const linkCls = 'text-nevoa hover:text-white underline-offset-4 hover:underline transition-colors';
 const tituloCls = 'rotulo text-laranja mb-4 sm:mb-5';
 
-export function Footer() {
+export function Footer({ newsletterComoLink = false }: { newsletterComoLink?: boolean }) {
   return (
     // O rodapé chega sempre pelo recorte de fecho do quadro (no layout, depois de um claro) e abre com o fio de capa
     // laranja: a passagem para o escuro é um gesto, não um corte seco.
@@ -57,7 +57,7 @@ export function Footer() {
           <div className="col-span-2 sm:col-span-1">
             <h2 className={tituloCls}>{newsletter.name}</h2>
             <p className="text-nevoa text-[0.9375rem] leading-relaxed mb-5 md:mb-6">{newsletter.pitch}</p>
-            <NewsletterForm variant="footer" />
+            <NewsletterForm variant={newsletterComoLink ? 'link' : 'footer'} />
           </div>
         </div>
 

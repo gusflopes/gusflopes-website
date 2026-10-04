@@ -175,13 +175,13 @@ export function RadarPage({ items, fundo }: RadarPageProps) {
                         {externo ? <ExternalLink size={14} aria-hidden="true" /> : <ArrowRight size={15} aria-hidden="true" />}
                       </span>
                     </div>
-                    <div className="relative aspect-square sm:aspect-[4/3] overflow-hidden rounded-[3px] bg-papel-3 self-start">
+                    <div className={`capa-duotone capa-${EIXO_COR[item.eixo]} relative aspect-square sm:aspect-[4/3] overflow-hidden rounded-[3px] self-start`}>
                       <ImageWithFallback
                         src={item.image}
                         alt=""
                         loading="lazy"
                         className="w-full h-full object-cover"
-                        fallbackClassName={`placa-${EIXO_COR[item.eixo]}`}
+                        fallbackClassName="bg-transparent"
                       />
                       {item.type === 'video' && (
                         <span className="absolute left-2.5 bottom-2.5 w-9 h-9 rounded-full bg-laranja text-laranja-tinta flex items-center justify-center">

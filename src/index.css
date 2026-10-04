@@ -539,11 +539,12 @@
     color: var(--color-laranja);
   }
 
+  /* Números das listas ordenadas: laranja escuro, texto que orienta (4,9:1 no papel) */
   .leitura :where(ol > li)::marker {
     font-family: var(--font-sans);
-    font-weight: 600;
+    font-weight: 700;
     font-size: 0.9em;
-    color: var(--color-tinta-3);
+    color: var(--color-laranja-fundo);
   }
 
   .leitura :where(ul) {
@@ -567,11 +568,14 @@
     padding-inline-start: 0.25em;
   }
 
-  /* Citação: a voz de outro leva o filete ardósia (cor do quadro com função) */
+  /*
+   * Destaque (pull quote): nos artigos, é a frase do próprio autor, então leva o fio marrom da
+   * assinatura. A ardósia fica para a voz de outro (fonte externa, vídeo de terceiro).
+   */
   .leitura :where(blockquote) {
     margin: 2em 0;
     padding: 0.1em 0 0.1em 1.25em;
-    border-left: 3px solid var(--color-ardosia);
+    border-left: 3px solid var(--color-marrom);
     font-style: italic;
     font-weight: 400;
     color: var(--color-tinta);
@@ -614,24 +618,59 @@
     margin: 2em 0;
   }
 
-  .leitura :where(thead) {
-    border-bottom: 1px solid var(--color-tinta-3);
+  /* Cabeçalho da tabela: campo petróleo (#315B6F) com texto papel, 7:1 — a cor do quadro com função */
+  .leitura :where(thead th) {
+    font-weight: 700;
+    color: var(--color-papel);
+    background-color: var(--color-petroleo-fundo);
+    text-align: left;
+    vertical-align: bottom;
+    padding: 0.65em 0.9em;
   }
 
   .leitura :where(tbody tr) {
     border-bottom: 1px solid var(--color-papel-fio);
   }
 
-  .leitura :where(thead th) {
-    font-weight: 700;
-    color: var(--color-tinta);
-    text-align: left;
-    padding: 0.6em 0.9em 0.6em 0;
+  .leitura :where(tbody td) {
+    padding: 0.6em 0.9em;
+    vertical-align: top;
   }
 
-  .leitura :where(tbody td) {
-    padding: 0.6em 0.9em 0.6em 0;
-    vertical-align: top;
+  /*
+   * Capa com duotone: a foto vira noite + cor do eixo (cinza multiplicado sobre a cor do eixo e
+   * clareado até a noite), da mesma família do fallback chapado. Só CSS, sem reprocessar a imagem.
+   */
+  .capa-duotone {
+    position: relative;
+    isolation: isolate;
+    background-color: var(--capa-cor, var(--color-petroleo));
+  }
+
+  .capa-duotone img {
+    filter: grayscale(1) contrast(1.1) brightness(1.2);
+    mix-blend-mode: multiply;
+  }
+
+  .capa-duotone::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-noite);
+    mix-blend-mode: lighten;
+    pointer-events: none;
+  }
+
+  .capa-engenharia {
+    --capa-cor: var(--color-petroleo);
+  }
+
+  .capa-negocios {
+    --capa-cor: var(--color-areia);
+  }
+
+  .capa-bastidores {
+    --capa-cor: var(--color-ferrugem);
   }
 
   /* Código inline: chip no tom de papel mais fundo (#EEE7E1), tinta azul */

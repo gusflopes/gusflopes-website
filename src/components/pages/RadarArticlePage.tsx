@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { EIXOS, EIXO_COR, type EixoId } from '../../lib/eixos';
 import type { FundoResponsivo } from '../../lib/imagens';
 import { PlacaEixo } from '../PlacaEixo';
+import type { ItemSumario } from '../artigo/Sumario';
 import { ArtigoShell } from '../artigo/ArtigoShell';
 import { NewsletterCta } from '../NewsletterCta';
 
@@ -15,6 +16,8 @@ export interface RadarArticlePageProps {
   image: string;
   /** O quadro, para o recorte na base da moldura. */
   fundo: FundoResponsivo;
+  /** Os H2 do texto (headings do render), para o sumário. */
+  sumario?: ItemSumario[];
   /** Corpo do artigo já renderizado (markdown via <Content /> no .astro). */
   children?: ReactNode;
 }
@@ -28,6 +31,7 @@ export function RadarArticlePage({
   duration,
   image,
   fundo,
+  sumario,
   children,
 }: RadarArticlePageProps) {
   return (
@@ -36,7 +40,8 @@ export function RadarArticlePage({
       excerpt={excerpt}
       image={image}
       fundo={fundo}
-      capaFallback={`placa-${EIXO_COR[eixo]}`}
+      sumario={sumario}
+      capaEixo={EIXO_COR[eixo]}
       voltar={{ href: '/radar', label: 'Voltar para o Radar' }}
       depois={<NewsletterCta content="artigo-radar" fioBase={false} />}
       meta={

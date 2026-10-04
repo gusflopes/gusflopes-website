@@ -4,6 +4,7 @@ import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { author } from '../../config/site';
 import { SocialLinks } from '../SocialLinks';
 import { RecorteQuadro } from '../RecorteQuadro';
+import { Sumario, type ItemSumario } from './Sumario';
 import type { FundoResponsivo } from '../../lib/imagens';
 import fotoAutor from '../../assets/autor.jpg?url';
 import logo from '../../assets/cfa6876664fcc921be5a7c0a58c353ea12577968.png?url';
@@ -29,8 +30,10 @@ interface ArtigoShellProps {
   depois?: ReactNode;
   /** O quadro, para o recorte na base da moldura escura (a capa atravessa a passagem). */
   fundo: FundoResponsivo;
-  /** Classe da capa que não carregou (ex.: a placa do eixo); sem ela, o placeholder neutro. */
-  capaFallback?: string;
+  /** Eixo da capa: duotone noite + cor do eixo na foto e no campo de quando ela não carrega. */
+  capaEixo?: string;
+  /** Os H2 reais do texto, para o sumário (margem no desktop, bloco em creme no celular). */
+  sumario?: ItemSumario[];
   children?: ReactNode;
 }
 
@@ -52,7 +55,8 @@ export function ArtigoShell({
   autor = true,
   depois,
   fundo,
-  capaFallback,
+  capaEixo,
+  sumario = [],
   children,
 }: ArtigoShellProps) {
   const [linkCopied, setLinkCopied] = useState(false);
@@ -140,11 +144,14 @@ export function ArtigoShell({
           </div>
         </header>
 
-        {/* Recorte do quadro na base da moldura; a capa atravessa a passagem para o papel */}
+        {/*
+          Recorte do quadro na base da moldura, inteiro como passagem: no desktop a capa sobrepõe no
+          máximo o terço de baixo (56 de 176px); no celular o recorte vem antes e a capa depois, no papel.
+        */}
         <RecorteQuadro fundo={fundo} eager>
-          <div className="relative max-w-5xl mx-auto px-4 sm:px-6 -mt-14 md:-mt-24">
+          <div className="relative max-w-5xl mx-auto px-4 sm:px-6 mt-6 md:-mt-14">
             <div
-              className={`overflow-hidden rounded-[4px] bg-noite-2 ${
+              className={`overflow-hidden rounded-[4px] ${capaEixo ? `capa-duotone capa-${capaEixo}` : 'bg-noite-2'} ${
                 imageFit === 'faixa' ? 'aspect-[16/9] md:aspect-[21/9]' : ''
               }`}
             >
@@ -152,14 +159,15 @@ export function ArtigoShell({
                 src={image}
                 alt=""
                 className={imageFit === 'faixa' ? 'w-full h-full object-cover' : 'w-full h-auto'}
-                fallbackClassName={capaFallback}
+                fallbackClassName={capaEixo ? 'bg-transparent' : undefined}
               />
             </div>
           </div>
         </RecorteQuadro>
 
         {/* Coluna de leitura */}
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-14 md:pt-20 pb-20 md:pb-24">
+        <div className="relative max-w-3xl mx-auto px-4 sm:px-6 pt-14 md:pt-20 pb-20 md:pb-24">
+          <Sumario itens={sumario} />
           <div className="leitura">{children}</div>
         </div>
 

@@ -26,6 +26,8 @@ interface Props {
   publishedDate?: string;
   /** Página sem conteúdo próprio ainda (ex.: hub de eixo vazio) — fora do índice. */
   noindex?: boolean;
+  /** A página já fecha com a caixa da newsletter (botão chapado): no rodapé, a newsletter vira link. */
+  fechoNewsletter?: boolean;
 }
 
 const {
@@ -35,6 +37,7 @@ const {
   type = 'website',
   publishedDate,
   noindex = false,
+  fechoNewsletter = false,
 } = Astro.props;
 
 // Eixos com conteúdo autoral publicado: só esses aparecem no menu.
@@ -147,6 +150,6 @@ const jsonLd = {
     <slot />
     {/* Recorte de fecho: as luzes da cidade fazem a passagem do último claro para o rodapé, em toda página */}
     <RecorteQuadro fundo={await fundoQuadro()} momento="fecho" />
-    <Footer client:load />
+    <Footer newsletterComoLink={fechoNewsletter} client:load />
   </body>
 </html>

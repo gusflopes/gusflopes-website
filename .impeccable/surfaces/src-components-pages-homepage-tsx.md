@@ -185,3 +185,14 @@ tudo o que fala em papel frio `#F2F4F7`, areia acinzentada `#D9D4CB` e "nunca cr
 | Hubs e Radar | noite (título, deck, placa do eixo) → recorte → creme (busca e temas) → papel (índice) → recorte de fecho → rodapé |
 | Newsletter | noite → recorte → creme (inscrição) → papel (edições) → recorte de fecho → rodapé |
 | Artigo e edição | noite (título, metadados com placa) → recorte com a capa atravessando → papel (leitura) → creme (newsletter e autor) → recorte de fecho → rodapé |
+
+### Correções do revisor da v5 (fix)
+- Capas de hub e de artigo em duotone noite + cor do eixo (CSS); o fallback é o mesmo campo.
+- Artigo: o recorte aparece inteiro (capa sobre no máximo o terço de baixo no desktop; depois dele
+  no celular); sumário dos H2 reais (margem fixa ≥1200px com a marca laranja de 5px no item ativo;
+  bloco em creme depois do lede abaixo disso); cabeçalho da tabela em campo petróleo com texto papel;
+  números das listas ordenadas em `#C2410C`.
+- Ardósia na voz de outro que existe nas páginas capturadas: a legenda do vídeo em destaque da home.
+  O blockquote dos artigos é frase do autor e passou para o fio marrom.
+- Páginas que já fecham com a caixa da newsletter: a newsletter do rodapé vira link laranja com seta.
+- `PlacaEixo`: "Engenharia & IA" com os espaços em volta do "&", como no título do hub.

@@ -22,7 +22,12 @@ export function PlacaEixo({
   const cls = `placa-${EIXO_COR[eixo]} inline-flex items-center rounded-[2px] font-sans font-semibold leading-none ${
     tamanho === 'm' ? 'px-3 py-2 text-[0.9375rem]' : 'px-2 py-[0.3125rem] text-[0.8125rem]'
   } ${className}`;
-  const label = <Amp>{texto}</Amp>;
+  // Um só filho de texto: num inline-flex, os espaços em volta do "&" (um <span>) sumiriam nas bordas dos itens.
+  const label = (
+    <span>
+      <Amp>{texto}</Amp>
+    </span>
+  );
   return href ? (
     <a href={href} className={`${cls} underline decoration-transparent underline-offset-2 hover:decoration-current transition-colors`}>
       {label}
