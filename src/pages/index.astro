@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import { publicado } from '../lib/publicado';
 import Default from '../layouts/Default.astro';
 import { HomePage } from '../components/pages/HomePage';
-import type { LatestArticle, FeaturedVideo } from '../components/LatestContent';
+import type { FeaturedVideo } from '../components/VideoDestaque';
 import { compareIsoDateDesc, datePartsPtBR } from '../lib/format';
 import type { EixoResumo } from '../components/Eixos';
 import { EIXO_IDS } from '../lib/eixos';
@@ -22,16 +22,6 @@ const radar = (await getCollection('radar', publicado)).sort((a, b) =>
   compareIsoDateDesc(a.data.date, b.data.date)
 );
 
-const articles: LatestArticle[] = insights.slice(0, 2).map((entry) => ({
-  id: entry.id,
-  title: entry.data.title,
-  category: entry.data.category,
-  image: entry.data.image,
-  link: `/insights/article/${entry.id}`,
-  isoDate: entry.data.date,
-  ...datePartsPtBR(entry.data.date),
-}));
-
 const latestVideo = radar.find((entry) => entry.data.type === 'video');
 const video: FeaturedVideo | undefined = latestVideo
   ? {
@@ -45,18 +35,27 @@ const video: FeaturedVideo | undefined = latestVideo
     }
   : undefined;
 
-// Eixos na home: cada um com o texto autoral mais recente. Bastidores entra mesmo sem
-// texto, apontando para o projeto em produção; eixo vazio sem projeto fica de fora.
+// Eixos na home: cada um com os dois textos autorais mais recentes, com data. "Ideias recentes"
+// foi fundida aqui; os dois insights mais recentes do site entram sempre no eixo deles, para
+// nenhum texto que aparecia na home sumir. Bastidores entra mesmo sem texto, apontando para o
+// projeto em produção; eixo vazio sem projeto fica de fora.
 const autorais = await getArtigos({ incluirRadarLocal: true });
+const recentes = new Set(insights.slice(0, 2).map((e) => `/insights/article/${e.id}`));
 const eixos: EixoResumo[] = EIXO_IDS.flatMap((id): EixoResumo[] => {
-  const ultimo = autorais.find((a) => a.eixo === id);
-  const destaque = ultimo ? { title: ultimo.title, href: ultimo.href } : undefined;
+  const doEixo = autorais.filter((a) => a.eixo === id);
+  const escolhidos = doEixo.filter((a, i) => i < 2 || recentes.has(a.href));
+  const textos = escolhidos.map((a) => ({
+    title: a.title,
+    href: a.href,
+    isoDate: a.isoDate,
+    ...datePartsPtBR(a.isoDate),
+  }));
   if (id === 'bastidores') {
     const reforma = projetos.reforma;
     return [
       {
         id,
-        destaque,
+        textos,
         projeto: {
           label: 'Testar o simulador da Reforma Tributária',
           href: comUtm(reforma.url, reforma.campanha, 'home-eixos'),
@@ -64,11 +63,11 @@ const eixos: EixoResumo[] = EIXO_IDS.flatMap((id): EixoResumo[] => {
       },
     ];
   }
-  return destaque ? [{ id, destaque }] : [];
+  return textos.length ? [{ id, textos }] : [];
 });
 ---
 
 {/* O layout monta o title da home ("gusflopes.dev — Tecnologia e negócio, partes do mesmo sistema") */}
 <Default>
-  <HomePage articles={articles} video={video} eixos={eixos} fundo={fundo} client:load />
+  <HomePage video={video} eixos={eixos} fundo={fundo} client:load />
 </Default>
