@@ -2,8 +2,9 @@ import type { FundoResponsivo } from '../lib/imagens';
 
 /**
  * "Confiar em quem escreve": a revelação da fonte — o quadro original da marca na largura da janela
- * (a única aparição), costurado pelo fio à faixa do texto (nunca atrás dele). As cinco áreas viram
- * um índice com réguas, não cards.
+ * (a única aparição), costurado pelo fio à faixa do texto (nunca atrás dele). O texto e as cinco
+ * áreas ficam no campo claro quente (areia acinzentada do quadro): a noite do quadro desemboca
+ * num campo de luz, como o céu claro do alto-esquerdo dele. Cada área abre com uma marca laranja.
  */
 export function Themes({ fundo }: { fundo: FundoResponsivo }) {
   const themes = [
@@ -30,7 +31,7 @@ export function Themes({ fundo }: { fundo: FundoResponsivo }) {
   ];
 
   return (
-    <section id="about" aria-labelledby="about-title" className="bg-noite border-t border-linha">
+    <section id="about" aria-labelledby="about-title" className="bg-campo">
       {/* A revelação da fonte: o quadro original, inteiro na largura da janela (a única vez que ele
           aparece), com o fio por baixo. Todas as telas do site nascem da amplitude dele. */}
       <figure className="h-[42vw] min-h-[220px] max-h-[600px] overflow-hidden">
@@ -48,18 +49,18 @@ export function Themes({ fundo }: { fundo: FundoResponsivo }) {
           />
         </picture>
       </figure>
-      <div className="fio px-4 md:px-6 py-14 md:py-20">
+      <div className="fio papel bg-campo px-4 md:px-6 py-14 md:py-20">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-12 gap-6 lg:gap-12 mb-14 md:mb-20">
-            <h2 id="about-title" className="lg:col-span-5 font-serif text-3xl md:text-5xl leading-[1.08] tracking-[-0.01em] text-white">
+            <h2 id="about-title" className="capitulo lg:col-span-5 font-serif text-3xl md:text-5xl leading-[1.08] tracking-[-0.01em] text-tinta">
               Engenharia é mais do que código
             </h2>
             <div className="lg:col-span-7">
-              <p className="font-sans text-lg text-white/90 leading-relaxed max-w-[60ch]">
-                Minha trajetória entre <strong className="font-semibold text-pessego">Direito, Contabilidade, gestão e tecnologia</strong> moldou uma visão sistêmica da engenharia de software.
+              <p className="font-sans text-lg text-tinta leading-relaxed max-w-[60ch]">
+                Minha trajetória entre <strong className="font-semibold text-tinta underline decoration-laranja decoration-[3px] underline-offset-[5px]">Direito, Contabilidade, gestão e tecnologia</strong> moldou uma visão sistêmica da engenharia de software.
                 Analiso domínio, arquitetura, times e fluxo de entrega como partes do mesmo problema: criar capacidade para o negócio evoluir.
               </p>
-              <p className="font-sans text-base text-nevoa leading-relaxed mt-5 max-w-[60ch]">
+              <p className="font-sans text-base text-tinta-2 leading-relaxed mt-5 max-w-[60ch]">
                 Hoje, aplico essa perspectiva como líder técnico no sistema de precificação de locação veicular de uma plataforma de mobilidade do Grupo Volkswagen.
               </p>
             </div>
@@ -67,9 +68,10 @@ export function Themes({ fundo }: { fundo: FundoResponsivo }) {
 
           <dl className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-10">
             {themes.map((theme) => (
-              <div key={theme.title} className="border-t border-linha py-6 md:py-8">
-                <dt className="font-serif text-xl md:text-[1.4rem] text-white mb-3 leading-tight">{theme.title}</dt>
-                <dd className="font-sans text-base text-nevoa leading-relaxed">{theme.description}</dd>
+              <div key={theme.title} className="border-t border-ardosia pb-6 md:pb-8">
+                <span className="block h-1 w-1/2 bg-laranja -mt-px mb-5 md:mb-6" aria-hidden="true" />
+                <dt className="font-serif text-xl md:text-[1.4rem] text-tinta mb-3 leading-tight">{theme.title}</dt>
+                <dd className="font-sans text-base text-tinta-2 leading-relaxed">{theme.description}</dd>
               </div>
             ))}
           </dl>

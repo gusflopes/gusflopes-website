@@ -16,8 +16,8 @@ interface EixosProps {
 }
 
 /**
- * "Escolher por onde entrar" (e ver o que acabou de sair): uma tela em três estratos ao lado de
- * três portas. A tela tem a estrutura da lista — cada estrato corre ao lado de uma porta — e o fio
+ * "Escolher por onde entrar" (e ver o que acabou de sair): o primeiro campo claro depois da
+ * abertura — papel, como a coluna de leitura — com uma tela em três estratos ao lado de três portas. A tela tem a estrutura da lista — cada estrato corre ao lado de uma porta — e o fio
  * laranja é a costura vertical entre a pintura e as portas. Cada porta traz os textos mais
  * recentes do eixo (a antiga lista "Ideias recentes" vive aqui).
  */
@@ -25,13 +25,13 @@ export function Eixos({ eixos }: EixosProps) {
   if (eixos.length === 0) return null;
 
   return (
-    <section aria-labelledby="eixos-title" className="bg-noite px-4 md:px-6 pt-16 pb-20 md:pt-24 md:pb-28">
+    <section aria-labelledby="eixos-title" className="bg-papel papel px-4 md:px-6 pt-16 pb-16 md:pt-24 md:pb-20">
       <div className="max-w-7xl mx-auto">
         <div className="grid gap-4 lg:grid-cols-12 lg:gap-14 mb-10 md:mb-14 items-end">
-          <h2 id="eixos-title" className="lg:col-span-7 font-serif text-[2.1rem] md:text-5xl leading-[1.08] tracking-[-0.01em] text-white">
+          <h2 id="eixos-title" className="capitulo lg:col-span-7 font-serif text-[2.1rem] md:text-5xl leading-[1.08] tracking-[-0.01em] text-tinta">
             O que eu escrevo, e para quem
           </h2>
-          <p className="lg:col-span-5 font-sans text-lg text-nevoa leading-relaxed max-w-[52ch] lg:pb-1.5">
+          <p className="lg:col-span-5 font-sans text-lg text-tinta-2 leading-relaxed max-w-[52ch] lg:pb-1.5">
             Tecnologia e negócio são partes do mesmo sistema — mas cada leitor entra por uma porta.
           </p>
         </div>
@@ -43,42 +43,42 @@ export function Eixos({ eixos }: EixosProps) {
             </div>
           </figure>
 
-          <ol className="lg:col-span-8 border-t-[3px] lg:border-t-0 lg:border-l-[3px] border-laranja">
+          <ol className="lg:col-span-8 border-t-[6px] lg:border-t-0 lg:border-l-[6px] border-laranja">
             {eixos.map(({ id, recentes, projeto }, i) => {
               const eixo = EIXOS[id];
               const [maisRecente, anterior] = recentes;
               return (
-                <li key={id} className={`cartao ${i > 0 ? 'border-t border-linha' : ''}`}>
+                <li key={id} className={`cartao ${i > 0 ? 'border-t border-regua' : ''}`}>
                   <span className="fio-vivo" />
                   <div className="grid gap-x-10 gap-y-4 px-0 py-8 md:py-10 lg:pl-10 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
                     <div>
-                      <h3 className="font-serif text-3xl md:text-[2.25rem] leading-[1.05] text-white mb-3">
-                        <a href={eixo.href} className="hover:text-pessego transition-colors">
+                      <h3 className="font-serif text-3xl md:text-[2.25rem] leading-[1.05] text-tinta mb-3">
+                        <a href={eixo.href} className="hover:text-laranja-fundo transition-colors">
                           {eixo.label}
                         </a>
                       </h3>
-                      <p className="font-sans text-sm font-semibold leading-snug text-ceu">{eixo.publico}</p>
+                      <p className="font-sans text-sm font-semibold leading-snug text-petroleo">{eixo.publico}</p>
                     </div>
                     <div className="flex flex-col gap-4">
-                      <p className="font-sans text-nevoa leading-relaxed">{eixo.descricao}</p>
+                      <p className="font-sans text-tinta-2 leading-relaxed">{eixo.descricao}</p>
                       {maisRecente && (
-                        <ul className="flex flex-col gap-3 border-l border-petroleo pl-4">
+                        <ul className="flex flex-col gap-3 border-l-2 border-ardosia pl-4">
                           <li>
-                            <a href={maisRecente.href} className="font-serif text-lg leading-snug text-white hover:text-pessego transition-colors">
+                            <a href={maisRecente.href} className="font-serif text-lg leading-snug text-tinta hover:text-laranja-fundo transition-colors">
                               {maisRecente.title}
                             </a>
-                            <span className="block rotulo text-bruma mt-2">Mais recente</span>
+                            <span className="flex items-center gap-2 rotulo text-petroleo mt-2"><span className="marca" aria-hidden="true" />Mais recente</span>
                           </li>
                           {anterior && (
                             <li>
-                              <a href={anterior.href} className="font-serif text-base leading-snug text-nevoa hover:text-pessego transition-colors">
+                              <a href={anterior.href} className="font-serif text-base leading-snug text-tinta-2 hover:text-laranja-fundo transition-colors">
                                 {anterior.title}
                               </a>
                             </li>
                           )}
                         </ul>
                       )}
-                      <a href={maisRecente ? eixo.href : projeto?.href ?? eixo.href} className="acao text-laranja-claro">
+                      <a href={maisRecente ? eixo.href : projeto?.href ?? eixo.href} className="acao text-laranja-fundo">
                         {maisRecente ? `Ler ${eixo.shortLabel}` : projeto?.label ?? `Ver ${eixo.shortLabel}`}
                         <ArrowRight size={16} aria-hidden="true" />
                       </a>

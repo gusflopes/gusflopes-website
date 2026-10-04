@@ -44,11 +44,12 @@ export const metas = (f, abertura = false) => {
 export const TELAS = [
   ['abertura', ABERTURA.semente, 'abertura', 'larga', ABERTURA.params],
   ...Object.entries(ARQUETIPO_FAIXA).filter(([n]) => n !== 'nao-encontrada').map(([n, a]) => [`faixa ${n}`, n, 'faixa', 'larga', { arquetipo: a }]),
-  ['eixos (portas)', 'O que eu escrevo, e para quem', 'capitulo', 'coluna', { arquetipo: 'faixas', bandas: 3 }],
+  ['eixos (portas)', 'O que eu escrevo, e para quem', 'capitulo', 'coluna', { arquetipo: 'faixas', bandas: 3, luz: 1.8 }],
   ['close ferramenta', 'Simulador da Reforma Tributária', 'close', 'quadro', { arquetipo: 'vento' }],
   ['video', 'Vídeo em Destaque', 'projecao', 'quadro', { arquetipo: 'ondas' }],
   ['convite newsletter', 'Radar de IA', 'convite', 'topo', { arquetipo: ARQUETIPO_CONVITE }],
   ['fita newsletter', 'Radar de IA', 'fita', 'larga', { arquetipo: 'horizonte' }],
+  ['fita do rodapé', 'gusflopes.dev', 'rodape', 'larga', { arquetipo: 'faixas', degrade: true }],
   ['404 painel', 'nao-encontrada', 'painel', 'quadro', { arquetipo: 'massas' }],
   ['capa agent-skills (retrato)', 'agent-skills-pacotes-de-contexto', 'capa', 'retrato', paramsCapa('engenharia')],
   ['capa agent-skills (OG)', 'agent-skills-pacotes-de-contexto', 'capa', 'og', paramsCapa('engenharia')],

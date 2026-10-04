@@ -81,6 +81,7 @@ export const PARAMS_PADRAO = {
   luz: 1, // multiplica a quantidade de manchas quentes (0 = cena sem laranja)
   bandas: undefined, // só no arquétipo faixas: número fixo de estratos
   evita: [], // arquétipos que a semente não pode sortear (ex.: o da faixa do hub onde a capa aparece)
+  degrade: false, // só no arquétipo faixas: três estratos do claro (areia) para a noite, de cima para baixo (a fita do rodapé)
 };
 
 
@@ -702,8 +703,8 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
   } else {
     // faixas: estratos horizontais
     const sorteio = 3 + Math.floor(rnd() * 4);
-    const nB = p.bandas ?? sorteio; // `bandas` fixa estratos de alturas quase iguais (a tela segue a lista)
-    const pesos = Array.from({ length: nB }, () => (p.bandas ? 0.9 + rnd() * 0.2 : 0.35 + rnd()));
+    const nB = p.degrade ? 3 : p.bandas ?? sorteio; // `bandas` fixa estratos de alturas quase iguais (a tela segue a lista)
+    const pesos = Array.from({ length: nB }, () => (p.bandas || p.degrade ? 0.9 + rnd() * 0.2 : 0.35 + rnd()));
     const tot = pesos.reduce((a, b) => a + b, 0);
     let acc = 0;
     const limites = pesos.map((w) => (acc += (w / tot) * MH));
@@ -719,6 +720,11 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
     const reflexo = Math.floor(rnd() * nB);
     const bandas = limites.map((_, i) => {
       let v;
+      if (p.degrade) {
+        // do claro para a noite: areia/branco em cima, petróleo e terra no meio, fundo e noite embaixo
+        const pal = [PAL.passagem, [[C.petroleo, 3], [C.petroleo2, 2], [C.terra, 2], [C.ferrugem, 1.3], [C.marrom, 1], [C.ardosia, 1]], [[C.fundo, 3], [C.fundo2, 2], [C.noite, 2], [C.petroleo2, 1.2], [C.marrom2, 1]]][i];
+        return { pal, ang: (rnd() - 0.5) * 0.2, comp: [30, 30, 64][i], dens: 0.95, reflexo: i === 1, claro: i === 0, palR: i === 0 ? REAL.claro : REAL.quente };
+      }
       if (i < obrig.length && obrig[i] !== antes) v = obrig[i];
       else do v = Math.floor(rnd() * 4);
       while (v === antes || (v === 0 && escuros >= 1));
@@ -737,6 +743,20 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
       const [i] = qual(x, y);
       return bandas[i].ang + incl + ruido(x * freq * 2, y * freq * 2) * 0.25;
     };
+    if (p.degrade) {
+      // a fita começa clara de verdade: o chão de cada estrato já é a cor dele (areia, petróleo,
+      // noite), para a borda de cima encostar no papel sem faixa escura
+      const chao = [C.areiaClara, C.petroleo2, C.fundo];
+      for (let py = 0; py < H; py++) {
+        for (let px = 0; px < W; px++) {
+          const [i] = qual(jan.x + px / escala, jan.y + py / escala);
+          const k = (py * W + px) * 3;
+          cor[k] = chao[i][0];
+          cor[k + 1] = chao[i][1];
+          cor[k + 2] = chao[i][2];
+        }
+      }
+    }
     zona = (x, y) => {
       const [i, d] = qual(x, y);
       const b = bandas[i];

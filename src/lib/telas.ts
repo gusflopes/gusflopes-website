@@ -20,7 +20,7 @@ export interface Tela extends TelaArquivo {
   estreita?: TelaArquivo;
 }
 
-type Papel = 'abertura' | 'faixa' | 'capa' | 'capitulo' | 'close' | 'projecao' | 'convite' | 'fita' | 'painel';
+type Papel = 'abertura' | 'faixa' | 'capa' | 'capitulo' | 'close' | 'projecao' | 'convite' | 'fita' | 'painel' | 'rodape';
 
 function arquivo(grupo: string, nome: string, papel: Papel, janela: string): TelaArquivo {
   const j = PAPEIS[papel].janelas[janela];
@@ -61,6 +61,9 @@ export const telaNewsletter = (janela: 'lado' | 'topo' = 'lado'): Tela => telaPa
 
 /** Fita fina sob a faixa do título no arquivo da newsletter. */
 export const telaFita = (): Tela => telaPapel('marca', 'newsletter-fita', 'fita', 'larga', 'estreita');
+
+/** Fita do rodapé: a passagem do claro para a noite, no topo do rodapé de toda página. */
+export const telaRodape = (): Tela => telaPapel('marca', 'rodape', 'rodape', 'larga', 'estreita');
 
 /** Painel da página 404, ao lado da mensagem. */
 export const telaPainel404 = (): Tela => telaPapel('marca', 'nao-encontrada', 'painel', 'quadro', 'estreita');

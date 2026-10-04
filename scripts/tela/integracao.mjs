@@ -27,7 +27,7 @@ export const FAIXAS = ['insights', 'radar', 'engenharia', 'negocios', 'bastidore
  */
 export const TELAS_PAPEL = [
   // três estratos ao lado das três portas: a tela tem a estrutura da lista
-  ['home', 'portas', 'capitulo', 'O que eu escrevo, e para quem', { arquetipo: 'faixas', bandas: 3 }],
+  ['home', 'portas', 'capitulo', 'O que eu escrevo, e para quem', { arquetipo: 'faixas', bandas: 3, luz: 1.8 }],
   // o pintor chegando perto: o único close (2,5×) do site, uma corrente de vento vista de perto
   ['home', 'ferramenta', 'close', 'Simulador da Reforma Tributária', { arquetipo: 'vento' }],
   // a fala: ondas largas na tela de projeção do vídeo
@@ -36,6 +36,8 @@ export const TELAS_PAPEL = [
   ['marca', 'newsletter', 'convite', 'Radar de IA', { arquetipo: ARQUETIPO_CONVITE }],
   ['marca', 'newsletter-fita', 'fita', 'Radar de IA', { arquetipo: 'horizonte' }],
   ['marca', 'nao-encontrada', 'painel', 'nao-encontrada', { arquetipo: 'massas' }],
+  // a fita do rodapé de toda página: do claro (o campo acima) para a noite (o rodapé)
+  ['marca', 'rodape', 'rodape', 'gusflopes.dev', { arquetipo: 'faixas', degrade: true }],
 ];
 
 function frontmatter(arquivo) {
@@ -150,7 +152,7 @@ export async function gerarTelas({ raiz, producao, log = console.log }) {
 
   const tarefas = [];
   const job = (chave, impressao, arquivos, tarefa) => {
-    const digest = crypto.createHash('sha1').update(`v${VERSAO}|${MATERIAL_PADRAO}|${JSON.stringify(PAPEIS[tarefa.papel] ?? PAPEIS.capa)}|${impressao}`).digest('hex').slice(0, 12);
+    const digest = crypto.createHash('sha1').update(`v${VERSAO}|${MATERIAL_PADRAO}|${JSON.stringify(QUALIDADE)}|${JSON.stringify(PAPEIS[tarefa.papel] ?? PAPEIS.capa)}|${impressao}`).digest('hex').slice(0, 12);
     novo[chave] = { digest, arquivos };
     arquivos.forEach((a) => saidas.add(a));
     const existe = arquivos.every((a) => fs.existsSync(path.join(pub, a)));

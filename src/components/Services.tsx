@@ -24,14 +24,18 @@ export function Services() {
   ];
 
   // "Entender o que contratar": um cardápio em linhas largas sobre papel — o serviço em Literata,
-  // o que ele resolve e a ação alinhada à direita. O fio laranja de cada linha se estende no hover/foco.
+  // o que ele resolve e a ação alinhada à direita. O título vive numa célula chapada de petróleo
+  // (a cor-irmã do laranja no quadro); o fio laranja de cada linha se estende no hover/foco.
   return (
     <section id="consulting" aria-labelledby="consulting-title" className="bg-papel text-tinta papel px-4 md:px-6 py-16 md:py-24 relative">
       <div id="courses" className="absolute top-0"></div>
       <div className="max-w-7xl mx-auto grid gap-10 lg:grid-cols-12 lg:gap-12">
-        <h2 id="consulting-title" className="lg:col-span-4 font-serif text-[2.1rem] md:text-5xl leading-[1.08] tracking-[-0.01em] text-tinta">
-          Como posso ajudar
-        </h2>
+        <div className="lg:col-span-4 self-start bg-petroleo px-6 py-8 md:px-8 md:py-10 lg:sticky lg:top-24">
+          <h2 id="consulting-title" className="font-serif text-[2.1rem] md:text-5xl leading-[1.08] tracking-[-0.01em] text-white">
+            Como posso ajudar
+          </h2>
+          <span className="block h-1 w-14 bg-laranja mt-6" aria-hidden="true" />
+        </div>
 
         <ol className="lg:col-span-8 border-t border-regua">
           {services.map((service) => (
@@ -41,7 +45,7 @@ export function Services() {
                 <h3 className="font-serif text-2xl md:text-[1.75rem] leading-tight text-tinta">{service.title}</h3>
                 <div className="flex flex-col gap-4">
                   <p className="font-sans text-tinta-2 leading-relaxed">{service.description}</p>
-                  <a href={service.link} className="acao text-laranja-fundo text-sm tracking-[0.08em]">
+                  <a href={service.link} className="botao self-start min-h-11 px-5 text-sm tracking-[0.08em]">
                     {service.action} <ArrowRight size={16} aria-hidden="true" />
                   </a>
                 </div>

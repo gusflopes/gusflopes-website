@@ -4,9 +4,11 @@
 @plugin "@tailwindcss/typography";
 
 /*
- * Pincelada — tokens do sistema visual.
- * Chão azul-escuro, azuis do quadro só nas telas e realces, laranja como luz rara,
- * papel frio na coluna de leitura. Fontes self-hosted (src/layouts/Default.astro).
+ * Pincelada — tokens do sistema visual (rodada 4: cor como sistema).
+ * Laranja é a cor principal, em detalhes distribuídos pela página inteira; azul-escuro é estrutura;
+ * os claros (papel frio, campo de areia) entram no ritmo; as cores do quadro (petróleo, ardósia,
+ * areia, marrom, ferrugem) são apoio em campos, células, metadados e filetes.
+ * Fontes self-hosted (src/layouts/Default.astro).
  */
 @theme {
   --font-sans: "Hanken Grotesk Variable", "Hanken Grotesk", system-ui, sans-serif;
@@ -17,10 +19,19 @@
   --color-noite: #0b1a33;
   --color-noite-2: #13284d;
   --color-linha: #22385c; /* réguas sobre azul-escuro */
-  /* Azuis do quadro */
+  /* Azuis da marca (o céu só como acento raro) */
   --color-quadro: #1f3a66;
-  --color-petroleo: #2e5069;
   --color-ceu: #8fb3d9;
+  /* Paleta de apoio do quadro (aprovada em 04/10) */
+  --color-petroleo: #315b6f; /* célula/campo; texto sobre papel (6,4:1); branco sobre ele (7,3:1) */
+  --color-petroleo-claro: #457183; /* filete, régua forte */
+  --color-ardosia: #648188; /* régua sobre claro (não é texto) */
+  --color-ardosia-clara: #7f989a; /* metadado sobre noite (5,8:1) */
+  --color-areia: #aa9c87; /* metadado sobre noite (6,5:1); filete sobre claro */
+  --color-marrom: #907a5f;
+  --color-marrom-escuro: #50372a; /* texto sobre areia/papel */
+  --color-ferrugem: #8a4c1b; /* filete e marca; nunca encosta em #C2410C nem no laranja chapado */
+  --color-campo: #d8d1c4; /* campo claro quente: areia acinzentada do quadro (nunca creme) */
   --color-nevoa: #c9d6e6; /* texto secundário sobre azul-escuro (11:1) */
   --color-bruma: #9fb0c6; /* metadado sobre azul-escuro (7,4:1) */
   /* Papel: a coluna de leitura */
@@ -109,6 +120,25 @@
     text-transform: uppercase;
   }
 
+  /* Marca laranja: quadrado de 8px antes de um metadado (presença, não texto). */
+  .marca {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--color-laranja);
+    flex-shrink: 0;
+  }
+
+  /* Marca de capítulo: filete laranja de 4px sob o título de cada seção da home (presença). */
+  .capitulo::after {
+    content: '';
+    display: block;
+    width: 3.5rem;
+    height: 4px;
+    margin-top: 1.25rem;
+    background: var(--color-laranja);
+  }
+
   /* Fio laranja: a costura entre pintura e texto. */
   .fio {
     border-top: 3px solid var(--color-laranja);
@@ -120,7 +150,7 @@
     height: 3px;
     width: 100%;
     background: var(--color-laranja);
-    transform: scaleX(0.12);
+    transform: scaleX(0.2);
     transform-origin: left;
     transition: transform 0.6s var(--ease-pincel);
   }

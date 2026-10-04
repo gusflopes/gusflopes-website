@@ -24,7 +24,7 @@ export function Hero() {
               Tecnologia e negócio, <br className="hidden sm:block" />
               <span className="text-pessego lg:whitespace-nowrap">partes do mesmo sistema</span>
             </h1>
-            <p className="font-sans text-sm md:text-base font-semibold tracking-[0.02em] text-ceu">Estratégia · Arquitetura · Fluxo · IA aplicada</p>
+            <p className="font-sans text-sm md:text-base font-semibold tracking-[0.02em] text-areia">Estratégia · Arquitetura · Fluxo · IA aplicada</p>
           </div>
 
           <div className="lg:col-span-5 flex flex-col gap-4 lg:pt-2">

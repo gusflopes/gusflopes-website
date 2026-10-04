@@ -72,13 +72,16 @@ export function InsightsPage({
         tela={telaFaixa(eixo ?? 'insights')}
         titulo={heading}
         deck={subheading}
-        nota={eixo ? <p className="font-sans text-sm font-semibold text-ceu">{EIXOS[eixo].publico}</p> : undefined}
+        nota={eixo ? <p className="font-sans text-sm font-semibold text-areia">{EIXOS[eixo].publico}</p> : undefined}
       />
 
-      <div className="max-w-7xl mx-auto px-4 md:px-6 pb-20 md:pb-28">
+      {/* O corpo do hub é papel, como a coluna do artigo: o índice se lê de dia; a noite fica na
+          abertura e no rodapé, que chega pela fita depois deste campo claro. */}
+      <div className="bg-papel papel">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 pt-6 md:pt-8 pb-20 md:pb-28">
         {/* Eixos — só na listagem geral; nos hubs o eixo já está fixo */}
         {!eixo && (
-          <nav aria-label="Filtrar por eixo" className="flex flex-wrap gap-x-6 gap-y-1 border-b border-linha">
+          <nav aria-label="Filtrar por eixo" className="flex flex-wrap gap-x-6 gap-y-1 border-b border-regua">
             {[{ id: 'todos' as const, label: 'Todos os eixos' }, ...EIXO_LIST].map((e) => (
               <button
                 key={e.id}
@@ -86,7 +89,7 @@ export function InsightsPage({
                 aria-pressed={selectedEixo === e.id}
                 onClick={() => selectEixo(e.id)}
                 className={`relative py-3 font-sans text-[0.9375rem] font-semibold transition-colors after:absolute after:left-0 after:-bottom-px after:h-[3px] after:bg-laranja after:w-full after:origin-left after:transition-transform after:duration-300 ${
-                  selectedEixo === e.id ? 'text-white after:scale-x-100' : 'text-bruma hover:text-white after:scale-x-0'
+                  selectedEixo === e.id ? 'text-tinta after:scale-x-100' : 'text-tinta-2 hover:text-tinta after:scale-x-0'
                 }`}
               >
                 {e.label}
@@ -99,11 +102,11 @@ export function InsightsPage({
 
         {articles.length > 0 && (
           <div className="mt-8 mb-12 md:mb-16 flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
-            <label className="flex items-center gap-3 border-b border-petroleo focus-within:border-laranja-claro md:w-72 shrink-0 transition-colors">
-              <Search size={16} className="text-bruma" aria-hidden="true" />
+            <label className="flex items-center gap-3 border-b border-ardosia focus-within:border-laranja md:w-72 shrink-0 transition-colors">
+              <Search size={16} className="text-tinta-2" aria-hidden="true" />
               <input
                 aria-label="Buscar artigos"
-                className="bg-transparent border-none outline-none focus-visible:outline-none w-full py-2.5 text-[0.9375rem] text-white font-sans"
+                className="bg-transparent border-none outline-none focus-visible:outline-none w-full py-2.5 text-[0.9375rem] text-tinta placeholder:text-tinta-2 font-sans"
                 placeholder="Filtrar ideias..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -119,7 +122,7 @@ export function InsightsPage({
                   className={`px-3 h-8 border font-sans text-[0.8125rem] font-semibold transition-colors whitespace-nowrap ${
                     selectedCategory === cat
                       ? 'bg-laranja border-laranja text-noite'
-                      : 'border-linha text-nevoa hover:border-ceu hover:text-white'
+                      : 'border-regua text-tinta-2 hover:border-petroleo hover:text-tinta'
                   }`}
                 >
                   {cat}
@@ -136,24 +139,25 @@ export function InsightsPage({
               href={primeiro.href}
               tabIndex={-1}
               aria-hidden="true"
-              className="block md:col-span-4 h-[200px] sm:h-auto sm:aspect-[16/9] md:aspect-[4/5] overflow-hidden border-b-[3px] md:border-b-0 md:border-r-[3px] border-laranja"
+              className="block md:col-span-4 h-[200px] sm:h-auto sm:aspect-[16/9] md:aspect-[4/5] overflow-hidden border-b-4 md:border-b-0 md:border-r-4 border-laranja"
             >
               <TelaPicture tela={primeiro.retrato ?? primeiro.tela} sizes="(min-width: 1280px) 400px, (min-width: 768px) 33vw, 100vw" />
             </a>
             <div className="md:col-span-8 flex flex-col justify-end gap-5 pt-7 md:pt-0 md:pl-10 lg:pl-14 md:pb-2">
-              <h2 className="font-serif text-3xl md:text-[2.6rem] lg:text-[3rem] leading-[1.06] tracking-[-0.01em] text-white max-w-[22ch]">
-                <a href={primeiro.href} className="hover:text-pessego transition-colors">
+              <h2 className="font-serif text-3xl md:text-[2.6rem] lg:text-[3rem] leading-[1.06] tracking-[-0.01em] text-tinta max-w-[22ch]">
+                <a href={primeiro.href} className="hover:text-laranja-fundo transition-colors">
                   {primeiro.title}
                 </a>
               </h2>
-              <p className="font-sans text-lg text-nevoa leading-relaxed max-w-[60ch]">{primeiro.excerpt}</p>
-              <div className="flex flex-wrap items-center justify-between gap-4 border-t border-linha pt-5">
-                <p className="font-sans text-sm text-bruma">
-                  <span className="font-bold text-ceu">{eixo ? primeiro.category : `${EIXOS[primeiro.eixo].shortLabel} · ${primeiro.category}`}</span>
+              <p className="font-sans text-lg text-tinta-2 leading-relaxed max-w-[60ch]">{primeiro.excerpt}</p>
+              <div className="flex flex-wrap items-center justify-between gap-4 border-t border-regua pt-5">
+                <p className="font-sans text-sm text-tinta-2 flex flex-wrap items-center gap-x-1.5">
+                  <span className="marca mr-1" aria-hidden="true" />
+                  <span className="font-bold text-petroleo">{eixo ? primeiro.category : `${EIXOS[primeiro.eixo].shortLabel} · ${primeiro.category}`}</span>
                   <span aria-hidden="true"> · </span>
                   {primeiro.date} · {primeiro.duration}
                 </p>
-                <a href={primeiro.href} className="acao text-laranja-claro">
+                <a href={primeiro.href} className="acao text-laranja-fundo">
                   Ler Artigo <ArrowRight size={16} aria-hidden="true" />
                 </a>
               </div>
@@ -163,22 +167,22 @@ export function InsightsPage({
 
         {/* Os demais: um índice de leitura, só texto — a tela de cada um é a capa dentro do texto. */}
         {demais.length > 0 && (
-          <ol className="border-t border-linha">
+          <ol className="border-t-2 border-t-laranja border-l-[6px] border-l-laranja">
             {demais.map((article) => (
-              <li key={article.id} className="border-b border-linha">
-                <a href={article.href} className="cartao group grid gap-x-10 gap-y-2 py-7 md:grid-cols-12">
+              <li key={article.id} className="border-b-2 border-laranja">
+                <a href={article.href} className="cartao group grid gap-x-10 gap-y-2 py-7 pl-5 lg:pl-8 md:grid-cols-12">
                   <span className="md:col-span-8 flex flex-col gap-2">
-                    <span className="font-serif text-[1.4rem] md:text-[1.6rem] leading-snug text-white group-hover:text-pessego transition-colors">
+                    <span className="font-serif text-[1.4rem] md:text-[1.6rem] leading-snug text-tinta group-hover:text-laranja-fundo transition-colors">
                       {article.title}
                     </span>
-                    <span className="font-sans text-nevoa leading-relaxed line-clamp-2 max-w-[68ch]">{article.excerpt}</span>
+                    <span className="font-sans text-tinta-2 leading-relaxed line-clamp-2 max-w-[68ch]">{article.excerpt}</span>
                   </span>
                   <span className="md:col-span-4 flex flex-col gap-1 md:items-end md:text-right md:pt-1.5 font-sans text-sm">
-                    <span className="font-bold text-ceu">{eixo ? article.category : `${EIXOS[article.eixo].shortLabel} · ${article.category}`}</span>
-                    <span className="text-bruma">
+                    <span className="font-bold text-petroleo inline-flex items-center gap-2"><span className="marca" aria-hidden="true" />{eixo ? article.category : `${EIXOS[article.eixo].shortLabel} · ${article.category}`}</span>
+                    <span className="text-tinta-2">
                       {article.date} · {article.duration}
                     </span>
-                    <span className="acao text-laranja-claro mt-2">
+                    <span className="acao text-laranja-fundo mt-2">
                       Ler Artigo <ArrowRight size={16} aria-hidden="true" />
                     </span>
                   </span>
@@ -191,12 +195,13 @@ export function InsightsPage({
         {/* Empty State */}
         {filteredArticles.length === 0 && (
           <div className="py-24 md:py-32 max-w-xl">
-            <p className="font-serif text-2xl md:text-3xl italic text-white">O silêncio faz parte da música.</p>
-            <p className="font-sans text-nevoa mt-3">
+            <p className="font-serif text-2xl md:text-3xl italic text-tinta">O silêncio faz parte da música.</p>
+            <p className="font-sans text-tinta-2 mt-3">
               {articles.length === 0 ? 'Os primeiros textos deste eixo estão a caminho.' : 'Nenhum artigo encontrado.'}
             </p>
           </div>
         )}
+      </div>
       </div>
     </main>
   );

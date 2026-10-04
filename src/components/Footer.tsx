@@ -3,12 +3,20 @@ import { NewsletterForm } from './NewsletterForm';
 import { SocialLinks } from './SocialLinks';
 import { site, newsletter, projetos, comUtm } from '../config/site';
 import { EIXO_LIST } from '../lib/eixos';
+import { telaRodape } from '../lib/telas';
+import { TelaPicture } from './TelaPicture';
 import logoLight from '../assets/cfa6876664fcc921be5a7c0a58c353ea12577968.png?url';
 
 export function Footer() {
   return (
-    <footer className="bg-noite border-t border-linha pt-14 md:pt-16 pb-8 px-4 md:px-6">
-      <div className="max-w-7xl mx-auto">
+    <footer className="bg-noite">
+      {/* A passagem: toda página termina num campo claro, e o rodapé chega por esta fita pintada,
+          que vai da areia (em cima) à noite (embaixo). Nunca um bloco escuro sobre outro. */}
+      <div className="h-20 md:h-28 overflow-hidden" aria-hidden="true">
+        <TelaPicture tela={telaRodape()} sizes="100vw" />
+      </div>
+      <div className="fio" />
+      <div className="max-w-7xl mx-auto pt-12 md:pt-14 pb-8 px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div>
@@ -29,8 +37,8 @@ export function Footer() {
 
           {/* Links */}
           <div>
-            <h2 className="rotulo text-bruma mb-4">Navegação</h2>
-            <ul className="space-y-2.5 text-[0.9375rem]">
+            <h2 className="rotulo text-areia mb-4 flex items-center gap-2.5"><span className="marca" aria-hidden="true" />Navegação</h2>
+            <ul className="grid grid-cols-2 md:grid-cols-1 gap-x-6 gap-y-2.5 text-[0.9375rem]">
               {EIXO_LIST.map((eixo) => (
                 <li key={eixo.id}>
                   <a href={eixo.href} className="text-nevoa hover:text-white underline decoration-transparent hover:decoration-laranja transition-colors">{eixo.label}</a>
@@ -53,7 +61,7 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h2 className="rotulo text-bruma mb-4">Contato</h2>
+            <h2 className="rotulo text-areia mb-4 flex items-center gap-2.5"><span className="marca" aria-hidden="true" />Contato</h2>
             <ul className="space-y-2.5 text-[0.9375rem]">
               <li><a href={`mailto:${site.email}`} className="text-nevoa hover:text-white underline decoration-transparent hover:decoration-laranja transition-colors">{site.email}</a></li>
               <li className="text-bruma">Brasil | Global</li>
@@ -63,7 +71,7 @@ export function Footer() {
 
           {/* Newsletter */}
           <div>
-            <h2 className="rotulo text-bruma mb-4">{newsletter.name}</h2>
+            <h2 className="rotulo text-areia mb-4 flex items-center gap-2.5"><span className="marca" aria-hidden="true" />{newsletter.name}</h2>
             <p className="text-nevoa text-sm leading-relaxed mb-4">{newsletter.pitch}</p>
             <NewsletterForm variant="footer" />
           </div>

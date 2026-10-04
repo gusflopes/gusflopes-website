@@ -96,6 +96,17 @@ export const PAPEIS = {
       estreita: { x: 520, y: 20, w: 400, h: 80, larguras: [400, 800] },
     },
   },
+  /**
+   * Fita do rodapé: a passagem do campo claro para a noite, no topo do rodapé de toda página
+   * (faixas em degradê: areia em cima, petróleo e terra no meio, noite embaixo).
+   */
+  rodape: {
+    mestre: [1440, 112],
+    janelas: {
+      larga: { x: 0, y: 0, w: 1440, h: 112, larguras: [1440, 2160] },
+      estreita: { x: 520, y: 16, w: 400, h: 80, larguras: [400, 800] },
+    },
+  },
   /** Painel alto da página 404, ao lado da mensagem (faixa no celular). */
   painel: {
     mestre: [560, 800],
@@ -123,7 +134,7 @@ export const ARQUETIPO_FAIXA = {
 };
 
 /** Qualidade por formato: textura de pincel comprime mal, então AVIF/WebP seguram o peso. */
-export const QUALIDADE = { avif: 40, avifHi: 30, webp: 60, webpHi: 48, jpg: 76 };
+export const QUALIDADE = { avif: 31, avifHi: 24, webp: 52, webpHi: 42, jpg: 72 }; // v10: a paleta do quadro tem mais variedade (mais entropia); a qualidade desce para o peso não subir
 
 export const caminhoTela = (grupo, nome, largura, ext) => `/telas/${grupo}/${nome}-${largura}.${ext}`;
 export const caminhoOg = (grupo, nome) => `/og/${grupo}/${nome}.jpg`;
