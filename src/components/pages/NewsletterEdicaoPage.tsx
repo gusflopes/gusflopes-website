@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { NewsletterCta } from '../NewsletterCta';
-import { ArtigoShell, Sep } from '../artigo/ArtigoShell';
+import { ArtigoShell } from '../artigo/ArtigoShell';
 
 export interface NewsletterEdicaoPageProps {
   id: string;
@@ -38,9 +38,7 @@ export function NewsletterEdicaoPage({
       meta={
         <>
           <span className="font-semibold text-laranja-claro">Edição #{edicao}</span>
-          <Sep />
           <span>{dateFormatted}</span>
-          <Sep />
           <span>{duration} leitura</span>
         </>
       }

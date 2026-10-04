@@ -441,3 +441,10 @@
     transform-origin: 70% 50%;
   }
 }
+
+/* Metadados do artigo: o ponto médio anda junto do item seguinte, nunca sobra no fim da linha */
+.meta-artigo > * + *::before {
+  content: "·";
+  margin: 0 0.6rem;
+  color: var(--color-noite-fio-forte);
+}

@@ -45,10 +45,10 @@ export function Hero({ fundo }: { fundo: FundoResponsivo }) {
         <div className="max-w-[46rem]">
           <h1
             id="hero-title"
-            className="font-serif font-semibold text-white text-[2.625rem] leading-[1.04] sm:text-6xl lg:text-[4.25rem] xl:text-[4.75rem] tracking-[-0.018em]"
+            className="font-serif font-semibold text-white text-[2.625rem] leading-[1.04] sm:text-6xl lg:text-[3.875rem] xl:text-[4.25rem] tracking-[-0.018em]"
           >
             Tecnologia e negócio, <br className="hidden sm:inline" />
-            <span className="text-laranja">partes do mesmo sistema</span>
+            <span className="text-laranja inline-block [text-wrap:balance]">partes do mesmo sistema</span>
           </h1>
 
           <p className="mt-7 font-sans text-xl sm:text-[1.375rem] leading-snug font-medium text-[#e8eef6] max-w-[32rem]">

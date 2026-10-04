@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { EIXOS, type EixoId } from '../../lib/eixos';
-import { ArtigoShell, Sep } from '../artigo/ArtigoShell';
+import { ArtigoShell } from '../artigo/ArtigoShell';
 
 export interface RadarArticlePageProps {
   title: string;
@@ -38,11 +38,8 @@ export function RadarArticlePage({
           >
             {EIXOS[eixo].shortLabel}
           </a>
-          <Sep />
           <span className="text-nevoa">{category}</span>
-          <Sep />
           <span>{dateFormatted}</span>
-          <Sep />
           <span>{duration} leitura</span>
         </>
       }

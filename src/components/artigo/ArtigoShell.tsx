@@ -117,7 +117,7 @@ export function ArtigoShell({
               {title}
             </h1>
             <p className="mt-6 font-serif text-xl md:text-[1.4375rem] leading-[1.5] text-nevoa max-w-[38rem]">{excerpt}</p>
-            <div className="mt-8 pt-5 border-t border-noite-fio flex flex-wrap items-center gap-x-3 gap-y-2 text-[0.875rem] text-nevoa-2 num">
+            <div className="meta-artigo mt-8 pt-5 border-t border-noite-fio flex flex-wrap items-center gap-y-2 text-[0.875rem] text-nevoa-2 num">
               {meta}
             </div>
             {extra && <div className="mt-4">{extra}</div>}
@@ -166,14 +166,5 @@ export function ArtigoShell({
         </div>
       </article>
     </main>
-  );
-}
-
-/** Separador de metadados: ponto médio discreto. */
-export function Sep() {
-  return (
-    <span aria-hidden="true" className="text-noite-fio-forte">
-      ·
-    </span>
   );
 }
