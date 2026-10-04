@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-04T01:27:51.360241Z",
+  "generatedAt": "2026-10-04T03:04:01.256175Z",
   "title": "Design System: gusflopes.dev — Evolução",
   "extensions": {
     "colorMeta": {
@@ -38,13 +38,18 @@
       },
       "ceu": {
         "role": "secondary",
-        "displayName": "Azul-céu do quadro"
+        "displayName": "Azul-céu do quadro",
+        "tonalRamp": [
+          "#36608C",
+          "#8FB3D9"
+        ],
+        "note": "Orientação (data, eixo, público, origem, &). #36608C sobre papel. Nunca ação."
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Título do hero, hubs e 404 (Literata óptica, opsz alto)."
+        "purpose": "Só o H1 do hero: Literata opsz 72, 4,75rem, tracking -0.032em."
       },
       "reading": {
         "displayName": "Leitura",
@@ -56,7 +61,19 @@
       },
       "label": {
         "displayName": "Rótulo",
-        "purpose": "Caixa alta curta: eixo · categoria, títulos do rodapé."
+        "purpose": "Caixa alta curta: só títulos de coluna do rodapé."
+      },
+      "display-hub": {
+        "displayName": "Display de hub",
+        "purpose": "Títulos de hub, artigo, 404 e legais (.display-opsz)."
+      },
+      "heading": {
+        "displayName": "Título de seção",
+        "purpose": ".h-secao até 2,625rem, com acento em itálico 400 (.acento)."
+      },
+      "meta": {
+        "displayName": "Metadados",
+        "purpose": ".meta: Hanken 14px caixa normal em céu, sempre abaixo do título."
       }
     },
     "shadows": [],
@@ -109,9 +126,9 @@
       "name": "Ação em texto",
       "kind": "custom",
       "refersTo": "acao",
-      "description": "Link de ação com sublinhado que engrossa.",
-      "html": "<a class=\"ds-acao\" href=\"#\">Ler Engenharia &amp; IA →</a>",
-      "css": ".ds-acao{color:#F97316;font:600 1rem 'Hanken Grotesk',sans-serif;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.3em;background:#0B1A33;padding:8px}.ds-acao:hover{text-decoration-thickness:2px}"
+      "description": "Link de ação único no site: caixa normal, seta que anda, sublinhado só no hover.",
+      "html": "<a class=\"ds-acao\" href=\"#\">Ler Engenharia &amp; IA <span aria-hidden=\"true\">→</span></a>",
+      "css": ".ds-acao{display:inline-flex;gap:.45rem;align-items:center;color:#F97316;font:600 .9375rem 'Hanken Grotesk',sans-serif;text-decoration:underline;text-decoration-color:transparent;text-underline-offset:.32em;background:#0B1A33;padding:8px}.ds-acao:hover{text-decoration-color:currentColor}"
     },
     {
       "name": "Chip de filtro",
@@ -136,16 +153,33 @@
       "description": "Header azul sólido com régua laranja no item ativo.",
       "html": "<nav class=\"ds-nav\"><b>gusflopes<i>.</i>dev</b><a aria-current=\"page\">Insights</a><a>Radar</a><a class=\"c\">Contato</a></nav>",
       "css": ".ds-nav{display:flex;align-items:center;gap:28px;height:72px;padding:0 24px;background:#0B1A33;border-bottom:1px solid #22385C;font:500 .9375rem 'Hanken Grotesk',sans-serif}.ds-nav b{color:#E4EBF3;font-weight:800;margin-right:auto}.ds-nav i{color:#F97316;font-style:normal}.ds-nav a{color:#C9D6E6}.ds-nav a[aria-current]{color:#fff;box-shadow:inset 0 -1px #F97316}.ds-nav .c{border:1px solid #F97316;color:#F97316;border-radius:3px;padding:6px 16px}"
+    },
+    {
+      "name": "Linha de metadados",
+      "kind": "custom",
+      "refersTo": "meta",
+      "description": "Contexto depois do título, em céu; separador gerado em CSS.",
+      "html": "<div class=\"ds-wrap\"><h3 class=\"ds-t\">GTM Engineering para escritórios</h3><p class=\"ds-meta\"><span>Mais recente</span><span>18 Mai, 2026</span></p></div>",
+      "css": ".ds-wrap{background:#0B1A33;padding:16px}.ds-t{font:600 1.2rem 'Literata',serif;color:#fff;margin:0}.ds-meta{margin:.6rem 0 0;font:500 .875rem 'Hanken Grotesk',sans-serif;color:#8FB3D9;font-variant-numeric:tabular-nums}.ds-meta span+span::before{content:'·';margin:0 .5rem;opacity:.7}"
+    },
+    {
+      "name": "Ampersand ponte",
+      "kind": "custom",
+      "refersTo": "amp",
+      "description": "O & dos nomes em itálico da Literata, azul-céu.",
+      "html": "<p class=\"ds-n\">Engenharia <span class=\"ds-amp\">&amp;</span> IA</p>",
+      "css": ".ds-n{background:#0B1A33;padding:16px;margin:0;font:600 2.4rem 'Literata',serif;color:#fff}.ds-amp{font-style:italic;font-weight:400;color:#8FB3D9}"
     }
   ],
   "narrative": {
     "northStar": "O site de sempre, sem timidez",
     "overview": "Continuidade total de marca (azul-escuro, laranja, o quadro) com acabamento revisto: azul de verdade no lugar do slate, laranja sólido no lugar do gradiente, Literata e Hanken Grotesk, fio no lugar de cartão. O quadro aparece inteiro uma vez, no hero; a leitura acontece em papel frio dentro de uma moldura azul.",
     "keyCharacteristics": [
-      "Quadro como herói único",
+      "Quadro como herói único, recorte uma vez",
       "Fio de 1px, sem sombras",
-      "Literata óptica + Hanken Grotesk",
-      "Papel frio para leitura, azul para descoberta"
+      "Literata óptica: display opsz 72, acento em itálico, & em céu",
+      "Três campos na home: noite, papel, noite funda",
+      "Laranja é ação, céu é orientação"
     ],
     "rules": [
       {
