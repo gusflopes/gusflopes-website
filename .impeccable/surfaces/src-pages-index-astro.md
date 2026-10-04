@@ -15,7 +15,7 @@ Direção fixada pelo dono: **3. Concretismo** (maquete `data-k="6"` da página 
 
 THESIS: a tese da marca é montada como construção tipográfica — "Tecnologia e negócio, partes do mesmo sistema" empilhada em blocos de tipo sobre azul-escuro. Recusa o hero de foto com degradê, título centrado e cards com brilho.
 
-OWN-WORLD: azul-escuro `#0B1A33` como campo, papel frio `#F2F4F7` como segundo campo, laranja `#F97316` em blocos chapados; Archivo variável (900/100 display, 600/75 rótulos) + Source Serif 4 para leitura. Grade rígida de filetes de 1–2px, cantos retos, zero sombra, zero vidro. Par 900/100: a linha marcada de cada abertura no peso 100 sólido; contorno vazado só no MESMO da tese e no Simulador. Caixa-alta 900 uma vez por seção; nomes dentro da seção em estreita 780 caixa mista.
+OWN-WORLD (reescrito na rodada 4, papéis do PRODUCT.md de 04/10): o mundo é o do quadro, não o monocromático. **Papel frio `#F2F4F7` é o campo dominante** (onde se lê e onde a página respira); **azul-escuro `#0B1A33` é estrutura** — moldura, cabeçalho, tese, rodapé, filetes e vãos da grade —, nunca um bloco atrás do outro; toda seção escura grande chega de um campo claro. **Laranja `#F97316` é a cor principal e vive em dois registros:** (a) **chapado = ação** — uma célula inteira por região (newsletter, diagnóstico, simulador, filtro ativo), texto e ícone em azul-escuro `#0B1A33` sobre ela (6,19:1); (b) **presença = detalhe não textual** — filete de 2px no topo de linha e de oferta, marca quadrada sólida (data, "Mais recente", tema), quadrado do play, barra do item ativo —, pelo menos uma vez a cada 900px de página. No papel o laranja nunca é texto (2,5:1); texto laranja sobre papel é `#C2410C` e só em link/ação. **As cores do quadro** (petróleo `#457183`/`#315b6f`, ardósia `#648188`/`#7f989a`, areia `#aa9c87`, marrom `#907a5f`/`#50372a`, ferrugem `#8a4c1b`) entram só como **campo chapado de bordas retas, no máximo um campo por seção**, com função (plano da pergunta, célula de metadados, célula de link, contrapeso da composição); ferrugem nunca encosta em laranja nem em texto `#C2410C` (uma célula de separação, no mínimo). Cor no campo e cor no filete são nativas de Wollner/Ulm; cor decorando card, borda laranja em volta de célula, textura e degradê não existem aqui. Archivo variável (900/100 display, 600/75 rótulos) + Source Serif 4 para leitura. Grade rígida de filetes de 1–2px, cantos retos, zero sombra, zero vidro. Par 900/100: a linha marcada de cada abertura no peso 100 sólido; contorno vazado só no MESMO da tese e no Simulador. Caixa-alta 900 uma vez por seção; nomes dentro da seção em estreita 780 caixa mista. O quadro em si só aparece recortado pela janela girada do hero.
 
 STORY: o visitante lê a tese como poema concreto, entende que é uma pessoa que junta negócio e engenharia, escolhe a porta (Engenharia & IA / Negócios / Bastidores) e assina.
 
@@ -42,7 +42,7 @@ Ordem nova e porquê: tese → eixos → ferramenta → ideias e vídeo → tema
 - **Serviços** — entender o que contratar. Abertura em escada (forma do eixo Negócios) à direita; as três ofertas descem em degraus a partir dela. É o único lugar com três colunas, e mesmo assim desencontradas.
 - **Rodapé** — células com filetes azul-3; newsletter como plano laranja.
 
-Regra de laranja: chapado numa célula inteira = a ação principal da região, ou a ordem real (texto mais recente nos hubs). Regra de número: só data, número de edição ou ordem real; nada de 01/02/03 decorativo.
+Regra de laranja (substituída na rodada 4, ver OWN-WORLD e "Rodada 4"): chapado numa célula inteira = a ação principal da região, ou a ordem real (texto mais recente nos hubs). Regra de número: só data, número de edição ou ordem real; nada de 01/02/03 decorativo.
 
 Corte proposto na rodada 2 e aplicado na rodada 3 (aval do dono): ver abaixo.
 
@@ -60,3 +60,23 @@ Ordem final: tese → eixos (com os textos recentes) → ferramenta → vídeo �
 - **Hero:** metadados sem "·" pendurado (cada item sem quebra; o separador vai com o item seguinte); janela do celular maior, como no FIRST VIEWPORT acima.
 
 Teste do dono, camada a camada: tese (bloco + janela, conquista), eixos (plano azul alto + três linhas de papel com tabela datada, conquista), ferramenta (degraus vazados + célula laranja de ação, conquista — é a mais alta), vídeo (calma deliberada: duas células e o play girado; conquista pelo contraste, não pelo volume), temas (bloco 900/100 + partição 3+2, conquista), serviços (escada à direita + ofertas em degraus, conquista).
+
+## Rodada 4 — cor como sistema
+
+Mandato do dono: "a pincelada está muito azul; a cor de destaque é o laranja"; "o que funciona da imagem original é a variedade de cores"; "o laranja sumiu do site, e ele é a cor principal". Revisor da v3: azul já é estrutura (41% escuro), papel em 83% das janelas, rodapé chega do papel; falta laranja no meio da página (razão 52:1 entre a janela mais e a menos laranja) e variedade do quadro depois do hero.
+
+Contrato de cor (vale para toda a direção):
+1. **Laranja, registro (a) chapado = ação.** Uma célula laranja inteira por região, texto e ícone `#0B1A33`. Fundo laranja com texto é sempre `#F97316` (azul sobre `#C2410C` cai para 3,35:1).
+2. **Laranja, registro (b) presença.** `#F97316` não textual — filete de 2px no topo de cada linha de lista e de cada lista dos eixos, marca quadrada sólida na célula de data e no "Mais recente", marca no canto de cada tema, segmento laranja no filete de cada oferta, quadrado do play — pelo menos uma vez em toda janela de 900px. Meta: ≥ 0,5% de laranja em ≥ 90% das janelas da home e dos hubs, total 1,5–3%, razão entre a janela mais e a menos laranja ≤ 15:1.
+3. **Paleta secundária nomeada do quadro, só como campo chapado** de bordas retas, no máximo um por seção: petróleo `#457183` no plano da pergunta dos eixos (papel sobre ele, 4,83:1); areia `#aa9c87` na célula de metadados da Ferramenta (azul sobre ela, 6,46:1); petróleo escuro `#315b6f` na célula de link do vídeo (papel, 6,67:1); ardósia clara `#7f989a` numa célula da partição 3+2 dos temas (azul, 5,67:1); ferrugem `#8a4c1b` como contrapeso chapado sem texto no vão embaixo à esquerda de Serviços, longe de qualquer laranja; petróleo escuro no cabeçalho dos hubs, como campo da frase de apoio.
+4. **Proibido:** borda laranja em volta de célula, laranja como texto sobre papel (`#C2410C` só em link/ação), cor do quadro como textura, degradê ou repetição do quadro.
+
+Por seção (cor → função):
+- **Tese:** azul estrutura; laranja chapado na newsletter (ação) e na janela; "e negócio," em laranja sobre azul.
+- **Eixos:** plano da pergunta em petróleo; cada lista de textos abre com filete laranja de 2px; marca laranja na célula de data e no "Mais recente"; papel nas três portas.
+- **Ferramenta:** azul estrutura; "Fazer o diagnóstico" chapado laranja (ação); metadados numa célula de areia. No celular, a célula de metadados vai para o fim (depois da ação e da nota), sem virar sobretítulo.
+- **Vídeo:** papel; célula de link em petróleo escuro; quadrado laranja do play (presença).
+- **Temas:** papel; marca laranja no canto de cada tema; uma célula (a mais larga) em ardósia clara.
+- **Serviços:** papel; segmento laranja no começo do filete de cada oferta; campo de ferrugem no vão embaixo à esquerda (contrapeso da escada).
+- **Rodapé:** chega do papel de Serviços; azul estrutura; newsletter chapada laranja.
+- **Hubs:** cabeçalho azul com a frase de apoio num campo de petróleo escuro; índice sobre papel, cada linha abre com filete laranja de 2px; o mais recente segue com a célula de data chapada.

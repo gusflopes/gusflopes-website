@@ -158,24 +158,41 @@ O sistema resolve o risco declarado da direção ("ótimo para a home, difícil 
 
 ## Colors
 
-Estratégia **comprometida em dois campos**: azul-escuro e papel frio dividem a página em regiões inteiras; o laranja é o único acento e aparece chapado.
+Estratégia **papel dominante, azul estrutura, laranja distribuído, quadro em campos** (rodada 4, papéis do PRODUCT.md de 04/10). O papel frio é o campo onde se lê e onde a página respira; o azul-escuro é estrutura (moldura, tese, cabeçalhos, rodapé, filetes e vãos da grade); o laranja é a cor principal e aparece em toda a página em dois registros; as cores do quadro entram como campos chapados, um por seção no máximo.
 
 ### Primary
-- **Laranja** (`#F97316`): botão primário, célula de filtro ativa, janela, dois-pontos/travessão da abertura, rótulos sobre azul, barra de item ativo no menu. Sobre ele, texto e ícones em azul-escuro da marca `#0B1A33` (6,19:1; 7,67:1 sobre `#FB923C`). Fundo laranja com texto é sempre `#F97316`: sobre `#C2410C` o azul cai para 3,35:1.
-- **Laranja profundo** (`#C2410C`): o laranja para texto e links sobre papel (4,7:1 sobre `#F2F4F7`); também o accent do Substack (branco sobre ele: 5,2:1).
+- **Laranja** (`#F97316`), dois registros:
+  - **(a) chapado = ação:** botão primário, célula de ação ("Fazer o diagnóstico"), planos da newsletter, célula de filtro ativa, célula de data do texto mais recente. Sobre ele, texto e ícones em azul-escuro da marca `#0B1A33` (6,19:1; 7,67:1 sobre `#FB923C`). Fundo laranja com texto é sempre `#F97316`: sobre `#C2410C` o azul cai para 3,35:1.
+  - **(b) presença = detalhe não textual:** filete de 2px no topo de cada linha de lista (hubs e listas dos eixos), marca quadrada sólida (célula de data, "Mais recente", canto de cada tema), segmento no filete de cada oferta, quadrado do play, barra do item ativo do menu, janela. Pelo menos uma vez em toda janela de 900px.
+- **Laranja profundo** (`#C2410C`): o único laranja de texto sobre papel (4,7:1), e só em link/ação. Também o accent do Substack (branco sobre ele: 5,2:1). Nunca fundo de texto.
+
+### Quadro (paleta de apoio, aprovada em 04/10)
+Só como **campo chapado de bordas retas**, no máximo um por seção, sempre com função:
+- **Petróleo** (`#457183`): plano da pergunta dos eixos; papel sobre ele 4,83:1.
+- **Petróleo escuro** (`#315b6f`): célula de link do vídeo e campo da frase de apoio no cabeçalho dos hubs; papel sobre ele 6,67:1 (céu-claro reprova, 4,24:1).
+- **Areia** (`#aa9c87`): célula de metadados da Ferramenta; azul sobre ela 6,46:1 (papel reprova).
+- **Ardósia clara** (`#7f989a`): uma célula da partição dos temas; azul sobre ela 5,67:1. Ardósia `#648188` não leva texto pequeno (4,16:1 com azul).
+- **Ferrugem** (`#8a4c1b`): contrapeso chapado sem texto no vão de Serviços; nunca encosta em laranja nem em texto `#C2410C` (uma célula de separação, no mínimo).
+- **Marrom** (`#907a5f`/`#50372a`): reservado; ainda sem uso.
 
 ### Neutral
-- **Azul-escuro** (`#0B1A33`): campo da moldura e tinta do texto sobre papel (15,75:1 com o papel).
+- **Papel frio** (`#F2F4F7`) e **Papel 2** (`#E4E9F0`): campo dominante de leitura e hover de linha/código inline.
+- **Azul-escuro** (`#0B1A33`): estrutura e tinta do texto sobre papel (15,75:1 com o papel); texto sobre laranja.
 - **Azul 2 / Azul 3** (`#13284D`, `#1D3866`): fundo do quadro dentro da janela, hover de célula, filetes sobre azul.
-- **Papel frio** (`#F2F4F7`) e **Papel 2** (`#E4E9F0`): campo de leitura e hover de linha/código inline.
-- **Filete** (`#C9D3E0`): divisórias finas entre linhas de lista e tabela sobre papel.
+- **Filete** (`#C9D3E0`): divisórias finas sobre papel.
 - **Tinta 2** (`#4A5872`): texto secundário sobre papel (6,5:1).
-- **Céu / Céu claro** (`#8FB3D9`, `#B7C6DA`): texto secundário e linha-fina sobre azul (7,95:1 e 10:1). Vem do céu do quadro.
+- **Céu / Céu claro** (`#8FB3D9`, `#B7C6DA`): texto secundário sobre azul (7,95:1 e 10:1).
 
 ### Named Rules
-**The Two Fields Rule.** Toda seção é azul-escuro ou papel frio, inteira. Nada de cinza intermediário nem degradê entre eles.
+**The Paper Field Rule.** O papel é o campo dominante. Nenhum campo escuro passa de ~600px contínuos sem um campo claro; toda seção escura grande (o rodapé) chega de um campo claro.
 
-**The Solid Orange Rule.** O laranja é bloco chapado ou tipo; nunca halo, brilho, degradê ou sombra colorida.
+**The Two Orange Registers Rule.** Laranja chapado é ação; laranja não textual (filete de 2px, marca, quadrado) é presença e aparece em toda janela de 900px. No papel o laranja nunca é texto; texto laranja sobre papel é `#C2410C`, só em link.
+
+**The Ink on Orange Rule.** Texto e ícone sobre laranja são sempre azul-escuro `#0B1A33`, nunca quase-preto; o fundo com texto é sempre `#F97316`.
+
+**The Quadro Field Rule.** As cores do quadro são campos chapados de bordas retas, um por seção no máximo, com função. Nada de borda colorida em volta de célula, textura, degradê ou o quadro repetido: o quadro em si só aparece recortado pela janela.
+
+**The Solid Orange Rule.** O laranja é bloco chapado, filete ou marca; nunca halo, brilho, degradê ou sombra colorida.
 
 ## Typography
 

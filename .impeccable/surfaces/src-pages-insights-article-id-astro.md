@@ -13,7 +13,7 @@ Escopo: `/insights/article/*`, `/radar/article/*`, `/newsletter/*`, hubs `/insig
 
 THESIS: a abertura de cada texto é gerada do próprio título por um sistema determinístico de quebra, escala e peso (por eixo); o corpo é uma coluna calma de serifa. Recusa a foto de banco no topo e o título serifado centrado.
 
-OWN-WORLD: moldura azul-escuro `#0B1A33` com o título em blocos de Archivo 900 caixa-alta ajustados à largura, a linha marcada no peso 100 sólido (par 900/100), dois-pontos em laranja; corpo em Source Serif 4 ~19px sobre papel frio `#F2F4F7`, tinta azul-escuro, links laranja profundo `#C2410C`. Hubs: tabela de grade rígida, filetes, sem cards nem sombra.
+OWN-WORLD: moldura azul-escuro `#0B1A33` com o título em blocos de Archivo 900 caixa-alta ajustados à largura, a linha marcada no peso 100 sólido (par 900/100), dois-pontos em laranja; corpo em Source Serif 4 ~19px sobre papel frio `#F2F4F7`, tinta azul-escuro, links laranja profundo `#C2410C`. Hubs: tabela de grade rígida, filetes, sem cards nem sombra. Rodada 4 (cor como sistema, mesmo contrato da home): laranja em dois registros — chapado = ação (texto `#0B1A33` sobre `#F97316`), presença = detalhe não textual (filete de 2px no topo de cada linha do índice, marca quadrada) em toda janela de 900px; no papel o laranja nunca é texto. Cabeçalho de hub com a frase de apoio num campo chapado de petróleo escuro `#315b6f` (cor do quadro, papel sobre ele 6,67:1); índice sempre sobre papel; o rodapé chega do papel.
 
 STORY: o leitor reconhece o eixo pela forma da abertura (bloco justificado = Engenharia & IA; escada alinhada à direita = Negócios; degraus = Bastidores), lê sem atrito e encontra o autor e a newsletter no fim.
 
