@@ -69,8 +69,12 @@ mesmo sistema.
     areia `#aa9c87`, marrom `#907a5f`/`#50372a`, ferrugem `#8a4c1b`) entram como cores de apoio em campos e detalhes.
     Azul-escuro e laranja continuam as oficiais. Um campo claro quente (areia puxada do quadro, acinzentada, nunca
     creme) pode substituir o papel frio em poucas seções.
-  - **Texto sobre laranja é azul-escuro** `#0B1A33` (Gustavo, 04/10), nunca preto ou quase-preto. Contraste 6,19:1
-    sobre `#F97316`; por isso todo fundo laranja com texto usa `#F97316` (sobre `#C2410C` cairia para 3,35:1).
+  - **Texto sobre laranja nunca é preto** (Gustavo, 04/10). A cor do texto depende do laranja:
+    - laranja da marca e laranjas claros (`#F97316`, `#FB923C`, `#FDBA74`) → texto **azul-escuro `#0B1A33`**
+      (6,19:1 sobre `#F97316`). É o padrão para botões e blocos.
+    - laranja escuro (`#C2410C`, `#9A3412`) → texto **branco** (5,18:1 sobre `#C2410C`). Uso pontual: hover/pressionado
+      do botão ou bloco sobre fundo claro onde o `#F97316` fique estridente. Não vira um segundo laranja oficial.
+    - Nunca `#C2410C` com texto azul-escuro (3,35:1), nunca `#F97316` com texto branco (2,8:1).
 
 ## Evidence on Hand
 
