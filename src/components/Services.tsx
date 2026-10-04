@@ -43,40 +43,48 @@ const services = [
 ];
 
 /**
- * "Como posso ajudar": o trabalho é entender o que contratar e como começar. Abre o campo
- * escuro do fim da página (o mesmo do rodapé) como um livro-razão de ofertas: cada linha tem o
- * nome, o que é, e a ação na ponta direita — lê-se da esquerda para a direita como uma decisão.
+ * "Como posso ajudar": entender o que contratar e como começar. Página do pedido, no campo escuro
+ * do fim (o mesmo do rodapé), com contraste de densidade: a Consultoria Estratégica é a oferta
+ * principal, em escala de abertura (descrição em Literata grande e o botão sólido); Mentoria e
+ * Conteúdo vêm como notas de pé, compactas, lado a lado. O título fica pendurado à esquerda.
  */
 export function Services() {
+  const [principal, ...demais] = services;
   return (
-    <section id="consulting" aria-labelledby="consulting-title" className="relative bg-noite-fundo pt-20 md:pt-28 pb-16 md:pb-24 px-4 sm:px-6">
+    <section id="consulting" aria-labelledby="consulting-title" className="relative bg-noite-fundo pt-16 md:pt-24 pb-16 md:pb-20 px-4 sm:px-6">
       <div id="courses" className="absolute top-0" />
-      <div className="max-w-7xl mx-auto">
-        <h2 id="consulting-title" className="h-secao text-white mb-10 md:mb-14">
-          Como posso <span className="acento">ajudar</span>
+      <div className="max-w-7xl mx-auto grid gap-10 lg:grid-cols-12 lg:gap-x-10">
+        <h2 id="consulting-title" className="h-secao text-white lg:col-span-4 max-w-[10ch]">
+          Como posso ajudar
         </h2>
 
-        <ul className="border-t border-noite-fio-forte">
-          {services.map((service) => (
-            <li key={service.title} className="group relative border-b border-noite-fio">
-              <span
-                aria-hidden="true"
-                className="absolute -bottom-px left-0 right-0 h-px bg-laranja origin-left scale-x-0 transition-transform duration-500 ease-[var(--ease-saida)] group-hover:scale-x-100 group-focus-within:scale-x-100"
-              />
-              <div className="grid gap-3 py-8 md:py-10 lg:grid-cols-12 lg:gap-x-10 lg:items-baseline">
-                <h3 className="lg:col-span-4 font-serif text-[1.625rem] md:text-[2rem] leading-[1.1] tracking-[-0.012em] text-white">
+        <div className="lg:col-span-8">
+          <article className="fio-capa text-nevoa/80 pt-9 md:pt-11">
+            <h3 className="font-serif text-white text-[1.75rem] md:text-[2.25rem] leading-[1.08] tracking-[-0.018em]">
+              {principal.title}
+            </h3>
+            <p className="mt-5 font-serif text-[1.1875rem] md:text-[1.5rem] leading-[1.42] tracking-[-0.006em] text-nevoa max-w-[36ch]">
+              {principal.description}
+            </p>
+            <a href={principal.link} className="botao mt-8">
+              {principal.action} <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
+            </a>
+          </article>
+
+          <div className="mt-14 md:mt-16 grid gap-px bg-noite-fio border-t border-noite-fio sm:grid-cols-2">
+            {demais.map((service) => (
+              <article key={service.title} className="bg-noite-fundo pt-7 pb-2 sm:[&:nth-child(even)]:pl-8 sm:[&:nth-child(odd)]:pr-8 flex flex-col">
+                <h3 className="font-serif text-[1.3125rem] md:text-[1.375rem] leading-[1.15] tracking-[-0.01em] text-white">
                   <Amp>{service.title}</Amp>
                 </h3>
-                <p className="lg:col-span-5 font-sans text-[1rem] md:text-[1.0625rem] leading-relaxed text-nevoa max-w-[38rem]">
-                  {service.description}
-                </p>
-                <a href={service.link} className="acao mt-2 lg:mt-0 lg:col-span-3 lg:justify-self-end text-laranja">
+                <p className="mt-3 font-sans text-[0.9375rem] leading-relaxed text-nevoa-2">{service.description}</p>
+                <a href={service.link} className="acao mt-5 self-start text-laranja">
                   {service.action} <ArrowRight size={16} aria-hidden="true" />
                 </a>
-              </div>
-            </li>
-          ))}
-        </ul>
+              </article>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

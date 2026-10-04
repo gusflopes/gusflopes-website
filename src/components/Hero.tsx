@@ -40,7 +40,7 @@ export function Hero({ fundo }: { fundo: FundoResponsivo }) {
         />
       </div>
 
-      <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 -mt-14 lg:mt-0 pb-12 lg:pt-32 lg:pb-20">
+      <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 -mt-14 lg:mt-0 pb-10 lg:pt-32 lg:pb-8">
         <div className="max-w-[32rem] xl:max-w-[34rem]">
           <h1
             id="hero-title"

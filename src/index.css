@@ -255,41 +255,64 @@
   }
 
   /*
-   * Títulos de seção da home: um degrau abaixo do hero (o H1 vai a 5rem com opsz 72 e
-   * tracking fechado; o H2 para em 2,6rem). O acento é o itálico da Literata, peso 400.
+   * Títulos de seção da home: um degrau abaixo do hero (H1 a 4,75rem) e um degrau claro acima de
+   * qualquer título interno (portas, áreas, ofertas param em 2,25rem). O acento (itálico da
+   * Literata, peso 400) só entra quando a segunda metade do título carrega o sentido.
    */
   .h-secao {
     font-family: var(--font-serif);
     font-weight: 600;
-    font-size: clamp(1.875rem, 1.25rem + 1.6vw, 2.625rem);
-    line-height: 1.1;
-    letter-spacing: -0.014em;
+    font-size: clamp(2.125rem, 1.35rem + 2.1vw, 3rem);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
     text-wrap: balance;
   }
 
   .acento {
     font-style: italic;
     font-weight: 400;
-    letter-spacing: -0.005em;
+    letter-spacing: -0.01em;
   }
 
-  /* O "&" dos nomes (eixos, temas, serviços): itálico da Literata em azul-céu. É a ponte da tese. */
+  /*
+   * O "&" dos nomes: itálico da Literata na cor do texto. Só fica azul-céu (.amp-ponte) quando
+   * marca o par negócio/tecnologia, que é a tese do site.
+   */
   .amp {
     font-family: var(--font-serif);
     font-style: italic;
     font-weight: 400;
-    color: var(--color-ceu);
     padding-inline: 0.04em;
   }
 
-  .claro .amp {
+  .amp-ponte {
+    color: var(--color-ceu);
+  }
+
+  .claro .amp-ponte {
     color: var(--color-ceu-fundo);
   }
 
   /* Moldura azul dentro de página clara (cabeçalho de hub, painel do Bastidores): volta o céu */
-  .claro :is(.bg-noite, .bg-noite-2) .amp,
+  .claro :is(.bg-noite, .bg-noite-2) .amp-ponte,
   .claro :is(.bg-noite, .bg-noite-2) .meta {
     color: var(--color-ceu);
+  }
+
+  /* Fio de primeira página: um fio grosso sobre um fino, como no alto de um jornal */
+  .fio-capa {
+    border-top: 3px solid currentColor;
+    position: relative;
+  }
+
+  .fio-capa::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 2px;
+    border-top: 1px solid currentColor;
+    opacity: 0.55;
   }
 
   /*
