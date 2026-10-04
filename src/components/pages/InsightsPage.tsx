@@ -1,6 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { ArrowRight, Search, Sparkles } from 'lucide-react';
-import { motion } from 'motion/react';
+import { ArrowRight, Search } from 'lucide-react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { EIXOS, EIXO_LIST, type EixoId } from '../../lib/eixos';
 
@@ -31,6 +30,10 @@ interface InsightsPageProps {
   aside?: ReactNode;
 }
 
+/**
+ * Hub de leitura (Insights e páginas de eixo): cabeçalho em azul-escuro e um índice em papel
+ * frio — data, título, resumo e miniatura em linhas separadas por fio, fácil de varrer.
+ */
 export function InsightsPage({
   articles,
   heading = 'Insights',
@@ -61,165 +64,131 @@ export function InsightsPage({
   };
 
   return (
-    <main className="min-h-screen bg-[#F5F5F0] text-slate-900 relative overflow-hidden selection:bg-orange-200 selection:text-orange-900">
-      
-      {/* Artistic Noise Overlay */}
-      <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.03] mix-blend-overlay"
-           style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E")` }}>
-      </div>
+    <main className="claro min-h-screen bg-papel text-tinta">
+      {/* Moldura: cabeçalho em azul-escuro */}
+      <div className="bg-noite pt-32 md:pt-40 pb-12 md:pb-14">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <h1 className="font-serif font-semibold text-5xl md:text-[4.25rem] leading-[1.02] tracking-[-0.018em] text-white">
+            {heading}
+          </h1>
+          <p className="mt-6 font-serif text-xl md:text-[1.375rem] leading-[1.5] text-nevoa max-w-[42rem]">{subheading}</p>
+          {eixo && <p className="mt-4 font-sans text-[0.9375rem] font-semibold text-laranja-claro">{EIXOS[eixo].publico}</p>}
 
-      {/* Organic Fluid Backgrounds - "Polimórfia" Interpretation */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-          <div className="absolute -top-20 -right-20 w-[600px] h-[600px] bg-orange-200/30 rounded-full blur-[100px] mix-blend-multiply animate-pulse duration-[10000ms]"></div>
-          <div className="absolute top-1/3 -left-20 w-[500px] h-[500px] bg-slate-300/40 rounded-full blur-[80px] mix-blend-multiply"></div>
-          <div className="absolute -bottom-40 right-1/3 w-[600px] h-[600px] bg-orange-100/40 rounded-full blur-[120px] mix-blend-multiply"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6 pt-32 pb-20 relative z-10">
-        
-        {/* Header - Artistic/Typography Focused */}
-        <div className="mb-12 text-center relative">
-           <motion.div 
-             initial={{ opacity: 0, y: 20 }}
-             animate={{ opacity: 1, y: 0 }}
-             transition={{ duration: 0.8 }}
-           >
-             <h1 className="font-serif text-4xl md:text-5xl text-slate-900 mb-4 tracking-tight relative inline-block">
-               {heading}
-               <span className="absolute -right-6 -top-1 text-orange-500">
-                 <Sparkles size={20} strokeWidth={1.5} />
-               </span>
-             </h1>
-             <p className="font-sans text-base text-slate-600 font-light max-w-2xl mx-auto">
-               {subheading}
-             </p>
-             {eixo && (
-               <p className="mt-3 font-mono text-xs uppercase tracking-wider text-orange-800">
-                 {EIXOS[eixo].publico}
-               </p>
-             )}
-           </motion.div>
+          {/* Eixos — só na listagem geral; nos hubs o eixo já está fixo */}
+          {!eixo && (
+            <nav aria-label="Filtrar por eixo" className="mt-10 -mb-12 md:-mb-14 flex gap-x-7 overflow-x-auto">
+              {[{ id: 'todos' as const, label: 'Todos os eixos' }, ...EIXO_LIST].map((e) => {
+                const ativo = selectedEixo === e.id;
+                return (
+                  <button
+                    key={e.id}
+                    type="button"
+                    aria-pressed={ativo}
+                    onClick={() => selectEixo(e.id)}
+                    className={`shrink-0 pb-4 border-b-2 text-[0.9375rem] font-semibold transition-colors ${
+                      ativo ? 'border-laranja text-white' : 'border-transparent text-nevoa-2 hover:text-white'
+                    }`}
+                  >
+                    {e.label}
+                  </button>
+                );
+              })}
+            </nav>
+          )}
         </div>
+      </div>
 
-        {/* Eixos — só na listagem geral; nos hubs o eixo já está fixo */}
-        {!eixo && (
-          <nav aria-label="Filtrar por eixo" className="flex flex-wrap justify-center gap-2 mb-8">
-            {[{ id: 'todos' as const, label: 'Todos os eixos' }, ...EIXO_LIST].map((e) => (
-              <button
-                key={e.id}
-                type="button"
-                aria-pressed={selectedEixo === e.id}
-                onClick={() => selectEixo(e.id)}
-                className={`px-4 py-1.5 rounded-full border text-xs font-bold uppercase tracking-widest transition-colors ${
-                  selectedEixo === e.id
-                    ? 'bg-orange-800 border-orange-800 text-white'
-                    : 'border-slate-300 text-slate-600 hover:border-orange-700 hover:text-orange-800'
-                }`}
-              >
-                {e.label}
-              </button>
-            ))}
-          </nav>
-        )}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-10 md:pt-12 pb-24 md:pb-32">
+        {aside && <div className="mb-14">{aside}</div>}
 
-        {aside && <div className="mb-16">{aside}</div>}
-
-        {/* Filters - Minimalist Pill */}
+        {/* Busca e temas */}
         {articles.length > 0 && (
-        <div className="sticky top-4 z-40 flex justify-center mb-20 pointer-events-none">
-           <div className="bg-white/80 backdrop-blur-lg shadow-sm border border-white/20 rounded-full p-1 pl-4 pr-1 flex items-center gap-4 pointer-events-auto">
-              <span className="text-slate-400 hidden md:block">
-                <Search size={16} />
-              </span>
+          <div className="flex flex-col md:flex-row md:items-center gap-5 md:gap-8 pb-6 border-b border-tinta">
+            <label className="relative flex items-center md:w-72 shrink-0">
+              <Search size={16} aria-hidden="true" className="absolute left-0 text-tinta-3" />
               <input
                 aria-label="Buscar artigos"
-                className="bg-transparent border-none outline-none w-32 md:w-64 text-sm text-slate-700 placeholder:text-slate-400 font-sans"
+                className="w-full bg-transparent pl-7 pr-2 py-2 border-b border-papel-fio focus:border-tinta outline-none text-[0.9375rem] text-tinta placeholder:text-tinta-3 font-sans transition-colors"
                 placeholder="Filtrar ideias..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
-              <div className="h-6 w-px bg-slate-200 mx-2"></div>
-              <div className="flex gap-1 overflow-x-auto max-w-[200px] md:max-w-none no-scrollbar">
-                {categories.map(cat => (
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {categories.map((cat) => {
+                const ativo = selectedCategory === cat;
+                return (
                   <button
                     key={cat}
                     type="button"
-                    aria-pressed={selectedCategory === cat}
+                    aria-pressed={ativo}
                     onClick={() => setSelectedCategory(cat)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors whitespace-nowrap ${selectedCategory === cat ? 'bg-slate-900 text-white' : 'hover:bg-slate-100 text-slate-600'}`}
+                    className={`h-8 px-3 rounded-[3px] border text-[0.8125rem] font-semibold transition-colors whitespace-nowrap ${
+                      ativo
+                        ? 'bg-tinta border-tinta text-papel'
+                        : 'border-papel-fio text-tinta-2 hover:border-tinta-3 hover:text-tinta'
+                    }`}
                   >
                     {cat}
                   </button>
-                ))}
-              </div>
-           </div>
-        </div>
+                );
+              })}
+            </div>
+          </div>
         )}
 
-        {/* Masonry-ish Artistic Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-24">
-          {filteredArticles.map((article, idx) => (
-            <a
-              key={article.id}
-              href={article.href}
-              className={`group block ${idx % 2 !== 0 ? 'md:mt-24' : ''}`}
-            >
-            <motion.article 
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className="flex flex-col h-full"
-            >
-              {/* Image Container with Morphing Mask Effect */}
-              <div className="relative mb-8 overflow-hidden rounded-lg aspect-[4/3]">
-                <div className="absolute inset-0 bg-orange-500/10 mix-blend-multiply z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <ImageWithFallback 
-                  src={article.image} 
-                  alt={article.title}
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0"
-                />
-                
-                {/* Floating Category Tag */}
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-[10px] uppercase tracking-widest font-bold text-slate-900 z-20">
-                  {eixo ? article.category : `${EIXOS[article.eixo].shortLabel} · ${article.category}`}
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="relative">
-                {/* Date + reading time */}
-                <div className="mb-3 font-mono text-xs text-slate-600 uppercase tracking-wider">
-                    {article.date} · {article.duration}
-                </div>
-
-                <h2 className="font-serif text-3xl md:text-4xl text-slate-900 leading-tight mb-4 group-hover:text-orange-600 transition-colors duration-300">
-                  {article.title}
-                </h2>
-                <p className="font-sans text-slate-600 leading-relaxed mb-6 font-light group-hover:text-slate-700 transition-colors">
-                  {article.excerpt}
+        {/* Índice */}
+        <ul>
+          {filteredArticles.map((article) => (
+            <li key={article.id} className="border-b border-papel-fio">
+              <a
+                href={article.href}
+                className="group grid grid-cols-[minmax(0,1fr)_5.5rem] sm:grid-cols-[minmax(0,1fr)_10rem] md:grid-cols-[8.5rem_minmax(0,1fr)_12rem] gap-x-5 md:gap-x-10 gap-y-3 py-8 md:py-10"
+              >
+                <p className="num col-span-2 md:col-span-1 font-sans text-sm text-tinta-3 md:pt-2">
+                  {article.date}
+                  <span className="md:block">
+                    <span className="md:hidden"> · </span>
+                    {article.duration}
+                  </span>
                 </p>
-                
-                <div className="flex items-center gap-2 text-slate-900 font-bold text-xs uppercase tracking-widest group/btn w-fit">
-                  Ler Artigo
-                  <ArrowRight size={14} className="transition-transform duration-300 group-hover/btn:translate-x-2" />
+                <div className="min-w-0">
+                  <p className="rotulo text-laranja-fundo mb-3">
+                    {eixo ? article.category : `${EIXOS[article.eixo].shortLabel} · ${article.category}`}
+                  </p>
+                  <h2 className="font-serif text-[1.375rem] sm:text-[1.75rem] font-semibold leading-[1.22] text-tinta group-hover:text-laranja-fundo transition-colors">
+                    {article.title}
+                  </h2>
+                  <p className="hidden sm:block mt-3 font-sans text-[1.0625rem] leading-relaxed text-tinta-2 max-w-[40rem]">
+                    {article.excerpt}
+                  </p>
+                  <span className="mt-4 hidden sm:inline-flex items-center gap-2 font-sans text-sm font-semibold text-tinta">
+                    Ler Artigo
+                    <ArrowRight size={14} aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
                 </div>
-              </div>
-            </motion.article>
-            </a>
+                <div className="aspect-square sm:aspect-[4/3] overflow-hidden rounded-[3px] bg-papel-2 self-start">
+                  <ImageWithFallback
+                    src={article.image}
+                    alt=""
+                    loading="lazy"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </a>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        {/* Empty State */}
+        {/* Estado vazio */}
         {filteredArticles.length === 0 && (
-          <div className="text-center py-32 text-slate-600">
-            <p className="font-serif text-2xl italic">O silêncio faz parte da música.</p>
-            <p className="font-sans text-sm mt-2">
+          <div className="py-24 md:py-32 max-w-xl">
+            <p className="font-serif text-2xl md:text-3xl italic text-tinta">O silêncio faz parte da música.</p>
+            <p className="font-sans text-[0.9375rem] text-tinta-2 mt-3">
               {articles.length === 0 ? 'Os primeiros textos deste eixo estão a caminho.' : 'Nenhum artigo encontrado.'}
             </p>
           </div>
         )}
-
       </div>
     </main>
   );

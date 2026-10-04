@@ -1,3 +1,4 @@
+import { ArrowRight } from 'lucide-react';
 import { newsletter, linkInscricao } from '../config/site';
 
 interface NewsletterFormProps {
@@ -16,13 +17,10 @@ export function NewsletterForm({ variant = 'hero' }: NewsletterFormProps) {
     <a
       href={linkInscricao(`newsletter-${variant}`)}
       {...(externo && { target: '_blank', rel: 'noopener noreferrer' })}
-      className={
-        isHero
-          ? 'inline-flex items-center justify-center font-sans bg-orange-500 hover:bg-orange-600 text-[#1c0a02] font-bold px-8 h-14 rounded-lg text-lg shadow-lg shadow-orange-900/20 transition-all hover:scale-105 shrink-0'
-          : 'inline-flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-[#1c0a02] font-bold w-full h-10 rounded-md'
-      }
+      className={isHero ? 'botao min-h-[3.25rem] px-6 text-[1.0625rem]' : 'botao w-full sm:w-auto'}
     >
       {newsletter.ctaLabel}
+      <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
     </a>
   );
 }

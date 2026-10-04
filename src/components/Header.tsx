@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { Button } from './ui/button';
-import { ImageWithFallback } from './figma/ImageWithFallback';
 import { site } from '../config/site';
 import { EIXOS, type EixoId } from '../lib/eixos';
 import logo from '../assets/cfa6876664fcc921be5a7c0a58c353ea12577968.png?url';
@@ -26,8 +24,9 @@ export function Header({ pathname: rawPathname, eixosAtivos = [] }: HeaderProps)
     pathname.startsWith('/insights/article') || pathname.startsWith('/radar/article/');
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 10);
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 24);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -50,77 +49,81 @@ export function Header({ pathname: rawPathname, eixosAtivos = [] }: HeaderProps)
     }
   };
 
+  // Na home o header nasce transparente sobre o quadro e vira azul sólido ao rolar.
+  const solido = isScrolled || !isHome || isMenuOpen;
+
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 px-6 py-6 transition-all duration-300 ${
-        isScrolled || !isHome
-          ? 'bg-slate-950/80 backdrop-blur-md border-b border-white/5'
-          : 'bg-transparent border-transparent'
+      className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color] duration-300 border-b ${
+        solido ? 'bg-noite border-noite-fio' : 'bg-transparent border-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div>
-          <a href="/" onClick={(e) => handleClick(e, '/')}>
-            <ImageWithFallback src={logo} alt="Gusflopes.dev" className="h-12 w-auto" />
-          </a>
-        </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-[72px] flex items-center justify-between gap-6">
+        <a href="/" onClick={(e) => handleClick(e, '/')} className="shrink-0">
+          <img src={logo} alt="Gusflopes.dev" width={1028} height={556} className="h-11 w-auto" />
+        </a>
 
-        <nav className="hidden lg:flex items-center space-x-7">
-          {navItems.map((item) => (
-            <a
-              key={item.label}
-              aria-current={isActive(item.href) ? "page" : undefined}
-              href={item.href}
-              onClick={(e) => handleClick(e, item.href)}
-              className={`font-sans text-sm font-medium uppercase tracking-wide transition-colors ${
-                isActive(item.href)
-                  ? 'text-orange-500'
-                  : 'text-gray-300 hover:text-white'
-              }`}
-            >
-              {item.label}
-            </a>
-          ))}
-          <Button
-            asChild
-            variant="outline"
-            className="font-sans border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-[#1c0a02] bg-transparent rounded-full px-6"
-          >
-            <a href={`mailto:${site.email}`}>Contato</a>
-          </Button>
-        </nav>
-
-        <button
-          className="lg:hidden text-white"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label={isMenuOpen ? 'Fechar menu' : 'Abrir menu'}
-          aria-expanded={isMenuOpen}
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
-
-      {isMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-slate-900/95 backdrop-blur-md p-6 border-b border-slate-800 animate-in slide-in-from-top-5">
-          <nav className="flex flex-col space-y-4">
-            {navItems.map((item) => (
+        <nav aria-label="Principal" className="hidden lg:flex items-center gap-7">
+          {navItems.map((item) => {
+            const ativo = isActive(item.href);
+            return (
               <a
                 key={item.label}
-                aria-current={isActive(item.href) ? "page" : undefined}
+                aria-current={ativo ? 'page' : undefined}
                 href={item.href}
                 onClick={(e) => handleClick(e, item.href)}
-                className={`font-sans text-lg font-medium ${
-                  isActive(item.href)
-                    ? 'text-orange-500'
-                    : 'text-gray-300 hover:text-white'
+                className={`relative py-2 text-[0.9375rem] font-medium transition-colors after:absolute after:left-0 after:right-0 after:-bottom-0.5 after:h-px after:origin-left after:transition-transform after:duration-300 ${
+                  ativo
+                    ? 'text-white after:bg-laranja after:scale-x-100'
+                    : 'text-nevoa hover:text-white after:bg-nevoa after:scale-x-0 hover:after:scale-x-100'
                 }`}
               >
                 {item.label}
               </a>
-            ))}
-            <Button asChild className="font-sans bg-orange-500 text-[#1c0a02] hover:bg-orange-600 w-full">
-              <a href={`mailto:${site.email}`}>Contato</a>
-            </Button>
+            );
+          })}
+          <a
+            href={`mailto:${site.email}`}
+            className="inline-flex items-center h-9 px-4 rounded-[3px] border border-laranja text-laranja text-[0.9375rem] font-semibold transition-colors hover:bg-laranja hover:text-brasa"
+          >
+            Contato
+          </a>
+        </nav>
+
+        <button
+          type="button"
+          className="lg:hidden -mr-2 p-2 text-white rounded-[3px]"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label={isMenuOpen ? 'Fechar menu' : 'Abrir menu'}
+          aria-expanded={isMenuOpen}
+          aria-controls="menu-movel"
+        >
+          {isMenuOpen ? <X size={24} strokeWidth={1.75} /> : <Menu size={24} strokeWidth={1.75} />}
+        </button>
+      </div>
+
+      {isMenuOpen && (
+        <div id="menu-movel" className="lg:hidden bg-noite border-t border-noite-fio px-4 sm:px-6 pb-6">
+          <nav aria-label="Principal" className="flex flex-col">
+            {navItems.map((item) => {
+              const ativo = isActive(item.href);
+              return (
+                <a
+                  key={item.label}
+                  aria-current={ativo ? 'page' : undefined}
+                  href={item.href}
+                  onClick={(e) => handleClick(e, item.href)}
+                  className={`py-3.5 border-b border-noite-fio font-serif text-xl ${
+                    ativo ? 'text-laranja' : 'text-white'
+                  }`}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
+            <a href={`mailto:${site.email}`} className="botao mt-6 w-full">
+              Contato
+            </a>
           </nav>
         </div>
       )}

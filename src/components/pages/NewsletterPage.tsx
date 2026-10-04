@@ -9,29 +9,42 @@ export interface EdicaoResumo {
   dateFormatted: string;
 }
 
-/** Arquivo da newsletter: inscrição no topo, edições da mais recente para a mais antiga. */
+/**
+ * Arquivo da newsletter em papel frio, como o Substack: inscrição no topo, edições da mais
+ * recente para a mais antiga.
+ */
 export function NewsletterPage({ edicoes }: { edicoes: EdicaoResumo[] }) {
   return (
-    <main className="pt-32 pb-24 px-6 min-h-screen bg-slate-950 text-slate-200">
-      <div className="max-w-3xl mx-auto">
-        <h1 className="font-serif text-4xl md:text-6xl text-white font-bold mb-8">{newsletter.name}</h1>
+    <main className="claro min-h-screen bg-papel text-tinta">
+      <div className="bg-noite pt-32 md:pt-40 pb-14 md:pb-16">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+          <h1 className="font-serif font-semibold text-5xl md:text-[4.25rem] leading-[1.02] tracking-[-0.018em] text-white">
+            {newsletter.name}
+          </h1>
+        </div>
+      </div>
+
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-12 md:pt-16 pb-24 md:pb-32">
         <NewsletterCta content="newsletter-arquivo" />
 
-        <h2 className="font-serif text-2xl text-white mt-16 mb-6">Edições</h2>
+        <h2 className="font-serif text-[1.75rem] md:text-[2rem] leading-tight text-tinta mt-20 pb-5 border-b border-tinta">Edições</h2>
         {edicoes.length === 0 ? (
-          <p className="text-slate-400">A primeira edição sai em breve.</p>
+          <p className="mt-8 text-tinta-2">A primeira edição sai em breve.</p>
         ) : (
-          <ul className="space-y-8">
+          <ul>
             {edicoes.map((e) => (
-              <li key={e.id} className="border-b border-slate-800 pb-8">
-                <p className="font-mono text-xs uppercase tracking-wider text-orange-400 mb-2">
-                  Edição #{e.edicao} · {e.dateFormatted}
-                </p>
-                <a href={`/newsletter/${e.id}`} className="group">
-                  <h3 className="font-serif text-2xl md:text-3xl text-white group-hover:text-orange-300 transition-colors mb-2">
-                    {e.title}
-                  </h3>
-                  <p className="font-sans text-slate-400 leading-relaxed">{e.excerpt}</p>
+              <li key={e.id} className="border-b border-papel-fio">
+                <a href={`/newsletter/${e.id}`} className="group grid gap-3 sm:grid-cols-[7.5rem_minmax(0,1fr)] sm:gap-8 py-8">
+                  <p className="num font-sans text-sm text-tinta-3 sm:pt-1.5">
+                    <span className="block font-semibold text-laranja-fundo">Edição #{e.edicao}</span>
+                    {e.dateFormatted}
+                  </p>
+                  <div>
+                    <h3 className="font-serif text-2xl md:text-[1.75rem] font-semibold leading-snug text-tinta group-hover:text-laranja-fundo transition-colors mb-2">
+                      {e.title}
+                    </h3>
+                    <p className="font-sans text-[1.0625rem] leading-relaxed text-tinta-2">{e.excerpt}</p>
+                  </div>
                 </a>
               </li>
             ))}

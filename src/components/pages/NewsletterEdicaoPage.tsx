@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
-import { ArrowLeft } from 'lucide-react';
-import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { NewsletterCta } from '../NewsletterCta';
+import { ArtigoShell, Sep } from '../artigo/ArtigoShell';
 
 export interface NewsletterEdicaoPageProps {
   id: string;
@@ -28,43 +27,38 @@ export function NewsletterEdicaoPage({
   children,
 }: NewsletterEdicaoPageProps) {
   return (
-    <main className="pt-32 pb-24 px-6 min-h-screen bg-slate-950 text-slate-200">
-      <article className="max-w-3xl mx-auto">
-        <a
-          href="/newsletter"
-          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-orange-500 transition-colors mb-8"
-        >
-          <ArrowLeft size={14} />
-          Todas as edições
-        </a>
-
-        <header className="mb-10">
-          <p className="font-mono text-xs uppercase tracking-wider text-orange-400 mb-4">
-            Edição #{edicao} · {dateFormatted} · {duration} leitura
-          </p>
-          <h1 className="font-serif text-4xl md:text-5xl text-white leading-tight mb-6">{title}</h1>
-          <p className="font-sans text-xl text-slate-400 font-light leading-relaxed">{excerpt}</p>
-          {substackUrl && (
-            <p className="mt-4 text-sm">
-              <a href={substackUrl} target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:text-orange-300">
-                Ler no Substack →
-              </a>
-            </p>
-          )}
-        </header>
-
-        <div className="mb-12 rounded-xl overflow-hidden border border-slate-800">
-          <ImageWithFallback src={image} alt={title} className="w-full h-auto" />
-        </div>
-
-        <div className="prose prose-invert prose-lg max-w-none font-sans text-slate-300 leading-relaxed prose-headings:font-serif prose-headings:font-medium prose-headings:text-white prose-a:text-orange-400 hover:prose-a:text-orange-300 prose-strong:text-white prose-img:rounded-lg">
-          {children}
-        </div>
-
-        <div className="mt-16">
-          <NewsletterCta content={`edicao-${id}`} />
-        </div>
-      </article>
-    </main>
+    <ArtigoShell
+      title={title}
+      excerpt={excerpt}
+      image={image}
+      imageFit="inteira"
+      voltar={null}
+      voltarInline={{ href: '/newsletter', label: 'Todas as edições' }}
+      autor={false}
+      meta={
+        <>
+          <span className="font-semibold text-laranja-claro">Edição #{edicao}</span>
+          <Sep />
+          <span>{dateFormatted}</span>
+          <Sep />
+          <span>{duration} leitura</span>
+        </>
+      }
+      extra={
+        substackUrl && (
+          <a
+            href={substackUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-semibold text-laranja-claro hover:text-laranja-palido underline underline-offset-4 decoration-laranja-claro/40 hover:decoration-laranja-palido"
+          >
+            Ler no Substack →
+          </a>
+        )
+      }
+      depois={<NewsletterCta content={`edicao-${id}`} />}
+    >
+      {children}
+    </ArtigoShell>
   );
 }
