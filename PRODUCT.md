@@ -65,6 +65,10 @@ mesmo sistema.
     cinza-ardósia, areia, ferrugem e marrom quente (amostra por agrupamento: `#457183`, `#648188`, `#2f4554`,
     `#aa9c87`, `#907a5f`, `#8a4c1b`, `#50372a`, sobre `#223040`/`#1c1f27`). O hero da versão atual funciona porque
     tem mais cores; uma direção que só herda o azul do quadro perde a inspiração artística.
+  - **Paleta de apoio aprovada (04/10):** as cores do quadro (petróleo `#457183`/`#315b6f`, ardósia `#648188`/`#7f989a`,
+    areia `#aa9c87`, marrom `#907a5f`/`#50372a`, ferrugem `#8a4c1b`) entram como cores de apoio em campos e detalhes.
+    Azul-escuro e laranja continuam as oficiais. Um campo claro quente (areia puxada do quadro, acinzentada, nunca
+    creme) pode substituir o papel frio em poucas seções.
 
 ## Evidence on Hand
 
