@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import { NewsletterCta } from '../NewsletterCta';
 import { ArtigoShell } from '../artigo/ArtigoShell';
 
@@ -50,7 +51,8 @@ export function NewsletterEdicaoPage({
             rel="noopener noreferrer"
             className="acao text-laranja"
           >
-            Ler no Substack →
+            Ler no Substack
+            <ArrowUpRight size={16} aria-hidden="true" />
           </a>
         )
       }
