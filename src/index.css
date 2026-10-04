@@ -196,6 +196,16 @@
   .campo-papel .acao {
     color: var(--laranja-fundo);
   }
+  .campo-papel .campo-azul .acao {
+    color: var(--laranja);
+  }
+  .campo-papel .campo-azul .botao:hover {
+    background: var(--papel);
+    color: var(--azul);
+  }
+  .campo-papel .campo-azul :focus-visible {
+    outline-color: var(--laranja);
+  }
 
   /* ---------- Abertura tipográfica (src/lib/abertura.ts) ---------- */
   .abertura {
@@ -302,6 +312,8 @@
     line-height: 1.7;
     color: #0b1a33;
     max-width: 68ch;
+    min-width: 0;
+    overflow-wrap: break-word;
     font-optical-sizing: auto;
   }
   .leitura > * + * {

@@ -1,8 +1,7 @@
 import { useState, type ReactNode } from 'react';
-import { ArrowRight, Search, Sparkles } from 'lucide-react';
-import { motion } from 'motion/react';
-import { ImageWithFallback } from '../figma/ImageWithFallback';
+import { ArrowRight, Search } from 'lucide-react';
 import { EIXOS, EIXO_LIST, type EixoId } from '../../lib/eixos';
+import { Abertura } from '../Abertura';
 
 export interface InsightArticle {
   id: string;
@@ -31,6 +30,71 @@ interface InsightsPageProps {
   aside?: ReactNode;
 }
 
+/** Botão de filtro em célula de grade: preenchido de laranja quando ativo. */
+export function Celula({ ativo, onClick, children }: { ativo: boolean; onClick: () => void; children: ReactNode }) {
+  return (
+    <button
+      type="button"
+      aria-pressed={ativo}
+      onClick={onClick}
+      className={`rotulo px-4 py-3 text-left transition-colors ${
+        ativo ? 'bg-laranja text-laranja-tinta' : 'bg-azul text-ceu-claro hover:text-papel hover:bg-azul-2'
+      }`}
+    >
+      {children}
+    </button>
+  );
+}
+
+/** Barra de busca + categorias, sobre papel. */
+export function BarraFiltro({
+  rotuloBusca,
+  placeholder,
+  termo,
+  setTermo,
+  categorias,
+  categoria,
+  setCategoria,
+}: {
+  rotuloBusca: string;
+  placeholder: string;
+  termo: string;
+  setTermo: (v: string) => void;
+  categorias: string[];
+  categoria: string;
+  setCategoria: (v: string) => void;
+}) {
+  return (
+    <div className="grid gap-4 md:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] md:gap-8 items-end border-b-2 border-azul pb-4">
+      <label className="flex items-center gap-3 border-b-2 border-azul focus-within:border-laranja-fundo pb-2">
+        <Search size={18} strokeWidth={2.5} className="text-azul shrink-0" aria-hidden="true" />
+        <input
+          aria-label={rotuloBusca}
+          className="w-full bg-transparent outline-none font-sans [font-stretch:87%] text-[1.0625rem] text-azul"
+          placeholder={placeholder}
+          value={termo}
+          onChange={(e) => setTermo(e.target.value)}
+        />
+      </label>
+      <div className="flex gap-x-1 gap-y-1 flex-wrap" role="group" aria-label="Categorias">
+        {categorias.map((cat) => (
+          <button
+            key={cat}
+            type="button"
+            aria-pressed={categoria === cat}
+            onClick={() => setCategoria(cat)}
+            className={`rotulo !text-[0.75rem] px-2.5 py-2 transition-colors ${
+              categoria === cat ? 'bg-azul text-papel' : 'text-tinta-2 hover:text-azul hover:bg-papel-2'
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function InsightsPage({
   articles,
   heading = 'Insights',
@@ -44,7 +108,7 @@ export function InsightsPage({
 
   const eixoFilter = eixo ?? selectedEixo;
   const inEixo = articles.filter((a) => eixoFilter === 'todos' || a.eixo === eixoFilter);
-  // Categorias derivadas do conteúdo visível no eixo — nunca um pill que leve a lista vazia.
+  // Categorias derivadas do conteúdo visível no eixo — nunca um filtro que leve a lista vazia.
   const categories = ['Todos', ...Array.from(new Set(inEixo.map((a) => a.category)))];
 
   const term = searchTerm.toLowerCase();
@@ -54,6 +118,7 @@ export function InsightsPage({
     const matchesCategory = selectedCategory === 'Todos' || article.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
+  const semFiltro = !term && selectedCategory === 'Todos' && selectedEixo === 'todos';
 
   const selectEixo = (id: EixoId | 'todos') => {
     setSelectedEixo(id);
@@ -61,165 +126,95 @@ export function InsightsPage({
   };
 
   return (
-    <main className="min-h-screen bg-[#F5F5F0] text-slate-900 relative overflow-hidden selection:bg-orange-200 selection:text-orange-900">
-      
-      {/* Artistic Noise Overlay */}
-      <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.03] mix-blend-overlay"
-           style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E")` }}>
-      </div>
-
-      {/* Organic Fluid Backgrounds - "Polimórfia" Interpretation */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-          <div className="absolute -top-20 -right-20 w-[600px] h-[600px] bg-orange-200/30 rounded-full blur-[100px] mix-blend-multiply animate-pulse duration-[10000ms]"></div>
-          <div className="absolute top-1/3 -left-20 w-[500px] h-[500px] bg-slate-300/40 rounded-full blur-[80px] mix-blend-multiply"></div>
-          <div className="absolute -bottom-40 right-1/3 w-[600px] h-[600px] bg-orange-100/40 rounded-full blur-[120px] mix-blend-multiply"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6 pt-32 pb-20 relative z-10">
-        
-        {/* Header - Artistic/Typography Focused */}
-        <div className="mb-12 text-center relative">
-           <motion.div 
-             initial={{ opacity: 0, y: 20 }}
-             animate={{ opacity: 1, y: 0 }}
-             transition={{ duration: 0.8 }}
-           >
-             <h1 className="font-serif text-4xl md:text-5xl text-slate-900 mb-4 tracking-tight relative inline-block">
-               {heading}
-               <span className="absolute -right-6 -top-1 text-orange-500">
-                 <Sparkles size={20} strokeWidth={1.5} />
-               </span>
-             </h1>
-             <p className="font-sans text-base text-slate-600 font-light max-w-2xl mx-auto">
-               {subheading}
-             </p>
-             {eixo && (
-               <p className="mt-3 font-mono text-xs uppercase tracking-wider text-orange-800">
-                 {EIXOS[eixo].publico}
-               </p>
-             )}
-           </motion.div>
+    <main>
+      <header className="campo-azul pt-[72px]">
+        <div className="moldura pt-12 md:pt-16 pb-10">
+          <div className="grid gap-8 lg:grid-cols-12 lg:gap-x-[var(--gutter)] items-end">
+            <div className="lg:col-span-7">
+              <Abertura titulo={heading} eixo={eixo ?? 'engenharia'} teto={9} />
+            </div>
+            <div className="lg:col-span-5 border-t-2 border-papel pt-4">
+              <p className="font-serif text-[1.1875rem] leading-relaxed text-ceu-claro">{subheading}</p>
+              {eixo && <p className="rotulo mt-4 text-laranja">{EIXOS[eixo].publico}</p>}
+            </div>
+          </div>
         </div>
 
         {/* Eixos — só na listagem geral; nos hubs o eixo já está fixo */}
         {!eixo && (
-          <nav aria-label="Filtrar por eixo" className="flex flex-wrap justify-center gap-2 mb-8">
-            {[{ id: 'todos' as const, label: 'Todos os eixos' }, ...EIXO_LIST].map((e) => (
-              <button
-                key={e.id}
-                type="button"
-                aria-pressed={selectedEixo === e.id}
-                onClick={() => selectEixo(e.id)}
-                className={`px-4 py-1.5 rounded-full border text-xs font-bold uppercase tracking-widest transition-colors ${
-                  selectedEixo === e.id
-                    ? 'bg-orange-800 border-orange-800 text-white'
-                    : 'border-slate-300 text-slate-600 hover:border-orange-700 hover:text-orange-800'
-                }`}
-              >
-                {e.label}
-              </button>
-            ))}
+          <nav aria-label="Filtrar por eixo" className="moldura pb-0">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-[2px] bg-azul-3 border-2 border-azul-3">
+              {[{ id: 'todos' as const, label: 'Todos os eixos' }, ...EIXO_LIST].map((e) => (
+                <Celula key={e.id} ativo={selectedEixo === e.id} onClick={() => selectEixo(e.id)}>
+                  {e.label}
+                </Celula>
+              ))}
+            </div>
           </nav>
         )}
+        <div className="h-10" />
+      </header>
 
-        {aside && <div className="mb-16">{aside}</div>}
+      <div className="campo-papel pb-24">
+        <div className="moldura pt-10 md:pt-14">
+          {aside && <div className="mb-14">{aside}</div>}
 
-        {/* Filters - Minimalist Pill */}
-        {articles.length > 0 && (
-        <div className="sticky top-4 z-40 flex justify-center mb-20 pointer-events-none">
-           <div className="bg-white/80 backdrop-blur-lg shadow-sm border border-white/20 rounded-full p-1 pl-4 pr-1 flex items-center gap-4 pointer-events-auto">
-              <span className="text-slate-400 hidden md:block">
-                <Search size={16} />
-              </span>
-              <input
-                aria-label="Buscar artigos"
-                className="bg-transparent border-none outline-none w-32 md:w-64 text-sm text-slate-700 placeholder:text-slate-400 font-sans"
-                placeholder="Filtrar ideias..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <div className="h-6 w-px bg-slate-200 mx-2"></div>
-              <div className="flex gap-1 overflow-x-auto max-w-[200px] md:max-w-none no-scrollbar">
-                {categories.map(cat => (
-                  <button
-                    key={cat}
-                    type="button"
-                    aria-pressed={selectedCategory === cat}
-                    onClick={() => setSelectedCategory(cat)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors whitespace-nowrap ${selectedCategory === cat ? 'bg-slate-900 text-white' : 'hover:bg-slate-100 text-slate-600'}`}
-                  >
-                    {cat}
-                  </button>
-                ))}
-              </div>
-           </div>
+          {articles.length > 0 && (
+            <BarraFiltro
+              rotuloBusca="Buscar artigos"
+              placeholder="Filtrar ideias..."
+              termo={searchTerm}
+              setTermo={setSearchTerm}
+              categorias={categories}
+              categoria={selectedCategory}
+              setCategoria={setSelectedCategory}
+            />
+          )}
+
+          <ol className="list-none">
+            {filteredArticles.map((article, idx) => {
+              const destaque = semFiltro && idx === 0;
+              return (
+                <li key={article.id} className="border-b border-filete">
+                  <a href={article.href} className="group grid gap-x-[var(--gutter)] gap-y-3 py-7 md:grid-cols-12 hover:bg-papel-2/70 transition-colors">
+                    <p className="md:col-span-2 rotulo text-tinta-2 tabular-nums flex md:flex-col gap-x-3 gap-y-1">
+                      <time dateTime={article.isoDate}>{article.date}</time>
+                      <span>{article.duration}</span>
+                    </p>
+                    <div className="md:col-span-7">
+                      <h2
+                        className={`font-sans font-extrabold [font-stretch:87%] tracking-[-0.012em] text-azul group-hover:text-laranja-fundo transition-colors text-balance mb-3 ${
+                          destaque ? 'text-[1.875rem] md:text-[2.75rem] leading-[1.02] uppercase !font-black [font-stretch:100%]' : 'text-[1.5rem] md:text-[1.875rem] leading-[1.08]'
+                        }`}
+                      >
+                        {article.title}
+                      </h2>
+                      <p className="font-serif text-[1.0625rem] leading-relaxed text-tinta-2 max-w-[62ch]">{article.excerpt}</p>
+                    </div>
+                    <div className="md:col-span-3 flex md:flex-col justify-between md:justify-start gap-3">
+                      <p className="rotulo text-laranja-fundo">
+                        {eixo ? article.category : `${EIXOS[article.eixo].shortLabel} · ${article.category}`}
+                      </p>
+                      <span className="acao">
+                        Ler Artigo
+                        <ArrowRight size={14} strokeWidth={2.5} aria-hidden="true" className="transition-transform group-hover:translate-x-1" />
+                      </span>
+                    </div>
+                  </a>
+                </li>
+              );
+            })}
+          </ol>
+
+          {filteredArticles.length === 0 && (
+            <div className="py-24 border-b-2 border-azul">
+              <p className="display uppercase text-[2rem] md:text-[3rem] text-azul">O silêncio faz parte da música.</p>
+              <p className="font-serif text-[1.0625rem] mt-3 text-tinta-2">
+                {articles.length === 0 ? 'Os primeiros textos deste eixo estão a caminho.' : 'Nenhum artigo encontrado.'}
+              </p>
+            </div>
+          )}
         </div>
-        )}
-
-        {/* Masonry-ish Artistic Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-24">
-          {filteredArticles.map((article, idx) => (
-            <a
-              key={article.id}
-              href={article.href}
-              className={`group block ${idx % 2 !== 0 ? 'md:mt-24' : ''}`}
-            >
-            <motion.article 
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className="flex flex-col h-full"
-            >
-              {/* Image Container with Morphing Mask Effect */}
-              <div className="relative mb-8 overflow-hidden rounded-lg aspect-[4/3]">
-                <div className="absolute inset-0 bg-orange-500/10 mix-blend-multiply z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <ImageWithFallback 
-                  src={article.image} 
-                  alt={article.title}
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0"
-                />
-                
-                {/* Floating Category Tag */}
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-[10px] uppercase tracking-widest font-bold text-slate-900 z-20">
-                  {eixo ? article.category : `${EIXOS[article.eixo].shortLabel} · ${article.category}`}
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="relative">
-                {/* Date + reading time */}
-                <div className="mb-3 font-mono text-xs text-slate-600 uppercase tracking-wider">
-                    {article.date} · {article.duration}
-                </div>
-
-                <h2 className="font-serif text-3xl md:text-4xl text-slate-900 leading-tight mb-4 group-hover:text-orange-600 transition-colors duration-300">
-                  {article.title}
-                </h2>
-                <p className="font-sans text-slate-600 leading-relaxed mb-6 font-light group-hover:text-slate-700 transition-colors">
-                  {article.excerpt}
-                </p>
-                
-                <div className="flex items-center gap-2 text-slate-900 font-bold text-xs uppercase tracking-widest group/btn w-fit">
-                  Ler Artigo
-                  <ArrowRight size={14} className="transition-transform duration-300 group-hover/btn:translate-x-2" />
-                </div>
-              </div>
-            </motion.article>
-            </a>
-          ))}
-        </div>
-
-        {/* Empty State */}
-        {filteredArticles.length === 0 && (
-          <div className="text-center py-32 text-slate-600">
-            <p className="font-serif text-2xl italic">O silêncio faz parte da música.</p>
-            <p className="font-sans text-sm mt-2">
-              {articles.length === 0 ? 'Os primeiros textos deste eixo estão a caminho.' : 'Nenhum artigo encontrado.'}
-            </p>
-          </div>
-        )}
-
       </div>
     </main>
   );

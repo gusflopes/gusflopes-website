@@ -57,7 +57,7 @@ export function Hero({ fundo }: { fundo: FundoResponsivo }) {
             ))}
           </h1>
           {/* A janela: única aparição do quadro na página, à direita de MESMO / SISTEMA */}
-          <div className="absolute right-[1cqi] bottom-[3cqi] w-[27cqi] lg:w-[30cqi] lg:-right-[24cqi] lg:bottom-[6cqi]">
+          <div className="absolute right-[1cqi] bottom-[3cqi] w-[27cqi] lg:w-[27cqi] lg:-right-[27cqi] lg:bottom-[1cqi]">
             <Janela fundo={fundo} />
           </div>
         </div>

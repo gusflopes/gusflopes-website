@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { NewsletterCta } from '../NewsletterCta';
+import { Abertura } from '../Abertura';
 
 export interface NewsletterEdicaoPageProps {
   id: string;
@@ -28,41 +29,52 @@ export function NewsletterEdicaoPage({
   children,
 }: NewsletterEdicaoPageProps) {
   return (
-    <main className="pt-32 pb-24 px-6 min-h-screen bg-slate-950 text-slate-200">
-      <article className="max-w-3xl mx-auto">
-        <a
-          href="/newsletter"
-          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-orange-500 transition-colors mb-8"
-        >
-          <ArrowLeft size={14} />
-          Todas as edições
-        </a>
+    <main>
+      <article>
+        <header className="campo-azul pt-[72px]">
+          <div className="moldura pt-8 md:pt-12 pb-12 md:pb-16">
+            <a
+              href="/newsletter"
+              className="rotulo inline-flex items-center gap-2 text-ceu-claro hover:text-papel transition-colors mb-6 py-2"
+            >
+              <ArrowLeft size={16} strokeWidth={2.5} aria-hidden="true" />
+              Todas as edições
+            </a>
 
-        <header className="mb-10">
-          <p className="font-mono text-xs uppercase tracking-wider text-orange-400 mb-4">
-            Edição #{edicao} · {dateFormatted} · {duration} leitura
-          </p>
-          <h1 className="font-serif text-4xl md:text-5xl text-white leading-tight mb-6">{title}</h1>
-          <p className="font-sans text-xl text-slate-400 font-light leading-relaxed">{excerpt}</p>
-          {substackUrl && (
-            <p className="mt-4 text-sm">
-              <a href={substackUrl} target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:text-orange-300">
-                Ler no Substack →
-              </a>
+            <p className="rotulo flex flex-wrap border-y border-azul-3 mb-10 md:mb-14 tabular-nums">
+              <span className="py-2.5 pr-4 text-laranja">Edição #{edicao}</span>
+              <span className="py-2.5 px-4 border-l border-azul-3 text-ceu">{dateFormatted}</span>
+              <span className="py-2.5 px-4 border-l border-azul-3 text-ceu">{duration} leitura</span>
             </p>
-          )}
+
+            <div className="grid gap-10 lg:grid-cols-12 lg:gap-x-[var(--gutter)] items-end">
+              <div className="lg:col-span-8">
+                <Abertura titulo={title} eixo="newsletter" teto={8.5} />
+              </div>
+              <div className="lg:col-span-4 pt-5 border-t-2 border-papel max-w-[44ch]">
+                <p className="font-serif text-[1.25rem] md:text-[1.3125rem] leading-[1.5] text-ceu-claro">{excerpt}</p>
+                {substackUrl && (
+                  <p className="mt-5">
+                    <a href={substackUrl} target="_blank" rel="noopener noreferrer" className="acao">
+                      Ler no Substack →
+                    </a>
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
         </header>
 
-        <div className="mb-12 rounded-xl overflow-hidden border border-slate-800">
-          <ImageWithFallback src={image} alt={title} className="w-full h-auto" />
-        </div>
-
-        <div className="prose prose-invert prose-lg max-w-none font-sans text-slate-300 leading-relaxed prose-headings:font-serif prose-headings:font-medium prose-headings:text-white prose-a:text-orange-400 hover:prose-a:text-orange-300 prose-strong:text-white prose-img:rounded-lg">
-          {children}
-        </div>
-
-        <div className="mt-16">
-          <NewsletterCta content={`edicao-${id}`} />
+        <div className="campo-papel pb-24">
+          <div className="moldura pt-12 md:pt-16 grid grid-cols-[minmax(0,1fr)] lg:grid-cols-12 lg:gap-x-[var(--gutter)]">
+            <div className="lg:col-start-4 lg:col-span-9 max-w-[68ch]">
+              <ImageWithFallback src={image} alt={title} className="w-full h-auto mb-12 bg-papel-2" />
+              <div className="leitura">{children}</div>
+              <div className="mt-16">
+                <NewsletterCta content={`edicao-${id}`} />
+              </div>
+            </div>
+          </div>
         </div>
       </article>
     </main>

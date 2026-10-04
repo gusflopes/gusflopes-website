@@ -1,11 +1,8 @@
 import { useState } from 'react';
-import { Card, CardContent, CardFooter } from '../ui/card';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
-import { Badge } from '../ui/badge';
-import { Search, Calendar, Clock, ArrowRight, ExternalLink, PlayCircle } from 'lucide-react';
-import { ImageWithFallback } from '../figma/ImageWithFallback';
+import { ArrowRight, ExternalLink, Play } from 'lucide-react';
 import { EIXOS, EIXO_LIST, type EixoId } from '../../lib/eixos';
+import { Abertura } from '../Abertura';
+import { BarraFiltro, Celula } from './InsightsPage';
 
 export interface RadarItem {
   id: string;
@@ -47,158 +44,115 @@ export function RadarPage({ items }: RadarPageProps) {
   });
 
   return (
-    <main className="pt-24 pb-20 px-6 min-h-screen bg-slate-950">
-      <div className="max-w-7xl mx-auto">
-
-        {/* Page Header */}
-        <div className="mb-16 text-center relative">
-          <h1 className="font-serif text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
-            Radar
-          </h1>
-          <p className="font-sans text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Curadoria comentada: o que mudou em IA, engenharia e negócios — e por que importa.
-          </p>
-          <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] bg-orange-500/10 blur-[100px] rounded-full pointer-events-none"></div>
+    <main>
+      <header className="campo-azul pt-[72px]">
+        <div className="moldura pt-12 md:pt-16 pb-10">
+          <div className="grid gap-8 lg:grid-cols-12 lg:gap-x-[var(--gutter)] items-end">
+            <div className="lg:col-span-7">
+              <Abertura titulo="Radar" eixo="engenharia" teto={9} />
+            </div>
+            <p className="lg:col-span-5 border-t-2 border-papel pt-4 font-serif text-[1.1875rem] leading-relaxed text-ceu-claro">
+              Curadoria comentada: o que mudou em IA, engenharia e negócios — e por que importa.
+            </p>
+          </div>
         </div>
 
         {eixosComConteudo.length > 1 && (
-          <nav aria-label="Filtrar por eixo" className="flex flex-wrap justify-center gap-2 mb-6">
-            {[{ id: 'todos' as const, label: 'Todos os eixos' }, ...eixosComConteudo].map((e) => (
-              <button
-                key={e.id}
-                type="button"
-                aria-pressed={selectedEixo === e.id}
-                onClick={() => {
-                  setSelectedEixo(e.id);
-                  setSelectedCategory('Todos');
-                }}
-                className={`px-4 py-1.5 rounded-full border text-xs font-bold uppercase tracking-widest transition-colors ${
-                  selectedEixo === e.id
-                    ? 'bg-orange-500 border-orange-500 text-slate-950'
-                    : 'border-slate-700 text-slate-300 hover:border-orange-400 hover:text-white'
-                }`}
-              >
-                {e.label}
-              </button>
-            ))}
+          <nav aria-label="Filtrar por eixo" className="moldura">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-[2px] bg-azul-3 border-2 border-azul-3">
+              {[{ id: 'todos' as const, label: 'Todos os eixos' }, ...eixosComConteudo].map((e) => (
+                <Celula
+                  key={e.id}
+                  ativo={selectedEixo === e.id}
+                  onClick={() => {
+                    setSelectedEixo(e.id);
+                    setSelectedCategory('Todos');
+                  }}
+                >
+                  {e.label}
+                </Celula>
+              ))}
+            </div>
           </nav>
         )}
+        <div className="h-10" />
+      </header>
 
-        {/* Search and Filter */}
-        <div className="flex flex-col md:flex-row gap-6 mb-12 items-center justify-between bg-slate-900/50 p-6 rounded-xl border border-slate-800 backdrop-blur-sm">
-          <div className="relative w-full md:w-96 group">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-orange-500 transition-colors" size={18} />
-            <Input
-              placeholder="Buscar no radar..."
-              aria-label="Buscar no radar"
-              className="pl-10 bg-slate-950 border-slate-700 focus:ring-orange-500 text-white"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
+      <div className="campo-papel pb-24">
+        <div className="moldura pt-10 md:pt-14">
+          <BarraFiltro
+            rotuloBusca="Buscar no radar"
+            placeholder="Buscar no radar..."
+            termo={searchTerm}
+            setTermo={setSearchTerm}
+            categorias={categories}
+            categoria={selectedCategory}
+            setCategoria={setSelectedCategory}
+          />
 
-          <div className="flex flex-wrap gap-2 justify-center">
-            {categories.map(cat => (
-              <Button
-                key={cat}
-                variant={selectedCategory === cat ? "default" : "outline"}
-                onClick={() => setSelectedCategory(cat)}
-                className={`
-                  ${selectedCategory === cat
-                    ? 'bg-orange-500 hover:bg-orange-600 text-[#1c0a02] border-orange-500'
-                    : 'bg-transparent border-slate-700 text-slate-400 hover:text-white hover:border-orange-400'
-                  } rounded-full px-4 py-1 h-8 text-xs uppercase tracking-wider font-bold transition-all
-                `}
-              >
-                {cat}
-              </Button>
-            ))}
-          </div>
-        </div>
-
-        {/* Grid */}
-        {filteredItems.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredItems.map((item) => (
-              <Card key={item.id} className="bg-slate-900/80 backdrop-blur-md border-2 border-slate-800 hover:border-orange-500/50 transition-all duration-300 hover:-translate-y-2 group overflow-hidden flex flex-col h-full">
-                <div className="relative h-48 overflow-hidden">
-                  <ImageWithFallback
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent opacity-80"></div>
-
-                  <Badge className="absolute top-4 left-4 bg-orange-500 hover:bg-orange-600 border-none text-[#1c0a02] font-bold uppercase text-[10px] tracking-widest shadow-lg shadow-orange-900/50">
-                    {selectedEixo === 'todos' && eixosComConteudo.length > 1
-                      ? `${EIXOS[item.eixo].shortLabel} · ${item.category}`
-                      : item.category}
-                  </Badge>
-
-                  {item.type === 'video' && (
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <div className="bg-slate-950/50 backdrop-blur-sm p-3 rounded-full border border-white/20 group-hover:scale-110 transition-transform duration-300">
-                         <PlayCircle size={32} className="text-white fill-white/20" />
+          {filteredItems.length > 0 ? (
+            <ol className="list-none">
+              {filteredItems.map((item) => {
+                const acao = item.isExternal
+                  ? item.type === 'video' ? 'Assistir Agora' : 'Ler na Fonte'
+                  : item.type === 'video' ? 'Assistir Vídeo' : 'Ler Artigo';
+                const Icone = item.isExternal ? ExternalLink : ArrowRight;
+                return (
+                  <li key={item.id} className="border-b border-filete">
+                    <a
+                      href={item.link}
+                      {...(item.isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                      className="group grid gap-x-[var(--gutter)] gap-y-3 py-7 md:grid-cols-12 hover:bg-papel-2/70 transition-colors"
+                    >
+                      <p className="md:col-span-2 rotulo text-tinta-2 tabular-nums flex md:flex-col gap-x-3 gap-y-1">
+                        <span>{item.date}</span>
+                        <span>{item.duration}</span>
+                      </p>
+                      <div className="md:col-span-7">
+                        <h2 className="font-sans font-extrabold [font-stretch:87%] text-[1.375rem] md:text-[1.75rem] leading-[1.1] tracking-[-0.01em] text-azul group-hover:text-laranja-fundo transition-colors text-balance mb-3">
+                          {item.type === 'video' && (
+                            <span className="inline-grid place-items-center w-[1.1em] h-[1.1em] mr-2 align-[-0.12em] bg-laranja text-laranja-tinta" aria-hidden="true">
+                              <Play size={14} strokeWidth={3} fill="currentColor" />
+                            </span>
+                          )}
+                          {item.title}
+                        </h2>
+                        <p className="font-serif text-[1.0625rem] leading-relaxed text-tinta-2 max-w-[62ch] line-clamp-3">{item.excerpt}</p>
                       </div>
-                    </div>
-                  )}
-                </div>
-
-                <CardContent className="p-6 flex-grow">
-                  <div className="flex items-center justify-between gap-4 text-xs text-slate-500 mb-4 font-mono">
-                    <div className="flex items-center gap-3">
-                        <span className="flex items-center gap-1"><Calendar size={12} /> {item.date}</span>
-                        <span className="flex items-center gap-1">
-                            <Clock size={12} /> {item.duration}
+                      <div className="md:col-span-3 flex flex-wrap md:flex-col justify-between md:justify-start gap-3">
+                        <p className="rotulo text-laranja-fundo">
+                          {selectedEixo === 'todos' && eixosComConteudo.length > 1
+                            ? `${EIXOS[item.eixo].shortLabel} · ${item.category}`
+                            : item.category}
+                        </p>
+                        {item.isExternal && <p className="rotulo text-tinta-2 border border-filete px-2 py-1 self-start">{item.source}</p>}
+                        <span className="acao">
+                          {acao}
+                          <Icone size={14} strokeWidth={2.5} aria-hidden="true" />
                         </span>
-                    </div>
-                    {item.isExternal && (
-                         <Badge variant="outline" className="text-[10px] text-slate-400 border-slate-700 bg-slate-900/50">
-                            {item.source}
-                         </Badge>
-                    )}
-                  </div>
-
-                  <h3 className="font-serif text-xl font-bold text-white mb-3 leading-tight group-hover:text-orange-400 transition-colors">
-                    {item.title}
-                  </h3>
-                  <p className="font-sans text-sm text-slate-400 leading-relaxed line-clamp-3">
-                    {item.excerpt}
-                  </p>
-                </CardContent>
-
-                <CardFooter className="p-6 pt-0 mt-auto">
-                  {item.isExternal ? (
-                      <Button asChild variant="link" className="p-0 text-orange-500 hover:text-orange-300 font-bold uppercase text-xs tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all">
-                        <a href={item.link} target="_blank" rel="noopener noreferrer">
-                            {item.type === 'video' ? 'Assistir Agora' : 'Ler na Fonte'}
-                            <ExternalLink size={14} />
-                        </a>
-                      </Button>
-                  ) : (
-                      <Button asChild variant="link" className="p-0 text-orange-500 hover:text-orange-300 font-bold uppercase text-xs tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all">
-                        <a href={item.link}>
-                            {item.type === 'video' ? 'Assistir Vídeo' : 'Ler Artigo'}
-                            <ArrowRight size={14} />
-                        </a>
-                      </Button>
-                  )}
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-24 border-2 border-dashed border-slate-800 rounded-xl">
-            <p className="text-slate-500 font-sans">Nenhum item encontrado para sua busca.</p>
-            <Button
-              variant="link"
-              className="text-orange-500 mt-2"
-              onClick={() => {setSearchTerm(''); setSelectedCategory('Todos'); setSelectedEixo('todos');}}
-            >
-              Limpar filtros
-            </Button>
-          </div>
-        )}
+                      </div>
+                    </a>
+                  </li>
+                );
+              })}
+            </ol>
+          ) : (
+            <div className="py-24 border-b-2 border-azul">
+              <p className="font-serif text-[1.125rem] text-tinta-2">Nenhum item encontrado para sua busca.</p>
+              <button
+                type="button"
+                className="acao mt-4"
+                onClick={() => {
+                  setSearchTerm('');
+                  setSelectedCategory('Todos');
+                  setSelectedEixo('todos');
+                }}
+              >
+                Limpar filtros
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </main>
   );
