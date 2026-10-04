@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-04T12:00:00.000Z",
+  "generatedAt": "2026-10-04T15:00:00.000Z",
   "title": "Design System: gusflopes.dev",
   "extensions": {
     "colorMeta": {
@@ -36,7 +36,7 @@
         "role": "primary",
         "displayName": "Laranja",
         "tonalRamp": [
-          "#0b1a33",
+          "#431407",
           "#7c2d12",
           "#9a3412",
           "#c2410c",
@@ -53,6 +53,46 @@
       "ceu": {
         "role": "secondary",
         "displayName": "Céu do quadro"
+      },
+      "petroleo": {
+        "role": "tertiary",
+        "displayName": "Petróleo (quadro)",
+        "description": "plano da pergunta dos eixos; papel 4,83:1"
+      },
+      "petroleo-escuro": {
+        "role": "tertiary",
+        "displayName": "Petróleo escuro (quadro)",
+        "description": "célula do vídeo, frase de apoio dos hubs; papel 6,67:1"
+      },
+      "ardosia": {
+        "role": "tertiary",
+        "displayName": "Ardósia (quadro)",
+        "description": "sem texto pequeno"
+      },
+      "ardosia-clara": {
+        "role": "tertiary",
+        "displayName": "Ardósia clara (quadro)",
+        "description": "célula dos temas; azul 5,67:1"
+      },
+      "areia": {
+        "role": "tertiary",
+        "displayName": "Areia (quadro)",
+        "description": "metadados da Ferramenta; azul 6,46:1"
+      },
+      "marrom": {
+        "role": "tertiary",
+        "displayName": "Marrom (quadro)",
+        "description": "reservado"
+      },
+      "marrom-escuro": {
+        "role": "tertiary",
+        "displayName": "Marrom escuro (quadro)",
+        "description": "reservado"
+      },
+      "ferrugem": {
+        "role": "tertiary",
+        "displayName": "Ferrugem (quadro)",
+        "description": "contrapeso sem texto em Serviços; nunca encosta em laranja"
       }
     },
     "typographyMeta": {
@@ -173,15 +213,41 @@
       "description": "Dia como numeral 250/125, \"Mês, ano\" e duração como rótulo; no texto mais recente vira plano laranja.",
       "html": "<p class=\"ds-data\"><span class=\"n\">29</span><span>Set, 2026 · 8 min</span></p>",
       "css": ".ds-data{display:inline-flex;flex-direction:column;gap:8px;padding:12px;background:#f97316;color:#0b1a33;font:650 .8125rem/1.35 \"Archivo Variable\",sans-serif;font-stretch:75%;letter-spacing:.12em;text-transform:uppercase}.ds-data .n{font-weight:250;font-stretch:125%;font-size:4.25rem;line-height:.82;letter-spacing:-.04em}"
+    },
+    {
+      "name": "Ação chapada",
+      "kind": "custom",
+      "refersTo": "acao-chapada",
+      "description": "A ação de uma célula (porta de eixo, oferta): bloco laranja compacto, texto azul-escuro; hover azul com texto papel.",
+      "html": "<a class=\"ds-acao-ch\" href=\"#\">Ler Negócios →</a>",
+      "css": ".ds-acao-ch{display:inline-flex;gap:.5em;padding:.6rem .85rem .55rem;background:#f97316;color:#0b1a33;font:750 .875rem/1.3 \"Archivo Variable\",sans-serif;font-stretch:75%;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}.ds-acao-ch:hover{background:#0b1a33;color:#f2f4f7}"
+    },
+    {
+      "name": "Marca de canto",
+      "kind": "custom",
+      "refersTo": "marca-canto",
+      "description": "Laranja de presença: quadrado sólido de 40px no canto superior esquerdo de uma célula de papel da grade; o conteúdo começa abaixo dele.",
+      "html": "<div class=\"ds-cel-m\"><span class=\"ds-m\"></span><strong>Fluxo & Entrega</strong></div>",
+      "css": ".ds-cel-m{position:relative;padding:64px 28px 28px;background:#f2f4f7;color:#0b1a33;border:2px solid #0b1a33}.ds-m{position:absolute;top:0;left:0;width:40px;height:40px;background:#f97316}"
+    },
+    {
+      "name": "Campo do quadro",
+      "kind": "custom",
+      "refersTo": "campo-quadro",
+      "description": "Cor do quadro como campo chapado de bordas retas, um por seção: petróleo com texto papel, areia ou ardósia clara com texto azul.",
+      "html": "<p class=\"ds-cq\">Ferramenta gratuita · Experimento aberto</p>",
+      "css": ".ds-cq{margin:0;padding:24px;background:#aa9c87;color:#0b1a33;font:650 .8125rem/1.35 \"Archivo Variable\",sans-serif;font-stretch:75%;letter-spacing:.12em;text-transform:uppercase}"
     }
   ],
   "narrative": {
     "northStar": "A palavra como construção",
-    "overview": "O site é uma peça de poesia concreta brasileira composta com a disciplina da escola de Ulm: a tese da marca é montada como bloco de tipo, e todo o resto é grade rígida, filete e campo de cor chapado.",
+    "overview": "O site é uma peça de poesia concreta brasileira composta com a disciplina da escola de Ulm: a tese da marca é montada como bloco de tipo, e todo o resto é grade rígida, filete e campo de cor chapado. Papel frio é o campo dominante, azul-escuro é estrutura, o laranja aparece em toda a página (chapado na ação, filete e marca como presença) e as cores do quadro entram como campos chapados.",
     "keyCharacteristics": [
+      "Papel dominante, azul-escuro como estrutura; toda seção escura grande chega de um campo claro",
+      "Laranja em dois registros: chapado = ação; filete de 2px e marca quadrada = presença em toda janela de 900px",
+      "Cores do quadro (petróleo, areia, ardósia, ferrugem) como campos chapados, um por seção",
       "Aberturas tipográficas geradas do título, em duas instâncias (larga e estreita)",
       "Grade de filetes e células por gap de 2px sobre o campo",
-      "Laranja como plano estrutural: a ação principal de cada região é uma célula laranja",
       "Números só quando codificam algo verdadeiro (data, edição, ordem)",
       "Cantos retos, zero sombra",
       "Leitura calma em Source Serif 4",
