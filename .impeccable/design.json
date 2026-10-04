@@ -395,9 +395,9 @@
  ],
  "narrative": {
   "northStar": "Pincelada: o mesmo gesto, nunca a mesma imagem",
-  "overview": "Van Gogh como sistema: cada texto ganha uma tela de tinta (cerdas, empasto, luzes em espiral) gerada do próprio slug no build, em escala de traço fixa por janela, nas cores do quadro e da marca. Cada tela tem um papel; listas são só texto. O texto fica sempre em faixa sólida, costurada à pintura pelo fio laranja; a leitura acontece em papel frio.",
+  "overview": "Van Gogh como sistema, com a amplitude do quadro da marca: cada tela é uma cena ampla de tinta (cerdas, empasto), sem foco único, numa de seis estruturas grandes (horizonte, vento, manchas, ondas, massas, faixas) escolhida pela semente ou pelo papel, gerada no build em escala de traço fixa por janela. Telas da mesma página não repetem anatomia nem enquadramento. O texto fica sempre em faixa sólida, costurada à pintura pelo fio laranja; a leitura acontece em papel frio.",
   "keyCharacteristics": [
-   "Tela gerada por texto (capa, OG, faixa, abertura, capa do Substack)",
+   "Tela gerada por texto e por papel (capa, OG, faixa, abertura, projeção, convite, capa do Substack), em seis arquétipos de composição",
    "Azul-escuro como chão, laranja como luz rara",
    "Literata + Hanken Grotesk",
    "Cantos retos, sem sombra, sem glow",
@@ -418,15 +418,21 @@
     "name": "Rótulo abaixo",
     "body": "Eixo e categoria ficam abaixo do título, com a data.",
     "section": "typography"
+   },
+   {
+    "name": "Amplitude",
+    "body": "A tela usa a superfície inteira: estrutura grande, marcas variadas, áreas de descanso; nenhum foco único.",
+    "section": "elevation"
    }
   ],
   "dos": [
    "Gerar a capa de texto novo pelo gerador",
-   "Manter o laranja em até três luzes por tela",
+   "Laranja como luz rara: manchas e toques quentes pequenos espalhados, nunca luz-alvo concêntrica",
    "Subir VERSAO ao mudar o gerador",
    "Dar a cada tela um papel e uma semente; listas de textos só texto",
    "Definir formato novo como janela de um papel, no tamanho exibido (escala de traço fixa)",
-   "Metadados e rótulos depois do título, nunca acima"
+   "Metadados e rótulos depois do título, nunca acima",
+   "Dar a cada tela da página uma anatomia diferente (arquétipo) e um enquadramento diferente (panorâmica, retrato, coluna, close, fita)"
   ],
   "donts": [
    "Sombra, glow, vidro, blur ou gradiente de texto",
@@ -434,7 +440,8 @@
    "Foto de banco como capa",
    "Mono fora de código",
    "Encolher uma tela num card (traço menor que a escala fixa)",
-   "Repetir uma faixa de tela em cima de cada card"
+   "Repetir uma faixa de tela em cima de cada card",
+   "Voltar ao template vórtice central + luzes concêntricas"
   ]
  }
 }

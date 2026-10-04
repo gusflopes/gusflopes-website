@@ -64,7 +64,8 @@ for (const [nome, corTexto, fundo] of [['wordmark', CORES.noite, null], ['wordma
   const fio = 10;
   const m = 140;
   // escala 2: a capa da publicação é exibida em ~1200 px, então o traço fica na escala fixa do site
-  const tela = await telaSharp({ semente: 'Radar de IA', largura: W, altura: alturaTela, escala: 2 }).png().toBuffer();
+  // mesmo arquétipo da tela da newsletter no site (vento): correntes que passam
+  const tela = await telaSharp({ semente: 'Radar de IA', largura: W, altura: alturaTela, escala: 2, params: { arquetipo: 'vento' } }).png().toBuffer();
   const nome = await texto({ conteudo: 'Radar de IA', familia: 'literata', peso: 600, px: 150, cor: CORES.noite });
   const pitch = await texto({
     conteudo: 'Toda semana: o que mudou em IA, por que importa para quem trabalha ou empreende, e uma coisa prática para testar. Sem hype.',

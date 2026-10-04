@@ -32,8 +32,9 @@ fio laranja no topo; H1 "Tecnologia e negócio, partes do mesmo sistema" em Lite
 rótulo de áreas e botão "Assinar Newsletter" na coluna direita, dentro da primeira dobra em 1366×900 e 390×844.
 
 FORM: "Pincelada" (4ª no ranking do dono; maquete data-k="8"), sem seed key — direção fixada pelo usuário, concept-seed
-não executado por instrução. Assinatura: o gerador (capa, OG, faixa de hub, abertura, capa Substack), agora tinta em
-camadas (cerda + empasto, luzes em espiral) em escala de traço fixa por janela. Interação: o fio laranja que se estende
+não executado por instrução. Assinatura: o gerador (capa, OG, faixa de hub, abertura, capa Substack), tinta em camadas
+(cerda + empasto) em escala de traço fixa por janela; desde a rodada 3, cenas amplas em seis arquétipos de
+composição (horizonte, vento, manchas, ondas, massas, faixas), sem vórtice nem luz-alvo. Interação: o fio laranja que se estende
 no hover/foco; telas estáticas, zero JS extra.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
@@ -73,5 +74,54 @@ réguas, não por listras de fundo) → papel em Serviços (o "contrato", lido c
 ## Decisões em aberto
 - Fotos do Unsplash trocadas pela tela só no render; frontmatter intocado.
 - Capa autoral da newsletter (media.gusflopes.dev) mantida.
-- Corte proposto (não aplicado): "Ideias recentes" repete o "Mais recente" dos Eixos para 2 dos 3 eixos.
 - Anterior/próximo e relacionados no fim do artigo não existem; adicioná-los exige texto novo (a aprovar).
+
+## Rodada 3 — a amplitude e "cada camada conquista"
+
+Veredito do dono: o desenho repetia "duas bolas e espiral"; o segredo do quadro é a AMPLITUDE. E: "o hero prende a
+atenção, depois cada uma das camadas conquista".
+
+Gerador (VERSAO 9): morre o template vórtice central + 2–3 luzes-alvo. Seis arquétipos de estrutura grande —
+horizonte, vento, manchas, ondas, massas, faixas — escolhidos pela semente ou fixados pelo papel. Luz = mancha/disco
+espalhado ou toque quente curto, nunca alvo concêntrico. Respiro de baixa frequência (o ar da v1) e comprimento de
+traço log-normal (a variedade da v1). Mantidos: corpo de tinta (carga, saída seca, cerda, empasto), escala de traço
+fixa, render no build, peso controlado, zero JS. Prova: docs/design-review/estudo-pinceladas.png (6 arquétipos +
+2 sorteados no tamanho do hero, ao lado do quadro inteiro).
+
+Regra de página: telas da mesma página não repetem anatomia nem enquadramento. A capa de um texto sorteia o
+arquétipo, mas evita o da faixa de Insights, o da faixa do seu eixo e o do convite da newsletter.
+
+Ordem da home: abertura → Eixos → Vídeo → Ferramenta → Sobre → Serviços → rodapé. "Ideias recentes" fundida nos
+eixos (aprovado): cada porta traz os dois textos mais recentes do eixo, e os dois insights mais novos sempre aparecem.
+O vídeo virou camada própria entre as portas e a Ferramenta: primeiro escolher por onde entrar, depois assistir,
+depois experimentar, conhecer quem escreve e, por fim, o que contratar. Campos: noite até "Sobre" → papel em
+Serviços → noite no rodapé (2 trocas).
+
+O gesto de cada camada (o trabalho → a composição):
+- Abertura — "entender quem escreve e para quem": horizonte amplo (céu de manchas, massa, linha d'água com reflexos)
+  em panorâmica + fio + faixa noite com H1 Literata.
+- Eixos — "escolher por onde entrar": a tela tem a estrutura da lista — três estratos (faixas, bandas=3) ao lado das
+  três portas, fio laranja vertical como costura, fio vivo em cada porta no hover.
+- Vídeo — "assistir": sala de projeção; tela 16:9 (ondas: a fala) sangra até a borda direita, play grande no centro;
+  "Vídeo em Destaque", título e resumo à esquerda.
+- Ferramenta — "experimentar agora": meia seção é o close 2,5× (vento visto de perto) sangrando à esquerda de cima a
+  baixo; a outra metade, texto e ação. O único close do site.
+- Sobre — "confiar em quem escreve": a revelação da fonte — o quadro original na largura da janela (única aparição),
+  fio, faixa do texto; as 5 áreas em colunas (o único "título + colunas entre réguas").
+- Serviços — "entender o que contratar": cardápio em papel (mantido).
+
+Aberturas por tipo de página: home = panorâmica alta; hubs de leitura = faixa 6:1 (arquétipo por hub: Insights
+manchas, Radar vento, Engenharia massas, Negócios ondas, Bastidores faixas); artigo = faixa do título + capa em retrato
+até a borda direita, fio vertical; arquivo da newsletter = título primeiro, fita fina de horizonte por baixo; 404 =
+painel alto de massas ao lado da mensagem; edição = sem tela (capa autoral).
+Hubs: destaque com a capa em retrato 4:5 ao lado do título (nunca a panorâmica da faixa). Newsletter e fim do texto:
+convite com a tela "Radar de IA" (vento) em 1:1, coluna de 200px ou faixa baixa — nunca o close da Ferramenta.
+Correções: "Erro 404" em ceu; chips do Radar em caixa mista.
+
+Teste do dono ("conquista sozinha ou só organizada?"): abertura, Eixos, Vídeo, Ferramenta e Sobre conquistam pelo gesto
+de pintura de cada uma; Serviços conquista pela troca de campo (o único papel da home) e pelo fio vivo, mas é a camada
+mais "documento" — candidata a um gesto próprio numa próxima rodada.
+
+## Decisões em aberto (rodada 3)
+- Serviços ainda sem tela própria (decisão: o papel é o gesto; reavaliar).
+- Anterior/próximo e relacionados no fim do artigo continuam fora (exigem texto novo).
