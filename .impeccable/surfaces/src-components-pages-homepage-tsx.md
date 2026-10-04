@@ -148,3 +148,40 @@ Hubs, Radar, newsletter, 404: moldura noite no alto, índice em papel com o fio 
 (2px, marca de 5px sobre a data) e a marca do eixo na cor do quadro; rodapé chega do papel.
 Artigo e edição: coluna em papel, caixa da newsletter com fio laranja; rodapé chega do papel.
 Celular: rodapé compacto (navegação e contato lado a lado) para ficar abaixo de ~1.000px.
+
+## Rodada 5: claros da Shelfye e o quadro nas páginas de leitura (04/10/2026)
+
+Duas mudanças, nas palavras do dono: "o bege ou creme deles é mais bonito que esse cinza" e o
+refinamento pedido pelos revisores da v4. Esta seção substitui, no OWN-WORLD e no mapa acima,
+tudo o que fala em papel frio `#F2F4F7`, areia acinzentada `#D9D4CB` e "nunca creme".
+
+### Claros (PRODUCT.md, "Claros quentes da Shelfye.ai")
+- Papel `#FFF8F2` = leitura (home, índices, artigo). Creme `#FDEED9` = caixas e o claro que
+  antecede o escuro. Tons `#F9F2EC`/`#EEE7E1` aninham sem fio; fio quente `#E6D9C8`.
+- Texto: tinta `#0B1A33`, tinta-2 `#33445F`, secundário `#475569`; link `#C2410C` em papel e creme
+  (`#9A3412` em `#EEE7E1`); petróleo como texto em `#315B6F`. Ardósia, marrom e `#F97316` sobre
+  claro não levam texto. Texto claro sobre a noite continua frio.
+- Do clichê de creme, só o creme: o acento segue laranja, sem terracota e sem serifa decorativa.
+
+### O quadro como gramática de todo modelo de página
+- Recorte de abertura (reflexos) na base de toda moldura escura: home (costurado reto ao hero por
+  um fio laranja de 2px; a pintura do hero desce sem degradê no desktop), hubs, Radar, newsletter,
+  artigo (a capa atravessa a passagem para o papel) e 404.
+- Recorte de fecho (luzes) no layout, antes do rodapé de toda página: último claro → quadro →
+  fio de capa laranja → rodapé.
+
+### Funções novas de cor
+- Placa do eixo (`PlacaEixo`): o eixo chapado na cor do quadro, com peso real, na moldura do hub,
+  nas linhas do índice geral e do Radar, nos metadados do artigo; e como capa sem foto.
+- Ardósia = a voz de outro (filete de citação, fonte externa no Radar). Marrom = a assinatura do
+  autor (fio da frase-tese no Sobre e da caixa do autor).
+- Índice: fio neutro de 1px e marca laranja de 5px só sobre a data. Artigo: links em tinta com
+  sublinhado `#F97316`, marcadores quadrados laranja, H2 com fio e marca laranja (a linha do índice).
+
+### Mapa de campos (rodada 5)
+| Modelo | Sequência |
+|---|---|
+| Home | noite (hero) → costura laranja → recorte → papel (eixos, encarte, sobre) → creme (como posso ajudar) → recorte de fecho → rodapé |
+| Hubs e Radar | noite (título, deck, placa do eixo) → recorte → creme (busca e temas) → papel (índice) → recorte de fecho → rodapé |
+| Newsletter | noite → recorte → creme (inscrição) → papel (edições) → recorte de fecho → rodapé |
+| Artigo e edição | noite (título, metadados com placa) → recorte com a capa atravessando → papel (leitura) → creme (newsletter e autor) → recorte de fecho → rodapé |

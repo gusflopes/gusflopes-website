@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-04T09:16:43.486207Z",
+  "generatedAt": "2026-10-04T14:30:00Z",
   "title": "Design System: gusflopes.dev — Evolução",
   "extensions": {
     "colorMeta": {
@@ -30,12 +30,14 @@
       },
       "papel": {
         "role": "neutral",
-        "displayName": "Papel frio",
+        "displayName": "Papel (claro da Shelfye)",
         "tonalRamp": [
-          "#F2F4F7",
-          "#E7EBF1",
-          "#D3DAE4"
-        ]
+          "#FFF8F2",
+          "#F9F2EC",
+          "#EEE7E1",
+          "#E6D9C8"
+        ],
+        "note": "Fundo de leitura padrão; #F9F2EC/#EEE7E1 aninham por mudança de tom; #E6D9C8 é o fio quente."
       },
       "ceu": {
         "role": "tertiary",
@@ -45,14 +47,14 @@
         ],
         "note": "Apoio frio: só texto secundário sobre escuro. Não é acento estrutural."
       },
-      "areia-campo": {
+      "creme": {
         "role": "neutral",
-        "displayName": "Areia (campo claro quente)",
+        "displayName": "Creme (campo claro quente)",
         "tonalRamp": [
-          "#D9D4CB",
-          "#BFB7AA"
+          "#FDEED9",
+          "#E3CFB3"
         ],
-        "note": "Areia acinzentada do quadro, nunca creme. 'Como posso ajudar' na home."
+        "note": "Claro da Shelfye. Caixas e o claro que antecede o escuro: Como posso ajudar, régua de busca dos hubs, inscrição da newsletter, fecho do artigo."
       },
       "quadro": {
         "role": "secondary",
@@ -160,7 +162,7 @@
       "refersTo": "chip-filtro",
       "description": "Filtro de tema nos hubs; ativo preenchido de laranja com texto #0B1A33.",
       "html": "<div class=\"ds-chips\"><button aria-pressed=\"true\">Todos</button><button aria-pressed=\"false\">Agentes</button></div>",
-      "css": ".ds-chips{display:flex;gap:8px;background:#F2F4F7;padding:12px}.ds-chips button{height:32px;padding:0 12px;border-radius:3px;border:1px solid #D3DAE4;background:transparent;color:#33445F;font:600 .8125rem 'Hanken Grotesk',sans-serif}.ds-chips button[aria-pressed=true]{background:#F97316;border-color:#F97316;color:#0B1A33}"
+      "css": ".ds-chips{display:flex;gap:8px;background:#FDEED9;padding:12px}.ds-chips button{height:32px;padding:0 12px;border-radius:3px;border:1px solid #E3CFB3;background:transparent;color:#33445F;font:600 .8125rem 'Hanken Grotesk',sans-serif}.ds-chips button[aria-pressed=true]{background:#F97316;border-color:#F97316;color:#0B1A33}"
     },
     {
       "name": "Busca",
@@ -168,7 +170,7 @@
       "refersTo": "input-busca",
       "description": "Campo de busca com régua inferior.",
       "html": "<label class=\"ds-busca\"><input placeholder=\"Filtrar ideias...\"></label>",
-      "css": ".ds-busca{display:block;background:#F2F4F7;padding:12px}.ds-busca input{width:16rem;background:transparent;border:0;border-bottom:1px solid #D3DAE4;padding:8px 8px 8px 0;color:#0B1A33;font:400 .9375rem 'Hanken Grotesk',sans-serif;outline:none}.ds-busca input:focus{border-color:#0B1A33}"
+      "css": ".ds-busca{display:block;background:#FDEED9;padding:12px}.ds-busca input{width:16rem;background:transparent;border:0;border-bottom:1px solid #E3CFB3;padding:8px 8px 8px 0;color:#0B1A33;font:400 .9375rem 'Hanken Grotesk',sans-serif;outline:none}.ds-busca input:focus{border-color:#0B1A33}"
     },
     {
       "name": "Header",
@@ -198,9 +200,9 @@
       "name": "Linha de índice",
       "kind": "custom",
       "refersTo": "indice-linha",
-      "description": "Linha dos índices dos hubs em papel: fio laranja de 2px, marca de 5px sobre a coluna da data, data em petróleo, marca do eixo na cor do quadro.",
+      "description": "Linha dos índices dos hubs em papel: fio neutro e quente de 1px (#E6D9C8), marca laranja de 5px só sobre a data, data em petróleo, eixo como placa na cor do quadro.",
       "html": "<ul class=\"ds-ind\"><li><span class=\"d\">29 Set, 2026</span><span class=\"t\">Um servidor MCP sobre a calculadora oficial</span></li></ul>",
-      "css": ".ds-ind{list-style:none;margin:0;padding:12px;background:#F2F4F7}.ds-ind li{position:relative;border-top:2px solid #F97316;display:grid;grid-template-columns:8.5rem 1fr;gap:2.5rem;padding:20px 0;font-family:'Hanken Grotesk',sans-serif}.ds-ind li::before{content:'';position:absolute;left:0;top:-2px;width:11rem;height:5px;background:#F97316}.ds-ind .d{color:#315B6F;font-size:.875rem;font-weight:500}.ds-ind .t{font:600 1.375rem Literata,Georgia,serif;color:#0B1A33}"
+      "css": ".ds-ind{list-style:none;margin:0;padding:12px;background:#FFF8F2}.ds-ind li{position:relative;border-top:1px solid #E6D9C8;display:grid;grid-template-columns:8.5rem 1fr;gap:2.5rem;padding:20px 0;font-family:'Hanken Grotesk',sans-serif}.ds-ind li::before{content:'';position:absolute;left:0;top:-3px;width:8.5rem;height:5px;background:#F97316}.ds-ind .d{color:#315B6F;font-size:.875rem;font-weight:500}.ds-ind .t{font:600 1.375rem Literata,Georgia,serif;color:#0B1A33}"
     },
     {
       "name": "Placa do eixo",
@@ -208,12 +210,12 @@
       "refersTo": "placa-eixo-engenharia",
       "description": "Cabeça de coluna dos eixos na home: a cor do eixo (quadro) chapada.",
       "html": "<div class=\"ds-placas\"><div class=\"e\"><b>Engenharia &amp; IA</b><small>Para quem constrói</small></div><div class=\"n\"><b>Negócios</b><small>Para quem decide</small></div><div class=\"b\"><b>Bastidores</b><small>Para quem quer ver funcionando</small></div></div>",
-      "css": ".ds-placas{display:flex;gap:12px;background:#F2F4F7;padding:12px}.ds-placas div{padding:14px 18px;border-radius:3px;display:flex;flex-direction:column;gap:4px}.ds-placas b{font:600 1.375rem Literata,Georgia,serif}.ds-placas small{font:600 .875rem 'Hanken Grotesk',sans-serif}.ds-placas .e{background:#315B6F;color:#fff}.ds-placas .n{background:#AA9C87;color:#0B1A33}.ds-placas .b{background:#8A4C1B;color:#fff}"
+      "css": ".ds-placas{display:flex;gap:12px;background:#FFF8F2;padding:12px}.ds-placas div{padding:14px 18px;border-radius:3px;display:flex;flex-direction:column;gap:4px}.ds-placas b{font:600 1.375rem Literata,Georgia,serif}.ds-placas small{font:600 .875rem 'Hanken Grotesk',sans-serif}.ds-placas .e{background:#315B6F;color:#fff}.ds-placas .n{background:#AA9C87;color:#0B1A33}.ds-placas .b{background:#8A4C1B;color:#fff}"
     }
   ],
   "narrative": {
     "northStar": "O site de sempre, sem timidez",
-    "overview": "Continuidade de marca (azul-escuro, laranja, o quadro) com acabamento revisto e, desde a rodada 4, cor como sistema: laranja como cor principal em detalhes distribuídos pela página, azul-escuro como estrutura (hero, um encarte, molduras, rodapé), claros obrigatórios no ritmo (papel frio e areia) e as cores do quadro com função.",
+    "overview": "Continuidade de marca (azul-escuro, laranja, o quadro) com acabamento revisto e, desde a rodada 4, cor como sistema: laranja como cor principal em detalhes distribuídos pela página, azul-escuro como estrutura (hero, um encarte, molduras, rodapé), claros obrigatórios no ritmo (desde a rodada 5, os claros quentes da Shelfye: papel #FFF8F2 e creme #FDEED9) e as cores do quadro com função. Na rodada 5 o quadro vira gramática de todo modelo de página: recorte na base de toda moldura escura e recorte de fecho antes de todo rodapé.",
     "keyCharacteristics": [
       "Quadro inteiro uma vez, no hero; dois recortes em faixa na home (passagens)",
       "Laranja em dois registros: chapado = ação; filete, marca, selo e estado = presença",
@@ -266,7 +268,7 @@
       "Não use #F97316 como texto no claro",
       "Não ponha texto azul-escuro sobre #C2410C nem branco sobre #F97316",
       "Não use texto em gradiente nem glow",
-      "Não use fundo creme",
+      "Não use papel frio azulado (#F2F4F7), areia acinzentada (#D9D4CB) nem terracota no lugar do laranja",
       "Não ponha textura atrás de texto corrido"
     ]
   }
