@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-04T15:00:00.000Z",
+  "generatedAt": "2026-10-04T18:00:00.000Z",
   "title": "Design System: gusflopes.dev",
   "extensions": {
     "colorMeta": {
@@ -20,15 +20,16 @@
       },
       "papel": {
         "role": "neutral",
-        "displayName": "Papel frio",
+        "displayName": "Papel (Shelfye)",
+        "description": "fundo de leitura #FFF8F2; tons #F9F2EC/#EEE7E1 para aninhar; fio quente #E6D9C8",
         "tonalRamp": [
-          "#4a5872",
-          "#7e8ba1",
-          "#c9d3e0",
-          "#e4e9f0",
-          "#f2f4f7",
-          "#f7f8fa",
-          "#fbfcfd",
+          "#475569",
+          "#a8998a",
+          "#e6d9c8",
+          "#eee7e1",
+          "#f9f2ec",
+          "#fff8f2",
+          "#fffbf7",
           "#ffffff"
         ]
       },
@@ -62,7 +63,7 @@
       "petroleo-escuro": {
         "role": "tertiary",
         "displayName": "Petróleo escuro (quadro)",
-        "description": "célula do vídeo, frase de apoio dos hubs; papel 6,67:1"
+        "description": "célula do vídeo; campo do eixo Engenharia (data nos hubs, frase de apoio, marco de seção no artigo); papel 7:1"
       },
       "ardosia": {
         "role": "tertiary",
@@ -72,12 +73,12 @@
       "ardosia-clara": {
         "role": "tertiary",
         "displayName": "Ardósia clara (quadro)",
-        "description": "célula dos temas; azul 5,67:1"
+        "description": "metadados e nota da Ferramenta; campo do eixo Bastidores; azul 5,6:1"
       },
       "areia": {
         "role": "tertiary",
         "displayName": "Areia (quadro)",
-        "description": "metadados da Ferramenta; azul 6,46:1"
+        "description": "célula larga dos temas; azul 6,4:1"
       },
       "marrom": {
         "role": "tertiary",
@@ -92,7 +93,12 @@
       "ferrugem": {
         "role": "tertiary",
         "displayName": "Ferrugem (quadro)",
-        "description": "contrapeso sem texto em Serviços; nunca encosta em laranja"
+        "description": "texto da Ferramenta (encostado na ardósia); campo do eixo Negócios; papel 6,4:1"
+      },
+      "creme": {
+        "role": "neutral",
+        "displayName": "Creme (Shelfye)",
+        "description": "campo quente de destaque: temas na home, caixa do autor, célula da newsletter no rodapé (o claro que antecede o escuro); #C2410C 4,5:1, #475569 6,2:1"
       }
     },
     "typographyMeta": {
@@ -156,7 +162,7 @@
       "refersTo": "button-primary",
       "description": "Bloco laranja chapado, texto escuro, canto reto.",
       "html": "<a class=\"ds-botao\" href=\"#\">Assinar Newsletter</a>",
-      "css": ".ds-botao{display:inline-flex;align-items:center;min-height:52px;padding:0 1.6rem;background:#f97316;color:#0b1a33;font:800 1rem/1 \"Archivo Variable\",Archivo,sans-serif;font-stretch:87%;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:background-color .16s cubic-bezier(.16,1,.3,1),color .16s}.ds-botao:hover{background:#f2f4f7;color:#0b1a33}.ds-botao:focus-visible{outline:3px solid #f97316;outline-offset:3px}"
+      "css": ".ds-botao{display:inline-flex;align-items:center;min-height:52px;padding:0 1.6rem;background:#f97316;color:#0b1a33;font:800 1rem/1 \"Archivo Variable\",Archivo,sans-serif;font-stretch:87%;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:background-color .16s cubic-bezier(.16,1,.3,1),color .16s}.ds-botao:hover{background:#fff8f2;color:#0b1a33}.ds-botao:focus-visible{outline:3px solid #f97316;outline-offset:3px}"
     },
     {
       "name": "Ação",
@@ -172,7 +178,7 @@
       "refersTo": "filtro-celula",
       "description": "Célula de grade azul; ativa vira bloco laranja.",
       "html": "<div class=\"ds-grade\"><button class=\"ds-celula\" aria-pressed=\"true\">Todos os eixos</button><button class=\"ds-celula\">Negócios</button></div>",
-      "css": ".ds-grade{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:#1d3866;border:2px solid #1d3866}.ds-celula{background:#0b1a33;color:#b7c6da;border:0;padding:12px 16px;text-align:left;font:650 .8125rem/1.35 \"Archivo Variable\",sans-serif;font-stretch:75%;letter-spacing:.12em;text-transform:uppercase}.ds-celula[aria-pressed=true]{background:#f97316;color:#0b1a33}.ds-celula:hover{color:#f2f4f7}"
+      "css": ".ds-grade{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:#1d3866;border:2px solid #1d3866}.ds-celula{background:#0b1a33;color:#b7c6da;border:0;padding:12px 16px;text-align:left;font:650 .8125rem/1.35 \"Archivo Variable\",sans-serif;font-stretch:75%;letter-spacing:.12em;text-transform:uppercase}.ds-celula[aria-pressed=true]{background:#f97316;color:#0b1a33}.ds-celula:hover{color:#fff8f2}"
     },
     {
       "name": "Busca",
@@ -180,7 +186,7 @@
       "refersTo": "input-busca",
       "description": "Campo sem caixa, filete inferior.",
       "html": "<label class=\"ds-busca\"><input placeholder=\"Filtrar ideias...\"></label>",
-      "css": ".ds-busca{display:flex;border-bottom:2px solid #0b1a33;padding-bottom:8px;background:#f2f4f7}.ds-busca:focus-within{border-color:#c2410c}.ds-busca input{border:0;background:transparent;outline:0;font:500 1.0625rem \"Archivo Variable\",sans-serif;font-stretch:87%;color:#0b1a33}"
+      "css": ".ds-busca{display:flex;border-bottom:2px solid #0b1a33;padding-bottom:8px;background:#fff8f2}.ds-busca:focus-within{border-color:#c2410c}.ds-busca input{border:0;background:transparent;outline:0;font:500 1.0625rem \"Archivo Variable\",sans-serif;font-stretch:87%;color:#0b1a33}"
     },
     {
       "name": "Header",
@@ -188,7 +194,7 @@
       "refersTo": "nav-header",
       "description": "Barra azul chapada, item ativo com barra laranja.",
       "html": "<nav class=\"ds-nav\"><a aria-current=\"page\">Insights</a><a>Radar</a></nav>",
-      "css": ".ds-nav{display:flex;gap:28px;height:72px;align-items:stretch;background:#0b1a33;padding:0 24px}.ds-nav a{display:flex;align-items:center;color:#b7c6da;font:650 .8125rem \"Archivo Variable\",sans-serif;font-stretch:75%;letter-spacing:.12em;text-transform:uppercase;box-shadow:inset 0 -4px 0 transparent}.ds-nav a[aria-current]{color:#f2f4f7;box-shadow:inset 0 -4px 0 #f97316}"
+      "css": ".ds-nav{display:flex;gap:28px;height:72px;align-items:stretch;background:#0b1a33;padding:0 24px}.ds-nav a{display:flex;align-items:center;color:#b7c6da;font:650 .8125rem \"Archivo Variable\",sans-serif;font-stretch:75%;letter-spacing:.12em;text-transform:uppercase;box-shadow:inset 0 -4px 0 transparent}.ds-nav a[aria-current]{color:#fff8f2;box-shadow:inset 0 -4px 0 #f97316}"
     },
     {
       "name": "Abertura",
@@ -196,7 +202,7 @@
       "refersTo": "abertura",
       "description": "Título como bloco de tipo; linhas em cqi, a linha marcada no peso 100 sólido (vazado só no MESMO da tese e no Simulador).",
       "html": "<h1 class=\"ds-ab\"><span style=\"--fit:24\">Agent</span><span class=\"v\" style=\"--fit:23\">Skills<b>:</b></span></h1>",
-      "css": ".ds-ab{container-type:inline-size;background:#0b1a33;color:#f2f4f7;margin:0;padding:16px}.ds-ab span{display:block;font:900 min(calc(var(--fit)*1cqi),8rem)/.92 \"Archivo Variable\",sans-serif;letter-spacing:-.02em;text-transform:uppercase}.ds-ab .v{font-weight:100}.ds-ab b{color:#f97316;font-weight:900}"
+      "css": ".ds-ab{container-type:inline-size;background:#0b1a33;color:#fff8f2;margin:0;padding:16px}.ds-ab span{display:block;font:900 min(calc(var(--fit)*1cqi),8rem)/.92 \"Archivo Variable\",sans-serif;letter-spacing:-.02em;text-transform:uppercase}.ds-ab .v{font-weight:100}.ds-ab b{color:#f97316;font-weight:900}"
     },
     {
       "name": "Célula laranja de ação",
@@ -204,13 +210,13 @@
       "refersTo": "celula-acao",
       "description": "A célula inteira é o link: rótulo estreito 800/72 em caixa mista e seta no canto; hover vira papel.",
       "html": "<a class=\"ds-cel\" href=\"#\"><span>Fazer o diagnóstico</span><span aria-hidden=\"true\">→</span></a>",
-      "css": ".ds-cel{display:flex;flex-direction:column;justify-content:space-between;min-height:9rem;padding:24px;background:#f97316;color:#0b1a33;font:800 2.25rem/.95 \"Archivo Variable\",sans-serif;font-stretch:72%;text-decoration:none}.ds-cel:hover{background:#f2f4f7;color:#0b1a33}"
+      "css": ".ds-cel{display:flex;flex-direction:column;justify-content:space-between;min-height:9rem;padding:24px;background:#f97316;color:#0b1a33;font:800 2.25rem/.95 \"Archivo Variable\",sans-serif;font-stretch:72%;text-decoration:none}.ds-cel:hover{background:#fff8f2;color:#0b1a33}"
     },
     {
       "name": "Célula de data",
       "kind": "custom",
       "refersTo": "data-celula",
-      "description": "Dia como numeral 250/125, \"Mês, ano\" e duração como rótulo; no texto mais recente vira plano laranja.",
+      "description": "Dia como numeral 250/125, \"Mês, ano\" e duração como rótulo, sobre o campo do quadro do eixo do texto (petróleo escuro, ferrugem ou ardósia clara); no texto mais recente vira plano laranja.",
       "html": "<p class=\"ds-data\"><span class=\"n\">29</span><span>Set, 2026 · 8 min</span></p>",
       "css": ".ds-data{display:inline-flex;flex-direction:column;gap:8px;padding:12px;background:#f97316;color:#0b1a33;font:650 .8125rem/1.35 \"Archivo Variable\",sans-serif;font-stretch:75%;letter-spacing:.12em;text-transform:uppercase}.ds-data .n{font-weight:250;font-stretch:125%;font-size:4.25rem;line-height:.82;letter-spacing:-.04em}"
     },
@@ -218,34 +224,26 @@
       "name": "Ação chapada",
       "kind": "custom",
       "refersTo": "acao-chapada",
-      "description": "A ação de uma célula (porta de eixo, oferta): bloco laranja compacto, texto azul-escuro; hover azul com texto papel.",
-      "html": "<a class=\"ds-acao-ch\" href=\"#\">Ler Negócios →</a>",
-      "css": ".ds-acao-ch{display:inline-flex;gap:.5em;padding:.6rem .85rem .55rem;background:#f97316;color:#0b1a33;font:750 .875rem/1.3 \"Archivo Variable\",sans-serif;font-stretch:75%;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}.ds-acao-ch:hover{background:#0b1a33;color:#f2f4f7}"
-    },
-    {
-      "name": "Marca de canto",
-      "kind": "custom",
-      "refersTo": "marca-canto",
-      "description": "Laranja de presença: quadrado sólido de 40px no canto superior esquerdo de uma célula de papel da grade; o conteúdo começa abaixo dele.",
-      "html": "<div class=\"ds-cel-m\"><span class=\"ds-m\"></span><strong>Fluxo & Entrega</strong></div>",
-      "css": ".ds-cel-m{position:relative;padding:64px 28px 28px;background:#f2f4f7;color:#0b1a33;border:2px solid #0b1a33}.ds-m{position:absolute;top:0;left:0;width:40px;height:40px;background:#f97316}"
+      "description": "A única ação chapada de uma região sem plano laranja (a primeira oferta de Serviços): bloco laranja compacto, texto azul-escuro; hover azul com texto papel. As outras ações viram link #C2410C com seta.",
+      "html": "<a class=\"ds-acao-ch\" href=\"#\">Agendar diagnóstico →</a>",
+      "css": ".ds-acao-ch{display:inline-flex;gap:.5em;padding:.6rem .85rem .55rem;background:#f97316;color:#0b1a33;font:750 .875rem/1.3 \"Archivo Variable\",sans-serif;font-stretch:75%;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}.ds-acao-ch:hover{background:#0b1a33;color:#fff8f2}"
     },
     {
       "name": "Campo do quadro",
       "kind": "custom",
       "refersTo": "campo-quadro",
-      "description": "Cor do quadro como campo chapado de bordas retas, um por seção: petróleo com texto papel, areia ou ardósia clara com texto azul.",
+      "description": "Cor do quadro como campo chapado de bordas retas, com função: petróleo/ferrugem com texto papel, areia ou ardósia clara com texto azul. Cada eixo tem o seu (EIXO_CAMPO).",
       "html": "<p class=\"ds-cq\">Ferramenta gratuita · Experimento aberto</p>",
       "css": ".ds-cq{margin:0;padding:24px;background:#aa9c87;color:#0b1a33;font:650 .8125rem/1.35 \"Archivo Variable\",sans-serif;font-stretch:75%;letter-spacing:.12em;text-transform:uppercase}"
     }
   ],
   "narrative": {
     "northStar": "A palavra como construção",
-    "overview": "O site é uma peça de poesia concreta brasileira composta com a disciplina da escola de Ulm: a tese da marca é montada como bloco de tipo, e todo o resto é grade rígida, filete e campo de cor chapado. Papel frio é o campo dominante, azul-escuro é estrutura, o laranja aparece em toda a página (chapado na ação, filete e marca como presença) e as cores do quadro entram como campos chapados.",
+    "overview": "O site é uma peça de poesia concreta brasileira composta com a disciplina da escola de Ulm: a tese da marca é montada como bloco de tipo, e todo o resto é grade rígida, filete e campo de cor chapado. O papel quente #FFF8F2 é o campo dominante, com o creme #FDEED9 de destaque, azul-escuro é estrutura, o laranja aparece em toda a página (chapado na ação, filete e marca como presença; chapado só numa ação por região) e as cores do quadro entram como campos chapados.",
     "keyCharacteristics": [
       "Papel dominante, azul-escuro como estrutura; toda seção escura grande chega de um campo claro",
       "Laranja em dois registros: chapado = ação; filete de 2px e marca quadrada = presença em toda janela de 900px",
-      "Cores do quadro (petróleo, areia, ardósia, ferrugem) como campos chapados, um por seção",
+      "Cores do quadro (petróleo, areia, ardósia, ferrugem) como campos chapados com função; cada eixo tem a sua (data nos hubs, marco de seção no artigo)",
       "Aberturas tipográficas geradas do título, em duas instâncias (larga e estreita)",
       "Grade de filetes e células por gap de 2px sobre o campo",
       "Números só quando codificam algo verdadeiro (data, edição, ordem)",
@@ -257,7 +255,7 @@
     "rules": [
       {
         "name": "The Two Fields Rule",
-        "body": "Toda região é azul-escuro ou papel frio; um campo carrega várias seções. Na home, no máximo três trocas de campo (hoje duas).",
+        "body": "Toda região é azul-escuro ou claro (papel #FFF8F2, creme #FDEED9 de destaque); um campo carrega várias seções. Na home, no máximo três trocas de campo (hoje duas).",
         "section": "colors"
       },
       {

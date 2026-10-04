@@ -13,7 +13,7 @@ Escopo: `/insights/article/*`, `/radar/article/*`, `/newsletter/*`, hubs `/insig
 
 THESIS: a abertura de cada texto é gerada do próprio título por um sistema determinístico de quebra, escala e peso (por eixo); o corpo é uma coluna calma de serifa. Recusa a foto de banco no topo e o título serifado centrado.
 
-OWN-WORLD: moldura azul-escuro `#0B1A33` com o título em blocos de Archivo 900 caixa-alta ajustados à largura, a linha marcada no peso 100 sólido (par 900/100), dois-pontos em laranja; corpo em Source Serif 4 ~19px sobre papel frio `#F2F4F7`, tinta azul-escuro, links laranja profundo `#C2410C`. Hubs: tabela de grade rígida, filetes, sem cards nem sombra. Rodada 4 (cor como sistema, mesmo contrato da home): laranja em dois registros — chapado = ação (texto `#0B1A33` sobre `#F97316`), presença = detalhe não textual (filete de 2px no topo de cada linha do índice, marca quadrada) em toda janela de 900px; no papel o laranja nunca é texto. Cabeçalho de hub com a frase de apoio num campo chapado de petróleo escuro `#315b6f` (cor do quadro, papel sobre ele 6,67:1); índice sempre sobre papel; o rodapé chega do papel.
+OWN-WORLD: moldura azul-escuro `#0B1A33` com o título em blocos de Archivo 900 caixa-alta ajustados à largura, a linha marcada no peso 100 sólido (par 900/100), dois-pontos em laranja; corpo em Source Serif 4 ~19px sobre papel quente `#FFF8F2` (claro da Shelfye, rodada 5), tinta azul-escuro, links laranja profundo `#C2410C`. Hubs: tabela de grade rígida, filetes, sem cards nem sombra. Rodada 4 (cor como sistema, mesmo contrato da home): laranja em dois registros — chapado = ação (texto `#0B1A33` sobre `#F97316`), presença = detalhe não textual (filete de 2px no topo de cada linha do índice, marca quadrada) em toda janela de 900px; no papel o laranja nunca é texto. Cabeçalho de hub com a frase de apoio num campo chapado de petróleo escuro `#315b6f` (cor do quadro, papel sobre ele 6,67:1); índice sempre sobre papel; o rodapé chega do papel.
 
 STORY: o leitor reconhece o eixo pela forma da abertura (bloco justificado = Engenharia & IA; escada alinhada à direita = Negócios; degraus = Bastidores), lê sem atrito e encontra o autor e a newsletter no fim.
 
@@ -34,3 +34,9 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 
 - Aberturas de texto, hub, 404 e legais: a linha marcada deixa de ser vazada e passa a peso 100 sólido, medida com as larguras do peso 100; a forma por eixo e o corte determinístico do título não mudam. O gerador de capa do Substack segue a mesma regra.
 - Fim do artigo: o brief passa a descrever o que está construído — autor e newsletter sobre o papel, numa grade de duas células com filete azul; a newsletter continua como plano laranja (decisão do dono: fica).
+
+## Rodada 5
+
+- Claros da Shelfye: corpo sobre papel `#FFF8F2`, caixa do autor em creme `#FDEED9`, fio `#E6D9C8`, hover de linha `#F9F2EC` (o `#C2410C` mantém AA), código inline em `#EEE7E1`.
+- Hubs: célula de data no campo do quadro do eixo do texto (`EIXO_CAMPO`: petróleo escuro, ferrugem, ardósia clara); o mais recente segue laranja. Frase de apoio do hub no campo do eixo.
+- Artigo: costura laranja de 4px entre a moldura e o papel; filete laranja sob os metadados e sobre a linha-fina; marco de seção em cada H2 (campo do eixo, número da seção em numeral leve, topo laranja de 12px alinhado ao filete de 4px do H2; no celular, faixa acima do título); links sublinhados em `#F97316`, marcadores de 0,5em. O número é a ordem real das seções, decorativo para leitor de tela (`content: … / ""`).
