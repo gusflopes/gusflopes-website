@@ -15,12 +15,13 @@ colors:
   marrom: "#907A5F"
   marrom-escuro: "#50372A"
   ferrugem: "#8A4C1B"
-  campo: "#D8D1C4"
+  campo: "#FDEED9"
   nevoa: "#C9D6E6"
   bruma: "#9FB0C6"
-  papel: "#F2F4F7"
-  papel-2: "#E3E8EF"
-  regua: "#CCD5E1"
+  papel: "#FFF8F2"
+  papel-tom: "#F9F2EC"
+  papel-2: "#EEE7E1"
+  regua: "#E6D9C8"
   tinta: "#0B1A33"
   tinta-2: "#3D4E68"
   corpo-papel: "#1A2740"
@@ -141,7 +142,7 @@ As telas são geradas **no build**, por uma integração Astro (`scripts/tela/in
 Dois modos de página, decididos pela tarefa, não pela categoria:
 
 - **Mostrar** (home, hubs, arquivo da newsletter, 404): a tela abre a página e o título vem numa faixa azul-escuro costurada pelo **fio laranja**; depois, o corpo alterna noite e claros (papel, areia) pela história. A abertura muda por tipo de página (ver Layout).
-- **Ler** (artigos, edições, páginas legais): a tela fica só na capa; o título em faixa azul-escuro; a coluna de leitura em **papel frio** `#F2F4F7`, Literata 17–18px, ~68 caracteres por linha, nada se mexendo atrás do texto. Papel em vez de azul-escuro porque a leitura longa acontece de dia, no celular: texto escuro em fundo claro frio tem contraste alto (16:1) sem o halo do texto claro em fundo escuro, e a pintura continua presente acima, como um quadro pendurado sobre a página.
+- **Ler** (artigos, edições, páginas legais): a tela fica só na capa; o título em faixa azul-escuro; a coluna de leitura em **papel** `#FFF8F2` (o claro da Shelfye), Literata 17–18px, ~68 caracteres por linha, nada se mexendo atrás do texto. Papel em vez de azul-escuro porque a leitura longa acontece de dia, no celular: texto escuro em fundo claro quente tem contraste alto (16,5:1) sem o halo do texto claro em fundo escuro, e a pintura continua presente acima, como um quadro pendurado sobre a página.
 
 **Cada tela tem um papel e uma anatomia**, nunca textura em série. Arquétipos fixados por papel: abertura da home = horizonte; faixas de hub = Insights manchas, Radar vento, Engenharia massas, Negócios ondas, Bastidores faixas; eixos da home = faixas com 3 estratos (um por porta); vídeo = ondas; close da Ferramenta = vento; convite da newsletter = vento; fita do arquivo da newsletter = horizonte; 404 = massas. A capa de um texto é sorteada pela semente, mas nunca com o arquétipo da faixa de Insights, da faixa do seu eixo nem do convite da newsletter — as telas da mesma página não repetem anatomia. Listas de textos são só texto.
 
@@ -153,7 +154,7 @@ Restrição de marca: azul-escuro + laranja oficiais, mais a paleta de apoio do 
 
 - **Laranja** `#F97316` é a cor principal e aparece em toda seção, em dois registros. (a) **Chapado = ação**: botão, chip/aba ativa, play do vídeo, ações de Serviços; texto e ícone sobre ele em azul-escuro `#0B1A33` (6,19:1; sobre `#FB923C` no hover, 7,67:1). (b) **Detalhe não textual = presença**: o fio de 3px na costura pintura/texto, a costura de 6px ao lado das listas (portas da home, índices dos hubs), réguas de 2px no índice, o filete de 4px (marca de capítulo sob os títulos da home, topo das áreas do Sobre, célula de Serviços), a marca quadrada de 8px antes de um metadado, o sublinhado de 3px de um destaque. Sobre claro, `#F97316` nunca é texto (≈2,5:1); texto laranja sobre claro é `laranja-fundo` `#C2410C` (4,9:1), e só em links e ações. Fundo `#C2410C`/`#9A3412` com texto branco (5,18:1) só pontualmente; proibido `#C2410C` com azul-escuro (3,35:1) e `#F97316` com branco (2,8:1). Sobre azul-escuro, `laranja-claro` `#FB923C` é o laranja de texto/link e `pessego` `#FDBA74` a ênfase em títulos ("partes do mesmo sistema").
 - **Azul-escuro** é estrutura e fundo, não protagonista: **Noite** `#0B1A33` no cabeçalho, nas faixas de título, no vídeo, na Ferramenta e no rodapé; **Noite 2** `#13284D` e **Linha** `#22385C` (régua sobre azul-escuro). Nunca dois blocos escuros grandes empilhados.
-- **Claros** entram no ritmo: **Papel** `#F2F4F7` (coluna de leitura, Eixos, corpo dos hubs, Serviços, mensagem do 404) com `tinta` `#0B1A33`, corpo `#1A2740`, `tinta-2` `#3D4E68` (7,9:1) e `regua` `#CCD5E1`; **Campo** `#D8D1C4`, o claro quente — areia acinzentada do quadro, nunca creme — no Sobre e no convite da newsletter (tinta 13:1, `tinta-2` 5,5:1). Toda seção escura grande chega de um claro; o rodapé chega pela fita pintada areia → noite.
+- **Claros** entram no ritmo: os claros são os da Shelfye.ai (decisão do dono, rodada 5). **Papel** `#FFF8F2` (coluna de leitura, Eixos, corpo dos hubs, Serviços, mensagem do 404) com `tinta` `#0B1A33` (16,5:1), corpo `#1A2740`, `tinta-2` `#3D4E68` (8,0:1) e `regua` quente `#E6D9C8`; **Creme** `#FDEED9` (token `campo`), o claro quente, no vídeo da home, no Sobre e no convite da newsletter (tinta 15,2:1, `tinta-2` 7,4:1, `#C2410C` 4,5:1). Células aninhadas mudam de tom (`#F9F2EC`/`#EEE7E1`) em vez de levar fio; em `#EEE7E1` o laranja como texto é `#9A3412`. O acento continua `#F97316`, sem terracota e sem serifa decorativa por causa do creme. Toda seção escura grande chega de um claro; o rodapé chega pela fita pintada areia → noite.
 - **Paleta de apoio do quadro** (fora das telas, com função): **petróleo** `#315B6F` (célula chapada do título de Serviços e caixa do Bastidores, com branco 7,3:1; metadado sobre papel, 6,4:1), **petróleo claro** `#457183`, **ardósia** `#648188` (régua sobre claro; não é texto sobre papel), **ardósia clara** `#7F989A` (metadado sobre noite, 5,8:1), **areia** `#AA9C87` (metadado e rótulo sobre noite, 6,5:1), **marrom** `#907A5F`/`#50372A`, **ferrugem** `#8A4C1B` (filete; nunca encosta em texto `#C2410C` nem no laranja chapado — sempre uma célula de separação). Dentro das telas, a mesma família mais o fundo `#223040`/`#1C1F27`.
 - **Azul-claro da marca** — `ceu` `#8FB3D9`, `nevoa` `#C9D6E6` — é acento raro nas telas; fora delas, `nevoa` segue como texto secundário sobre azul-escuro (11:1) e `bruma` `#9FB0C6` como metadado (7,4:1).
 
@@ -201,7 +202,7 @@ Cantos retos em tudo — telas, botões, chips, caixas. As únicas curvas são o
 - **Navegação**: links Hanken 15px em `nevoa`; o ativo fica branco com régua laranja de 2px embaixo (`scaleX`). No celular, menu em lista com títulos em Literata e o botão Contato.
 - **Filtros** (sobre papel): abas de eixo com régua laranja de 3px no ativo; busca como campo de linha única (régua `ardosia`, laranja no foco); categorias como chips retos em caixa mista (ativo laranja com texto `noite`), iguais no Radar e nos Insights.
 - **Coluna de leitura** (`.leitura`): papel, Literata 17/18px, 40rem; H2 1,6em com 2,2em acima; links `laranja-fundo` sublinhados; citação em itálico com um fio laranja curto acima (sem borda lateral); código sobre azul-escuro com fio laranja no topo; tabelas em Hanken com números tabulares e régua de 2px no cabeçalho.
-- **Caixa da newsletter** (`NewsletterCta`): bloco no **campo de areia** `#D8D1C4` (texto em `tinta`; nunca um bloco escuro logo acima do rodapé) com a tela da própria newsletter (semente "Radar de IA", arquétipo vento, o mesmo da capa do Substack) em escala 1:1 — coluna estreita de 200px ao lado do convite, ou faixa baixa em `pilha` — separada por fio de 3px; promessa em Literata, botão laranja. Fecha cada artigo e edição. Nunca o close da Ferramenta.
+- **Caixa da newsletter** (`NewsletterCta`): bloco no **creme** `#FDEED9` (texto em `tinta`; nunca um bloco escuro logo acima do rodapé) com a tela da própria newsletter (semente "Radar de IA", arquétipo vento, o mesmo da capa do Substack) em escala 1:1 — coluna estreita de 200px ao lado do convite, ou faixa baixa em `pilha` — separada por fio de 3px; promessa em Literata, botão laranja. Fecha cada artigo e edição. Nunca o close da Ferramenta.
 - **Bloco do autor**: nome em Literata como título, "Sobre o Autor" como metadado logo depois, bio e redes.
 - **Imagens geradas**: OG 1200×630 por texto (tela em 40% superior, fio, rótulo do eixo e título em faixa azul-escuro, "gusflopes.dev"); OG padrão com a tagline; capa do Substack com faixa papel (`docs/substack-kit/`).
 

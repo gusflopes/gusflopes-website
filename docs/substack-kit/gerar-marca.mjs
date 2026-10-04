@@ -73,7 +73,7 @@ for (const [nome, corTexto, fundo] of [['wordmark', CORES.noite, null], ['wordma
   });
   const ass = await texto({ conteudo: 'gusflopes.dev · Gustavo Lopes', familia: 'hanken', peso: 700, px: 38, cor: '#C2410C' });
   const y0 = alturaTela + fio + 110;
-  await sharp({ create: { width: W, height: H, channels: 3, background: '#F2F4F7' } })
+  await sharp({ create: { width: W, height: H, channels: 3, background: '#FFF8F2' } })
     .composite([
       { input: tela, top: 0, left: 0 },
       { input: { create: { width: W, height: fio, channels: 4, background: CORES.laranja } }, top: alturaTela, left: 0 },

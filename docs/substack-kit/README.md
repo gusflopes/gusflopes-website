@@ -10,8 +10,8 @@ as cores e as fontes fazem o resto.
 
 | Campo | Valor | Por quê |
 |---|---|---|
-| Cor de destaque (accent) | `#C2410C` | Laranja profundo da marca. Sobre fundo claro passa AA para texto e links (4,9:1 em `#F2F4F7`, 5,2:1 em branco). O laranja de luz `#F97316` só passa 2,8:1 como texto em fundo claro — use `#F97316` apenas se o Substack aplicar o destaque só em botão com texto no azul-escuro da marca `#0B1A33` (6,2:1; regra da marca desde 04/10: texto e ícone sobre laranja são sempre `#0B1A33`, e fundo laranja com texto é sempre `#F97316`, nunca `#C2410C`), o que ele não garante. |
-| Cor de fundo (background) | `#F2F4F7` | O papel frio da coluna de leitura do site. Se o seu plano só oferecer branco, use branco: o kit foi testado nos dois. |
+| Cor de destaque (accent) | `#C2410C` | Laranja profundo da marca. Sobre fundo claro passa AA para texto e links (4,9:1 em `#FFF8F2`, 5,2:1 em branco). O laranja de luz `#F97316` só passa 2,8:1 como texto em fundo claro — use `#F97316` apenas se o Substack aplicar o destaque só em botão com texto no azul-escuro da marca `#0B1A33` (6,2:1; regra da marca desde 04/10: texto e ícone sobre laranja são sempre `#0B1A33`, e fundo laranja com texto é sempre `#F97316`, nunca `#C2410C`), o que ele não garante. |
+| Cor de fundo (background) | `#FFF8F2` | O papel quente da coluna de leitura do site (o claro da Shelfye). Se o seu plano só oferecer branco, use branco: o kit foi testado nos dois. |
 | Fonte de título | **Lora** ou **Merriweather** (serifa) | A Literata, usada no site, não estava na lista do Substack que conheço; não consegui confirmar a lista atual daqui. Entre as serifas que o Substack costuma oferecer, Lora e Merriweather são as mais próximas do desenho da Literata (serifa de leitura, olho médio, peso firme). Escolha a que estiver disponível, nessa ordem. |
 | Fonte de corpo | **a mesma serifa do título** ou a sans padrão do Substack | No site, título e leitura são Literata. Se o Substack permitir separar, mantenha serifa nos dois; se a única opção de corpo for sans, aceite a padrão. Alternativa segura se nada disso existir: Georgia (serifa) + sistema (sans). |
 
@@ -23,7 +23,7 @@ as cores e as fontes fazem o resto.
 | Arquivo | Uso no Substack |
 |---|---|
 | `logo.svg`, `logo-512.png` | Logo/ícone da publicação (quadrado). "g" em Literata com o ponto laranja e o fio laranja na base — o mesmo gesto do favicon do site. Suba o PNG. |
-| `wordmark.svg`, `wordmark.png` | Wordmark horizontal com fundo transparente e texto azul-escuro: para o cabeçalho sobre fundo claro (`#F2F4F7` ou branco). |
+| `wordmark.svg`, `wordmark.png` | Wordmark horizontal com fundo transparente e texto azul-escuro: para o cabeçalho sobre fundo claro (`#FFF8F2` ou branco). |
 | `wordmark-noite.svg`, `wordmark-noite.png` | Mesma marca sobre azul-escuro `#0B1A33`, para onde o fundo for escuro (redes, e-mail com cabeçalho escuro). |
 | `capa-publicacao.png` (2400×1350) | Capa/cover da publicação (página "about", cartões de compartilhamento da home da publicação). Tela gerada (semente "Radar de IA") + faixa papel com nome e promessa. |
 | `gerar-capa.mjs` | Gera a capa de cada post. |

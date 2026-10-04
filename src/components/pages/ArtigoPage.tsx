@@ -26,7 +26,7 @@ export interface ArtigoPageProps {
 
 /**
  * Página de texto (Insights e Radar): o título em faixa azul-escuro com a capa do texto em retrato
- * ao lado (fio laranja vertical) e, abaixo, a coluna de leitura em papel frio — nada atrás do texto.
+ * ao lado (fio laranja vertical) e, abaixo, a coluna de leitura em papel quente #FFF8F2 — nada atrás do texto.
  */
 export function ArtigoPage({ title, excerpt, category, eixo, dateFormatted, duration, tela, voltar, origem, children }: ArtigoPageProps) {
   const [linkCopied, setLinkCopied] = useState(false);

@@ -7,8 +7,8 @@ import { TelaPicture } from './TelaPicture';
  * Caixa de inscrição das páginas da newsletter e do fim dos textos. A tela é a da própria
  * newsletter (semente "Radar de IA", a mesma da capa no Substack): correntes que passam, em escala
  * 1:1 — uma coluna estreita ao lado do convite, nunca atrás dele, e nunca o close da Ferramenta.
- * O convite fica sempre sobre um campo claro (fim do texto, arquivo): a caixa é o campo de areia do
- * quadro, com o texto em tinta — nunca um bloco escuro logo acima do rodapé.
+ * O convite fica sempre sobre um campo claro (fim do texto, arquivo): a caixa é o campo creme
+ * (#FDEED9), com o texto em tinta — nunca um bloco escuro logo acima do rodapé.
  * `pilha` empilha tela e texto (colunas estreitas), com a tela em faixa baixa.
  * Sem `newsletter.substack` configurado, avisa que as inscrições abrem em breve e aponta para as redes.
  */

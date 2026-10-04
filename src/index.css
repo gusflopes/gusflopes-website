@@ -6,7 +6,7 @@
 /*
  * Pincelada — tokens do sistema visual (rodada 4: cor como sistema).
  * Laranja é a cor principal, em detalhes distribuídos pela página inteira; azul-escuro é estrutura;
- * os claros (papel frio, campo de areia) entram no ritmo; as cores do quadro (petróleo, ardósia,
+ * os claros quentes da Shelfye (papel #FFF8F2, creme #FDEED9) entram no ritmo; as cores do quadro (petróleo, ardósia,
  * areia, marrom, ferrugem) são apoio em campos, células, metadados e filetes.
  * Fontes self-hosted (src/layouts/Default.astro).
  */
@@ -31,20 +31,22 @@
   --color-marrom: #907a5f;
   --color-marrom-escuro: #50372a; /* texto sobre areia/papel */
   --color-ferrugem: #8a4c1b; /* filete e marca; nunca encosta em #C2410C nem no laranja chapado */
-  --color-campo: #d8d1c4; /* campo claro quente: areia acinzentada do quadro (nunca creme) */
+  --color-campo: #fdeed9; /* creme (Shelfye): campo claro quente — destaque, caixas, o claro que antecede o escuro */
   --color-nevoa: #c9d6e6; /* texto secundário sobre azul-escuro (11:1) */
   --color-bruma: #9fb0c6; /* metadado sobre azul-escuro (7,4:1) */
-  /* Papel: a coluna de leitura */
-  --color-papel: #f2f4f7;
-  --color-papel-2: #e3e8ef;
-  --color-regua: #ccd5e1; /* réguas sobre papel */
-  --color-tinta: #0b1a33; /* texto sobre papel (16:1) */
-  --color-tinta-2: #3d4e68; /* secundário sobre papel (7,9:1) */
+  /* Papel (Shelfye, "pergaminho"): a coluna de leitura e o claro padrão */
+  --color-papel: #fff8f2;
+  --color-papel-tom: #f9f2ec; /* cartão/célula aninhada sobre papel: mudança de tom, não fio */
+  --color-papel-2: #eee7e1; /* tom mais fundo (código inline); laranja como texto aqui é #9A3412 */
+  --color-regua: #e6d9c8; /* fio quente sobre papel e creme */
+  --color-tinta: #0b1a33; /* texto sobre papel (16,5:1) e creme (15,2:1) */
+  --color-tinta-2: #3d4e68; /* secundário: 8,0:1 no papel, 7,4:1 no creme, 6,9:1 em #EEE7E1 */
   /* Luz */
   --color-laranja: #f97316;
   --color-laranja-claro: #fb923c;
   --color-pessego: #fdba74;
-  --color-laranja-fundo: #c2410c; /* laranja como texto sobre papel (4,9:1) */
+  --color-laranja-fundo: #c2410c; /* laranja como texto: só papel (4,9:1) e creme (4,5:1) */
+  --color-laranja-tinta: #9a3412; /* laranja como texto em #EEE7E1/#F9F2EC (6,0:1) */
 
   --ease-pincel: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -206,7 +208,7 @@
   }
 
   /*
-   * Coluna de leitura (artigos, edições, páginas legais): papel frio, Literata 17–18px,
+   * Coluna de leitura (artigos, edições, páginas legais): papel quente #FFF8F2, Literata 17–18px,
    * ~68 caracteres por linha, nada se mexendo atrás do texto.
    */
   .leitura {

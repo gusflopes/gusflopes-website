@@ -15,7 +15,7 @@ import crypto from 'node:crypto';
 import os from 'node:os';
 import { Worker } from 'node:worker_threads';
 import { janelaRaw, capaComTitulo } from './render.mjs';
-import { VERSAO, MATERIAL_PADRAO } from './pincel.mjs';
+import { VERSAO, REVISAO, MATERIAL_PADRAO } from './pincel.mjs';
 import { PAPEIS, ABERTURA, ARQUETIPO_FAIXA, QUALIDADE, caminhoTela, caminhoOg, paramsCapa, ARQUETIPO_CONVITE } from './config.mjs';
 
 const EIXO_LABEL = { engenharia: 'Engenharia & IA', negocios: 'Negócios', bastidores: 'Bastidores' };
@@ -152,7 +152,7 @@ export async function gerarTelas({ raiz, producao, log = console.log }) {
 
   const tarefas = [];
   const job = (chave, impressao, arquivos, tarefa) => {
-    const digest = crypto.createHash('sha1').update(`v${VERSAO}|${MATERIAL_PADRAO}|${JSON.stringify(QUALIDADE)}|${JSON.stringify(PAPEIS[tarefa.papel] ?? PAPEIS.capa)}|${impressao}`).digest('hex').slice(0, 12);
+    const digest = crypto.createHash('sha1').update(`v${VERSAO}|${REVISAO}|${MATERIAL_PADRAO}|${JSON.stringify(QUALIDADE)}|${JSON.stringify(PAPEIS[tarefa.papel] ?? PAPEIS.capa)}|${impressao}`).digest('hex').slice(0, 12);
     novo[chave] = { digest, arquivos };
     arquivos.forEach((a) => saidas.add(a));
     const existe = arquivos.every((a) => fs.existsSync(path.join(pub, a)));

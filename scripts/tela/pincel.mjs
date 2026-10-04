@@ -30,6 +30,8 @@
  */
 
 export const VERSAO = 10;
+/** Revisão do gerador: entra só na impressão digital do cache (não muda a semente das telas). */
+export const REVISAO = "r5-claros";
 
 /**
  * Paleta (v10): derivada da amostra do quadro por agrupamento, não só dos azuis dele. O motor do
@@ -39,6 +41,8 @@ export const VERSAO = 10;
  */
 export const CORES = {
   noite: '#0B1A33', // chão das páginas e faixa do OG (fora da tinta)
+  papel: '#FFF8F2', // claro padrão das páginas (Shelfye): as emendas tela → página casam com ele
+  creme: '#FDEED9', // campo claro quente (Shelfye)
   nevoa: '#C9D6E6', // assinatura do OG; acento raro
   ceu: '#8FB3D9', // acento raro
   fundo: '#223040',
@@ -380,6 +384,7 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
     ceu: [[C.petroleo, 4], [C.ardosia, 3], [C.ardosia2, 2.5], [C.aqua, 1.4], [C.petroleo2, 1.5], [C.areia, 0.8], [C.terra, 0.5], [C.ferrugem, 0.3], [C.ocre, 0.3]],
     quente: [[C.ferrugem, 3], [C.terra, 3], [C.marrom, 2.5], [C.areia, 1.4], [C.ocre, 1], [C.marrom2, 1], [C.petroleo, 1.3], [C.ardosia, 0.6]],
     passagem: [[C.areiaClara, 4], [C.areia, 3], [C.branco, 1], [C.pessego, 0.5], [C.ardosia2, 1], [C.ocre, 0.6]],
+    emenda: [[C.creme, 4], [C.papel, 1.5], [C.areiaClara, 2], [C.pessego, 0.6], [C.branco, 1]], // topo da fita do rodapé: casa com papel/creme
   };
 
   const REAL = {
@@ -722,7 +727,7 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
       let v;
       if (p.degrade) {
         // do claro para a noite: areia/branco em cima, petróleo e terra no meio, fundo e noite embaixo
-        const pal = [PAL.passagem, [[C.petroleo, 3], [C.petroleo2, 2], [C.terra, 2], [C.ferrugem, 1.3], [C.marrom, 1], [C.ardosia, 1]], [[C.fundo, 3], [C.fundo2, 2], [C.noite, 2], [C.petroleo2, 1.2], [C.marrom2, 1]]][i];
+        const pal = [PAL.emenda, [[C.petroleo, 3], [C.petroleo2, 2], [C.terra, 2], [C.ferrugem, 1.3], [C.marrom, 1], [C.ardosia, 1]], [[C.fundo, 3], [C.fundo2, 2], [C.noite, 2], [C.petroleo2, 1.2], [C.marrom2, 1]]][i];
         return { pal, ang: (rnd() - 0.5) * 0.2, comp: [30, 30, 64][i], dens: 0.95, reflexo: i === 1, claro: i === 0, palR: i === 0 ? REAL.claro : REAL.quente };
       }
       if (i < obrig.length && obrig[i] !== antes) v = obrig[i];
@@ -746,7 +751,7 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
     if (p.degrade) {
       // a fita começa clara de verdade: o chão de cada estrato já é a cor dele (areia, petróleo,
       // noite), para a borda de cima encostar no papel sem faixa escura
-      const chao = [C.areiaClara, C.petroleo2, C.fundo];
+      const chao = [C.creme, C.petroleo2, C.fundo];
       for (let py = 0; py < H; py++) {
         for (let px = 0; px < W; px++) {
           const [i] = qual(jan.x + px / escala, jan.y + py / escala);

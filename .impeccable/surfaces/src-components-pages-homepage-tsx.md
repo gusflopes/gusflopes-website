@@ -29,8 +29,8 @@ OWN-WORLD (rodada 4, cor como sistema): o mundo é o do quadro inteiro, não só
   links. Fundo #C2410C/#9A3412 leva texto branco, só pontualmente; nunca #C2410C com azul-escuro nem #F97316 com branco.
 - Azul-escuro #0B1A33/#13284D é estrutura e fundo (cabeçalho, faixa do título, vídeo, Ferramenta, rodapé), não
   protagonista: nunca dois blocos escuros grandes empilhados.
-- Claros são obrigatórios no ritmo: papel frio #F2F4F7 (leitura, Eixos, corpo dos hubs, Serviços) e o campo claro
-  quente #D8D1C4 (areia acinzentada do quadro, nunca creme: Sobre e o convite da newsletter). Seção escura grande
+- Claros são obrigatórios no ritmo: papel #FFF8F2 (Shelfye: leitura, Eixos, corpo dos hubs, Serviços) e o creme
+  #FDEED9 (campo quente: vídeo, Sobre e o convite da newsletter). Seção escura grande
   chega por transição de algo claro; o rodapé de toda página chega pela fita pintada areia → noite.
 - Paleta de apoio do quadro com função fora das telas: petróleo #315B6F (célula chapada de Serviços, caixa do
   Bastidores, metadado sobre papel 6,4:1), ardósia #648188/#7F989A (régua sobre claro, metadado sobre noite), areia

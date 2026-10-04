@@ -100,7 +100,7 @@ export function telaSharp({ semente, largura, altura, escala = 1, material, para
  */
 export async function capaComTitulo({ semente, titulo, rotulo, largura = 1200, altura = 630, tema = 'noite', assinatura = 'gusflopes.dev', params }) {
   const claro = tema === 'papel';
-  const fundo = claro ? '#F2F4F7' : CORES.noite;
+  const fundo = claro ? CORES.papel : CORES.noite;
   const corTitulo = claro ? CORES.noite : '#F5F7FA';
   const corRotulo = claro ? '#C2410C' : CORES.laranjaClaro;
   const corAssin = claro ? '#3D4E68' : CORES.nevoa;

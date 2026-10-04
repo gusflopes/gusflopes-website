@@ -118,16 +118,16 @@
    },
    "papel": {
     "role": "neutral",
-    "displayName": "Papel frio",
+    "displayName": "Papel (Shelfye)",
     "tonalRamp": [
-     "#3D3D3E",
-     "#6D6E6F",
-     "#9D9FA1",
-     "#CECFD2",
-     "#F2F4F7",
-     "#F5F7F9",
-     "#F9FAFB",
-     "#FCFCFD"
+     "#4A433D",
+     "#7A7068",
+     "#B5A99D",
+     "#EEE7E1",
+     "#FFF8F2",
+     "#F9F2EC",
+     "#FFFBF7",
+     "#FFFDFB"
     ]
    },
    "papel-2": {
@@ -138,7 +138,7 @@
      "#66686C",
      "#94979B",
      "#C1C5CB",
-     "#E3E8EF",
+     "#EEE7E1",
      "#EAEEF3",
      "#F1F4F7",
      "#F8F9FB"
@@ -152,7 +152,7 @@
      "#5C6065",
      "#858A92",
      "#ADB5BF",
-     "#CCD5E1",
+     "#E6D9C8",
      "#D9E0E9",
      "#E6EAF0",
      "#F2F5F8"
@@ -356,16 +356,16 @@
    },
    "campo": {
     "role": "neutral",
-    "displayName": "Campo claro quente (areia do quadro)",
+    "displayName": "Creme (Shelfye)",
     "tonalRamp": [
-     "#363431",
-     "#615E58",
-     "#8C887F",
-     "#B8B2A7",
-     "#D8D1C4",
-     "#E4DFD6",
-     "#EDEAE4",
-     "#F7F6F3"
+     "#4D4335",
+     "#80705A",
+     "#B8A486",
+     "#E6D9C8",
+     "#FDEED9",
+     "#FEF3E4",
+     "#FEF7EE",
+     "#FFFBF6"
     ]
    }
   },
@@ -486,21 +486,21 @@
    "name": "Coluna de leitura",
    "kind": "custom",
    "refersTo": "coluna-leitura",
-   "description": "Papel frio, Literata 18px, 40rem.",
+   "description": "Papel quente #FFF8F2, Literata 18px, 40rem.",
    "html": "<div class=\"ds-leitura\"><h2>O que é uma skill</h2><p>Uma skill é um diretório com um arquivo <code>SKILL.md</code>. <a href=\"#\">Post de engenharia</a>.</p><blockquote>O modelo virou commodity.</blockquote></div>",
-   "css": ".ds-leitura{background:#F2F4F7;color:#1A2740;font:400 18px/1.72 Literata,Georgia,serif;max-width:40rem;padding:32px}.ds-leitura h2{font-weight:600;font-size:1.6em;line-height:1.2;color:#0B1A33;margin:0 0 .6em}.ds-leitura a{color:#C2410C}.ds-leitura code{font:.84em \"JetBrains Mono\",monospace;background:#E3E8EF;padding:.1em .35em;border-radius:2px}.ds-leitura blockquote{position:relative;margin:1.2em 0 0;padding:1.1em 0 0 1.25em;font-style:italic;color:#13284D}.ds-leitura blockquote::before{content:\"\";position:absolute;top:0;left:1.25em;width:2.5rem;height:3px;background:#F97316}"
+   "css": ".ds-leitura{background:#FFF8F2;color:#1A2740;font:400 18px/1.72 Literata,Georgia,serif;max-width:40rem;padding:32px}.ds-leitura h2{font-weight:600;font-size:1.6em;line-height:1.2;color:#0B1A33;margin:0 0 .6em}.ds-leitura a{color:#C2410C}.ds-leitura code{font:.84em \"JetBrains Mono\",monospace;background:#EEE7E1;padding:.1em .35em;border-radius:2px}.ds-leitura blockquote{position:relative;margin:1.2em 0 0;padding:1.1em 0 0 1.25em;font-style:italic;color:#13284D}.ds-leitura blockquote::before{content:\"\";position:absolute;top:0;left:1.25em;width:2.5rem;height:3px;background:#F97316}"
   }
  ],
  "narrative": {
   "northStar": "Pincelada: o mesmo gesto, nunca a mesma imagem",
-  "overview": "Van Gogh como sistema, com a amplitude e a variedade de cor do quadro da marca: cada tela é uma cena ampla de tinta (cerdas, empasto) na paleta inteira do quadro — petróleo, ardósia, areia, marrom, ferrugem, com os laranjas como luz — numa de seis estruturas grandes (horizonte, vento, manchas, ondas, massas, faixas), gerada no build em escala de traço fixa por janela. Na página, o laranja é a cor principal em detalhes por toda seção, o azul-escuro é estrutura, os claros (papel frio e campo de areia) entram no ritmo e todo bloco escuro grande chega de um claro; o rodapé chega por uma fita pintada areia → noite.",
+  "overview": "Van Gogh como sistema, com a amplitude e a variedade de cor do quadro da marca: cada tela é uma cena ampla de tinta (cerdas, empasto) na paleta inteira do quadro — petróleo, ardósia, areia, marrom, ferrugem, com os laranjas como luz — numa de seis estruturas grandes (horizonte, vento, manchas, ondas, massas, faixas), gerada no build em escala de traço fixa por janela. Na página, o laranja é a cor principal em detalhes por toda seção, o azul-escuro é estrutura, os claros quentes da Shelfye (papel #FFF8F2 e creme #FDEED9) entram no ritmo e todo bloco escuro grande chega de um claro; o rodapé chega por uma fita pintada creme → noite.",
   "keyCharacteristics": [
    "Tela gerada por texto e por papel, em seis arquétipos e na paleta do quadro (ferrugem × petróleo)",
    "Laranja como cor principal em detalhes (fio, costura, filete, marca, ação), azul-escuro como estrutura",
-   "Claros no ritmo: papel frio e campo de areia; rodapé por fita pintada",
+   "Claros no ritmo: papel #FFF8F2 e creme #FDEED9 (Shelfye); rodapé por fita pintada",
    "Literata + Hanken Grotesk",
    "Cantos retos, sem sombra, sem glow",
-   "Coluna de leitura em papel frio a 40rem"
+   "Coluna de leitura em papel #FFF8F2 a 40rem"
   ],
   "rules": [
    {

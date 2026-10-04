@@ -3,7 +3,7 @@ import type { FundoResponsivo } from '../lib/imagens';
 /**
  * "Confiar em quem escreve": a revelação da fonte — o quadro original da marca na largura da janela
  * (a única aparição), costurado pelo fio à faixa do texto (nunca atrás dele). O texto e as cinco
- * áreas ficam no campo claro quente (areia acinzentada do quadro): a noite do quadro desemboca
+ * áreas ficam no creme #FDEED9 (o claro quente da Shelfye): a noite do quadro desemboca
  * num campo de luz, como o céu claro do alto-esquerdo dele. Cada área abre com uma marca laranja.
  */
 export function Themes({ fundo }: { fundo: FundoResponsivo }) {

@@ -85,7 +85,7 @@ for (let i = 2; i < AMOSTRAS.length; i += 2) {
 }
 
 fs.mkdirSync('docs/design-review', { recursive: true });
-const png = await sharp({ create: { width: W, height: y + M, channels: 3, background: '#F2F4F7' } })
+const png = await sharp({ create: { width: W, height: y + M, channels: 3, background: '#FFF8F2' } })
   .composite(camadas)
   .png({ palette: true, quality: 90, effort: 8 })
   .toBuffer();
