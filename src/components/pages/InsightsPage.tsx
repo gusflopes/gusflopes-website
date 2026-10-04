@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from 'react';
 import { ArrowRight, Search } from 'lucide-react';
 import { EIXOS, EIXO_LIST, type EixoId } from '../../lib/eixos';
-import { telaFaixa, type Tela } from '../../lib/telas';
+import { telaFaixa, lombada, type Tela } from '../../lib/telas';
 import { TelaPicture } from '../TelaPicture';
 import { AberturaHub } from '../AberturaHub';
 
@@ -171,9 +171,9 @@ export function InsightsPage({
             pintada (a mesma que corre ao lado da coluna dele), uma estante de cores do quadro. */}
         {demais.length > 0 && (
           <ol className="border-t-2 border-t-laranja">
-            {demais.map((article) => (
+            {demais.map((article, i) => (
               <li key={article.id} className="relative border-b-2 border-laranja">
-                {article.margem && <span aria-hidden="true" className="margem absolute left-0 top-0 bottom-0 w-5 md:w-14" style={article.margem} />}
+                {article.margem && <span aria-hidden="true" className="margem absolute left-0 top-0 bottom-0 w-5 md:w-14" style={lombada(article.margem, i)} />}
                 <a href={article.href} className={`cartao group grid gap-x-10 gap-y-2 py-7 md:grid-cols-12 ${article.margem ? 'pl-9 md:pl-[5.5rem]' : 'pl-5 lg:pl-8'}`}>
                   <span className="md:col-span-8 flex flex-col gap-2">
                     <span className="font-serif text-[1.4rem] md:text-[1.6rem] leading-snug text-tinta group-hover:text-laranja-fundo transition-colors">

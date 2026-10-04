@@ -11,9 +11,9 @@ export function Footer({ rodape = 'padrao' }: { rodape?: string }) {
   return (
     <footer>
       {/* A passagem: toda página termina num campo claro, e o rodapé chega por esta fita pintada
-          (semente própria por página), do creme à noite. A borda de cima é pintada e irregular,
-          transparente sobre o claro da página: sem emenda reta e sem fio. */}
-      <div className="h-[110px] md:h-[150px] overflow-hidden -mt-[56px] md:-mt-[64px] relative pointer-events-none" aria-hidden="true">
+          (semente própria por página), do claro à noite. A borda de cima é pintada e irregular, e o
+          que fica atrás dela é papel (o claro em que toda página termina): sem emenda reta e sem fio. */}
+      <div className="h-[110px] md:h-[150px] overflow-hidden bg-papel" aria-hidden="true">
         <TelaPicture tela={telaRodape(rodape)} sizes="100vw" className="bg-transparent" />
       </div>
       <div className="bg-noite">

@@ -64,11 +64,11 @@ export function NewsletterEdicaoPage({
           </div>
         </div>
 
-        <div className={`papel relative pt-12 md:pt-16 pb-16 ${margem ? 'pl-12 pr-4 md:px-6' : 'px-4 md:px-6'}`}>
+        <div className={`papel relative pt-12 md:pt-16 pb-16 ${margem ? 'pl-7 pr-4 md:px-6' : 'px-4 md:px-6'}`}>
           {margem && (
             <div
               aria-hidden="true"
-              className="margem absolute top-0 bottom-0 left-0 w-7 md:w-11 lg:w-24 lg:left-[max(0px,calc(50%-20rem-6rem-4rem))] border-r-[3px] lg:border-r-[7px] border-laranja"
+              className="margem absolute top-0 bottom-0 left-0 w-3 md:w-11 lg:w-24 lg:left-[max(0px,calc(50%-20rem-6rem-4rem))] border-r-2 border-laranja"
               style={margem}
             />
           )}

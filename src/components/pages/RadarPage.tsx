@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Search, ArrowRight, ExternalLink, Play } from 'lucide-react';
 import { EIXOS, EIXO_LIST, type EixoId } from '../../lib/eixos';
-import { telaFaixa, type Tela } from '../../lib/telas';
+import { telaFaixa, lombada, type Tela } from '../../lib/telas';
 import { AberturaHub } from '../AberturaHub';
 
 export interface RadarItem {
@@ -112,11 +112,11 @@ export function RadarPage({ items }: RadarPageProps) {
         {filteredItems.length > 0 ? (
           /* Um diário de bordo: a data na margem, o item e o comentário no meio, a fonte e a ação à direita. */
           <ol className="border-t-2 border-t-laranja">
-            {filteredItems.map((item) => {
+            {filteredItems.map((item, i) => {
               const externo = item.isExternal;
               return (
                 <li key={item.id} className="relative border-b-2 border-laranja">
-                  {item.margem && <span aria-hidden="true" className="margem absolute left-0 top-0 bottom-0 w-5 md:w-14" style={item.margem} />}
+                  {item.margem && <span aria-hidden="true" className="margem absolute left-0 top-0 bottom-0 w-5 md:w-14" style={lombada(item.margem, i)} />}
                   <a
                     href={item.link}
                     {...(externo ? { target: '_blank', rel: 'noopener noreferrer' } : {})}

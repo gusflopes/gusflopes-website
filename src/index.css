@@ -254,14 +254,29 @@
     margin-top: 2.2em;
     margin-bottom: 0;
   }
-  /* filete laranja sob cada H2: a marca de capítulo da home, dentro do texto (presença, não texto laranja) */
-  .leitura :where(h2)::after {
+  /*
+   * Faixa pintada sobre cada H2 (rodada 5, revisão): uma pincelada horizontal da capa do próprio
+   * texto abre o capítulo — a cor do quadro dentro da leitura, sem tela atrás do texto.
+   */
+  .leitura :where(h2)::before {
     content: '';
-    display: block;
-    width: 2.5rem;
-    height: 3px;
-    margin-top: 0.45em;
-    background: var(--color-laranja);
+    display: var(--faixa-on, none); /* só quando o texto tem capa (fundoCapitulos) */
+    height: 40px;
+    margin-bottom: 0.7em;
+    background-color: var(--color-petroleo);
+    background-image: var(--faixa-jpg, none);
+    background-size: cover;
+    background-position: center;
+  }
+  @media (min-width: 768px) {
+    .leitura :where(h2)::before {
+      height: 28px;
+    }
+  }
+  @supports (background-image: image-set(url('a.avif') type('image/avif') 1x)) {
+    .leitura :where(h2)::before {
+      background-image: var(--faixa-set, none);
+    }
   }
   .leitura :where(h3) {
     font-size: 1.25em;

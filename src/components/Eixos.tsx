@@ -62,12 +62,13 @@ export function Eixos({ eixos }: EixosProps) {
                     <div className="flex flex-col gap-4">
                       <p className="font-sans text-tinta-2 leading-relaxed">{eixo.descricao}</p>
                       {maisRecente && (
-                        <ul className="flex flex-col gap-3 border-l-2 border-ardosia pl-4">
+                        <ul className="flex flex-col gap-5 border-l-2 border-ardosia pl-4">
                           <li>
+                            {/* o rótulo fica colado acima do título que ele qualifica, e o próximo item vem depois de um respiro maior */}
+                            <span className="flex items-center gap-2 rotulo text-petroleo mb-1.5"><span className="marca" aria-hidden="true" />Mais recente</span>
                             <a href={maisRecente.href} className="font-serif text-lg leading-snug text-tinta hover:text-laranja-fundo transition-colors">
                               {maisRecente.title}
                             </a>
-                            <span className="flex items-center gap-2 rotulo text-petroleo mt-2"><span className="marca" aria-hidden="true" />Mais recente</span>
                           </li>
                           {anterior && (
                             <li>

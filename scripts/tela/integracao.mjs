@@ -20,7 +20,7 @@ import { PAPEIS, ABERTURA, ARQUETIPO_FAIXA, QUALIDADE, caminhoTela, caminhoOg, p
 
 const EIXO_LABEL = { engenharia: 'Engenharia & IA', negocios: 'Negócios', bastidores: 'Bastidores' };
 /** Faixas de abertura dos hubs: semente = nome da página. */
-export const FAIXAS = ['insights', 'radar', 'engenharia', 'negocios', 'bastidores'];
+export const FAIXAS = ['insights', 'radar', 'engenharia', 'negocios', 'bastidores', 'newsletter'];
 /**
  * Telas com papel próprio fora dos textos: [grupo, nome, papel, semente]. Cada papel tem a sua
  * semente — nunca a mesma tela repetida como textura. Ver src/lib/telas.ts.
@@ -34,7 +34,6 @@ export const TELAS_PAPEL = [
   ['home', 'video', 'projecao', 'Vídeo em Destaque', { arquetipo: 'ondas', ...SEM_LUAS }],
   // a tela da newsletter (semente da capa no Substack): correntes que passam, 1:1
   ['marca', 'newsletter', 'convite', 'Radar de IA', { arquetipo: ARQUETIPO_CONVITE, ...SEM_LUAS }],
-  ['marca', 'newsletter-fita', 'fita', 'Radar de IA', { arquetipo: 'horizonte', ...SEM_LUAS }],
   ['marca', 'nao-encontrada', 'painel', 'nao-encontrada', { arquetipo: 'massas' }],
 ];
 

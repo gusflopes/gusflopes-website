@@ -31,7 +31,7 @@
 
 export const VERSAO = 10; // a semente das telas (mudar refaz todas as composições)
 /** Revisão do gerador: entra só na impressão digital do cache (não muda a semente das telas). */
-export const REVISAO = "r5-zonas-3";
+export const REVISAO = "r5-revisor-5";
 
 /**
  * Paleta (v10): derivada da amostra do quadro por agrupamento, não só dos azuis dele. O motor do
@@ -402,7 +402,7 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
     ceu: [[C.petroleo, 4], [C.ardosia, 3], [C.ardosia2, 2.5], [C.aqua, 1.4], [C.petroleo2, 1.5], [C.areia, 0.8], [C.terra, 0.5], [C.ferrugem, 0.3], [C.ocre, 0.3]],
     quente: [[C.ferrugem, 3], [C.terra, 3], [C.marrom, 2.5], [C.areia, 1.4], [C.ocre, 1], [C.marrom2, 1], [C.petroleo, 1.3], [C.ardosia, 0.6]],
     passagem: [[C.areiaClara, 4], [C.areia, 3], [C.branco, 1], [C.pessego, 0.5], [C.ardosia2, 1], [C.ocre, 0.6]],
-    emenda: [[C.creme, 4], [C.papel, 1.5], [C.areiaClara, 2], [C.pessego, 0.6], [C.branco, 1]], // topo da fita do rodapé: casa com papel/creme
+    emenda: [[C.areiaClara, 2], [C.ardosia2, 2], [C.aqua, 1.5], [C.petroleo, 2], [C.ferrugem, 1.5], [C.ocre, 1], [C.creme, 0.8]], // topo da fita do rodapé: frio e quente encostados sobre o papel (nada de bege sobre bege)
   };
 
   const REAL = {
@@ -418,9 +418,11 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
   // sorteio das telas já aprovadas (abertura).
   const FAM = {
     petroleo: { pal: [[C.petroleo, 4], [C.petroleo2, 3], [C.aqua, 1], [C.ardosia, 1.3], [C.terra, 0.6], [C.ferrugem, 0.4]], claro: [[C.aqua, 3], [C.ardosia2, 2.5], [C.areiaClara, 1], [C.petroleo, 1]], escuro: [[C.petroleo2, 4], [C.azulNoite, 2], [C.fundo, 1], [C.marrom2, 0.5]] },
-    ferrugem: { pal: [[C.ferrugem, 3.5], [C.terra, 3], [C.marrom, 1.5], [C.ocre, 1], [C.petroleo2, 1.2], [C.petroleo, 0.8]], claro: [[C.ocre, 3], [C.areia, 2.5], [C.areiaClara, 1.2], [C.pessego, 0.4]], escuro: [[C.marrom2, 3], [C.terra, 2], [C.petroleo2, 1.5], [C.fundo2, 0.6]] },
-    areia: { pal: [[C.areiaClara, 3.5], [C.areia, 3], [C.branco, 1], [C.ocre, 1], [C.petroleo, 1.2], [C.ardosia2, 0.8]], claro: [[C.areiaClara, 3], [C.branco, 2], [C.areia, 1.5]], escuro: [[C.marrom, 2], [C.terra, 1.5], [C.petroleo2, 2]] },
+    ferrugem: { pal: [[C.ferrugem, 3.5], [C.terra, 3], [C.marrom, 1.3], [C.ocre, 1], [C.petroleo2, 0.8], [C.petroleo, 1.8]], claro: [[C.ocre, 3], [C.areia, 2.5], [C.areiaClara, 1.2], [C.pessego, 0.4]], escuro: [[C.marrom2, 3], [C.terra, 2], [C.petroleo2, 1.5], [C.fundo2, 0.6]] },
+    areia: { pal: [[C.areiaClara, 3.5], [C.areia, 3], [C.branco, 1], [C.ocre, 1], [C.petroleo, 1.8], [C.ardosia2, 0.8]], claro: [[C.areiaClara, 3], [C.branco, 2], [C.areia, 1.5]], escuro: [[C.marrom, 2], [C.terra, 1.5], [C.petroleo2, 2]] },
     ardosia: { pal: [[C.ardosia, 4], [C.ardosia2, 3], [C.aqua, 1], [C.petroleo, 1.5], [C.marrom, 0.6]], claro: [[C.ardosia2, 3], [C.aqua, 2], [C.branco, 1]], escuro: [[C.petroleo2, 3], [C.ardosia, 1.5], [C.fundo, 1]] },
+    // brasa: a ferrugem acesa pelos laranjas da marca (só onde o papel pede: a margem pintada do texto)
+    brasa: { pal: [[C.laranja, 3], [C.laranjaClaro, 2], [C.ferrugem, 2.2], [C.petroleo, 1.4], [C.terra, 1], [C.pessego, 0.6]], claro: [[C.laranjaClaro, 3], [C.laranja, 2.5], [C.pessego, 1.2]], escuro: [[C.ferrugem, 3], [C.terra, 2], [C.laranja, 1.2]] },
     marrom: { pal: [[C.marrom, 4], [C.terra, 2.5], [C.marrom2, 1.2], [C.areia, 1], [C.petroleo, 1.2], [C.ocre, 0.6]], claro: [[C.areia, 3], [C.areiaClara, 2], [C.ocre, 1]], escuro: [[C.marrom2, 3], [C.terra, 2], [C.petroleo2, 1.2]] },
   };
   // subpintura da zona: o próprio corpo um tom abaixo — o chão entre os traços é da cor da zona,
@@ -429,44 +431,62 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
   const rz = mulberry32(hash(`${semente}|zonas|v${VERSAO}`));
   const ruidoZ = criaRuido(rz);
   // petróleo duas vezes no ciclo: é a família-mãe do quadro (e a meta de petróleo das capas)
-  const CICLO = ['petroleo', 'ferrugem', 'areia', 'petroleo', 'ardosia', 'marrom'];
+  const CICLO = p.ciclo ?? ['petroleo', 'ferrugem', 'areia', 'petroleo', 'ardosia', 'marrom'];
   // centros em grade com folga (toda tela, mesmo pequena, vê mais de uma zona); vizinhos de família diferente
-  const nZ0 = clamp(Math.round((MW * MH) / (360 * 360)), 3, 12);
+  const nZ0 = p.nZonas ?? clamp(Math.round((MW * MH) / (360 * 360)), 3, 12);
   const colsZ = Math.max(1, Math.round(Math.sqrt((nZ0 * MW) / MH)));
   const linsZ = Math.max(1, Math.ceil(nZ0 / colsZ));
   const nZ = colsZ * linsZ;
-  const f0 = Math.floor(rz() * CICLO.length);
+  const f0 = p.f0 ?? Math.floor(rz() * CICLO.length);
   const centrosZ = Array.from({ length: nZ }, (_, i) => {
     const cx = i % colsZ, cy = Math.floor(i / colsZ);
-    return { x: ((cx + 0.2 + rz() * 0.6) / colsZ) * MW, y: ((cy + 0.2 + rz() * 0.6) / linsZ) * MH, fam: CICLO[(f0 + i + cy) % CICLO.length] };
+    return { x: ((cx + 0.2 + rz() * 0.6) / colsZ) * MW, y: ((cy + 0.2 + rz() * 0.6) / linsZ) * MH, fam: CICLO[(f0 + i + (colsZ > 1 ? cy : 0)) % CICLO.length] };
   });
   // o centro da mestre (onde caem o recorte dos cards e o retrato) é sempre de petróleo, a família-mãe:
   // troca de família com o centro de petróleo mais próximo
-  {
+  if (!p.ciclo) {
     const dC = (c) => Math.hypot(c.x - MW / 2, c.y - MH / 2);
     const centro = centrosZ.reduce((a, c) => (dC(c) < dC(a) ? c : a));
     const pet = centrosZ.filter((c) => c.fam === 'petroleo').sort((a, b) => dC(a) - dC(b))[0];
     if (centro.fam !== 'petroleo') [centro.fam, (pet ?? { fam: 'petroleo' }).fam] = ['petroleo', centro.fam];
+    // encontro quente × frio garantido: o vizinho mais próximo do centro de petróleo é ferrugem
+    const viz = centrosZ.filter((c) => c !== centro).sort((a, b) => Math.hypot(a.x - centro.x, a.y - centro.y) - Math.hypot(b.x - centro.x, b.y - centro.y))[0];
+    if (viz && viz.fam !== 'ferrugem') {
+      const fer = centrosZ.find((c) => c.fam === 'ferrugem' && c !== centro);
+      if (fer) fer.fam = viz.fam;
+      viz.fam = 'ferrugem';
+    }
   }
   const fZ = 1 / 240;
-  const zonaCor = (x, y) => {
-    let best = Infinity, f = centrosZ[0].fam;
+  // A divisa entre zonas é pintada, não cortada: perto dela, cada traço sorteia (por hash da posição,
+  // sem tocar no gerador principal) entre as duas famílias, e o chão mistura as duas cores.
+  const DIVISA = 90;
+  const zonaInfo = (x, y) => {
+    let b1 = Infinity, b2 = Infinity, f1 = centrosZ[0].fam, f2 = f1;
     for (let i = 0; i < nZ; i++) {
       const c = centrosZ[i];
-      const d = Math.hypot(x - c.x, (y - c.y) * 1.25) + ruidoZ(x * fZ + i * 7.1, y * fZ + i * 3.7) * 110;
-      if (d < best) [best, f] = [d, c.fam];
+      const d = Math.hypot(x - c.x, (y - c.y) * 1.25) + ruidoZ(x * fZ + i * 7.1, y * fZ + i * 3.7) * 110 + ruidoZ(x * fZ * 3.7 + i * 2.3, y * fZ * 3.7 + i * 5.9) * 45;
+      if (d < b1) [b2, f2, b1, f1] = [b1, f1, d, c.fam];
+      else if (d < b2) [b2, f2] = [d, c.fam];
     }
-    return FAM[f];
+    const w = f2 === f1 ? 0 : 0.5 * clamp(1 - (b2 - b1) / DIVISA, 0, 1);
+    return { F: FAM[f1], F2: FAM[f2], w };
+  };
+  const zonaCor = (x, y) => {
+    const z = zonaInfo(x, y);
+    if (z.w <= 0) return z.F;
+    return hashInt((Math.floor(x / 3) * 73856093) ^ (Math.floor(y / 3) * 19349663), 4049) < z.w ? z.F2 : z.F;
   };
   // o chão também é da zona (um tom fundo da família), não o azul-noite uniforme: entre os traços,
   // a zona continua lendo como área de cor. A abertura (horizonte) e a fita do rodapé têm chão próprio.
-  const CHAO = { petroleo: valor(C.petroleo2, -0.3), ferrugem: valor(C.terra, -0.4), areia: valor(C.marrom, -0.35), ardosia: valor(C.ardosia, -0.42), marrom: valor(C.marrom2, -0.1) };
+  const CHAO = { petroleo: valor(C.petroleo2, -0.3), ferrugem: valor(C.terra, -0.4), areia: valor(C.marrom, -0.35), ardosia: valor(C.ardosia, -0.42), marrom: valor(C.marrom2, -0.1), brasa: valor(C.ferrugem, -0.05) };
   for (const [k, F] of Object.entries(FAM)) F.chao = CHAO[k];
   if (p.zonas && arquetipo !== 'horizonte' && !p.degrade) {
     const passo = Math.max(1, Math.round(3 * escala));
     for (let py = 0; py < H; py += passo) {
       for (let px = 0; px < W; px += passo) {
-        const c = zonaCor(jan.x + (px + passo / 2) / escala, jan.y + (py + passo / 2) / escala).chao;
+        const z = zonaInfo(jan.x + (px + passo / 2) / escala, jan.y + (py + passo / 2) / escala);
+        const c = z.F.chao.map((v, k) => v + (z.F2.chao[k] - v) * z.w);
         for (let yy = py; yy < Math.min(H, py + passo); yy++) {
           for (let xx = px; xx < Math.min(W, px + passo); xx++) {
             const k = (yy * W + xx) * 3;
@@ -524,12 +544,12 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
   // variam por disco: nenhum carimbo repetido. Os primeiros sorteios de cada lote são grandes, para
   // garantir a razão de tamanho (o quadro tem luas de 6–10× o diâmetro dos pingos).
   const manchas = [];
-  const semear = ({ n, rMin = 3.5, rMax, aceita = () => true, quente = 0.12, sobrepoe = 0.78 }) => {
+  const semear = ({ n, rMin = 3.5, rMax, aceita = () => true, quente = 0.12, sobrepoe = 0.78, grandesN, escalaGrandes = false }) => {
     // sem luas (telas pequenas): discos menores, translúcidos e sobrepostos, nenhum garantido por janela
     const rTeto = Math.max(rMin + 1, p.luas ? rMax : rMax * 0.7);
     if (!p.luas) sobrepoe *= 0.3;
     const comLua = todas.filter((j) => !j.semLua);
-    const grandes = p.luas && comLua.length ? Math.max(3, Math.round(n / 12)) : 0;
+    const grandes = p.luas && comLua.length ? grandesN ?? Math.max(3, Math.round(n / 12)) : 0;
     const tetoQuente = Math.max(1, Math.round(n * 0.12)); // manchas laranja nunca dominam a tela
     let quentes = 0;
     for (let i = 0; i < n; i++) {
@@ -537,7 +557,7 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
       const jg = i < grandes ? comLua[i % comLua.length] : null;
       const x = jg ? jg.x + rnd() * jg.w : rnd() * MW;
       const y = jg ? jg.y + rnd() * jg.h : rnd() * MH;
-      const r = i < grandes ? rTeto * (0.62 + rnd() * 0.38) : rMin + (rTeto - rMin) * Math.pow(rnd(), 2.9);
+      const r = i < grandes ? rTeto * (escalaGrandes ? (i === 0 ? 1 : 0.32 + rnd() * 0.5) : 0.62 + rnd() * 0.38) : rMin + (rTeto - rMin) * Math.pow(rnd(), 2.9);
       // luz rara: manchas quentes são mais prováveis pequenas (disco grande laranja só às vezes)
       const q = rnd() < quente * p.luz * (r > 26 ? 0.3 : 1.15 - r / 40) && quentes < tetoQuente;
       let c = q ? pick(rnd, MANCHA.quente) : corMancha(rnd);
@@ -616,6 +636,11 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
       const cy = crista(x);
       if (y < cy) {
         if (passagem(x, y) > 0) return { cheio: true, pal: PAL.passagem, dens: 0.95, comp: 30, larg: 13, realce: 0.18, palR: REAL.claro, sub: [[C.areia, 3], [C.ardosia2, 2], [C.marrom, 1]] };
+        if (p.zonas) {
+          // amplitude no céu vem dos traços: manchas grandes de petróleo, ferrugem, ardósia e marrom
+          const F = zonaCor(x, y);
+          return { cheio: true, pal: F.pal, dens: 0.92, comp: 30, larg: 12, realce: 0.2, palR: REAL.claro, sub: F.sub };
+        }
         return { cheio: true, pal: PAL.ceu, dens: 0.92, comp: 30, larg: 12, realce: 0.2, palR: REAL.claro, sub: [[C.petroleo2, 4], [C.petroleo, 3], [C.ardosia, 2]] };
       }
       if (y < hy) {
@@ -632,7 +657,11 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
       return { pal: [[C.petroleo, 4.5], [C.petroleo2, 2.5], [C.azulNoite, 1.5], [C.fundo, 1], [C.terra, 1], [C.ardosia, 1.2]], dens: 0.7, comp: 24, larg: 9, realce: 0.05, palR: REAL.frio, sub: [[C.fundo, 3], [C.petroleo2, 3], [C.azulNoite, 2], [C.marrom2, 1]] };
     };
     // céu salpicado (mais denso no alto), poucas manchas descendo sobre a massa
-    semear({ n: Math.round((MW * hy) / 1700), rMax: rMaxMancha, quente: 0.16, aceita: (x, y, r) => y + r * 0.4 < crista(x) && rnd() < 0.45 + 0.55 * (1 - y / hy) });
+    // as manchas se aglomeram numa região do céu (poucas grandes, escala variada, sobrepostas),
+    // em vez de um confete uniforme de discos parecidos
+    const aglo = { x: MW * (0.2 + rz() * 0.6), y: hy * (0.25 + rz() * 0.2), sx: Math.max(MW * 0.2, 160), sy: Math.max(hy * 0.45, 90) };
+    const peso = (x, y) => Math.exp(-(((x - aglo.x) / aglo.sx) ** 2 + ((y - aglo.y) / aglo.sy) ** 2));
+    semear({ n: Math.round((MW * hy) / 1700), rMax: rMaxMancha, quente: 0.16, sobrepoe: 0.5, grandesN: 4, escalaGrandes: true, aceita: (x, y, r) => y + r * 0.4 < crista(x) && rnd() < (0.06 + 0.94 * peso(x, y)) * (r > 14 ? 1 : 0.6 + 0.4 * (1 - y / hy)) });
     marcas = () => {
       // crista: traços claros que desenham o contorno da massa contra o céu
       for (let x = -30; x < MW + 30; ) {
@@ -785,20 +814,26 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
     });
     const fM = 1 / (260 + rnd() * 200);
     const dono = (x, y) => {
-      let a = Infinity, b = Infinity, ia = 0;
+      let a = Infinity, b = Infinity, ia = 0, ib = 0;
       sementes.forEach((s, i) => {
-        const d = Math.hypot(x - s.x, (y - s.y) * (longo ? 1.6 : 0.6)) + ruido(x * fM + i * 13, y * fM + i * 7) * 120;
-        if (d < a) [b, a, ia] = [a, d, i];
-        else if (d < b) b = d;
+        const d = Math.hypot(x - s.x, (y - s.y) * (longo ? 1.6 : 0.6)) + ruido(x * fM + i * 13, y * fM + i * 7) * 120 + ruido(x * fM * 4 + i * 3, y * fM * 4 + i * 11) * 40 + ruido(x / 80 + i * 5, y / 55 + i * 9) * 80; // divisa ondulada, nunca um corte reto
+        if (d < a) [b, ib, a, ia] = [a, ia, d, i];
+        else if (d < b) [b, ib] = [d, i];
       });
-      return [sementes[ia], b - a];
+      return [sementes[ia], b - a, sementes[ib]];
+    };
+    // a divisa entre as massas é pintada: perto dela, os traços de uma invadem a outra (cor e direção)
+    const donoPintado = (x, y) => {
+      const [s, borda, s2] = dono(x, y);
+      const troca = p.zonas && borda < 60 && hashInt((Math.floor(x / 3) * 83492791) ^ (Math.floor(y / 3) * 2654435761), 7919) < 0.5 * (1 - borda / 60);
+      return [troca ? s2 : s, borda];
     };
     angulo = (x, y) => {
-      const [s] = dono(x, y);
+      const [s] = donoPintado(x, y);
       return s.a + ruido(x * freq, y * freq) * (s.tipo === 'bloco' ? 0.12 : 0.4);
     };
     zona = (x, y) => {
-      const [s, borda] = dono(x, y);
+      const [s, borda] = donoPintado(x, y);
       const costura = borda < 14;
       if (s.tipo === 'bloco') return { pal: [[C.ferrugem, 2.5], [C.terra, 3], [C.marrom2, 1.2], [C.azulNoite, 0.8], [C.petroleo, 1.6], [C.petroleo2, 1], [C.marrom, 1.8], [C.ocre, 0.6]], dens: 0.95, comp: 16, larg: 13, realce: costura ? 0.95 : 0.04, palR: REAL.costura, sub: [[C.terra, 2.5], [C.marrom2, 1.5], [C.petroleo2, 2], [C.fundo, 1]] };
       if (s.tipo === 'campo' && p.zonas) {
@@ -831,7 +866,7 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
     const fE = 1 / (180 + rnd() * 160);
     const fE2 = 1 / (38 + rnd() * 30);
     const offE = rnd() * 100;
-    const bordaY = (x) => MH * 0.3 + ruido(x * fE + offE, 9.1) * MH * 0.32 + ruido(x * fE2 + offE, 3.3) * MH * 0.1;
+    const bordaY = (x) => clamp(MH * 0.26 + ruido(x * fE + offE, 9.1) * MH * 0.3 + ruido(x * fE2 + offE, 3.3) * MH * 0.1, MH * 0.04, MH * 0.44);
     if (alfa) limites = [0.55, 0.78, 1].map((f) => f * MH);
     const incl = (rnd() - 0.5) * 0.12;
     const fB = 1 / (300 + rnd() * 300);

@@ -16,6 +16,7 @@ export interface InsightArticlePageProps {
   slug: string;
   /** Margem pintada do texto (fundoMargem). */
   margem?: Record<string, string>;
+  capitulos?: Record<string, string>;
   /** Corpo do artigo já renderizado (markdown via <Content /> no .astro). */
   children?: ReactNode;
 }

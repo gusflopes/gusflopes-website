@@ -6,7 +6,7 @@
  * janela estreita, ela entra como `estreita` e o <picture> troca por media query (celular).
  */
 // @ts-ignore — módulo .mjs compartilhado com o gerador (Node), sem tipos próprios
-import { PAPEIS, caminhoTela, caminhoOg, ehFotoGenerica, chaveRodape } from '../../scripts/tela/config.mjs';
+import { PAPEIS, caminhoTela, caminhoOg, ehFotoGenerica, chaveRodape, LOMBADAS } from '../../scripts/tela/config.mjs';
 
 export interface TelaArquivo {
   avif: string;
@@ -57,8 +57,6 @@ export const telaVideo = (): Tela => telaPapel('home', 'video', 'projecao', 'qua
 /** Convite da newsletter em escala 1:1: coluna ao lado do texto (`lado`) ou faixa baixa (`topo`). */
 export const telaNewsletter = (janela: 'lado' | 'topo' = 'lado'): Tela => telaPapel('marca', 'newsletter', 'convite', janela);
 
-/** Fita fina sob a faixa do título no arquivo da newsletter. */
-export const telaFita = (): Tela => telaPapel('marca', 'newsletter-fita', 'fita', 'larga', 'estreita');
 
 /**
  * Fita do rodapé: a passagem do claro para a noite, no topo do rodapé de toda página. Cada página
@@ -83,6 +81,22 @@ export function fundoMargem(colecao: 'insights' | 'radar' | 'newsletter', id: st
   return {
     '--margem-jpg': u(96, 'jpg'),
     '--margem-set': `image-set(${u(96, 'avif')} type("image/avif") 1x, ${u(192, 'avif')} type("image/avif") 2x, ${u(96, 'webp')} type("image/webp") 1x)`,
+  };
+}
+
+/** Lombada no índice: a margem recuada para uma zona fria (petróleo, ardósia ou ferrugem), alternando por linha. */
+export const lombada = (margem: Record<string, string>, i: number): Record<string, string> => ({ ...margem, backgroundPositionY: LOMBADAS[i % LOMBADAS.length] });
+
+/**
+ * Faixa pintada dos H2 (pincelada horizontal da capa do texto sobre cada capítulo): variáveis para
+ * `.leitura h2::before` — o recorte 16:9 da capa como fundo.
+ */
+export function fundoCapitulos(colecao: 'insights' | 'radar', id: string): Record<string, string> {
+  const u = (w: number, ext: string) => `url("${caminhoTela(colecao, `${id}-recorte`, w, ext)}")`;
+  return {
+    '--faixa-on': 'block',
+    '--faixa-jpg': u(448, 'jpg'),
+    '--faixa-set': `image-set(${u(448, 'avif')} type("image/avif") 1x, ${u(448, 'webp')} type("image/webp") 1x)`,
   };
 }
 

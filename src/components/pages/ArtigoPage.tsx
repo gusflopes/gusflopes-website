@@ -22,6 +22,8 @@ export interface ArtigoPageProps {
   origem: string;
   /** Margem pintada do texto (variáveis CSS da classe `.margem`), costurada à coluna pelo fio laranja. */
   margem?: Record<string, string>;
+  /** Faixas pintadas dos H2 (fundoCapitulos): a capa do texto abrindo cada capítulo. */
+  capitulos?: Record<string, string>;
   /** Corpo do artigo já renderizado (markdown via <Content /> no .astro). */
   children?: ReactNode;
 }
@@ -30,7 +32,7 @@ export interface ArtigoPageProps {
  * Página de texto (Insights e Radar): o título em faixa azul-escuro com a capa do texto em retrato
  * ao lado (fio laranja vertical) e, abaixo, a coluna de leitura em papel quente #FFF8F2 — nada atrás do texto.
  */
-export function ArtigoPage({ title, excerpt, category, eixo, dateFormatted, duration, tela, voltar, origem, margem, children }: ArtigoPageProps) {
+export function ArtigoPage({ title, excerpt, category, eixo, dateFormatted, duration, tela, voltar, origem, margem, capitulos, children }: ArtigoPageProps) {
   const [linkCopied, setLinkCopied] = useState(false);
 
   const handleShare = async () => {
@@ -106,16 +108,17 @@ export function ArtigoPage({ title, excerpt, category, eixo, dateFormatted, dura
         </header>
 
         {/* Coluna de leitura — markdown renderizado via slot. A capa continua como margem pintada à
-            esquerda da coluna (no celular, uma tira na borda), costurada pelo fio laranja. */}
-        <div className={`papel relative pt-12 md:pt-16 pb-16 ${margem ? 'pl-12 pr-4 md:px-6' : 'px-4 md:px-6'}`}>
+            esquerda da coluna (no celular, uma tira de 12px na borda), costurada por fio laranja de 2px; o laranja
+            de verdade vive dentro da tira (zonas de brasa). */}
+        <div className={`papel relative pt-12 md:pt-16 pb-16 ${margem ? 'pl-7 pr-4 md:px-6' : 'px-4 md:px-6'}`}>
           {margem && (
             <div
               aria-hidden="true"
-              className="margem absolute top-0 bottom-0 left-0 w-7 md:w-11 lg:w-24 lg:left-[max(0px,calc(50%-20rem-6rem-4rem))] border-r-[3px] lg:border-r-[7px] border-laranja"
+              className="margem absolute top-0 bottom-0 left-0 w-3 md:w-11 lg:w-24 lg:left-[max(0px,calc(50%-20rem-6rem-4rem))] border-r-2 border-laranja"
               style={margem}
             />
           )}
-          <div className="leitura mx-auto">{children}</div>
+          <div className="leitura mx-auto" style={capitulos}>{children}</div>
         </div>
 
         {/* Autor */}
