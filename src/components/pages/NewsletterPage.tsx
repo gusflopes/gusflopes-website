@@ -1,7 +1,7 @@
 import { newsletter } from '../../config/site';
-import { telaFaixa, usaTela } from '../../lib/telas';
+import { telaFita, usaTela } from '../../lib/telas';
+import { TelaPicture } from '../TelaPicture';
 import { NewsletterCta } from '../NewsletterCta';
-import { AberturaHub } from '../AberturaHub';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 
 export interface EdicaoResumo {
@@ -14,13 +14,24 @@ export interface EdicaoResumo {
   image?: string;
 }
 
-/** Arquivo da newsletter: inscrição no topo, edições da mais recente para a mais antiga. */
+/**
+ * Arquivo da newsletter: a abertura inverte a ordem dos hubs — primeiro a faixa do título, depois
+ * uma fita fina de pintura (um horizonte baixo) costurada pelo fio por cima. Inscrição ao lado,
+ * edições da mais recente para a mais antiga.
+ */
 export function NewsletterPage({ edicoes }: { edicoes: EdicaoResumo[] }) {
   return (
     <main className="bg-noite min-h-screen">
-      <AberturaHub tela={telaFaixa('newsletter')} titulo={newsletter.name} />
+      <header className="bg-noite">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 pt-12 pb-8 md:pt-20 md:pb-12">
+          <h1 className="font-serif text-[2.6rem] md:text-7xl leading-[1.02] tracking-[-0.015em] text-white">{newsletter.name}</h1>
+        </div>
+        <div className="fio h-[72px] md:h-[100px] lg:h-[120px] overflow-hidden" aria-hidden="true">
+          <TelaPicture tela={telaFita()} sizes="100vw" priority />
+        </div>
+      </header>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-6 pb-20 md:pb-28 grid gap-12 lg:grid-cols-12 lg:gap-12">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 pt-12 md:pt-16 pb-20 md:pb-28 grid gap-12 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5 lg:order-last">
           <NewsletterCta content="newsletter-arquivo" pilha />
         </div>

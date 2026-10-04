@@ -4,23 +4,23 @@ import { telaFerramenta } from '../lib/telas';
 import { TelaPicture } from './TelaPicture';
 
 /**
- * "Experimentar algo agora": uma faixa em três tempos — o close de uma luz pintada (o único
- * traço visto de perto na home), o texto da ferramenta e a ação, sozinha na sua coluna.
+ * "Experimentar algo agora": o pintor chegando perto. Meia seção é o close de traço (2,5×, o único
+ * do site), sangrando até a borda esquerda e de cima a baixo; a outra metade é a ferramenta e a
+ * ação. O fio laranja é a costura vertical entre os dois. No celular, o close vira faixa no topo.
  * É a demonstração pública de IA com ferramenta e contexto: grátis, sem promessa.
  */
 export function Ferramenta() {
   const reforma = projetos.reforma;
   return (
-    <section aria-labelledby="ferramenta-title" className="bg-noite px-4 md:px-6 py-16 md:py-24 border-t border-linha">
-      <div className="max-w-7xl mx-auto grid gap-8 md:grid-cols-12 md:gap-10 lg:gap-12 items-center">
-        <figure className="md:col-span-5 lg:col-span-4" aria-hidden="true">
-          <div className="aspect-[28/15] overflow-hidden">
-            <TelaPicture tela={telaFerramenta()} sizes="(min-width: 1024px) 30vw, (min-width: 768px) 40vw, 100vw" />
-          </div>
-          <span className="fio block" />
-        </figure>
+    <section aria-labelledby="ferramenta-title" className="bg-noite border-t border-linha grid lg:grid-cols-2">
+      <figure className="relative h-[220px] md:h-[300px] lg:h-auto lg:min-h-[560px] overflow-hidden border-b-[3px] lg:border-b-0 lg:border-r-[3px] border-laranja" aria-hidden="true">
+        <div className="absolute inset-0">
+          <TelaPicture tela={telaFerramenta()} sizes="(min-width: 1024px) 50vw, 100vw" />
+        </div>
+      </figure>
 
-        <div className="md:col-span-7 lg:col-span-5">
+      <div className="px-4 md:px-10 lg:px-14 xl:px-20 py-14 md:py-20 lg:py-24 max-w-[44rem] flex flex-col justify-center">
+        <div>
           <h2 id="ferramenta-title" className="font-serif text-3xl md:text-[2.4rem] leading-[1.1] text-white mb-3">
             {reforma.nome}
           </h2>
@@ -36,7 +36,7 @@ export function Ferramenta() {
           </p>
         </div>
 
-        <div className="md:col-span-12 lg:col-span-3 flex flex-col items-start gap-5 lg:border-l lg:border-linha lg:pl-8 lg:self-stretch lg:justify-center">
+        <div className="mt-10 pt-8 border-t border-linha flex flex-wrap items-center gap-x-8 gap-y-5">
           <a href={comUtm(reforma.url, reforma.campanha, 'home-ferramenta')} className="botao min-h-14 px-7 text-lg whitespace-nowrap">
             Fazer o diagnóstico <ArrowRight size={18} aria-hidden="true" />
           </a>

@@ -93,7 +93,7 @@ export function RadarPage({ items }: RadarPageProps) {
                 type="button"
                 aria-pressed={selectedCategory === cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3 h-8 border font-sans text-[0.75rem] font-bold uppercase tracking-[0.1em] transition-colors whitespace-nowrap ${
+                className={`px-3 h-8 border font-sans text-[0.8125rem] font-semibold transition-colors whitespace-nowrap ${
                   selectedCategory === cat
                     ? 'bg-laranja border-laranja text-brasa'
                     : 'border-linha text-nevoa hover:border-ceu hover:text-white'

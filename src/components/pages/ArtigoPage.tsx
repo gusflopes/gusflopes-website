@@ -25,8 +25,8 @@ export interface ArtigoPageProps {
 }
 
 /**
- * Página de texto (Insights e Radar): a tela do texto como capa, o título em faixa azul-escuro
- * costurada pelo fio laranja e, abaixo, a coluna de leitura em papel frio — nada atrás do texto.
+ * Página de texto (Insights e Radar): o título em faixa azul-escuro com a capa do texto em retrato
+ * ao lado (fio laranja vertical) e, abaixo, a coluna de leitura em papel frio — nada atrás do texto.
  */
 export function ArtigoPage({ title, excerpt, category, eixo, dateFormatted, duration, tela, voltar, origem, children }: ArtigoPageProps) {
   const [linkCopied, setLinkCopied] = useState(false);
@@ -74,27 +74,31 @@ export function ArtigoPage({ title, excerpt, category, eixo, dateFormatted, dura
       </div>
 
       <article>
-        <header className="bg-noite">
-          <div className="h-[30svh] min-h-[180px] md:h-[44svh] md:min-h-[280px] md:max-h-[520px] overflow-hidden">
-            <TelaPicture tela={tela} sizes="100vw" priority />
+        {/* Abertura do texto: a faixa azul-noite com o título e, ao lado, a capa em retrato até a borda
+            direita, costurada pelo fio vertical (no celular a capa vem antes, com o fio por baixo). */}
+        <header className="bg-noite lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,38%)] xl:grid-cols-[minmax(0,1fr)_minmax(0,34%)]">
+          <div className="h-[30svh] min-h-[180px] md:h-[40svh] lg:h-auto lg:min-h-[520px] overflow-hidden lg:order-last border-b-[3px] lg:border-b-0 lg:border-l-[3px] border-laranja">
+            <TelaPicture tela={tela} sizes="(min-width: 1280px) 34vw, (min-width: 1024px) 38vw, 100vw" priority />
           </div>
-          <div className="fio">
-            <div className="max-w-[43rem] mx-auto px-4 md:px-6 pt-7 pb-10 md:pt-10 md:pb-14">
-              <h1 className="font-serif text-[2rem] leading-[1.1] md:text-[3.1rem] md:leading-[1.06] tracking-[-0.012em] text-white mb-5">
-                {title}
-              </h1>
-              <p className="font-serif text-lg md:text-xl leading-relaxed text-nevoa mb-6">{excerpt}</p>
-              <p className="font-sans text-sm text-bruma flex flex-wrap items-center gap-x-2.5 gap-y-1">
-                <a href={EIXOS[eixo].href} className="font-bold text-laranja-claro hover:text-pessego transition-colors">
-                  {EIXOS[eixo].shortLabel}
-                </a>
-                <span aria-hidden="true">·</span>
-                <span>{category}</span>
-                <span aria-hidden="true">·</span>
-                <span>{dateFormatted}</span>
-                <span aria-hidden="true">·</span>
-                <span>{duration} leitura</span>
-              </p>
+          <div className="flex items-end">
+            <div className="w-full max-w-[46rem] px-4 md:px-6 lg:pl-[max(1.5rem,calc((100vw-80rem)/2+1.5rem))] lg:pr-14 xl:max-w-none pt-7 pb-10 md:pt-10 md:pb-14 lg:py-16 mx-auto lg:mx-0">
+              <div className="max-w-[43rem]">
+                <h1 className="font-serif text-[2rem] leading-[1.1] md:text-[3.1rem] md:leading-[1.06] tracking-[-0.012em] text-white mb-5">
+                  {title}
+                </h1>
+                <p className="font-serif text-lg md:text-xl leading-relaxed text-nevoa mb-6">{excerpt}</p>
+                <p className="font-sans text-sm text-bruma flex flex-wrap items-center gap-x-2.5 gap-y-1">
+                  <a href={EIXOS[eixo].href} className="font-bold text-laranja-claro hover:text-pessego transition-colors">
+                    {EIXOS[eixo].shortLabel}
+                  </a>
+                  <span aria-hidden="true">·</span>
+                  <span>{category}</span>
+                  <span aria-hidden="true">·</span>
+                  <span>{dateFormatted}</span>
+                  <span aria-hidden="true">·</span>
+                  <span>{duration} leitura</span>
+                </p>
+              </div>
             </div>
           </div>
         </header>

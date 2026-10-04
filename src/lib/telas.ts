@@ -20,7 +20,7 @@ export interface Tela extends TelaArquivo {
   estreita?: TelaArquivo;
 }
 
-type Papel = 'abertura' | 'faixa' | 'capa' | 'capitulo' | 'close';
+type Papel = 'abertura' | 'faixa' | 'capa' | 'capitulo' | 'close' | 'projecao' | 'convite' | 'fita' | 'painel';
 
 function arquivo(grupo: string, nome: string, papel: Papel, janela: string): TelaArquivo {
   const j = PAPEIS[papel].janelas[janela];
@@ -50,11 +50,23 @@ export const telaAbertura = (): Tela => telaPapel('home', 'abertura', 'abertura'
 /** Abre os três eixos na home: plano aberto vertical ao lado da lista (faixa baixa no celular). */
 export const telaPortas = (): Tela => telaPapel('home', 'portas', 'capitulo', 'coluna', 'estreita');
 
-/** Close de traço da Ferramenta: uma luz pintada de perto. */
-export const telaFerramenta = (): Tela => telaPapel('home', 'ferramenta', 'close', 'quadro');
+/** Close de traço da Ferramenta (2,5×, o único do site): meia seção no desktop, faixa no celular. */
+export const telaFerramenta = (): Tela => telaPapel('home', 'ferramenta', 'close', 'quadro', 'estreita');
 
-/** A tela da newsletter (semente "Radar de IA", a mesma da capa da publicação no Substack), de perto. */
-export const telaNewsletter = (): Tela => telaPapel('marca', 'newsletter', 'close', 'quadro');
+/** Tela de projeção do vídeo em destaque (16:9, ondas largas). */
+export const telaVideo = (): Tela => telaPapel('home', 'video', 'projecao', 'quadro', 'estreita');
+
+/** Convite da newsletter em escala 1:1: coluna ao lado do texto (`lado`) ou faixa baixa (`topo`). */
+export const telaNewsletter = (janela: 'lado' | 'topo' = 'lado'): Tela => telaPapel('marca', 'newsletter', 'convite', janela);
+
+/** Fita fina sob a faixa do título no arquivo da newsletter. */
+export const telaFita = (): Tela => telaPapel('marca', 'newsletter-fita', 'fita', 'larga', 'estreita');
+
+/** Painel da página 404, ao lado da mensagem. */
+export const telaPainel404 = (): Tela => telaPapel('marca', 'nao-encontrada', 'painel', 'quadro', 'estreita');
+
+/** Retrato 4:5 da capa: destaque dos hubs e coluna da abertura do texto (com o recorte 16:9 no celular). */
+export const telaRetrato = (colecao: 'insights' | 'radar', id: string): Tela => telaPapel(colecao, id, 'capa', 'retrato', 'recorte');
 
 /** Imagem OG 1200×630 gerada para o texto. */
 export const ogDoTexto = (colecao: 'insights' | 'radar', id: string): string => caminhoOg(colecao, id);

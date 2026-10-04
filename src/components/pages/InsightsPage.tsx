@@ -20,8 +20,8 @@ export interface InsightArticle {
   duration: string;
   /** Capa: tela gerada do slug no build (recorte 16:9). */
   tela: Tela;
-  /** Capa panorâmica (destaque do hub), com recorte para o celular. */
-  cabecalho?: Tela;
+  /** Retrato 4:5 da capa (destaque do hub), com recorte 16:9 no celular. */
+  retrato?: Tela;
 }
 
 interface InsightsPageProps {
@@ -129,21 +129,25 @@ export function InsightsPage({
           </div>
         )}
 
-        {/* Destaque: a capa do texto mais recente em plano aberto, o título ao lado do resumo. */}
+        {/* Destaque: a capa do texto mais recente em retrato (nunca a panorâmica da faixa), o título ao lado. */}
         {primeiro && (
-          <article className="cartao mb-14 md:mb-20">
-            <a href={primeiro.href} tabIndex={-1} aria-hidden="true" className="block h-[220px] sm:h-auto sm:aspect-[24/7] overflow-hidden">
-              <TelaPicture tela={primeiro.cabecalho ?? primeiro.tela} sizes="(min-width: 1280px) 1232px, 100vw" />
+          <article className="cartao mb-14 md:mb-20 grid md:grid-cols-12 md:gap-0">
+            <a
+              href={primeiro.href}
+              tabIndex={-1}
+              aria-hidden="true"
+              className="block md:col-span-4 h-[200px] sm:h-auto sm:aspect-[16/9] md:aspect-[4/5] overflow-hidden border-b-[3px] md:border-b-0 md:border-r-[3px] border-laranja"
+            >
+              <TelaPicture tela={primeiro.retrato ?? primeiro.tela} sizes="(min-width: 1280px) 400px, (min-width: 768px) 33vw, 100vw" />
             </a>
-            <span className="fio block" />
-            <div className="grid gap-5 md:grid-cols-12 md:gap-10 pt-7 md:pt-9">
-              <h2 className="md:col-span-7 font-serif text-3xl md:text-[2.6rem] leading-[1.08] text-white">
+            <div className="md:col-span-8 flex flex-col justify-end gap-5 pt-7 md:pt-0 md:pl-10 lg:pl-14 md:pb-2">
+              <h2 className="font-serif text-3xl md:text-[2.6rem] lg:text-[3rem] leading-[1.06] tracking-[-0.01em] text-white max-w-[22ch]">
                 <a href={primeiro.href} className="hover:text-pessego transition-colors">
                   {primeiro.title}
                 </a>
               </h2>
-              <div className="md:col-span-5 flex flex-col gap-4">
-                <p className="font-sans text-lg text-nevoa leading-relaxed">{primeiro.excerpt}</p>
+              <p className="font-sans text-lg text-nevoa leading-relaxed max-w-[60ch]">{primeiro.excerpt}</p>
+              <div className="flex flex-wrap items-center justify-between gap-4 border-t border-linha pt-5">
                 <p className="font-sans text-sm text-bruma">
                   <span className="font-bold text-ceu">{eixo ? primeiro.category : `${EIXOS[primeiro.eixo].shortLabel} · ${primeiro.category}`}</span>
                   <span aria-hidden="true"> · </span>

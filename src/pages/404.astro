@@ -3,7 +3,7 @@
 // serve este arquivo com status 404 para qualquer URL inexistente.
 import Default from '../layouts/Default.astro';
 import { TelaPicture } from '../components/TelaPicture';
-import { telaFaixa } from '../lib/telas';
+import { telaPainel404 } from '../lib/telas';
 
 const caminhos = [
   { href: '/insights', label: 'Insights', desc: 'Textos autorais sobre engenharia, negócio e IA.' },
@@ -17,36 +17,35 @@ const caminhos = [
   description="O endereço acessado não existe ou mudou de lugar."
   noindex
 >
-  <main class="bg-noite min-h-[80vh]">
-    <div class="h-[132px] md:h-auto md:aspect-[6/1] overflow-hidden" aria-hidden="true">
-      <TelaPicture tela={telaFaixa('nao-encontrada')} sizes="100vw" />
+  <main class="bg-noite min-h-[80vh] lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,40%)]">
+    <!-- Abertura própria do 404: massas que se encontram num painel ao lado da mensagem, fio vertical -->
+    <div class="h-[132px] md:h-[200px] lg:h-auto overflow-hidden lg:order-last border-b-[3px] lg:border-b-0 lg:border-l-[3px] border-laranja" aria-hidden="true">
+      <TelaPicture tela={telaPainel404()} sizes="(min-width: 1024px) 40vw, 100vw" />
     </div>
-    <div class="fio">
-      <div class="max-w-7xl mx-auto px-4 md:px-6 pt-10 pb-20 md:pt-14 md:pb-28">
-        <h1 class="font-serif text-[2.4rem] md:text-6xl leading-[1.04] tracking-[-0.015em] text-white mb-4 max-w-3xl">
-          Esta página não existe <br />
-          <span class="text-pessego">ou mudou de lugar</span>
-        </h1>
-        <p class="rotulo text-laranja-claro mb-8">Erro 404</p>
-        <p class="font-sans text-lg text-nevoa leading-relaxed max-w-xl mb-10">
-          O link pode estar quebrado ou o texto foi renomeado. Comece por um destes caminhos:
-        </p>
+    <div class="px-4 md:px-6 lg:pl-[max(1.5rem,calc((100vw-80rem)/2+1.5rem))] lg:pr-14 pt-10 pb-20 md:pt-14 md:pb-28 lg:py-24">
+      <h1 class="font-serif text-[2.4rem] md:text-6xl leading-[1.04] tracking-[-0.015em] text-white mb-4 max-w-3xl">
+        Esta página não existe <br />
+        <span class="text-pessego">ou mudou de lugar</span>
+      </h1>
+      <p class="rotulo text-ceu mb-8">Erro 404</p>
+      <p class="font-sans text-lg text-nevoa leading-relaxed max-w-xl mb-10">
+        O link pode estar quebrado ou o texto foi renomeado. Comece por um destes caminhos:
+      </p>
 
-        <ul class="grid gap-x-8 md:grid-cols-3 mb-12 border-t border-linha md:border-t-0">
-          {
-            caminhos.map((c) => (
-              <li class="border-b md:border-b-0 md:border-t border-linha">
-                <a href={c.href} class="cartao group block py-5">
-                  <span class="block font-serif text-xl text-white group-hover:text-pessego transition-colors mb-1">{c.label}</span>
-                  <span class="block font-sans text-sm text-nevoa leading-relaxed">{c.desc}</span>
-                </a>
-              </li>
-            ))
-          }
-        </ul>
+      <ul class="mb-12 border-t border-linha max-w-2xl">
+        {
+          caminhos.map((c) => (
+            <li class="border-b border-linha">
+              <a href={c.href} class="cartao group grid gap-1 sm:grid-cols-[12rem_minmax(0,1fr)] sm:gap-6 py-5">
+                <span class="block font-serif text-xl text-white group-hover:text-pessego transition-colors">{c.label}</span>
+                <span class="block font-sans text-sm text-nevoa leading-relaxed sm:pt-1">{c.desc}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
 
-        <a href="/" class="botao">Voltar para o início</a>
-      </div>
+      <a href="/" class="botao">Voltar para o início</a>
     </div>
   </main>
 </Default>
