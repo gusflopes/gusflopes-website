@@ -8,7 +8,9 @@ const link = 'text-ceu-claro hover:text-papel transition-colors';
 
 export function Footer() {
   return (
-    <footer className="campo-azul border-t-4 border-laranja pt-14 pb-8">
+    <footer className="campo-azul pb-8">
+      <div className="h-1 bg-laranja" aria-hidden="true" />
+      <div className="pt-14" />
       <div className="moldura">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-x-[var(--gutter)] gap-y-12 mb-14">
           <div className="lg:col-span-4">
@@ -55,10 +57,10 @@ export function Footer() {
         </div>
 
         <div className="border-t border-azul-3 pt-6 flex flex-col md:flex-row justify-between gap-4">
-          <p className="rotulo !tracking-[0.08em] text-ceu">
+          <p className="font-sans [font-stretch:87%] text-[0.8125rem] text-ceu">
             © {new Date().getFullYear()} Gusflopes.dev. Todos os direitos reservados.
           </p>
-          <div className="flex gap-6 rotulo !tracking-[0.08em]">
+          <div className="flex gap-6 font-sans [font-stretch:87%] text-[0.8125rem]">
             <a href="/privacy" className="text-ceu hover:text-papel">Política de Privacidade</a>
             <a href="/terms" className="text-ceu hover:text-papel">Termos de Uso</a>
           </div>

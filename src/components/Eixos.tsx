@@ -48,7 +48,7 @@ export function Eixos({ eixos }: EixosProps) {
                     {eixo.label}
                   </a>
                 </h3>
-                <p className="rotulo text-tinta-2 mb-4">{eixo.publico}</p>
+                <p className="font-sans font-semibold [font-stretch:87%] text-[0.9375rem] leading-snug text-tinta-2 mb-4">{eixo.publico}</p>
                 <p className="font-serif text-[1.0625rem] leading-relaxed text-tinta mb-6 flex-grow">{eixo.descricao}</p>
 
                 {destaque && (

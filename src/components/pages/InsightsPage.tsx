@@ -135,7 +135,7 @@ export function InsightsPage({
             </div>
             <div className="lg:col-span-5 border-t-2 border-papel pt-4">
               <p className="font-serif text-[1.1875rem] leading-relaxed text-ceu-claro">{subheading}</p>
-              {eixo && <p className="rotulo mt-4 text-laranja">{EIXOS[eixo].publico}</p>}
+              {eixo && <p className="mt-4 font-sans font-semibold [font-stretch:87%] text-[1rem] leading-snug text-laranja">{EIXOS[eixo].publico}</p>}
             </div>
           </div>
         </div>

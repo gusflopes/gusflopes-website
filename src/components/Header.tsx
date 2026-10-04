@@ -93,7 +93,7 @@ export function Header({ pathname: rawPathname, eixosAtivos = [] }: HeaderProps)
       </div>
 
       {isMenuOpen && (
-        <div id="menu-movel" className="lg:hidden absolute top-full inset-x-0 campo-azul border-b-4 border-laranja">
+        <div id="menu-movel" className="lg:hidden absolute top-full inset-x-0 campo-azul border-b-2 border-laranja">
           <nav aria-label="Principal" className="moldura flex flex-col py-2">
             {navItems.map((item) => {
               const ativo = isActive(item.href);

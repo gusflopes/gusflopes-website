@@ -63,7 +63,7 @@ export function LatestContent({ articles, video }: LatestContentProps) {
                 <Play size={28} strokeWidth={2.5} fill="currentColor" className="ml-1" />
               </span>
               <span className="block">
-                <span className="block font-sans font-black text-[1.75rem] md:text-[2.25rem] leading-[1.02] tracking-[-0.015em] uppercase text-papel mb-4 text-balance group-hover:text-laranja-claro transition-colors">
+                <span className="block font-sans font-extrabold [font-stretch:87%] text-[1.75rem] md:text-[2.125rem] leading-[1.06] tracking-[-0.012em] text-papel mb-4 text-balance group-hover:text-laranja-claro transition-colors">
                   {video.title}
                 </span>
                 <span className="block font-serif text-[1.0625rem] leading-relaxed text-ceu-claro max-w-[44ch]">{video.excerpt}</span>
