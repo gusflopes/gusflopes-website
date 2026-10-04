@@ -47,6 +47,15 @@ export const telaFaixa = (nome: string): Tela => telaPapel('faixa', nome, 'faixa
 /** Abertura da home. */
 export const telaAbertura = (): Tela => telaPapel('home', 'abertura', 'abertura', 'larga', 'estreita');
 
+/** Abre os três eixos na home: plano aberto vertical ao lado da lista (faixa baixa no celular). */
+export const telaPortas = (): Tela => telaPapel('home', 'portas', 'capitulo', 'coluna', 'estreita');
+
+/** Close de traço da Ferramenta: uma luz pintada de perto. */
+export const telaFerramenta = (): Tela => telaPapel('home', 'ferramenta', 'close', 'quadro');
+
+/** A tela da newsletter (semente "Radar de IA", a mesma da capa da publicação no Substack), de perto. */
+export const telaNewsletter = (): Tela => telaPapel('marca', 'newsletter', 'close', 'quadro');
+
 /** Imagem OG 1200×630 gerada para o texto. */
 export const ogDoTexto = (colecao: 'insights' | 'radar', id: string): string => caminhoOg(colecao, id);
 

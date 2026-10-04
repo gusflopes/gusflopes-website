@@ -69,7 +69,7 @@ for (const mt of MATERIAIS_ESTUDO) {
   camadas.push({ input: t.input, left: x, top: y + ch + 8 });
   x += cw + 14;
 }
-const quadro = await sharp('src/assets/326189a758fea0fe0e2da42349b6da943b29ba51.png').extract({ left: 1500, top: 430, width: cw - 60, height: ch }).png().toBuffer();
+const quadro = await sharp('src/assets/326189a758fea0fe0e2da42349b6da943b29ba51.png').extract({ left: 1500, top: 430, width: W - M - x, height: ch }).png().toBuffer();
 camadas.push({ input: quadro, left: x, top: y });
 const tq = await texto({ conteudo: 'Quadro (100%)', familia: 'hanken', peso: 600, px: 16, cor: COR2 });
 camadas.push({ input: tq.input, left: x, top: y + ch + 8 });

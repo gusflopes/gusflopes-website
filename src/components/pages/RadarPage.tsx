@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Search, ArrowRight, ExternalLink, Play } from 'lucide-react';
 import { EIXOS, EIXO_LIST, type EixoId } from '../../lib/eixos';
 import { telaFaixa, type Tela } from '../../lib/telas';
-import { TelaPicture } from '../TelaPicture';
 import { AberturaHub } from '../AberturaHub';
 
 export interface RadarItem {
@@ -107,50 +106,48 @@ export function RadarPage({ items }: RadarPageProps) {
         </div>
 
         {filteredItems.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
+          /* Um diário de bordo: a data na margem, o item e o comentário no meio, a fonte e a ação à direita. */
+          <ol className="border-t border-linha">
             {filteredItems.map((item) => {
               const externo = item.isExternal;
               return (
-                <a
-                  key={item.id}
-                  href={item.link}
-                  {...(externo ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                  className="cartao group flex flex-col"
-                >
-                  <div className="relative aspect-[16/9] overflow-hidden">
-                    <TelaPicture tela={item.tela} sizes="(min-width: 1024px) 31vw, (min-width: 768px) 46vw, 100vw" />
-                    {item.type === 'video' && (
-                      <span className="absolute left-4 bottom-4 w-11 h-11 bg-laranja text-brasa flex items-center justify-center">
-                        <Play fill="currentColor" size={18} className="ml-0.5" aria-hidden="true" />
+                <li key={item.id} className="border-b border-linha">
+                  <a
+                    href={item.link}
+                    {...(externo ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    className="cartao group grid gap-x-10 gap-y-2 py-7 md:grid-cols-12"
+                  >
+                    <span className="md:col-span-7 md:col-start-3 md:row-start-1 flex flex-col gap-2">
+                      <span className="font-serif text-[1.35rem] md:text-[1.5rem] leading-snug text-white group-hover:text-pessego transition-colors">
+                        {item.type === 'video' && (
+                          <Play size={16} fill="currentColor" className="inline-block align-[-0.05em] mr-2 text-laranja-claro" aria-hidden="true" />
+                        )}
+                        {item.title}
                       </span>
-                    )}
-                  </div>
-                  <span className="fio-vivo" />
-                  <h2 className="font-serif text-[1.4rem] leading-snug text-white group-hover:text-pessego transition-colors mt-5 mb-3">
-                    {item.title}
-                  </h2>
-                  <p className="font-sans text-nevoa leading-relaxed line-clamp-3 mb-4">{item.excerpt}</p>
-                  <div className="mt-auto mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                    <p className="rotulo text-laranja-claro">
-                      {selectedEixo === 'todos' && eixosComConteudo.length > 1
-                        ? `${EIXOS[item.eixo].shortLabel} · ${item.category}`
-                        : item.category}
-                    </p>
-                    {externo && <p className="font-sans text-xs font-semibold text-bruma">{item.source}</p>}
-                  </div>
-                  <p className="font-sans text-sm text-bruma mb-4">
-                    {item.date} · {item.duration}
-                  </p>
-                  <span className="acao text-laranja-claro text-sm uppercase tracking-[0.1em]">
-                    {externo
-                      ? item.type === 'video' ? 'Assistir Agora' : 'Ler na Fonte'
-                      : item.type === 'video' ? 'Assistir Vídeo' : 'Ler Artigo'}
-                    {externo ? <ExternalLink size={14} aria-hidden="true" /> : <ArrowRight size={14} aria-hidden="true" />}
-                  </span>
-                </a>
+                      <span className="font-sans text-nevoa leading-relaxed line-clamp-2 max-w-[68ch]">{item.excerpt}</span>
+                    </span>
+                    <span className="md:col-span-2 md:col-start-1 md:row-start-1 md:pt-2 font-sans text-sm text-bruma tabular-nums">
+                      {item.date} · {item.duration}
+                    </span>
+                    <span className="md:col-span-3 md:row-start-1 flex flex-col gap-1 md:items-end md:text-right md:pt-2 font-sans text-sm">
+                      <span className="font-bold text-ceu">
+                        {selectedEixo === 'todos' && eixosComConteudo.length > 1
+                          ? `${EIXOS[item.eixo].shortLabel} · ${item.category}`
+                          : item.category}
+                      </span>
+                      {externo && <span className="text-bruma">{item.source}</span>}
+                      <span className="acao text-laranja-claro text-sm uppercase tracking-[0.1em] mt-2">
+                        {externo
+                          ? item.type === 'video' ? 'Assistir Agora' : 'Ler na Fonte'
+                          : item.type === 'video' ? 'Assistir Vídeo' : 'Ler Artigo'}
+                        {externo ? <ExternalLink size={14} aria-hidden="true" /> : <ArrowRight size={14} aria-hidden="true" />}
+                      </span>
+                    </span>
+                  </a>
+                </li>
               );
             })}
-          </div>
+          </ol>
         ) : (
           <div className="py-24 border-t border-linha">
             <p className="text-nevoa font-sans">Nenhum item encontrado para sua busca.</p>

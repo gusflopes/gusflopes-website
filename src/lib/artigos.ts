@@ -3,7 +3,7 @@ import { publicado } from './publicado';
 import type { InsightArticle } from '../components/pages/InsightsPage';
 import type { EixoId } from './eixos';
 import { compareIsoDateDesc, formatDatePtBR } from './format';
-import { telaCapa } from './telas';
+import { telaCapa, telaCabecalho } from './telas';
 
 interface ArtigoOptions {
   /** Filtra por eixo. */
@@ -43,6 +43,7 @@ export async function getArtigos({ eixo, incluirRadarLocal = false }: ArtigoOpti
       duration: entry.data.duration,
       // Capa = tela gerada do slug; a foto de banco do frontmatter fica só como dado.
       tela: telaCapa(entry.collection, entry.id),
+      cabecalho: telaCabecalho(entry.collection, entry.id),
     })
   );
 }

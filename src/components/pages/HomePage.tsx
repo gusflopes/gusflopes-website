@@ -18,11 +18,12 @@ export function HomePage({ articles, video, eixos = [], fundo }: HomePageProps) 
   return (
     <main>
       <Hero />
+      {/* noite: abertura → portas → o que saiu agora → experimentar → quem escreve; papel: o que contratar */}
       <Eixos eixos={eixos} />
+      <LatestContent articles={articles} video={video} />
       <Ferramenta />
       <Themes fundo={fundo} />
       <Services />
-      <LatestContent articles={articles} video={video} />
     </main>
   );
 }

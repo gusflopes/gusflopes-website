@@ -1,8 +1,8 @@
-// Capturas de revisão (Playwright): pnpm build && pnpm astro preview --port 4404, depois node scripts/tela/capturas.mjs
+// Capturas de revisão (Playwright): pnpm build && pnpm astro preview --port 4414, depois node scripts/tela/capturas.mjs [pasta]
 import { chromium } from '/opt/node22/lib/node_modules/playwright/index.mjs';
 const out = process.argv[2] || 'docs/design-review';
-const base = 'http://127.0.0.1:4404';
-const rotas = [['/', 'home'], ['/insights/', 'insights'], ['/engenharia/', 'engenharia'], ['/insights/article/agent-skills-pacotes-de-contexto/', 'artigo'], ['/radar/', 'radar'], ['/newsletter/', 'newsletter']];
+const base = process.env.BASE || 'http://127.0.0.1:4414';
+const rotas = [['/', 'home'], ['/insights/', 'insights'], ['/engenharia/', 'engenharia'], ['/insights/article/agent-skills-pacotes-de-contexto/', 'artigo'], ['/radar/', 'radar'], ['/newsletter/', 'newsletter'], ['/newsletter/radar-semanal-01/', 'edicao'], ['/pagina-que-nao-existe/', 'notfound']];
 const vps = [['desktop', 1366, 900], ['mobile', 390, 844]];
 const browser = await chromium.launch();
 for (const [vp, w, h] of vps) {

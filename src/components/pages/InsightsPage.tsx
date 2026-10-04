@@ -18,8 +18,10 @@ export interface InsightArticle {
   /** Data ISO (YYYY-MM-DD), para ordenação e metadados. */
   isoDate: string;
   duration: string;
-  /** Capa: tela gerada do slug no build. */
+  /** Capa: tela gerada do slug no build (recorte 16:9). */
   tela: Tela;
+  /** Capa panorâmica (destaque do hub), com recorte para o celular. */
+  cabecalho?: Tela;
 }
 
 interface InsightsPageProps {
@@ -70,7 +72,7 @@ export function InsightsPage({
         tela={telaFaixa(eixo ?? 'insights')}
         titulo={heading}
         deck={subheading}
-        nota={eixo ? <p className="font-sans text-sm font-semibold text-laranja-claro">{EIXOS[eixo].publico}</p> : undefined}
+        nota={eixo ? <p className="font-sans text-sm font-semibold text-ceu">{EIXOS[eixo].publico}</p> : undefined}
       />
 
       <div className="max-w-7xl mx-auto px-4 md:px-6 pb-20 md:pb-28">
@@ -127,60 +129,59 @@ export function InsightsPage({
           </div>
         )}
 
+        {/* Destaque: a capa do texto mais recente em plano aberto, o título ao lado do resumo. */}
         {primeiro && (
-          <a href={primeiro.href} className="cartao group grid md:grid-cols-12 gap-6 md:gap-10 mb-16 md:mb-20">
-            <div className="md:col-span-7">
-              <div className="aspect-[16/9] overflow-hidden">
-                <TelaPicture tela={primeiro.tela} sizes="(min-width: 768px) 58vw, 100vw" />
-              </div>
-              <span className="fio-vivo" />
-            </div>
-            <div className="md:col-span-5 flex flex-col md:pt-2">
-              <h2 className="font-serif text-3xl md:text-[2.5rem] leading-[1.1] text-white group-hover:text-pessego transition-colors mb-4">
-                {primeiro.title}
+          <article className="cartao mb-14 md:mb-20">
+            <a href={primeiro.href} tabIndex={-1} aria-hidden="true" className="block h-[220px] sm:h-auto sm:aspect-[24/7] overflow-hidden">
+              <TelaPicture tela={primeiro.cabecalho ?? primeiro.tela} sizes="(min-width: 1280px) 1232px, 100vw" />
+            </a>
+            <span className="fio block" />
+            <div className="grid gap-5 md:grid-cols-12 md:gap-10 pt-7 md:pt-9">
+              <h2 className="md:col-span-7 font-serif text-3xl md:text-[2.6rem] leading-[1.08] text-white">
+                <a href={primeiro.href} className="hover:text-pessego transition-colors">
+                  {primeiro.title}
+                </a>
               </h2>
-              <p className="font-sans text-lg text-nevoa leading-relaxed mb-5">{primeiro.excerpt}</p>
-              <p className="font-sans text-sm text-bruma mb-6">
-                <span className="rotulo text-laranja-claro">
-                  {eixo ? primeiro.category : `${EIXOS[primeiro.eixo].shortLabel} · ${primeiro.category}`}
-                </span>
-                <span className="block mt-2">
+              <div className="md:col-span-5 flex flex-col gap-4">
+                <p className="font-sans text-lg text-nevoa leading-relaxed">{primeiro.excerpt}</p>
+                <p className="font-sans text-sm text-bruma">
+                  <span className="font-bold text-ceu">{eixo ? primeiro.category : `${EIXOS[primeiro.eixo].shortLabel} · ${primeiro.category}`}</span>
+                  <span aria-hidden="true"> · </span>
                   {primeiro.date} · {primeiro.duration}
-                </span>
-              </p>
-              <span className="acao text-laranja-claro">
-                Ler Artigo <ArrowRight size={16} aria-hidden="true" />
-              </span>
+                </p>
+                <a href={primeiro.href} className="acao text-laranja-claro">
+                  Ler Artigo <ArrowRight size={16} aria-hidden="true" />
+                </a>
+              </div>
             </div>
-          </a>
+          </article>
         )}
 
+        {/* Os demais: um índice de leitura, só texto — a tela de cada um é a capa dentro do texto. */}
         {demais.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
+          <ol className="border-t border-linha">
             {demais.map((article) => (
-              <a key={article.id} href={article.href} className="cartao group flex flex-col">
-                <div className="aspect-[16/9] overflow-hidden">
-                  <TelaPicture tela={article.tela} sizes="(min-width: 1024px) 31vw, (min-width: 768px) 46vw, 100vw" />
-                </div>
-                <span className="fio-vivo" />
-                <h2 className="font-serif text-[1.45rem] leading-snug text-white group-hover:text-pessego transition-colors mt-5 mb-3">
-                  {article.title}
-                </h2>
-                <p className="font-sans text-nevoa leading-relaxed mb-4 line-clamp-3">{article.excerpt}</p>
-                <p className="font-sans text-sm text-bruma mt-auto mb-4">
-                  <span className="rotulo text-laranja-claro">
-                    {eixo ? article.category : `${EIXOS[article.eixo].shortLabel} · ${article.category}`}
+              <li key={article.id} className="border-b border-linha">
+                <a href={article.href} className="cartao group grid gap-x-10 gap-y-2 py-7 md:grid-cols-12">
+                  <span className="md:col-span-8 flex flex-col gap-2">
+                    <span className="font-serif text-[1.4rem] md:text-[1.6rem] leading-snug text-white group-hover:text-pessego transition-colors">
+                      {article.title}
+                    </span>
+                    <span className="font-sans text-nevoa leading-relaxed line-clamp-2 max-w-[68ch]">{article.excerpt}</span>
                   </span>
-                  <span className="block mt-2">
-                    {article.date} · {article.duration}
+                  <span className="md:col-span-4 flex flex-col gap-1 md:items-end md:text-right md:pt-1.5 font-sans text-sm">
+                    <span className="font-bold text-ceu">{eixo ? article.category : `${EIXOS[article.eixo].shortLabel} · ${article.category}`}</span>
+                    <span className="text-bruma">
+                      {article.date} · {article.duration}
+                    </span>
+                    <span className="acao text-laranja-claro mt-2">
+                      Ler Artigo <ArrowRight size={16} aria-hidden="true" />
+                    </span>
                   </span>
-                </p>
-                <span className="acao text-laranja-claro">
-                  Ler Artigo <ArrowRight size={16} aria-hidden="true" />
-                </span>
-              </a>
+                </a>
+              </li>
             ))}
-          </div>
+          </ol>
         )}
 
         {/* Empty State */}

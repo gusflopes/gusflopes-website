@@ -20,9 +20,16 @@ import { PAPEIS, ABERTURA, QUALIDADE, caminhoTela, caminhoOg } from './config.mj
 
 const EIXO_LABEL = { engenharia: 'Engenharia & IA', negocios: 'Negócios', bastidores: 'Bastidores' };
 /** Faixas de abertura dos hubs: semente = nome da página. */
-export const FAIXAS = ['insights', 'radar', 'newsletter', 'engenharia', 'negocios', 'bastidores'];
-/** Telas da home além da abertura: [nome, papel, semente]. Ver src/lib/telas.ts. */
-export const TELAS_HOME = [];
+export const FAIXAS = ['insights', 'radar', 'newsletter', 'engenharia', 'negocios', 'bastidores', 'nao-encontrada'];
+/**
+ * Telas com papel próprio fora dos textos: [grupo, nome, papel, semente]. Cada papel tem a sua
+ * semente — nunca a mesma tela repetida como textura. Ver src/lib/telas.ts.
+ */
+export const TELAS_PAPEL = [
+  ['home', 'portas', 'capitulo', 'O que eu escrevo, e para quem'], // abre os três eixos
+  ['home', 'ferramenta', 'close', 'Simulador da Reforma Tributária'], // close de uma luz: "experimente"
+  ['marca', 'newsletter', 'close', 'Radar de IA'], // a tela da newsletter (a mesma semente da capa do Substack)
+];
 
 function frontmatter(arquivo) {
   const txt = fs.readFileSync(arquivo, 'utf8');
@@ -151,7 +158,7 @@ export async function gerarTelas({ raiz, producao, log = console.log }) {
   papel('home', 'home', 'abertura', 'abertura', ABERTURA.semente);
 
   // Telas com papel próprio na home: cada uma com sua semente (nunca a mesma tela repetida).
-  for (const [nome, p, semente] of TELAS_HOME) papel(`home:${nome}`, 'home', nome, p, semente);
+  for (const [grupo, nome, p, semente] of TELAS_PAPEL) papel(`${grupo}:${nome}`, grupo, nome, p, semente);
 
   // OG padrão (home e páginas sem texto próprio): a tagline em faixa sólida sob a tela
   const ogPadrao = caminhoOg('site', 'padrao');

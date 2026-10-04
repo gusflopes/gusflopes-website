@@ -109,15 +109,15 @@ export function ArtigoPage({ title, excerpt, category, eixo, dateFormatted, dura
           <div className="max-w-[40rem] mx-auto border-t border-regua pt-10 flex flex-col sm:flex-row gap-6">
             <img
               src={fotoAutor}
-              alt={author.name}
+              alt=""
               width={88}
               height={88}
               loading="lazy"
               className="w-[88px] h-[88px] rounded-full object-cover shrink-0"
             />
             <div>
-              <h2 className="rotulo text-laranja-fundo mb-2">Sobre o Autor</h2>
-              <p className="font-serif text-2xl md:text-[1.75rem] text-tinta mb-2">{author.name}</p>
+              <h2 className="font-serif text-2xl md:text-[1.75rem] text-tinta">{author.name}</h2>
+              <p className="rotulo text-tinta-2 mt-1.5 mb-3">Sobre o Autor</p>
               <p className="font-sans text-[0.9375rem] text-tinta-2 leading-relaxed max-w-lg mb-3">{author.bio}</p>
               <SocialLinks linkClassName="text-tinta-2 hover:text-laranja-fundo" />
             </div>

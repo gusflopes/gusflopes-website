@@ -17,7 +17,7 @@ export const PAPEIS = {
   abertura: {
     mestre: [1440, 450],
     janelas: {
-      larga: { x: 0, y: 0, w: 1440, h: 450, larguras: [1440, 2160] },
+      larga: { x: 0, y: 0, w: 1440, h: 450, larguras: [1440, 2160], margem: 24 },
       estreita: { x: 500, y: 110, w: 400, h: 250, larguras: [400, 800], margem: 30 },
     },
   },
@@ -48,7 +48,7 @@ export const PAPEIS = {
     mestre: [440, 720],
     janelas: {
       coluna: { x: 0, y: 0, w: 440, h: 720, larguras: [440, 880], margem: 30 },
-      estreita: { x: 20, y: 280, w: 400, h: 160, larguras: [400, 800] },
+      estreita: { x: 20, y: 280, w: 400, h: 160, larguras: [400, 800], semLuz: true }, // no celular, só o campo de traços: as luzes ficam para as outras telas
     },
   },
   /**

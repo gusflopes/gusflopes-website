@@ -23,26 +23,32 @@ export function Services() {
     }
   ];
 
+  // "Entender o que contratar": um cardápio em linhas largas sobre papel — o serviço em Literata,
+  // o que ele resolve e a ação alinhada à direita. O fio laranja de cada linha se estende no hover/foco.
   return (
     <section id="consulting" aria-labelledby="consulting-title" className="bg-papel text-tinta papel px-4 md:px-6 py-16 md:py-24 relative">
       <div id="courses" className="absolute top-0"></div>
-      <div className="max-w-7xl mx-auto">
-        <h2 id="consulting-title" className="font-serif text-3xl md:text-[2.6rem] leading-tight text-tinta mb-10 md:mb-14">
+      <div className="max-w-7xl mx-auto grid gap-10 lg:grid-cols-12 lg:gap-12">
+        <h2 id="consulting-title" className="lg:col-span-4 font-serif text-[2.1rem] md:text-5xl leading-[1.08] tracking-[-0.01em] text-tinta">
           Como posso ajudar
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-12">
+        <ol className="lg:col-span-8 border-t border-regua">
           {services.map((service) => (
-            <article key={service.title} className="cartao flex flex-col">
-              <span className="fio-vivo" />
-              <h3 className="font-serif text-2xl text-tinta mt-5 mb-3">{service.title}</h3>
-              <p className="font-sans text-tinta-2 leading-relaxed mb-6 flex-grow">{service.description}</p>
-              <a href={service.link} className="acao text-laranja-fundo text-sm tracking-[0.08em]">
-                {service.action} <ArrowRight size={16} aria-hidden="true" />
-              </a>
-            </article>
+            <li key={service.title} className="cartao border-b border-regua">
+              <span className="fio-vivo -mt-px" />
+              <div className="grid gap-x-10 gap-y-3 py-7 md:py-9 md:grid-cols-[minmax(0,4fr)_minmax(0,6fr)]">
+                <h3 className="font-serif text-2xl md:text-[1.75rem] leading-tight text-tinta">{service.title}</h3>
+                <div className="flex flex-col gap-4">
+                  <p className="font-sans text-tinta-2 leading-relaxed">{service.description}</p>
+                  <a href={service.link} className="acao text-laranja-fundo text-sm tracking-[0.08em]">
+                    {service.action} <ArrowRight size={16} aria-hidden="true" />
+                  </a>
+                </div>
+              </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

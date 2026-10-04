@@ -20,7 +20,7 @@
  * Saída: RGB 8 bits cru ({ data, width, height }); quem codifica é o sharp (scripts/tela/render.mjs).
  */
 
-export const VERSAO = 5;
+export const VERSAO = 8;
 
 /** Paleta: azuis do quadro + luzes laranja da marca (em pouca quantidade). */
 export const CORES = {
@@ -180,17 +180,20 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
   const todas = janelas.length ? janelas : [{ x: 0, y: 0, w: MW, h: MH }];
   const principal = todas[0];
   const focos = [];
+  // raio visível = o halo externo da espiral (~2,5× o miolo), não só o miolo
   const cabe = (f) =>
     todas.every((j, k) => {
-      const mg = f.r + (j.margem ?? 18);
+      const rv = f.r * 2.5;
+      const mg = rv + (j.margem ?? 8);
       const dentro = f.x - mg >= j.x && f.x + mg <= j.x + j.w && f.y - mg >= j.y && f.y + mg <= j.y + j.h;
       if (k === 0) return dentro;
-      const fora = f.x + f.r + 4 < j.x || f.x - f.r - 4 > j.x + j.w || f.y + f.r + 4 < j.y || f.y - f.r - 4 > j.y + j.h;
+      const fora = f.x + rv + 2 < j.x || f.x - rv - 2 > j.x + j.w || f.y + rv + 2 < j.y || f.y - rv - 2 > j.y + j.h;
+      if (j.semLuz) return fora;
       return dentro || fora;
     });
   for (let tent = 0; focos.length < p.luzes && tent < 400; tent++) {
     // o primeiro foco mira a menor janela (o recorte mais apertado também ganha luz)
-    const alvo = focos.length === 0 ? todas.reduce((a, b) => (a.w * a.h <= b.w * b.h ? a : b)) : principal;
+    const alvo = focos.length === 0 ? todas.filter((j) => !j.semLuz).reduce((a, b) => (a.w * a.h <= b.w * b.h ? a : b)) : principal;
     const r = 16 + rnd() * 9;
     const f = { x: alvo.x + alvo.w * (0.15 + rnd() * 0.7), y: alvo.y + alvo.h * (0.2 + rnd() * 0.6), r, s: rnd() < 0.5 ? 1 : -1 };
     if (cabe(f) && focos.every((g) => Math.hypot(g.x - f.x, g.y - f.y) > Math.max(220, principal.w * 0.18))) focos.push(f);
@@ -286,8 +289,11 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
             tG[idx] = cg;
             tB[idx] = cb;
             tT[idx] = t;
-            tH[idx] = ld * Math.max(0, 1 - d2 * ir);
           }
+          // relevo: máximo contínuo, com perfil de platô (1 − (d/r)⁴), sem degraus entre carimbos
+          const q2 = d2 * ir;
+          const hh = ld * (0.68 + 0.32 * (1 - q2 * q2)); // corpo do traço + sulcos finos das cerdas
+          if (hh > tH[idx]) tH[idx] = hh;
         }
       }
     };
@@ -340,8 +346,7 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
           amostra(sv, q);
           const w = larg * perfil(t);
           const off = u * w + e.dl * (1 - t * 0.5) + Math.sin(t * 6 + fase) * 0.035 * larg;
-          const rr = tt < 0.1 ? rb * (1.25 - tt * 2.5) : rb;
-          carimbo(q[0] + q[2] * off, q[1] + q[3] * off, Math.max(0.55, rr), ld, cr, cg, cb, t);
+          carimbo(q[0] + q[2] * off, q[1] + q[3] * off, Math.max(0.55, rb), ld, cr, cg, cb, t);
         }
       }
     }
@@ -355,6 +360,8 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
         const cv = tCov[idx];
         if (cv <= 0) continue;
         tCov[idx] = 0;
+        const th = tH[idx];
+        tH[idx] = 0;
         const a = cv * op;
         const k3 = ci * 3;
         const mix = arr * tT[idx];
@@ -365,7 +372,7 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
         cor[k3] = r0 + (nr - r0) * a;
         cor[k3 + 1] = g0 + (ng - g0) * a;
         cor[k3 + 2] = b0 + (nb2 - b0) * a;
-        if (relevo) alt[ci] = alt[ci] * (1 - a * 0.85) + tH[idx] * o.carga * a;
+        if (relevo) alt[ci] = alt[ci] * (1 - a * 0.85) + th * o.carga * a;
       }
     }
   }
@@ -499,13 +506,20 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
     const y = MH * (0.12 + rnd() * 0.76);
     const c = pick(rnd, [[C.laranjaClaro, 2], [C.pessego, 2], [C.laranja, 1]]);
     const s = sub();
-    traco(x, y, 10 + rnd() * 8, 4.5 * e, c, 0.95, s, { ...OPT, secura: 0.5, afina: 0.5, carga: 1.3 });
+    // nenhuma faísca rente à borda de uma janela (laranja cortado lê como defeito)
+    const rente = todas.some((j) => {
+      const dx = Math.min(Math.abs(x - j.x), Math.abs(x - j.x - j.w));
+      const dy = Math.min(Math.abs(y - j.y), Math.abs(y - j.y - j.h));
+      const dentro = x > j.x - 16 && x < j.x + j.w + 16 && y > j.y - 16 && y < j.y + j.h + 16;
+      return dentro && (dx < 16 || dy < 16);
+    });
+    if (!rente) traco(x, y, 10 + rnd() * 8, 4.5 * e, c, 0.95, s, { ...OPT, secura: 0.5, afina: 0.5, carga: 1.3 });
   }
 
   // --- Luz rasante sobre o relevo (empasto) e quantização ---
   const out = new Uint8Array(W * H * 3);
   const lx = -0.55, ly = -0.65, lz = 0.52;
-  const forca = 1.6 * escala; // gradiente por px de dispositivo → por px de tela
+  const forca = 1.1 * escala; // gradiente por px de dispositivo → por px de tela
   for (let y = 0; y < H; y++) {
     for (let x = 0; x < W; x++) {
       const i = y * W + x;
@@ -516,8 +530,8 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
         const gy = (alt[Math.min(H - 1, y + 1) * W + x] - alt[Math.max(0, y - 1) * W + x]) * 0.5 * forca;
         const inv = 1 / Math.sqrt(gx * gx + gy * gy + 1);
         const dif = (-gx * lx - gy * ly + lz) * inv;
-        sh = 1 + (dif / lz - 1) * 0.42;
-        if (dif > lz) spec = (dif - lz) * (dif - lz) * 260;
+        sh = 1 + (dif / lz - 1) * 0.36;
+        if (dif > lz) spec = (dif - lz) * (dif - lz) * 200;
       }
       for (let k = 0; k < 3; k++) {
         const v = cor[i * 3 + k] * sh + spec;
