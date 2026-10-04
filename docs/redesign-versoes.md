@@ -16,12 +16,12 @@ Antes de trocar de versão, rode `git fetch origin` para ter as branches `design
 | redesign-v2-concretismo | `design/concretismo` | `b70201cbe2e0b522fe858ae1864e5989563d07ac` | `git checkout b70201c` |
 | redesign-v3-concretismo | `design/concretismo` | `e275549065ffad393ab27e1d7c66b59b3a60d512` | `git checkout e275549` |
 | redesign-v4-concretismo | `design/concretismo` | `e0f149b4873214f6dfbe1f10e751650a1c68bf0d` | `git checkout e0f149b` |
-| redesign-v5-concretismo | `design/concretismo` | `22c6677031f9f93b1d3fc8171c72d5e7f3723d24` | `git checkout 22c6677` |
+| redesign-v5-concretismo | `design/concretismo` | `960913760c20af010c65e3437516795cdf953f9e` | `git checkout 9609137` |
 | redesign-v1-pincelada | `design/pincelada` | `72b15f51579c66ae8f76a464e4e8ebc8c8d9dada` | `git checkout 72b15f5` |
 | redesign-v2-pincelada | `design/pincelada` | `16a96d701136d379204a0d5e19da13ef531dfd1d` | `git checkout 16a96d7` |
 | redesign-v3-pincelada | `design/pincelada` | `e28b3fe6fb46e4180599d19c07484c5ab0b6a0e1` | `git checkout e28b3fe` |
 | redesign-v4-pincelada | `design/pincelada` | `fb4c63f7702f85ad3af00a826325a52d792edd4d` | `git checkout fb4c63f` |
-| redesign-v5-pincelada | `design/pincelada` | `4aa04d77999051b375adaaf87d5932d6038e4a6b` | `git checkout 4aa04d7` |
+| redesign-v5-pincelada | `design/pincelada` | `35ec2165fd985733a9babcd762f58c0df8d9550e` | `git checkout 35ec216` |
 | redesign-v1-metro (descartada) | `design/metro` | `0d2753a427688371bd853105e1e7a38b408f2c26` | `git checkout 0d2753a` |
 
 
@@ -63,8 +63,8 @@ git tag -a redesign-v3-pincelada   e28b3fe -m "Pincelada v3"
 git tag -a redesign-v4-pincelada   fb4c63f -m "Pincelada v4"
 git tag -a redesign-v1-metro       0d2753a -m "Metrô v1 (descartado)"
 git tag -a redesign-v5-evolucao    2a65868 -m "Evolução v5"
-git tag -a redesign-v5-concretismo 22c6677 -m "Concretismo v5"
-git tag -a redesign-v5-pincelada   4aa04d7 -m "Pincelada v5"
+git tag -a redesign-v5-concretismo 9609137 -m "Concretismo v5"
+git tag -a redesign-v5-pincelada   35ec216 -m "Pincelada v5"
 git push origin --tags
 ```
 
