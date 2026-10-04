@@ -70,9 +70,8 @@ export function InsightsPage({
             <span
               className="inline-flex items-center rounded-full px-3.5 py-1 mb-5 text-sm font-extrabold text-brasa"
               style={{ background: COR_LINHA[eixo] }}
-              aria-hidden="true"
-            >
-              {articles.length}
+>
+              {articles.length} {articles.length === 1 ? 'estação' : 'estações'}
             </span>
           )}
           <h1 className="text-4xl md:text-6xl leading-[1.04] font-extrabold tracking-[-0.03em] text-white">

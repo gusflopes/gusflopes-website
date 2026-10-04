@@ -116,20 +116,20 @@ export function ArtigoLinha({
             </a>
             {atual >= 0 && (
               <span className="text-sm font-bold text-luz tabular-nums">
-                {atual + 1}<span className="text-nevoa font-medium">/{estacoes.length}</span>
+                Estação {atual + 1} <span className="text-nevoa font-medium">de {estacoes.length}</span>
               </span>
             )}
           </div>
 
           {estacoes.length > 1 && (
-            <nav aria-label={def.label} className="mb-10 md:mb-12 max-w-4xl">
+            <nav aria-label={`Estações da linha ${def.label}`} className="mb-12 md:mb-14 max-w-4xl">
               <ol className="trilho-artigo">
                 {estacoes.map((e, i) => (
                   <li key={e.href}>
                     <a
                       href={e.href}
                       title={e.title}
-                      aria-label={e.title}
+                      aria-label={i === atual ? `${e.title} (você está aqui)` : e.title}
                       {...(i === atual ? { 'aria-current': 'page' as const } : {})}
                     >
                       <span
@@ -138,6 +138,16 @@ export function ArtigoLinha({
                         {...(i === atual ? { 'data-atual': '' } : {})}
                       />
                     </a>
+                    {i === atual && (
+                      <span
+                        aria-hidden="true"
+                        className={`absolute top-full mt-1.5 whitespace-nowrap text-[0.7rem] font-bold uppercase tracking-[0.1em] text-luz ${
+                          i < estacoes.length / 2 ? 'left-0 sm:left-1/2 sm:-translate-x-1/2' : 'right-0 sm:right-auto sm:left-1/2 sm:-translate-x-1/2'
+                        } ${i === 0 ? 'sm:left-0 sm:translate-x-0' : ''}`}
+                      >
+                        Você está aqui
+                      </span>
+                    )}
                   </li>
                 ))}
               </ol>
@@ -194,18 +204,51 @@ export function ArtigoLinha({
         </article>
       </div>
 
+      {/* ---------- Baldeação: textos de outras linhas com tag em comum ---------- */}
+      {posicao && posicao.baldeacoes.length > 0 && (
+        <section aria-labelledby="baldeacao-title" className="bg-noite-2">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 md:py-12">
+            <h2 id="baldeacao-title" className="flex items-center gap-3 text-sm font-extrabold uppercase tracking-[0.12em] text-luz mb-6">
+              <span aria-hidden="true" className="estacao-ponto" data-baldeacao="" />
+              Baldeação
+            </h2>
+            <ul className="list-none m-0 p-0 grid md:grid-cols-3 gap-6">
+              {posicao.baldeacoes.map((b) => (
+                <li key={b.href}>
+                  <a href={b.href} className="group block">
+                    <span
+                      className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-extrabold text-brasa"
+                      style={{ background: COR_LINHA[b.eixo] }}
+                    >
+                      {EIXOS[b.eixo].shortLabel}
+                    </span>
+                    <span className="mt-2.5 block text-lg font-bold leading-snug text-luz group-hover:text-white group-hover:underline decoration-2 underline-offset-4" style={{ textDecorationColor: COR_LINHA[b.eixo] }}>
+                      {b.title}
+                    </span>
+                    <span className="mt-1 block text-xs font-medium text-nevoa tabular-nums">{b.date}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
       {/* ---------- Estação anterior / próxima na mesma linha ---------- */}
       {(anterior || proxima) && (
-        <nav aria-label={def.label} className="bg-noite border-t border-trilho">
+        <nav aria-label={`Estação anterior e próxima na linha ${def.label}`} className="bg-noite border-t border-trilho">
           <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-10 md:py-12 grid sm:grid-cols-2 gap-4 sm:gap-10">
-            <span aria-hidden="true" className="hidden sm:block absolute left-6 right-6 top-[3.3rem] md:top-[3.8rem] h-1.5 rounded-full bg-[var(--linha)]" />
             <div className="relative">
               {anterior && (
                 <a href={anterior.href} className="group flex flex-col gap-3 py-2" rel="prev">
                   <span className="flex items-center gap-3">
-                    <span className="estacao-ponto" aria-hidden="true" />
+                    <span aria-hidden="true" className="flex items-center">
+                      <span className="estacao-ponto" />
+                      <span className="block w-8 h-1.5 -ml-0.5 rounded-r-full bg-[var(--linha)]" />
+                    </span>
                     <ArrowLeft size={16} aria-hidden="true" className="text-nevoa group-hover:text-white" />
-                    <span className="text-xs font-bold text-nevoa tabular-nums">{anterior.date}</span>
+                    <span className="text-xs font-bold uppercase tracking-[0.08em] text-nevoa">Estação anterior</span>
+                    <span className="text-xs font-medium text-nevoa tabular-nums">{anterior.date}</span>
                   </span>
                   <span className="text-lg font-bold leading-snug text-luz group-hover:text-white group-hover:underline decoration-2 decoration-[var(--linha)] underline-offset-4">
                     {anterior.title}
@@ -217,9 +260,13 @@ export function ArtigoLinha({
               {proxima && (
                 <a href={proxima.href} className="group flex flex-col gap-3 py-2 sm:items-end" rel="next">
                   <span className="flex items-center gap-3 sm:flex-row-reverse">
-                    <span className="estacao-ponto" aria-hidden="true" />
+                    <span aria-hidden="true" className="flex items-center sm:flex-row-reverse">
+                      <span className="estacao-ponto" />
+                      <span className="block w-8 h-1.5 -ml-0.5 sm:ml-0 sm:-mr-0.5 rounded-r-full sm:rounded-r-none sm:rounded-l-full bg-[var(--linha)]" />
+                    </span>
                     <ArrowRight size={16} aria-hidden="true" className="text-nevoa group-hover:text-white" />
-                    <span className="text-xs font-bold text-nevoa tabular-nums">{proxima.date}</span>
+                    <span className="text-xs font-bold uppercase tracking-[0.08em] text-nevoa">Próxima estação</span>
+                    <span className="text-xs font-medium text-nevoa tabular-nums">{proxima.date}</span>
                   </span>
                   <span className="text-lg font-bold leading-snug text-luz group-hover:text-white group-hover:underline decoration-2 decoration-[var(--linha)] underline-offset-4">
                     {proxima.title}
