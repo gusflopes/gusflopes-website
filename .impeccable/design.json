@@ -1,0 +1,435 @@
+{
+ "schemaVersion": 2,
+ "generatedAt": "2026-10-04T01:37:17.358Z",
+ "title": "Design System: gusflopes.dev — Pincelada",
+ "extensions": {
+  "colorMeta": {
+   "noite": {
+    "role": "neutral",
+    "displayName": "Noite",
+    "tonalRamp": [
+     "#03070D",
+     "#050C17",
+     "#071121",
+     "#09162B",
+     "#0B1A33",
+     "#485366",
+     "#858D99",
+     "#C2C6CC"
+    ]
+   },
+   "noite-2": {
+    "role": "neutral",
+    "displayName": "Noite 2",
+    "tonalRamp": [
+     "#050A13",
+     "#091223",
+     "#0C1A32",
+     "#102241",
+     "#13284D",
+     "#4E5E7A",
+     "#8994A6",
+     "#C4C9D3"
+    ]
+   },
+   "linha": {
+    "role": "neutral",
+    "displayName": "Linha",
+    "tonalRamp": [
+     "#090E17",
+     "#0F1929",
+     "#16243C",
+     "#1D304E",
+     "#22385C",
+     "#596A85",
+     "#919CAE",
+     "#C8CDD6"
+    ]
+   },
+   "quadro": {
+    "role": "secondary",
+    "displayName": "Azul do quadro",
+    "tonalRamp": [
+     "#080F1A",
+     "#0E1A2E",
+     "#142642",
+     "#1A3157",
+     "#1F3A66",
+     "#576B8C",
+     "#8F9DB3",
+     "#C7CED9"
+    ]
+   },
+   "petroleo": {
+    "role": "secondary",
+    "displayName": "Petróleo",
+    "tonalRamp": [
+     "#0C141A",
+     "#15242F",
+     "#1E3444",
+     "#274459",
+     "#2E5069",
+     "#627C8F",
+     "#97A8B4",
+     "#CBD3DA"
+    ]
+   },
+   "ceu": {
+    "role": "secondary",
+    "displayName": "Céu do quadro",
+    "tonalRamp": [
+     "#242D36",
+     "#405162",
+     "#5D748D",
+     "#7A98B8",
+     "#8FB3D9",
+     "#ABC6E3",
+     "#C7D9EC",
+     "#E3ECF6"
+    ]
+   },
+   "nevoa": {
+    "role": "neutral",
+    "displayName": "Névoa",
+    "tonalRamp": [
+     "#32363A",
+     "#5A6068",
+     "#838B96",
+     "#ABB6C4",
+     "#C9D6E6",
+     "#D7E0EC",
+     "#E4EBF3",
+     "#F2F5F9"
+    ]
+   },
+   "bruma": {
+    "role": "neutral",
+    "displayName": "Bruma",
+    "tonalRamp": [
+     "#282C32",
+     "#484F59",
+     "#677281",
+     "#8796A8",
+     "#9FB0C6",
+     "#B7C4D4",
+     "#CFD8E3",
+     "#E7EBF1"
+    ]
+   },
+   "papel": {
+    "role": "neutral",
+    "displayName": "Papel frio",
+    "tonalRamp": [
+     "#3D3D3E",
+     "#6D6E6F",
+     "#9D9FA1",
+     "#CECFD2",
+     "#F2F4F7",
+     "#F5F7F9",
+     "#F9FAFB",
+     "#FCFCFD"
+    ]
+   },
+   "papel-2": {
+    "role": "neutral",
+    "displayName": "Papel 2",
+    "tonalRamp": [
+     "#393A3C",
+     "#66686C",
+     "#94979B",
+     "#C1C5CB",
+     "#E3E8EF",
+     "#EAEEF3",
+     "#F1F4F7",
+     "#F8F9FB"
+    ]
+   },
+   "regua": {
+    "role": "neutral",
+    "displayName": "Régua",
+    "tonalRamp": [
+     "#333538",
+     "#5C6065",
+     "#858A92",
+     "#ADB5BF",
+     "#CCD5E1",
+     "#D9E0E9",
+     "#E6EAF0",
+     "#F2F5F8"
+    ]
+   },
+   "tinta": {
+    "role": "neutral",
+    "displayName": "Tinta",
+    "tonalRamp": [
+     "#03070D",
+     "#050C17",
+     "#071121",
+     "#09162B",
+     "#0B1A33",
+     "#485366",
+     "#858D99",
+     "#C2C6CC"
+    ]
+   },
+   "tinta-2": {
+    "role": "neutral",
+    "displayName": "Tinta 2",
+    "tonalRamp": [
+     "#0F141A",
+     "#1B232F",
+     "#283344",
+     "#344258",
+     "#3D4E68",
+     "#6E7A8E",
+     "#9EA7B4",
+     "#CFD3D9"
+    ]
+   },
+   "corpo-papel": {
+    "role": "neutral",
+    "displayName": "Corpo sobre papel",
+    "tonalRamp": [
+     "#070A10",
+     "#0C121D",
+     "#11192A",
+     "#162136",
+     "#1A2740",
+     "#535D70",
+     "#8D93A0",
+     "#C6C9CF"
+    ]
+   },
+   "laranja": {
+    "role": "primary",
+    "displayName": "Laranja (luz)",
+    "tonalRamp": [
+     "#3E1D06",
+     "#70340A",
+     "#A24B0E",
+     "#D46213",
+     "#F97316",
+     "#FB9650",
+     "#FCB98B",
+     "#FEDCC5"
+    ]
+   },
+   "laranja-claro": {
+    "role": "primary",
+    "displayName": "Laranja claro",
+    "tonalRamp": [
+     "#3F250F",
+     "#71421B",
+     "#A35F27",
+     "#D57C33",
+     "#FB923C",
+     "#FCAD6D",
+     "#FDC99E",
+     "#FEE4CE"
+    ]
+   },
+   "pessego": {
+    "role": "primary",
+    "displayName": "Pêssego",
+    "tonalRamp": [
+     "#3F2F1D",
+     "#725434",
+     "#A4794B",
+     "#D79E63",
+     "#FDBA74",
+     "#FECB97",
+     "#FEDDBA",
+     "#FFEEDC"
+    ]
+   },
+   "laranja-fundo": {
+    "role": "primary",
+    "displayName": "Laranja profundo (texto sobre papel)",
+    "tonalRamp": [
+     "#311003",
+     "#571D05",
+     "#7E2A08",
+     "#A5370A",
+     "#C2410C",
+     "#D17149",
+     "#E1A086",
+     "#F0D0C2"
+    ]
+   },
+   "brasa": {
+    "role": "primary",
+    "displayName": "Brasa (texto sobre laranja)",
+    "tonalRamp": [
+     "#070301",
+     "#0D0501",
+     "#120701",
+     "#180902",
+     "#1C0A02",
+     "#554741",
+     "#8E8581",
+     "#C6C2C0"
+    ]
+   }
+  },
+  "typographyMeta": {
+   "display-hero": {
+    "displayName": "Display da home",
+    "purpose": "H1 da abertura da home, na faixa abaixo da tela."
+   },
+   "display-hub": {
+    "displayName": "Display de hub",
+    "purpose": "H1 de Insights, Radar, eixos, Newsletter, 404."
+   },
+   "titulo-artigo": {
+    "displayName": "Título de artigo",
+    "purpose": "H1 na faixa azul-escuro sob a capa."
+   },
+   "titulo-secao": {
+    "displayName": "Título de seção",
+    "purpose": "H2 das seções da home."
+   },
+   "titulo-card": {
+    "displayName": "Título de card",
+    "purpose": "Títulos nos cards de texto."
+   },
+   "leitura": {
+    "displayName": "Leitura",
+    "purpose": "Corpo dos artigos sobre papel (17px celular, 18px desktop)."
+   },
+   "ui": {
+    "displayName": "UI",
+    "purpose": "Decks, navegação, descrições."
+   },
+   "rotulo": {
+    "displayName": "Rótulo",
+    "purpose": "Eixo/categoria abaixo do título; nunca acima."
+   },
+   "codigo": {
+    "displayName": "Código",
+    "purpose": "Só blocos e trechos de código."
+   }
+  },
+  "shadows": [],
+  "motion": [
+   {
+    "name": "ease-pincel",
+    "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+    "purpose": "Fio vivo dos cards (0,6s, scaleX) e réguas de navegação (0,3s)."
+   },
+   {
+    "name": "cor",
+    "value": "0.2s",
+    "purpose": "Mudanças de cor em links e botões."
+   }
+  ],
+  "breakpoints": [
+   {
+    "name": "sm",
+    "value": "640px"
+   },
+   {
+    "name": "md",
+    "value": "768px"
+   },
+   {
+    "name": "lg",
+    "value": "1024px"
+   }
+  ]
+ },
+ "components": [
+  {
+   "name": "Botão",
+   "kind": "button",
+   "refersTo": "botao",
+   "description": "Ação principal: laranja, texto escuro, canto reto.",
+   "html": "<a class=\"ds-botao\" href=\"#\">Assinar Newsletter</a>",
+   "css": ".ds-botao{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;background:#F97316;color:#1C0A02;font-family:\"Hanken Grotesk\",system-ui,sans-serif;font-weight:700;font-size:16px;text-decoration:none;transition:background-color .2s}.ds-botao:hover{background:#FB923C}.ds-botao:focus-visible{outline:2px solid #FB923C;outline-offset:3px}"
+  },
+  {
+   "name": "Contato (header)",
+   "kind": "button",
+   "refersTo": "botao-contato",
+   "description": "Botão de contorno no header.",
+   "html": "<a class=\"ds-contato\" href=\"#\">Contato</a>",
+   "css": ".ds-contato{display:inline-flex;align-items:center;height:40px;padding:0 16px;border:1px solid rgba(249,115,22,.7);color:#FB923C;font-family:\"Hanken Grotesk\",sans-serif;font-weight:700;font-size:15px;text-decoration:none;background:#0B1A33;transition:background-color .2s,color .2s}.ds-contato:hover{background:#F97316;color:#1C0A02;border-color:#F97316}"
+  },
+  {
+   "name": "Chip de filtro",
+   "kind": "chip",
+   "refersTo": "chip-filtro",
+   "description": "Categoria nos hubs; ativo em laranja.",
+   "html": "<div class=\"ds-chips\"><button class=\"ds-chip ds-ativo\">Todos</button><button class=\"ds-chip\">Agentes</button></div>",
+   "css": ".ds-chips{display:flex;gap:8px;background:#0B1A33;padding:16px}.ds-chip{height:32px;padding:0 12px;border:1px solid #22385C;background:transparent;color:#C9D6E6;font:600 13px \"Hanken Grotesk\",sans-serif;cursor:pointer}.ds-chip:hover{border-color:#8FB3D9;color:#fff}.ds-chip.ds-ativo{background:#F97316;border-color:#F97316;color:#1C0A02}"
+  },
+  {
+   "name": "Navegação",
+   "kind": "nav",
+   "description": "Header azul-escuro; ativo com régua laranja.",
+   "html": "<nav class=\"ds-nav\"><a class=\"ds-ativo\" href=\"#\">Insights</a><a href=\"#\">Radar</a><a href=\"#\">Negócios</a></nav>",
+   "css": ".ds-nav{display:flex;gap:28px;background:#0B1A33;padding:20px 24px}.ds-nav a{position:relative;color:#C9D6E6;font:500 15px \"Hanken Grotesk\",sans-serif;text-decoration:none;padding:8px 0}.ds-nav a::after{content:\"\";position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:#F97316;transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.22,1,.36,1)}.ds-nav a:hover,.ds-nav a.ds-ativo{color:#fff}.ds-nav a:hover::after,.ds-nav a.ds-ativo::after{transform:scaleX(1)}"
+  },
+  {
+   "name": "Card de texto com fio vivo",
+   "kind": "card",
+   "description": "Tela 16:9, fio laranja que se estende no hover/foco, título, rótulo abaixo.",
+   "html": "<a class=\"ds-card\" href=\"#\"><div class=\"ds-tela\"></div><span class=\"ds-fio\"></span><h3>Agent Skills: pacotes de contexto e o fim do prompt gigante</h3><p class=\"ds-rot\">Engenharia &amp; IA · Agentes</p><p class=\"ds-meta\">3 Nov, 2025 · 8 min</p></a>",
+   "css": ".ds-card{display:block;max-width:360px;background:#0B1A33;padding:16px;text-decoration:none}.ds-tela{aspect-ratio:16/9;background:repeating-linear-gradient(115deg,#13284D 0 10px,#1F3A66 10px 16px,#2E5069 16px 19px)}.ds-fio{display:block;height:3px;background:#F97316;transform:scaleX(.12);transform-origin:left;transition:transform .6s cubic-bezier(.22,1,.36,1)}.ds-card:hover .ds-fio,.ds-card:focus-visible .ds-fio{transform:scaleX(1)}.ds-card h3{font:600 23px/1.35 Literata,Georgia,serif;color:#fff;margin:20px 0 12px}.ds-card:hover h3{color:#FDBA74}.ds-rot{font:700 12px \"Hanken Grotesk\",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#FB923C;margin:0 0 8px}.ds-meta{font:400 14px \"Hanken Grotesk\",sans-serif;color:#9FB0C6;margin:0}"
+  },
+  {
+   "name": "Faixa de título com fio",
+   "kind": "custom",
+   "refersTo": "faixa-titulo",
+   "description": "Costura entre a tela e o título: fio laranja de 3px e faixa sólida.",
+   "html": "<header class=\"ds-abertura\"><div class=\"ds-tela\"></div><div class=\"ds-faixa\"><h1>Insights</h1></div></header>",
+   "css": ".ds-abertura .ds-tela{height:120px;background:repeating-linear-gradient(160deg,#13284D 0 12px,#1F3A66 12px 18px,#8FB3D9 18px 20px)}.ds-faixa{background:#0B1A33;border-top:3px solid #F97316;padding:28px 24px}.ds-faixa h1{font:600 56px/1.02 Literata,Georgia,serif;letter-spacing:-.015em;color:#fff;margin:0}"
+  },
+  {
+   "name": "Coluna de leitura",
+   "kind": "custom",
+   "refersTo": "coluna-leitura",
+   "description": "Papel frio, Literata 18px, 40rem.",
+   "html": "<div class=\"ds-leitura\"><h2>O que é uma skill</h2><p>Uma skill é um diretório com um arquivo <code>SKILL.md</code>. <a href=\"#\">Post de engenharia</a>.</p><blockquote>O modelo virou commodity.</blockquote></div>",
+   "css": ".ds-leitura{background:#F2F4F7;color:#1A2740;font:400 18px/1.72 Literata,Georgia,serif;max-width:40rem;padding:32px}.ds-leitura h2{font-weight:600;font-size:1.6em;line-height:1.2;color:#0B1A33;margin:0 0 .6em}.ds-leitura a{color:#C2410C}.ds-leitura code{font:.84em \"JetBrains Mono\",monospace;background:#E3E8EF;padding:.1em .35em;border-radius:2px}.ds-leitura blockquote{position:relative;margin:1.2em 0 0;padding:1.1em 0 0 1.25em;font-style:italic;color:#13284D}.ds-leitura blockquote::before{content:\"\";position:absolute;top:0;left:1.25em;width:2.5rem;height:3px;background:#F97316}"
+  }
+ ],
+ "narrative": {
+  "northStar": "Pincelada: o mesmo gesto, nunca a mesma imagem",
+  "overview": "Van Gogh como sistema: cada texto ganha uma tela de pinceladas gerada do próprio slug no build, nas cores do quadro e da marca. O texto fica sempre em faixa sólida, costurada à pintura pelo fio laranja; a leitura acontece em papel frio.",
+  "keyCharacteristics": [
+   "Tela gerada por texto (capa, OG, faixa, abertura, capa do Substack)",
+   "Azul-escuro como chão, laranja como luz rara",
+   "Literata + Hanken Grotesk",
+   "Cantos retos, sem sombra, sem glow",
+   "Coluna de leitura em papel frio a 40rem"
+  ],
+  "rules": [
+   {
+    "name": "Nada atrás do texto",
+    "body": "Pintura acima ou ao lado; todo texto em faixa sólida.",
+    "section": "elevation"
+   },
+   {
+    "name": "Fio na costura",
+    "body": "O fio laranja de 3px só aparece entre pintura e texto; o fio vivo só nos cards.",
+    "section": "colors"
+   },
+   {
+    "name": "Rótulo abaixo",
+    "body": "Eixo e categoria ficam abaixo do título, com a data.",
+    "section": "typography"
+   }
+  ],
+  "dos": [
+   "Gerar a capa de texto novo pelo gerador",
+   "Manter o laranja em até quatro luzes por tela",
+   "Subir VERSAO ao mudar o gerador"
+  ],
+  "donts": [
+   "Sombra, glow, vidro, blur ou gradiente de texto",
+   "Borda colorida em cards e caixas",
+   "Foto de banco como capa",
+   "Mono fora de código"
+  ]
+ }
+}
