@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Search, ArrowRight, ExternalLink, Play } from 'lucide-react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
-import { EIXOS, EIXO_LIST, type EixoId } from '../../lib/eixos';
+import { EIXOS, EIXO_LIST, EIXO_COR, type EixoId } from '../../lib/eixos';
 import { Amp } from '../Amp';
 
 export interface RadarItem {
@@ -25,8 +25,9 @@ interface RadarPageProps {
 }
 
 /**
- * Radar: a curadoria fica no azul-escuro (o formato rápido); a leitura dos textos próprios
- * abre em papel. Mesmo índice em linhas dos hubs, com a fonte externa marcada.
+ * Radar: moldura em azul-escuro e o índice em papel, como os outros hubs (rodada 4: o índice de
+ * leitura fica no claro e o rodapé chega de um claro). Mesmo índice em linhas, com o fio laranja
+ * e a fonte externa marcada.
  */
 export function RadarPage({ items }: RadarPageProps) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -48,8 +49,8 @@ export function RadarPage({ items }: RadarPageProps) {
   });
 
   return (
-    <main className="min-h-screen bg-noite text-nevoa">
-      <div className="pt-32 md:pt-40 border-b border-noite-fio">
+    <main className="claro min-h-screen bg-papel text-tinta">
+      <div className="bg-noite pt-32 md:pt-40 border-b border-noite-fio">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <h1 className="display-opsz font-serif font-semibold text-5xl md:text-[4.5rem] leading-[1] text-white">
             Radar
@@ -88,13 +89,13 @@ export function RadarPage({ items }: RadarPageProps) {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-10 md:pt-12 pb-24 md:pb-32">
         {/* Busca e temas */}
-        <div className="flex flex-col md:flex-row md:items-center gap-5 md:gap-8 pb-6 border-b border-noite-fio-forte">
+        <div className="flex flex-col md:flex-row md:items-center gap-5 md:gap-8 pb-6">
           <label className="relative flex items-center md:w-72 shrink-0">
-            <Search size={16} aria-hidden="true" className="absolute left-0 text-nevoa-2" />
+            <Search size={16} aria-hidden="true" className="absolute left-0 text-tinta-3" />
             <input
               placeholder="Buscar no radar..."
               aria-label="Buscar no radar"
-              className="w-full bg-transparent pl-7 pr-2 py-2 border-b border-noite-fio-forte focus:border-nevoa outline-none text-[0.9375rem] text-white placeholder:text-nevoa-2 font-sans transition-colors"
+              className="w-full bg-transparent pl-7 pr-2 py-2 border-b border-papel-fio focus:border-tinta outline-none text-[0.9375rem] text-tinta placeholder:text-tinta-3 font-sans transition-colors"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -111,7 +112,7 @@ export function RadarPage({ items }: RadarPageProps) {
                   className={`h-8 px-3 rounded-[3px] border text-[0.8125rem] font-semibold transition-colors whitespace-nowrap ${
                     ativo
                       ? 'bg-laranja border-laranja text-laranja-tinta'
-                      : 'border-noite-fio-forte text-nevoa hover:border-nevoa-2 hover:text-white'
+                      : 'border-papel-fio text-tinta-2 hover:border-tinta-3 hover:text-tinta'
                   }`}
                 >
                   {cat}
@@ -133,37 +134,40 @@ export function RadarPage({ items }: RadarPageProps) {
                   ? 'Assistir Vídeo'
                   : 'Ler Artigo';
               return (
-                <li key={item.id} className="border-b border-noite-fio">
+                <li key={item.id} className="indice-linha">
                   <a
                     href={item.link}
                     {...(externo ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                     className="group grid grid-cols-[minmax(0,1fr)_5.5rem] sm:grid-cols-[minmax(0,1fr)_10rem] md:grid-cols-[8.5rem_minmax(0,1fr)_12rem] gap-x-5 md:gap-x-10 py-7 md:py-10"
                   >
-                    <div className="hidden md:flex num font-sans text-sm text-ceu pt-2.5 flex-col gap-y-1">
+                    <div className="hidden md:flex num font-sans text-sm font-medium text-petroleo-fundo pt-2.5 flex-col gap-y-1">
                       <span>{item.date}</span>
-                      <span className="text-nevoa-2">{item.duration}</span>
+                      <span className="font-normal text-tinta-3">{item.duration}</span>
                     </div>
                     <div className="min-w-0">
-                      <h2 className="font-serif text-[1.3125rem] sm:text-[1.75rem] font-semibold leading-[1.2] text-white group-hover:text-laranja-palido transition-colors">
+                      <h2 className="font-serif text-[1.3125rem] sm:text-[1.75rem] font-semibold leading-[1.2] text-tinta group-hover:text-laranja-fundo transition-colors">
                         {item.title}
                       </h2>
                       <p className="meta mt-2.5">
                         <span className="so-movel">{item.date}</span>
                         {selectedEixo === 'todos' && eixosComConteudo.length > 1 && (
-                          <span><Amp>{EIXOS[item.eixo].shortLabel}</Amp></span>
+                          <span className="inline-flex items-center gap-1.5">
+                            <span aria-hidden="true" className={`marca-${EIXO_COR[item.eixo]} w-2 h-2 rounded-[1px]`} />
+                            <Amp>{EIXOS[item.eixo].shortLabel}</Amp>
+                          </span>
                         )}
                         <span>{item.category}</span>
-                        {externo && <span className="text-nevoa">{item.source}</span>}
+                        {externo && <span className="text-tinta-2">{item.source}</span>}
                       </p>
-                      <p className="hidden sm:block mt-3 font-sans text-[1.0625rem] leading-relaxed text-nevoa max-w-[40rem] line-clamp-3">
+                      <p className="hidden sm:block mt-3 font-sans text-[1.0625rem] leading-relaxed text-tinta-2 max-w-[40rem] line-clamp-3">
                         {item.excerpt}
                       </p>
-                      <span className="acao mt-4 hidden sm:inline-flex text-laranja">
+                      <span className="acao mt-4 hidden sm:inline-flex text-laranja-fundo">
                         {acao}
                         {externo ? <ExternalLink size={14} aria-hidden="true" /> : <ArrowRight size={15} aria-hidden="true" />}
                       </span>
                     </div>
-                    <div className="relative aspect-square sm:aspect-[4/3] overflow-hidden rounded-[3px] bg-noite-2 self-start">
+                    <div className="relative aspect-square sm:aspect-[4/3] overflow-hidden rounded-[3px] bg-papel-2 self-start">
                       <ImageWithFallback
                         src={item.image}
                         alt=""
@@ -183,10 +187,10 @@ export function RadarPage({ items }: RadarPageProps) {
           </ul>
         ) : (
           <div className="py-24 md:py-32 max-w-xl">
-            <p className="font-sans text-nevoa">Nenhum item encontrado para sua busca.</p>
+            <p className="font-sans text-tinta-2">Nenhum item encontrado para sua busca.</p>
             <button
               type="button"
-              className="acao mt-3 text-laranja"
+              className="acao mt-3 text-laranja-fundo"
               onClick={() => {
                 setSearchTerm('');
                 setSelectedCategory('Todos');

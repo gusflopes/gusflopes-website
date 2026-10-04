@@ -77,6 +77,20 @@
   --color-tinta-2: #33445f;
   --color-tinta-3: #56657d;
 
+  /* Campo claro quente: areia acinzentada puxada do quadro, nunca creme */
+  --color-areia-campo: #d9d4cb;
+  --color-areia-fio: #bfb7aa;
+
+  /* Cores do quadro (paleta de apoio aprovada em 04/10), cada uma com função */
+  --color-petroleo: #457183;
+  --color-petroleo-fundo: #315b6f;
+  --color-ardosia: #648188;
+  --color-ardosia-clara: #7f989a;
+  --color-areia: #aa9c87;
+  --color-marrom: #907a5f;
+  --color-marrom-fundo: #50372a;
+  --color-ferrugem: #8a4c1b;
+
   --ease-saida: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -287,22 +301,25 @@
   }
 
   .amp-ponte {
-    color: var(--color-ceu);
+    color: var(--color-laranja);
   }
 
   .claro .amp-ponte {
-    color: var(--color-ceu-fundo);
+    color: var(--color-petroleo-fundo);
   }
 
   /* Moldura azul dentro de página clara (cabeçalho de hub, painel do Bastidores): volta o céu */
-  .claro :is(.bg-noite, .bg-noite-2) .amp-ponte,
+  .claro :is(.bg-noite, .bg-noite-2) .amp-ponte {
+    color: var(--color-laranja);
+  }
+
   .claro :is(.bg-noite, .bg-noite-2) .meta {
     color: var(--color-ceu);
   }
 
-  /* Fio de primeira página: um fio grosso sobre um fino, como no alto de um jornal */
+  /* Fio de primeira página, em laranja: um fio grosso sobre um fino, como no alto de um jornal */
   .fio-capa {
-    border-top: 3px solid currentColor;
+    border-top: 3px solid var(--color-laranja);
     position: relative;
   }
 
@@ -312,13 +329,12 @@
     left: 0;
     right: 0;
     top: 2px;
-    border-top: 1px solid currentColor;
-    opacity: 0.55;
+    border-top: 1px solid var(--color-laranja);
   }
 
   /*
-   * Linha de metadados: sempre DEPOIS do título, nunca acima. Hanken pequeno em caixa normal,
-   * azul-céu (orientação: quando, de que eixo, de onde). Laranja fica para ação.
+   * Linha de metadados: sempre DEPOIS do título, nunca acima. Hanken pequeno em caixa normal:
+   * céu (apoio frio) sobre escuro, petróleo (cor do quadro) sobre claro.
    */
   .meta {
     display: flex;
@@ -334,7 +350,74 @@
   }
 
   .claro .meta {
-    color: var(--color-ceu-fundo);
+    color: var(--color-petroleo-fundo);
+  }
+
+  /* Selo de estado ("Mais recente"): laranja chapado com o azul-escuro por cima (6,19:1) */
+  .selo {
+    background-color: var(--color-laranja);
+    color: var(--color-laranja-tinta);
+    font-weight: 600;
+    padding: 0.0625rem 0.4375rem;
+    border-radius: 2px;
+  }
+
+  /* Marca do eixo (quadradinho na cor do quadro) nos metadados e na moldura dos hubs */
+  .marca-engenharia {
+    background-color: var(--color-petroleo);
+  }
+
+  .marca-negocios {
+    background-color: var(--color-areia);
+  }
+
+  .marca-bastidores {
+    background-color: var(--color-ferrugem);
+  }
+
+  /*
+   * Linha de índice dos hubs (e da newsletter): o fio de 2px que separa as linhas é laranja (detalhe
+   * de presença, nunca texto) e engrossa para 4px sobre a coluna da data (até onde começa o título), como a marca da margem.
+   */
+  .indice-linha {
+    position: relative;
+    border-top: 2px solid var(--color-laranja);
+  }
+
+  .indice-linha:last-child {
+    border-bottom: 2px solid var(--color-laranja);
+  }
+
+  .indice-linha::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -2px;
+    width: 2rem;
+    height: 5px;
+    background-color: var(--color-laranja);
+  }
+
+  @media (min-width: 768px) {
+    .indice-linha::before {
+      width: 11rem;
+    }
+  }
+
+  /* Placa da cabeça de coluna: a cor do eixo (quadro) chapada, texto com contraste AA */
+  .placa-engenharia {
+    background-color: var(--color-petroleo-fundo);
+    color: #fff;
+  }
+
+  .placa-negocios {
+    background-color: var(--color-areia);
+    color: var(--color-tinta);
+  }
+
+  .placa-bastidores {
+    background-color: var(--color-ferrugem);
+    color: #fff;
   }
 
   .meta > * + *::before {

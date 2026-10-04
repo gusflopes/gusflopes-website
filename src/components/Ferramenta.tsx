@@ -3,15 +3,15 @@ import { projetos, comUtm } from '../config/site';
 
 /**
  * Ferramenta da Reforma Tributária: "experimentar algo agora". É o ENCARTE da revista: a única
- * caixa da home, impressa num azul mais claro (noite-2) com o fio céu grosso no alto, como um
- * box de serviço. O nome da ferramenta é o título (o maior elemento da camada); a pergunta do
+ * caixa da home e o ÚNICO bloco escuro abaixo do hero: azul-noite impresso sobre o papel, com o
+ * fio laranja grosso no alto, como um box de serviço. O nome da ferramenta é o título (o maior elemento da camada); a pergunta do
  * empresário vem logo ao lado em itálico, e a ação fica no pé, à mão.
  */
 export function Ferramenta() {
   const reforma = projetos.reforma;
   return (
-    <section aria-labelledby="ferramenta-title" className="bg-noite px-4 sm:px-6 pb-12 md:pb-16">
-      <div className="max-w-7xl mx-auto bg-noite-2 rounded-b-[4px] border-t-[3px] border-ceu px-5 pt-9 pb-10 sm:px-8 md:px-12 md:pt-12 md:pb-12 lg:px-14 grid gap-8 lg:grid-cols-12 lg:gap-x-12">
+    <section aria-labelledby="ferramenta-title" className="claro bg-papel px-4 sm:px-6 pb-4 md:pb-6">
+      <div className="max-w-7xl mx-auto bg-noite rounded-b-[4px] border-t-[3px] border-laranja px-5 pt-9 pb-10 sm:px-8 md:px-12 md:pt-12 md:pb-12 lg:px-14 grid gap-8 lg:grid-cols-12 lg:gap-x-12">
         <div className="lg:col-span-5">
           <h2 id="ferramenta-title" className="h-secao text-white max-w-[13ch]">
             {reforma.nome}

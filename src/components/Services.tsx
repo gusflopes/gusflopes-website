@@ -43,27 +43,27 @@ const services = [
 ];
 
 /**
- * "Como posso ajudar": entender o que contratar e como começar. Página do pedido, no campo escuro
- * do fim (o mesmo do rodapé), com contraste de densidade: a Consultoria Estratégica é a oferta
+ * "Como posso ajudar": entender o que contratar e como começar. Página do pedido, no campo areia
+ * (claro quente puxado do quadro), de onde o rodapé escuro parte; contraste de densidade: a Consultoria Estratégica é a oferta
  * principal, em escala de abertura (descrição em Literata grande e o botão sólido); Mentoria e
  * Conteúdo vêm como notas de pé, compactas, lado a lado. O título fica pendurado à esquerda.
  */
 export function Services() {
   const [principal, ...demais] = services;
   return (
-    <section id="consulting" aria-labelledby="consulting-title" className="relative bg-noite-fundo pt-16 md:pt-24 pb-16 md:pb-20 px-4 sm:px-6">
+    <section id="consulting" aria-labelledby="consulting-title" className="claro relative bg-areia-campo text-tinta pt-16 md:pt-24 pb-16 md:pb-24 px-4 sm:px-6">
       <div id="courses" className="absolute top-0" />
       <div className="max-w-7xl mx-auto grid gap-10 lg:grid-cols-12 lg:gap-x-10">
-        <h2 id="consulting-title" className="h-secao text-white lg:col-span-4 max-w-[10ch]">
+        <h2 id="consulting-title" className="h-secao text-tinta lg:col-span-4 max-w-[10ch]">
           Como posso ajudar
         </h2>
 
         <div className="lg:col-span-8">
-          <article className="fio-capa text-nevoa/80 pt-9 md:pt-11">
-            <h3 className="font-serif text-white text-[1.75rem] md:text-[2.25rem] leading-[1.08] tracking-[-0.018em]">
+          <article className="fio-capa pt-9 md:pt-11">
+            <h3 className="font-serif text-tinta text-[1.75rem] md:text-[2.25rem] leading-[1.08] tracking-[-0.018em]">
               {principal.title}
             </h3>
-            <p className="mt-5 font-serif text-[1.1875rem] md:text-[1.5rem] leading-[1.42] tracking-[-0.006em] text-nevoa max-w-[36ch]">
+            <p className="mt-5 font-serif text-[1.1875rem] md:text-[1.5rem] leading-[1.42] tracking-[-0.006em] text-tinta-2 max-w-[36ch]">
               {principal.description}
             </p>
             <a href={principal.link} className="botao mt-8">
@@ -71,14 +71,14 @@ export function Services() {
             </a>
           </article>
 
-          <div className="mt-14 md:mt-16 grid gap-px bg-noite-fio border-t border-noite-fio sm:grid-cols-2">
+          <div className="mt-14 md:mt-16 grid gap-px bg-areia-fio border-t border-areia-fio sm:grid-cols-2">
             {demais.map((service) => (
-              <article key={service.title} className="bg-noite-fundo pt-7 pb-2 sm:[&:nth-child(even)]:pl-8 sm:[&:nth-child(odd)]:pr-8 flex flex-col">
-                <h3 className="font-serif text-[1.3125rem] md:text-[1.375rem] leading-[1.15] tracking-[-0.01em] text-white">
+              <article key={service.title} className="bg-areia-campo pt-7 pb-2 sm:[&:nth-child(even)]:pl-8 sm:[&:nth-child(odd)]:pr-8 flex flex-col">
+                <h3 className="font-serif text-[1.3125rem] md:text-[1.375rem] leading-[1.15] tracking-[-0.01em] text-tinta">
                   <Amp>{service.title}</Amp>
                 </h3>
-                <p className="mt-3 font-sans text-[0.9375rem] leading-relaxed text-nevoa-2">{service.description}</p>
-                <a href={service.link} className="acao mt-5 self-start text-laranja">
+                <p className="mt-3 font-sans text-[0.9375rem] leading-relaxed text-tinta-2">{service.description}</p>
+                <a href={service.link} className="acao mt-5 self-start text-laranja-brasa">
                   {service.action} <ArrowRight size={16} aria-hidden="true" />
                 </a>
               </article>

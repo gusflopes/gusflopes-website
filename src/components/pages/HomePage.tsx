@@ -13,22 +13,26 @@ interface HomePageProps {
 }
 
 /**
- * Cada camada é uma página de revista com uma ideia própria, no mesmo mundo azul-noite:
- * primeira página (eixos + vídeo), encarte (ferramenta), recorte do quadro, ensaio (sobre) e a
- * página do pedido (serviços + rodapé). Três campos: noite → papel → noite funda.
+ * Cada camada é uma página de revista com uma ideia própria. Campos (rodada 4, cor como sistema):
+ * noite (hero) → recorte do quadro → papel (eixos, o encarte escuro da ferramenta, sobre) →
+ * areia (serviços) → segundo recorte do quadro → rodapé escuro. O escuro nunca empilha.
  */
 export function HomePage({ video, eixos = [], fundo }: HomePageProps) {
   return (
     <main>
       <Hero fundo={fundo} />
-      <Eixos eixos={eixos} video={video} />
-      <Ferramenta />
-      {/* Recorte do quadro: mesma imagem do hero (lazy: não disputa banda com o hero), nunca atrás de texto */}
+      {/* Recorte do quadro: a passagem da noite para o papel (mesma imagem do hero, lazy), nunca atrás de texto */}
       <div aria-hidden="true" className="relative h-28 md:h-44 overflow-hidden bg-noite">
         <FundoPicture fundo={fundo} className="object-[50%_90%]" />
       </div>
+      <Eixos eixos={eixos} video={video} />
+      <Ferramenta />
       <Themes />
       <Services />
+      {/* Segundo recorte: as luzes da cidade fazem a passagem do campo areia para o rodapé */}
+      <div aria-hidden="true" className="relative h-20 md:h-32 overflow-hidden bg-noite">
+        <FundoPicture fundo={fundo} className="object-[50%_62%]" />
+      </div>
     </main>
   );
 }

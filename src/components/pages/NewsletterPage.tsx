@@ -27,13 +27,13 @@ export function NewsletterPage({ edicoes }: { edicoes: EdicaoResumo[] }) {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-12 md:pt-16 pb-24 md:pb-32">
         <NewsletterCta content="newsletter-arquivo" />
 
-        <h2 className="h-secao text-tinta mt-20 pb-5 border-b border-tinta">Edições</h2>
+        <h2 className="h-secao text-tinta mt-20 pb-5">Edições</h2>
         {edicoes.length === 0 ? (
           <p className="mt-8 text-tinta-2">A primeira edição sai em breve.</p>
         ) : (
           <ul>
             {edicoes.map((e) => (
-              <li key={e.id} className="border-b border-papel-fio">
+              <li key={e.id} className="indice-linha">
                 <a href={`/newsletter/${e.id}`} className="group block py-8 md:py-10">
                   <h3 className="font-serif text-2xl md:text-[1.875rem] font-semibold leading-[1.18] text-tinta group-hover:text-laranja-fundo transition-colors">
                     {e.title}

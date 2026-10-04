@@ -8,7 +8,7 @@ import { SocialLinks } from './SocialLinks';
  */
 export function NewsletterCta({ content }: { content: string }) {
   return (
-    <div className="border-y border-tinta py-8 md:py-10 grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
+    <div className="border-t-2 border-t-laranja border-b border-b-tinta py-8 md:py-10 grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
       <p className="font-serif text-xl md:text-[1.375rem] leading-snug text-tinta max-w-[34rem]">{newsletter.pitch}</p>
       {newsletter.substack ? (
         <a

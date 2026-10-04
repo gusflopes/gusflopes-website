@@ -58,3 +58,14 @@ export const EIXO_LIST: Eixo[] = EIXO_IDS.map((id) => EIXOS[id]);
 export function isEixoId(value: string): value is EixoId {
   return (EIXO_IDS as readonly string[]).includes(value);
 }
+
+/**
+ * Cor do eixo, tirada do quadro do hero (paleta de apoio aprovada em 04/10): petróleo para quem
+ * constrói, areia para quem decide, ferrugem para os bastidores. Nome da classe CSS (`.placa-*`,
+ * `.marca-*` em index.css), nunca usada como cor de texto.
+ */
+export const EIXO_COR: Record<EixoId, string> = {
+  engenharia: 'engenharia',
+  negocios: 'negocios',
+  bastidores: 'bastidores',
+};

@@ -32,12 +32,12 @@ const themes = [
  * "Sobre": mostrar quem escreve e por que a visão é sistêmica. Em papel frio, como a abertura de
  * um ensaio de revista: o título e a trajetória no alto; a frase-tese (a segunda do parágrafo,
  * sem mudar uma vírgula) vira a citação que domina a página; embaixo, as cinco áreas formam um
- * QUADRO de fios — partes do mesmo problema — e a sexta casa, em azul-noite, é onde tudo isso
- * se aplica hoje.
+ * QUADRO de fios (o de cima em laranja) — partes do mesmo problema — e a sexta casa, em ferrugem
+ * (cor do quadro), é onde tudo isso se aplica hoje.
  */
 export function Themes() {
   return (
-    <section id="about" aria-labelledby="about-title" className="claro bg-papel text-tinta px-4 sm:px-6 pt-16 md:pt-24 pb-20 md:pb-28">
+    <section id="about" aria-labelledby="about-title" className="claro bg-papel text-tinta px-4 sm:px-6 pt-20 md:pt-28 pb-20 md:pb-28">
       <div className="max-w-7xl mx-auto">
         <div className="grid gap-6 lg:grid-cols-12 lg:gap-x-10 lg:items-end">
           <h2 id="about-title" className="h-secao text-tinta lg:col-span-6">
@@ -54,7 +54,7 @@ export function Themes() {
         </p>
 
         {/* O quadro das cinco áreas: uma grade de fios (não cartões) — e a sexta casa, o hoje */}
-        <div role="list" className="mt-12 md:mt-16 grid gap-px bg-papel-fio border-y border-papel-fio md:grid-cols-2 lg:grid-cols-3">
+        <div role="list" className="mt-12 md:mt-16 grid gap-px bg-papel-fio border-t-2 border-t-laranja border-b border-b-papel-fio md:grid-cols-2 lg:grid-cols-3">
           {themes.map((theme, i) => (
             <div key={theme.title} role="listitem" className="bg-papel py-7 md:py-8 md:px-7 lg:px-8">
               <h3 className="font-serif font-medium text-tinta text-[1.375rem] md:text-[1.5rem] leading-[1.12] tracking-[-0.014em]">
@@ -65,7 +65,7 @@ export function Themes() {
               </p>
             </div>
           ))}
-          <div role="listitem" className="bg-noite text-nevoa px-6 py-7 md:px-7 md:py-8 lg:px-8 flex items-end">
+          <div role="listitem" className="bg-ferrugem text-white px-6 py-7 md:px-7 md:py-8 lg:px-8 flex items-end">
             <p className="font-serif text-[1.125rem] md:text-[1.1875rem] leading-[1.5]">
               Hoje, aplico essa perspectiva como líder técnico no sistema de precificação de locação veicular de uma plataforma de mobilidade do Grupo Volkswagen.
             </p>
