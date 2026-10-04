@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-04T01:35:00Z",
+  "title": "Design System: gusflopes.dev",
+  "extensions": {
+    "colorMeta": {
+      "noite": { "role": "neutral", "displayName": "Noite" },
+      "noite-2": { "role": "neutral", "displayName": "Noite Funda 2" },
+      "laranja": { "role": "primary", "displayName": "Laranja Sinal" },
+      "laranja-fundo": { "role": "primary", "displayName": "Laranja Fundo" },
+      "ceu": { "role": "secondary", "displayName": "Azul-Céu do Quadro" },
+      "ambar": { "role": "secondary", "displayName": "Âmbar de Lampião" },
+      "papel": { "role": "neutral", "displayName": "Papel Frio" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Placa", "purpose": "Tagline, títulos de artigo e de hub." },
+      "body": { "displayName": "Leitura", "purpose": "Corpo dos textos sobre o papel." }
+    },
+    "shadows": [
+      { "name": "cta", "value": "0 1px 0 rgb(255 255 255/0.25) inset, 0 10px 24px -12px rgb(249 115 22/0.7)", "purpose": "Só no botão da newsletter na home." },
+      { "name": "codigo", "value": "0 1px 2px rgb(11 26 51/0.15), 0 8px 24px -12px rgb(11 26 51/0.45)", "purpose": "Bloco de código sobre o papel." }
+    ],
+    "motion": [
+      { "name": "estacao", "value": "transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Estação cresce 15% no hover/foco do link." }
+    ],
+    "breakpoints": [ { "name": "md", "value": "768px" }, { "name": "lg", "value": "1024px" } ]
+  },
+  "components": [
+    { "name": "Botão primário", "kind": "button", "refersTo": "button-primary", "description": "CTA laranja com texto escuro.",
+      "html": "<a class=\"ds-btn\" href=\"#\">Assinar Newsletter</a>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;height:52px;padding:0 28px;border-radius:6px;background:#F97316;color:#1C0A02;font:700 1.05rem 'Hanken Grotesk',sans-serif;text-decoration:none;transition:background .2s}.ds-btn:hover{background:#FB923C}.ds-btn:focus-visible{outline:2px solid #FB923C;outline-offset:3px}" },
+    { "name": "Placa de linha", "kind": "chip", "refersTo": "placa-linha", "description": "Nome do eixo na cor da linha.",
+      "html": "<a class=\"ds-placa\" href=\"#\"><span>16</span>Engenharia &amp; IA</a>",
+      "css": ".ds-placa{display:inline-flex;align-items:center;gap:8px;padding:4px 12px 4px 6px;border-radius:999px;background:#F97316;color:#1C0A02;font:800 .95rem 'Hanken Grotesk',sans-serif;text-decoration:none}.ds-placa span{display:grid;place-items:center;width:24px;height:24px;border-radius:999px;background:#0B1A33;color:#EEF2F8;font-size:.75rem}" },
+    { "name": "Trilho com estações", "kind": "custom", "description": "Linha de 6px com estações (anel claro) e a atual destacada.",
+      "html": "<div class=\"ds-trilho\"><i></i><i></i><i class=\"atual\"></i><i></i></div>",
+      "css": ".ds-trilho{position:relative;display:flex;justify-content:space-between;align-items:center;width:320px;padding:8px 0;background:#0B1A33}.ds-trilho:before{content:'';position:absolute;left:0;right:0;top:calc(50% - 3px);height:6px;border-radius:3px;background:#F97316}.ds-trilho i{position:relative;width:16px;height:16px;border-radius:999px;background:#0B1A33;border:3px solid #EEF2F8;box-sizing:border-box}.ds-trilho i.atual{width:24px;height:24px;border:4px solid #F97316;outline:2px solid #EEF2F8;outline-offset:3px}" },
+    { "name": "Busca", "kind": "input", "refersTo": "input-busca", "description": "Campo sobre a noite.",
+      "html": "<input class=\"ds-busca\" placeholder=\"Filtrar ideias...\">",
+      "css": ".ds-busca{height:44px;padding:0 12px;border-radius:6px;background:#13284D;border:1px solid #24406B;color:#EEF2F8;font:400 .95rem 'Hanken Grotesk',sans-serif}.ds-busca:focus{outline:none;border-color:#FB923C}" }
+  ],
+  "narrative": {
+    "northStar": "Metrô Noturno",
+    "keyCharacteristics": ["Trilhos de 5–6px na cor da linha; estações = círculo de miolo escuro com anel claro.", "\"Você está aqui\": estação atual maior, anel na cor da linha, contorno claro.", "Serviço tracejado para Radar e Newsletter.", "Moldura noturna, coluna de leitura em papel frio.", "Hanken Grotesk para sinalização, Source Serif 4 para leitura."],
+    "rules": [
+      { "name": "A Regra da Linha", "body": "Cor de linha só nomeia linha: laranja = Engenharia & IA, céu = Negócios, âmbar = Bastidores. Serviços extras são tracejados.", "section": "colors" },
+      { "name": "A Regra do Quadro", "body": "O quadro entra apagado e mascarado atrás do mapa, nunca atrás de parágrafo.", "section": "colors" },
+      { "name": "A Regra da Placa", "body": "Títulos, navegação e rótulos em Hanken; parágrafos em Source Serif 4. Mono nunca como figurino.", "section": "typography" }
+    ],
+    "dos": ["Do derivar linhas de src/lib/eixos.ts e cores de src/lib/linhas.ts.", "Do mostrar estações só com dado real (data, ordem, tag em comum) e como links de verdade.", "Do manter a coluna de leitura no papel, 60–75 caracteres.", "Do usar o tracejado para serviços que não são eixo (Radar, Newsletter)."],
+    "donts": ["Don't pôr o quadro, gradiente ou textura atrás de texto corrido.", "Don't criar cor de linha fora da paleta oficial.", "Don't voltar aos cards com borda laranja brilhante e thumbnail de stock nos índices.", "Don't inventar baldeação: só existe se houver tag em comum."]
+  }
+}
