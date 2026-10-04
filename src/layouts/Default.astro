@@ -148,6 +148,7 @@ const jsonLd = {
   <body class="campo-azul min-h-screen overflow-x-hidden font-sans">
     <Header pathname={pathname} eixosAtivos={eixosAtivos} client:load />
     <slot />
-    <Footer newsletterPrimeiro={type !== 'article'} client:load />
+    {/* Páginas que já terminam com o plano laranja da newsletter (textos e /newsletter) não repetem a célula no rodapé. */}
+    <Footer comNewsletter={type !== 'article' && !pathname.startsWith('/newsletter')} client:load />
   </body>
 </html>

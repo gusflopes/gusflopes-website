@@ -30,7 +30,7 @@ const themes = [
 
 /** Posição de cada tema na partição 3 + 2 da grade de 12 colunas (desktop). */
 const SPAN = ['lg:col-span-4', 'lg:col-span-4', 'lg:col-span-4', 'lg:col-span-7', 'lg:col-span-5'];
-/** A célula que vira campo de areia (a mais larga da partição). */
+/** A célula em tom de papel #EEE7E1 com faixa grossa de areia no topo (a mais larga da partição). */
 const CAMPO = 3;
 
 /**
@@ -64,7 +64,7 @@ export function Themes() {
           Celular: só o filete de topo de cada tema, em laranja (presença), sem caixas fechadas.
           Desktop: partição 3 + 2 desenhada pelo fundo azul nos vãos de 2px (sem marca de canto: era confete), com os
           filetes de cima e de baixo em laranja;
-          a célula mais larga é o campo de areia (cor quente do quadro, azul sobre ela 6,4:1).
+          a célula mais larga fica em #EEE7E1 com faixa de areia de 12px no topo (areia não é fundo de leitura).
         */}
         <dl className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 md:gap-[2px] md:bg-azul md:border-2 md:border-azul md:border-y-laranja">
           {themes.map((theme, i) => {
@@ -72,8 +72,9 @@ export function Themes() {
             return (
               <div
                 key={theme.title}
-                className={`relative ${campo ? 'bg-areia text-azul' : 'campo-papel'} ${SPAN[i]} ${i === 4 ? 'md:col-span-2' : ''} max-md:border-t-2 max-md:border-laranja ${campo ? 'max-md:px-5' : ''} pt-5 pb-10 md:px-7 md:pb-7 md:pt-8 flex flex-col gap-4 md:gap-5`}
+                className={`relative ${campo ? 'bg-papel-2 text-azul' : 'campo-papel'} ${SPAN[i]} ${i === 4 ? 'md:col-span-2' : ''} max-md:border-t-2 max-md:border-laranja ${campo ? 'max-md:px-5' : ''} ${campo ? 'pt-8 md:pt-11' : 'pt-5 md:pt-8'} pb-10 md:px-7 md:pb-7 flex flex-col gap-4 md:gap-5`}
               >
+                {campo && <span className="absolute inset-x-0 top-0 h-3 bg-areia max-md:top-[2px]" aria-hidden="true" />}
                 <NomeCelula titulo={theme.title} as="dt" className="text-azul" />
                 <dd className={`font-serif text-[1.0625rem] leading-relaxed max-w-[46ch] ${campo ? 'text-azul' : 'text-tinta'}`}>{theme.description}</dd>
               </div>

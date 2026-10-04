@@ -100,6 +100,15 @@ Refinamento (pendências dos revisores da v4):
 8. Quente com frio carregando conteúdo: na Ferramenta, ardósia clara (metadados + nota) encosta na ferrugem (texto + "Como funciona por dentro"); a areia foi para a célula larga dos temas.
 9. Esta página corrigida: o plano da pergunta dos eixos é petróleo, não laranja.
 
-Artigo: costura laranja de 4px na passagem noite → papel, filete laranja sob os metadados e sobre a linha-fina; cada H2 ganha um marco de seção no campo do eixo (placa de 3 colunas na margem esquerda, faixa no celular) com o número da seção e topo laranja alinhado ao filete de 4px; links sublinhados em `#F97316`.
+Artigo (texto único, igual nos dois briefs): costura laranja de 4px na passagem noite → papel; filete laranja sob os metadados e sobre a linha-fina; no desktop, a margem esquerda (3 colunas) é um sumário fixo com os títulos reais dos H2, aberto por filete laranja de 4px, a seção corrente no campo do quadro do eixo com topo laranja (`aria-current="location"`), sem rótulo visível e sem número; cada H2 tem filete laranja de 4px com a marca do eixo (barra de 4rem × 8px no campo do eixo) na ponta esquerda, também no celular, onde não há sumário; links sublinhados em `#F97316`; no fim, caixa do autor em creme e plano laranja da newsletter (no celular o plano vem antes e o creme fecha a página), e o rodapé omite a célula da newsletter.
 
 Medido (`medir-cor.cjs`, v4 → v5): home desktop laranja 4,4% → 3,3% (janelas ≥ 0,5%: 100% → 100%), quadro ≥ 3% 92% → 67%, escuro 32% → 31%; home celular laranja 7,5% → 3,3%, quadro 42% → 50%; insights desktop quadro 8% → 92%; artigo desktop laranja nas janelas 14% → 100%, quadro 0% → 86%; artigo celular 36% → 96% e 0% → 70%. Os 400px acima do rodapé ficam ≥ 56% claros em todos os modelos. axe sem falha séria em 10 rotas × 2 larguras.
+
+### Correções do revisor (v5)
+1. Artigo: saíram as placas numeradas 01–08 (numeração decorativa); a margem virou sumário fixo com os títulos reais dos H2, a seção corrente marcada no campo do eixo com topo laranja; no H2 fica só a marca estreita do eixo sob o filete laranja.
+2. Eixos (home): a coluna de petróleo de ~1.000px virou faixa na largura da grade, na altura do conteúdo; as portas ganharam a largura toda.
+3. Rodapé sem a célula da newsletter nas páginas que já terminam com o plano laranja (textos e /newsletter); onde fica, abre o rodapé.
+4. Simulador: o link "Como funciona por dentro" foi para a célula de ardósia, empilhada a partir do topo.
+5. Temas: a célula larga é `#EEE7E1` com faixa de areia de 12px no topo (areia não é fundo de leitura).
+6. Vídeo: título e célula azul em duas faixas de largura total, na altura do conteúdo.
+Opcional: texto secundário sobre creme aquecido para `#57534E` (6,7:1 no creme, 6,1:1 em `#EEE7E1`).

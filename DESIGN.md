@@ -188,10 +188,10 @@ Estratégia **papel dominante, azul estrutura, laranja distribuído, quadro em c
 ### Quadro (paleta de apoio, aprovada em 04/10)
 Só como **campo chapado de bordas retas**, sempre com função (nada de campo sem texto como enchimento):
 - **Petróleo** (`#457183`): plano da pergunta dos eixos; papel sobre ele 5,1:1.
-- **Petróleo escuro** (`#315b6f`): célula de link do vídeo; campo do eixo Engenharia & IA (frase de apoio do hub, célula de data nas listas, marcos de seção do artigo); papel sobre ele 7:1 (céu-claro reprova, 4,24:1).
+- **Petróleo escuro** (`#315b6f`): célula de link do vídeo; campo do eixo Engenharia & IA (frase de apoio do hub, célula de data nas listas, item corrente do sumário e marca do H2 no artigo); papel sobre ele 7:1 (céu-claro reprova, 4,24:1).
 - **Ferrugem** (`#8a4c1b`): campo do texto da Ferramenta, encostado na ardósia (quente com frio, os dois com conteúdo); campo do eixo Negócios; papel sobre ela 6,4:1. Encosta no laranja só com o filete azul-3 de 2px entre eles.
 - **Ardósia clara** (`#7f989a`): metadados e nota de cautela da Ferramenta; campo do eixo Bastidores; azul sobre ela 5,6:1. Ardósia `#648188` não leva texto pequeno (4,16:1 com azul).
-- **Areia** (`#aa9c87`): a célula mais larga da partição dos temas; azul sobre ela 6,4:1 (papel reprova).
+- **Areia** (`#aa9c87`): faixa de 12px no topo da célula mais larga dos temas (a célula em si é `#EEE7E1`: areia não é fundo de leitura).
 - **Marrom** (`#907a5f`/`#50372a`): reservado; ainda sem uso (`#907a5f` não leva texto sobre claro).
 
 ### Neutral
@@ -201,7 +201,7 @@ Só como **campo chapado de bordas retas**, sempre com função (nada de campo s
 - **Azul-escuro** (`#0B1A33`): estrutura e tinta do texto sobre papel (15,75:1 com o papel); texto sobre laranja.
 - **Azul 2 / Azul 3** (`#13284D`, `#1D3866`): fundo do quadro dentro da janela, hover de célula, filetes sobre azul.
 - **Filete** (`#E6D9C8`): divisórias finas sobre papel, quente, derivado do papel.
-- **Tinta 2** (`#475569`): texto secundário sobre papel e creme (6,2–7,2:1). `#64748b` reprova em creme.
+- **Tinta 2** (`#475569`): texto secundário sobre papel (7,2:1). Dentro de `.campo-creme` o token esquenta para `#57534E` (6,7:1 no creme, 6,1:1 em `#EEE7E1`). `#64748b` reprova em creme.
 - Texto claro sobre azul usa o mesmo papel `#FFF8F2` (um só claro em todo o site); céu e céu claro seguem frios, como secundários sobre a noite.
 - **Céu / Céu claro** (`#8FB3D9`, `#B7C6DA`): texto secundário sobre azul (7,95:1 e 10:1).
 
@@ -212,7 +212,7 @@ Só como **campo chapado de bordas retas**, sempre com função (nada de campo s
 
 **The Ink on Orange Rule.** Texto sobre laranja nunca é preto nem quase-preto. Sobre `#F97316`, `#FB923C` e `#FDBA74`, texto e ícone em azul-escuro `#0B1A33` (padrão de botões, células e planos). Sobre laranja escuro (`#C2410C`, `#9A3412`), texto branco (5,18:1), só pontualmente (hover/pressionado, bloco sobre papel em que o `#F97316` fique estridente); não vira um segundo laranja oficial. Proibido: `#C2410C` com azul-escuro (3,35:1) e `#F97316` com branco (2,8:1).
 
-**The Quadro Field Rule.** As cores do quadro são campos chapados de bordas retas, com função (pergunta, metadados, texto, link, data, marco de seção). Campo sem conteúdo não existe. Nada de borda colorida em volta de célula, textura, degradê ou o quadro repetido: o quadro em si só aparece recortado pela janela.
+**The Quadro Field Rule.** As cores do quadro são campos chapados de bordas retas, com função (pergunta, metadados, texto, link, data, seção corrente). Campo sem conteúdo não existe. Nada de borda colorida em volta de célula, textura, degradê ou o quadro repetido: o quadro em si só aparece recortado pela janela.
 
 **The Solid Orange Rule.** O laranja é bloco chapado, filete ou marca; nunca halo, brilho, degradê ou sombra colorida.
 
@@ -230,7 +230,7 @@ Uma família de display com dois eixos substitui três famílias da maquete: o m
 - **Abertura estreita** (850, largura 62%, word-spacing 0,12em): títulos de seção que precisam de outra textura — "O que eu escrevo, e para quem", "Edições". Mesmas regras, métricas próprias.
 - **Linha leve** (100, mesma largura da instância): a linha marcada de toda abertura, sólida, medida com as larguras do peso 100 (`abertura-metricas.json` traz `leve` e `estreita.leve`).
 - **Nome de célula** (`.nome-celula`, 780, largura 72%, caixa mista, 1,75–2,5rem): nomes dos temas, serviços e eixos, "Vídeo em Destaque" e a ação "Fazer o diagnóstico". Quebra no " & ", com o "&" no fim da primeira linha, na cor do texto (regra única do site desde a rodada 5).
-- **Numeral** (250, largura 125%, tabular): o dia nas listas, o número da edição e o número de seção nos marcos do artigo. Leve e largo contra o bloco pesado — o contraste de peso faz a hierarquia.
+- **Numeral** (250, largura 125%, tabular): o dia nas listas e o número da edição. Leve e largo contra o bloco pesado — o contraste de peso faz a hierarquia.
 - **Display** (900, caixa-alta, 2–3rem): títulos auxiliares (nome do simulador em Bastidores, caminhos do 404).
 - **Título de lista** (800, largura 87%, 1,5–1,875rem, caixa normal): itens de hubs e listas; o mais recente do hub sobe para 900 caixa-alta.
 - **Linha-fina** (500, largura 87%): cauda da abertura e frase de apoio do hero, em céu sobre azul.
@@ -256,14 +256,14 @@ Grades de células usam `gap: 2px` sobre um fundo (azul no papel, azul-3 no azul
 
 ### Home, seção por seção (trabalho → composição)
 - **Tese** (entender a proposta): bloco de cinco linhas a .86; a janela encaixa no vão de MESMO/SISTEMA no celular e sangra na borda direita no desktop. Faixa de grade: metadados à esquerda, frase e apoio no meio, plano laranja da newsletter à direita, encostado na seção seguinte.
-- **Eixos** (escolher por onde entrar e ver o que saiu em cada porta): plano de petróleo (cor do quadro) alto com a pergunta em papel (abertura estreita), encostado em três linhas de papel, cada uma aberta por filete laranja de 2px. Cada lista de textos abre com filete laranja de 2px; marca na data e no "Mais recente"; a ação de cada porta é link `#C2410C` com seta (sem chapado na região). "Engenharia & IA" não quebra. Nome de cada eixo em estreita 780 caixa mista; os dois textos mais recentes do eixo descem como linhas de tabela dos hubs (dia em numeral leve, "Mês, ano", "Mais recente" no primeiro). "Ideias recentes" foi fundida aqui.
-- **Ferramenta** (experimentar agora): grade de filetes azul-3; abertura em degraus com a linha do meio vazada (o segundo e último contorno do site) + célula de ardósia clara com os metadados e a nota de cautela; embaixo, a ação é a própria célula laranja e o texto vai num campo de ferrugem de 9 colunas, encostado na ardósia (quente com frio, os dois com conteúdo), com o link "Como funciona por dentro" em papel sublinhado de laranja. No celular a ardósia vai para o fim e a célula laranja vira uma linha (rótulo e seta lado a lado).
-- **Vídeo** (assistir a uma coisa só): a camada de volume baixo. Abre o campo de papel com "Vídeo em Destaque" em nome de célula, sem bloco de tipo; linha de duas células (título à esquerda, célula inteira em petróleo escuro como link), quadrado laranja do play girado 12° que endireita no hover.
-- **Temas** (entender quem escreve): seção em creme. Abertura em bloco + trajetória; os cinco temas numa partição 3 + 2 de células de papel desenhada pelo fundo azul nos vãos, com os filetes de cima e de baixo em laranja, e a célula mais larga em areia (no celular, só filete laranja de topo em cada tema, sem caixas), nomes em estreita 780 caixa mista.
+- **Eixos** (escolher por onde entrar e ver o que saiu em cada porta): faixa de petróleo (cor do quadro) na largura da grade e na altura do conteúdo, com a pergunta em papel (abertura estreita) e a frase de apoio alinhada pela base, sobre três linhas de papel de largura total, cada uma aberta por filete laranja de 2px. Cada lista de textos abre com filete laranja de 2px; marca na data e no "Mais recente"; a ação de cada porta é link `#C2410C` com seta (sem chapado na região). "Engenharia & IA" não quebra. Nome de cada eixo em estreita 780 caixa mista; os dois textos mais recentes do eixo descem como linhas de tabela dos hubs (dia em numeral leve, "Mês, ano", "Mais recente" no primeiro). "Ideias recentes" foi fundida aqui.
+- **Ferramenta** (experimentar agora): grade de filetes azul-3; abertura em degraus com a linha do meio vazada (o segundo e último contorno do site) + célula de ardósia clara com os metadados, a nota de cautela e o link "Como funciona por dentro"; embaixo, a ação é a própria célula laranja e o texto vai num campo de ferrugem de 9 colunas, encostado na ardósia (quente com frio, os dois com conteúdo). No celular a ardósia vai para o fim e a célula laranja vira uma linha (rótulo e seta lado a lado).
+- **Vídeo** (assistir a uma coisa só): a camada de volume baixo. Abre o campo de papel com "Vídeo em Destaque" em nome de célula, sem bloco de tipo; duas faixas na largura da grade, na altura do conteúdo (o título sobre o papel e, embaixo, a célula inteira em petróleo escuro como link), quadrado laranja do play girado 12° que endireita no hover.
+- **Temas** (entender quem escreve): seção em creme. Abertura em bloco + trajetória; os cinco temas numa partição 3 + 2 de células de papel desenhada pelo fundo azul nos vãos, com os filetes de cima e de baixo em laranja, e a célula mais larga em `#EEE7E1` com faixa de areia de 12px no topo (no celular, só filete laranja de topo em cada tema, sem caixas), nomes em estreita 780 caixa mista.
 - **Serviços** (entender o que contratar): costura de filete laranja na largura da grade; abertura em escada à direita; as três ofertas descem em degraus a partir dela, cada uma com filete laranja de 2px e o começo marcado em azul de 6px. Só a primeira oferta (o diagnóstico) tem ação chapada; as outras duas são links `#C2410C` com seta. O campo de ferrugem sem texto que enchia o vão saiu; o último degrau ficou mais curto.
-- **Rodapé**: chega do papel de Serviços; células com filetes azul-3; a coluna da newsletter é uma célula de creme com filete laranja de 6px no topo e só o botão chapado (o plano laranja não se repete). No celular essa célula abre o rodapé (papel → creme → azul), exceto nas páginas de texto.
+- **Rodapé**: chega do papel de Serviços; células com filetes azul-3; a coluna da newsletter é uma célula de creme com filete laranja de 6px no topo e só o botão chapado. Onde existe, abre o rodapé (no celular vem primeiro: papel → creme → azul). Nas páginas que já terminam com o plano laranja da newsletter (textos e /newsletter) a célula é omitida.
 
-Hubs: cabeçalho azul com a abertura e a frase de apoio no campo do eixo (petróleo escuro na listagem geral; com a marca e o público no hub do eixo); índice sobre papel, cada linha aberta por filete laranja de 2px e com a célula de data no campo do eixo do texto (a do mais recente, sem filtro, é laranja). Artigo: costura laranja de 4px entre a moldura escura e o papel; cada H2 ganha um marco de seção — placa de 3 colunas na margem esquerda (faixa acima do título no celular) no campo do eixo, número da seção em numeral leve e topo laranja de 12px (6px no celular) alinhado ao filete de 4px do H2; links sublinhados em `#F97316`; caixa do autor em creme. 404: abertura no azul, caminhos sobre papel. Em todo modelo de página os ~400px acima do rodapé são papel (≥ 56% claro).
+Hubs: cabeçalho azul com a abertura e a frase de apoio no campo do eixo (petróleo escuro na listagem geral; com a marca e o público no hub do eixo); índice sobre papel, cada linha aberta por filete laranja de 2px e com a célula de data no campo do eixo do texto (a do mais recente, sem filtro, é laranja). Artigo (texto único, igual nos dois briefs): costura laranja de 4px na passagem noite → papel; filete laranja sob os metadados e sobre a linha-fina; no desktop, a margem esquerda (3 colunas) é um sumário fixo com os títulos reais dos H2, aberto por filete laranja de 4px, a seção corrente no campo do quadro do eixo com topo laranja (`aria-current="location"`), sem rótulo visível e sem número; cada H2 tem filete laranja de 4px com a marca do eixo (barra de 4rem × 8px no campo do eixo) na ponta esquerda, também no celular, onde não há sumário; links sublinhados em `#F97316`; no fim, caixa do autor em creme e plano laranja da newsletter (no celular o plano vem antes e o creme fecha a página), e o rodapé omite a célula da newsletter.
 
 Header fixo de 72px; páginas de texto trocam o header por uma barra de 56px (voltar / compartilhar).
 
@@ -289,7 +289,8 @@ Cantos retos em tudo: botões, células, inputs, blocos de código, foto do auto
 ### Marcas (laranja de presença)
 - **`.marca`**: quadrado laranja sólido de 10px, ao lado do dia nas listas dos eixos, antes do "Mais recente" e do público no cabeçalho dos hubs.
 - **Filete laranja**: 2px no topo de cada linha dos hubs, das listas e das portas dos eixos, das ofertas, da partição dos temas e dos caminhos do 404; 4px nos H2 do artigo. Nunca borda em volta de célula.
-- **Marco de seção** (`.leitura[data-eixo] h2::before`): campo do eixo com o número da seção (decorativo, fora da árvore de acessibilidade) e topo laranja.
+- **Marca do eixo no H2** (`.leitura[data-eixo] h2::before`): barra de 4rem × 8px no campo do eixo, sob a ponta esquerda do filete laranja de 4px.
+- **Sumário do artigo** (desktop): títulos reais dos H2 na margem, fixo; seção corrente no campo do eixo com topo laranja.
 
 ### Chips (filtros)
 - **Célula de eixo**: célula de grade azul com rótulo céu-claro; ativa = bloco laranja. `aria-pressed`.

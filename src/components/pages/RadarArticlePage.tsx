@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import type { EixoId } from '../../lib/eixos';
-import { ArtigoLeitura } from './ArtigoLeitura';
+import { ArtigoLeitura, type Secao } from './ArtigoLeitura';
 
 export interface RadarArticlePageProps {
   title: string;
@@ -11,6 +11,8 @@ export interface RadarArticlePageProps {
   duration: string;
   /** Imagem do frontmatter: usada como prévia social (OG) no layout, não no corpo da página. */
   image: string;
+  /** H2 do corpo (headings do render), para o sumário da margem. */
+  secoes?: Secao[];
   /** Corpo do artigo já renderizado (markdown via <Content /> no .astro). */
   children?: ReactNode;
 }

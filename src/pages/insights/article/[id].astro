@@ -16,7 +16,9 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { Content } = await render(entry);
+const { Content, headings } = await render(entry);
+// H2 do corpo: o sumário da margem usa os títulos reais das seções.
+const secoes = headings.filter((h) => h.depth === 2).map((h) => ({ slug: h.slug, text: h.text }));
 const { title, excerpt, category, eixo, date, duration, image } = entry.data;
 ---
 
@@ -34,6 +36,7 @@ const { title, excerpt, category, eixo, date, duration, image } = entry.data;
     eixo={eixo}
     dateFormatted={formatDatePtBR(date)}
     duration={duration}
+    secoes={secoes}
     image={image}
     client:load
   >

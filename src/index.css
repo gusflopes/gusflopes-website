@@ -142,6 +142,8 @@
   .campo-creme {
     background: var(--creme);
     color: var(--azul);
+    /* texto secundário aquecido sobre o creme: #57534E, 6,7:1 no creme e 6,1:1 em #EEE7E1 */
+    --color-tinta-2: #57534e;
   }
 
   /* Rótulo: Archivo estreito em caixa-alta (o "Archivo Narrow" do sistema). */
@@ -530,61 +532,34 @@
     /* Laranja, registro (b): filete de 2px no topo da seção do texto (presença, não texto). */
     border-top: 2px solid var(--laranja);
     position: relative;
+    /* âncoras do sumário: o título não some sob a barra fixa de 56px */
+    scroll-margin-top: 5rem;
   }
   .leitura[data-eixo] :where(h2) {
-    counter-increment: secao;
     border-top-width: 4px;
   }
   /*
-   * Marco de seção (rodada 5): cada H2 ganha um campo chapado na cor do quadro do eixo do texto
-   * (EIXO_CAMPO em src/lib/eixos.ts), com o número da seção e um topo laranja (12px no desktop,
-   * 6px no celular) alinhado ao filete de 4px do H2: quente sobre frio, encostados. No celular é uma faixa acima do título; no desktop, uma placa na margem
-   * esquerda (as 3 colunas vazias ao lado da coluna de leitura). O número é decorativo: fica fora
-   * da árvore de acessibilidade (texto alternativo vazio no content).
+   * Marca do eixo no H2 (rodada 5, revisão): um marco de cor estreito — barra de 4rem × 8px no
+   * campo do quadro do eixo do texto (EIXO_CAMPO em src/lib/eixos.ts), encostada embaixo do
+   * filete laranja de 4px, na ponta esquerda. Sem número: a ordem das seções já é a do texto.
    */
   .leitura[data-eixo] {
-    counter-reset: secao;
     --eixo-campo: var(--color-petroleo-escuro);
-    --eixo-texto: var(--papel);
   }
   .leitura[data-eixo="negocios"] {
     --eixo-campo: var(--color-ferrugem);
   }
   .leitura[data-eixo="bastidores"] {
     --eixo-campo: var(--color-ardosia-clara);
-    --eixo-texto: var(--azul);
   }
   .leitura[data-eixo] :where(h2)::before {
-    content: counter(secao, decimal-leading-zero) / "";
-    display: flex;
-    align-items: flex-end;
-    height: 3.25rem;
-    margin: -1.225rem 0 0.55em;
-    padding: 0 0.75rem 0.35rem;
-    border-top: 6px solid var(--laranja);
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4rem;
+    height: 8px;
     background: var(--eixo-campo);
-    color: var(--eixo-texto);
-    font-weight: 250;
-    font-stretch: 125%;
-    font-size: 2.25rem;
-    line-height: 0.82;
-    letter-spacing: -0.04em;
-    font-variant-numeric: tabular-nums lining-nums;
-  }
-  @media (min-width: 1024px) {
-    .leitura[data-eixo] :where(h2)::before {
-      /* largura de 3 colunas + 2 vãos da grade de 12, encostada um vão antes da coluna de leitura */
-      --coluna: calc((min(100vw - 2 * var(--gutter), var(--largura)) - 11 * var(--gutter)) / 12);
-      position: absolute;
-      top: -4px;
-      right: calc(100% + var(--gutter));
-      width: calc(3 * var(--coluna) + 2 * var(--gutter));
-      height: 10rem;
-      margin: 0;
-      padding: 0 1rem 0.75rem;
-      border-top-width: 0.75rem;
-      font-size: 4.25rem;
-    }
   }
   .leitura :where(h3) {
     font-family: var(--font-sans);
