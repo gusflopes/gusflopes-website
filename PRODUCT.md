@@ -52,6 +52,23 @@ mesmo sistema.
   estrutura e tipografia, não a paleta.
 - Referência artística: o quadro do hero (cidade noturna em pinceladas, `src/assets/326189…png`) e Van Gogh são
   inspiração da marca.
+- Papéis das cores (Gustavo, 04/10, depois da rodada 3 do redesign):
+  - **Laranja é a cor principal da marca**, mas, por ser forte, vive em **detalhes** distribuídos pela página inteira
+    (bordas, marcas, fios, números, estados, ações). Antes, as bordas e os cards cumpriam esse papel; eles não são
+    obrigatórios, mas a presença do laranja ao longo da página é. Uma página em que o laranja só aparece no botão
+    perdeu a marca.
+  - **Azul-escuro é estrutura e fundo**, não protagonista. Blocos azuis em sequência ("um azulão só") apagam a
+    identidade e o contraste.
+  - **Tons claros equilibram** e são obrigatórios no ritmo. Uma seção escura grande (o rodapé, por exemplo) precisa
+    chegar por transição de algo claro, nunca empilhada sobre outro bloco escuro.
+  - **O que funciona no quadro é a variedade de cores, não o monocromático.** Além do azul, ele tem azul-petróleo,
+    cinza-ardósia, areia, ferrugem e marrom quente (amostra por agrupamento: `#457183`, `#648188`, `#2f4554`,
+    `#aa9c87`, `#907a5f`, `#8a4c1b`, `#50372a`, sobre `#223040`/`#1c1f27`). O hero da versão atual funciona porque
+    tem mais cores; uma direção que só herda o azul do quadro perde a inspiração artística.
+  - **Paleta de apoio aprovada (04/10):** as cores do quadro (petróleo `#457183`/`#315b6f`, ardósia `#648188`/`#7f989a`,
+    areia `#aa9c87`, marrom `#907a5f`/`#50372a`, ferrugem `#8a4c1b`) entram como cores de apoio em campos e detalhes.
+    Azul-escuro e laranja continuam as oficiais. Um campo claro quente (areia puxada do quadro, acinzentada, nunca
+    creme) pode substituir o papel frio em poucas seções.
 
 ## Evidence on Hand
 
