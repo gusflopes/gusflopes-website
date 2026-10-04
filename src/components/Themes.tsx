@@ -1,4 +1,4 @@
-import { Abertura, BlocoCelula } from './Abertura';
+import { Abertura, NomeCelula } from './Abertura';
 
 const themes = [
   {
@@ -35,8 +35,9 @@ const SPAN = ['lg:col-span-4', 'lg:col-span-4', 'lg:col-span-4', 'lg:col-span-7'
  * Trabalho da seção: entender quem escreve e em que áreas atua.
  * Composição: abertura em bloco ocupando 7 colunas, trajetória em serifa alinhada pela base;
  * embaixo, os cinco temas como partição de grade (3 + 2) desenhada pelo próprio fundo azul
- * nos vãos de 2px. Cada nome de tema é um bloco justificado que ocupa a largura da célula,
- * com o "&" em laranja: a ponte entre os dois termos.
+ * nos vãos de 2px (no celular, só o filete de topo de cada tema). O nome de cada tema é
+ * estreita 780 em caixa mista, com o "&" em laranja: a ponte entre os dois termos — a caixa-alta
+ * 900 fica só para a abertura da seção.
  */
 export function Themes() {
   return (
@@ -57,10 +58,11 @@ export function Themes() {
           </div>
         </div>
 
-        <dl className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-[2px] bg-azul border-2 border-azul">
+        {/* Celular: só o filete de topo de cada tema, sem caixas fechadas. */}
+        <dl className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 md:gap-[2px] md:bg-azul md:border-2 md:border-azul">
           {themes.map((theme, i) => (
-            <div key={theme.title} className={`campo-papel ${SPAN[i]} ${i === 4 ? 'md:col-span-2' : ''} p-6 md:p-7 flex flex-col gap-5`}>
-              <BlocoCelula titulo={theme.title} as="dt" teto={4.75} className="text-azul" />
+            <div key={theme.title} className={`campo-papel ${SPAN[i]} ${i === 4 ? 'md:col-span-2' : ''} max-md:border-t-2 max-md:border-azul pt-5 pb-10 md:p-7 flex flex-col gap-4 md:gap-5`}>
+              <NomeCelula titulo={theme.title} as="dt" className="text-azul" />
               <dd className="font-serif text-[1.0625rem] leading-relaxed text-tinta max-w-[46ch]">{theme.description}</dd>
             </div>
           ))}

@@ -35,7 +35,7 @@ node docs/substack-kit/gerar-capa.mjs "Título da edição" newsletter
 
 - **1456×816**: imagem de capa do post no Substack (proporção 16:9 que ele usa).
 - **1200×630**: prévia social (LinkedIn, X, Bluesky) e `og:image`, se quiser usar no site.
-- As regras de quebra, escala e palavra vazada vêm de `src/lib/abertura.ts`, as mesmas das aberturas dos
+- As regras de quebra, escala e linha leve (o par 900/100: a linha marcada sai no peso 100, sólida) vêm de `src/lib/abertura.ts`, as mesmas das aberturas dos
   artigos no site. Mesmo título + mesmo eixo = mesma capa, sempre. O eixo muda a forma: bloco justificado
   (Engenharia & IA, Newsletter), escada à direita (Negócios), degraus (Bastidores).
 - O texto vira curva (SVG `<path>`) a partir dos arquivos `@fontsource-variable` do próprio site

@@ -231,6 +231,11 @@
   .abertura[data-alinhamento="end"] .abertura-linha {
     margin-inline-start: auto;
   }
+  /* Par 900/100: a linha marcada é o mesmo desenho no peso 100, sólida. */
+  .abertura .abertura-linha[data-estilo="leve"],
+  .abertura[data-instancia] .abertura-linha[data-estilo="leve"] {
+    font-weight: 100;
+  }
   .abertura-linha[data-estilo="vazado"] {
     color: transparent;
     -webkit-text-stroke: max(1.5px, 0.022em) currentColor;
@@ -356,23 +361,16 @@
     font-stretch: 62%;
     word-spacing: 0.12em;
   }
-  /* Título justificado em célula: cada linha ajustada à largura da célula (cqi). */
-  .bloco-celula {
-    container-type: inline-size;
+  /* Nome de célula (temas, serviços, eixos): estreita 780 em caixa mista, abaixo da abertura. */
+  .nome-celula {
     margin: 0;
-  }
-  .bloco-celula > span {
-    display: block;
-    width: fit-content;
-    white-space: nowrap;
     font-family: var(--font-sans);
-    font-weight: 850;
-    font-stretch: 62%;
-    text-transform: uppercase;
-    letter-spacing: -0.02em;
-    line-height: 0.88;
-    word-spacing: 0.12em;
-    font-size: min(calc(var(--fit) * 1cqi), var(--teto, 6rem));
+    font-weight: 780;
+    font-stretch: 72%;
+    font-size: clamp(1.75rem, 1.35rem + 1.3vw, 2.5rem);
+    line-height: 0.98;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
   }
   /* Numeral de data/ordem: Archivo leve e largo, algarismos tabulares. */
   .numeral {
@@ -388,11 +386,21 @@
     line-height: 0.86;
     padding-block: 0;
   }
+  /*
+   * Celular: a janela tem ~42% da largura da tela (46cqi do bloco), começa logo abaixo de
+   * PARTES DO (sem cobrir o DO), à direita de MESMO / SISTEMA, e sangra na borda direita.
+   * O bloco ganha respiro embaixo para a janela pendurada não encostar no filete da faixa.
+   */
   .tese-janela {
     position: absolute;
-    left: 82cqi;
-    top: 33cqi;
-    width: 21cqi;
+    left: 75cqi;
+    top: 37cqi;
+    width: 46cqi;
+  }
+  @media (max-width: 1023.98px) {
+    .tese {
+      padding-bottom: calc(0.36 * (100vw - 2 * var(--gutter)));
+    }
   }
   @media (min-width: 1024px) {
     .tese-janela {

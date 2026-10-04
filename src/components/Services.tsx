@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 import { site } from '../config/site';
-import { Abertura, BlocoCelula } from './Abertura';
+import { Abertura, NomeCelula } from './Abertura';
 
 export function Services() {
   const services = [
@@ -41,7 +41,7 @@ export function Services() {
         <div className="mt-12 lg:-mt-36 grid grid-cols-1 md:grid-cols-3 gap-x-[var(--gutter)] gap-y-12 items-start">
           {services.map((service, i) => (
             <article key={service.title} className={`flex flex-col border-t-[6px] border-azul pt-5 ${degrau[i]}`}>
-              <BlocoCelula titulo={service.title} teto={4.5} className="text-azul mb-5" />
+              <NomeCelula titulo={service.title} className="text-azul mb-5" />
               <p className="font-serif text-[1.0625rem] leading-relaxed text-tinta mb-7 max-w-[40ch]">{service.description}</p>
               <a href={service.link} className="acao self-start">
                 {service.action} <ArrowRight size={16} strokeWidth={2.5} aria-hidden="true" />

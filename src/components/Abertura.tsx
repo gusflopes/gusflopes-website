@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import { abertura, larguraEm, type EixoAbertura, type InstanciaAbertura } from '../lib/abertura';
+import { abertura, type EixoAbertura, type InstanciaAbertura } from '../lib/abertura';
 
 interface AberturaProps {
   titulo: string;
@@ -12,6 +12,8 @@ interface AberturaProps {
   teto?: number;
   /** Esconde a linha-fina (cauda) — quando o contexto já mostra o título inteiro em outro lugar. */
   semCauda?: boolean;
+  /** Linha marcada só no contorno em vez de leve (peso 100). Na home, só o Simulador. */
+  vazado?: boolean;
   id?: string;
   className?: string;
 }
@@ -27,10 +29,11 @@ export function Abertura({
   as: Tag = 'h1',
   teto = 8,
   semCauda = false,
+  vazado = false,
   id,
   className = '',
 }: AberturaProps) {
-  const a = abertura(titulo, eixo, instancia);
+  const a = abertura(titulo, eixo, instancia, { vazado });
   const ultima = a.linhas.length - 1;
   return (
     <Tag
@@ -60,30 +63,25 @@ export function Abertura({
 }
 
 /**
- * Título curto de célula (temas, serviços): quebra no " & " (o "e" fica no fim da primeira
- * linha, em laranja) e cada linha é ajustada à largura da célula — um bloco justificado.
- * Sem linha vazada: o contorno é das aberturas de seção.
+ * Nome curto de célula (temas, serviços, eixos): Archivo estreita 780 em caixa mista — volume
+ * abaixo da abertura da seção, que é a única em caixa-alta 900. Quebra no " & " (o "&" fica no
+ * fim da primeira linha, em laranja: a ponte entre os dois termos).
  */
-export function BlocoCelula({ titulo, as: Tag = 'h3', teto = 5, className = '' }: { titulo: string; as?: 'h2' | 'h3' | 'dt' | 'p'; teto?: number; className?: string }) {
-  const partes = titulo.includes(' & ') ? titulo.split(' & ') : titulo.split(' ');
-  const linhas = partes.length === 2 && titulo.includes(' & ') ? [`${partes[0]} &`, partes[1]] : partes;
-  const fits = linhas.map((l) => Math.round((96 / larguraEm(l.toLocaleUpperCase('pt-BR'), 'estreita')) * 100) / 100);
-  // Largura máxima do bloco: onde a linha de maior corpo chega ao teto. Assim o teto nunca
-  // quebra a justificação — o bloco fica mais estreito que a célula, mas sempre justificado.
-  const maxW = (teto * 100) / Math.max(...fits);
+export function NomeCelula({ titulo, as: Tag = 'h3', className = '' }: { titulo: string; as?: 'h2' | 'h3' | 'dt' | 'p'; className?: string }) {
+  const amp = titulo.includes(' & ');
+  const [a, b] = amp ? titulo.split(' & ') : [titulo, ''];
   return (
-    <Tag className={`bloco-celula ${className}`} style={{ '--teto': `${teto}rem`, maxWidth: `${Math.round(maxW * 100) / 100}rem` } as CSSProperties}>
-      {linhas.map((l, i) => {
-        const fit = fits[i];
-        const amp = l.endsWith(' &');
-        return (
-          <span key={i} style={{ '--fit': fit } as CSSProperties}>
-            {amp ? l.slice(0, -1) : l}
-            {amp && <span className="text-laranja-fundo">&amp;</span>}
-            {i < linhas.length - 1 ? ' ' : null}
-          </span>
-        );
-      })}
+    <Tag className={`nome-celula ${className}`}>
+      {amp ? (
+        <>
+          <span className="block">
+            {a} <span className="text-laranja-fundo">&amp;</span>
+          </span>{' '}
+          <span className="block">{b}</span>
+        </>
+      ) : (
+        titulo
+      )}
     </Tag>
   );
 }

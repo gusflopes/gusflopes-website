@@ -17,6 +17,8 @@ const TESE: { texto: string; fracao: number; estilo?: 'menor' | 'vazado' }[] = [
   { texto: 'sistema', fracao: 0.7 },
 ];
 
+const META = ['Estratégia', 'Arquitetura', 'Fluxo', 'IA aplicada'];
+
 const fit = (texto: string, fracao: number) =>
   Math.round(((97 * fracao) / larguraEm(texto.toLocaleUpperCase('pt-BR'))) * 100) / 100;
 
@@ -78,7 +80,13 @@ export function Hero({ fundo }: { fundo: FundoResponsivo }) {
             </p>
           </div>
           <p className="rotulo text-laranja lg:col-span-3 lg:col-start-1 lg:row-start-1 px-[var(--gutter)] md:px-0 pb-8 lg:pt-7 lg:pb-0 lg:pr-4 max-lg:order-2">
-            Estratégia · Arquitetura · Fluxo · IA aplicada
+            {/* Cada item sem quebra; o "·" viaja com o item seguinte, nunca fica pendurado. */}
+            {META.map((item, i) => (
+              <span key={item}>
+                {i > 0 ? ' ' : null}
+                <span className="whitespace-nowrap">{i > 0 ? `· ${item}` : item}</span>
+              </span>
+            ))}
           </p>
           <div className="campo-laranja lg:col-span-4 lg:col-start-9 lg:row-start-1 max-lg:order-3 px-[var(--gutter)] md:px-7 py-7 flex flex-col justify-between gap-6">
             <p className="font-sans font-semibold [font-stretch:87%] text-[1.0625rem] leading-snug">{newsletter.pitch}</p>

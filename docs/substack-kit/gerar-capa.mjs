@@ -2,7 +2,7 @@
 // Capa de post para o Substack com o sistema de abertura tipográfica do site.
 // Uso: node docs/substack-kit/gerar-capa.mjs "Título da edição" [engenharia|negocios|bastidores|newsletter] [pasta-de-saída]
 // Saída: <slug>-1456x816.png (capa do post) e <slug>-1200x630.png (prévia social).
-// A quebra, a escala e a palavra vazada vêm de src/lib/abertura.ts (as mesmas regras do site).
+// A quebra, a escala e a linha leve (par 900/100) vêm de src/lib/abertura.ts (as mesmas regras do site).
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -14,6 +14,7 @@ const ROTULOS = { engenharia: 'Engenharia & IA', negocios: 'Negócios', bastidor
 
 export async function capa(titulo, eixo, W, H) {
   const display = await fonte('sans', { wght: 900, wdth: 100 }, -0.02);
+  const leve = await fonte('sans', { wght: 100, wdth: 100 }, -0.02); // linha leve do par 900/100
   const fina = await fonte('sans', { wght: 500, wdth: 87 }, -0.005);
   const rotulo = await fonte('sans', { wght: 650, wdth: 75 }, 0.12);
   const a = abertura(titulo, eixo);
@@ -46,12 +47,13 @@ export async function capa(titulo, eixo, W, H) {
   m.linhas.forEach((l, i) => {
     const txt = l.texto.toLocaleUpperCase('pt-BR');
     const sep = i === ultima && a.sep ? a.sep : '';
-    const wTxt = display.largura(txt, l.tam);
+    const f = l.estilo === 'leve' ? leve : display;
+    const wTxt = f.largura(txt, l.tam);
     const wTot = wTxt + (sep ? display.largura(sep, l.tam) : 0);
     let x = pad + (l.recuo * m.wb) / 100;
     if (a.alinhamento === 'end') x = pad + m.wb - wTot;
     const base = y + l.tam * 0.94 * 0.86;
-    const d = display.caminho(txt, l.tam, x, base);
+    const d = f.caminho(txt, l.tam, x, base);
     corpo +=
       l.estilo === 'vazado'
         ? `<path d="${d}" fill="none" stroke="${COR.papel}" stroke-width="${Math.max(1.5, l.tam * 0.022)}" stroke-linejoin="round"/>`
