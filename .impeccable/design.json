@@ -62,16 +62,16 @@
    },
    "petroleo": {
     "role": "secondary",
-    "displayName": "Petróleo",
+    "displayName": "Petróleo (célula, metadado sobre papel)",
     "tonalRamp": [
-     "#0C141A",
-     "#15242F",
-     "#1E3444",
-     "#274459",
-     "#2E5069",
-     "#627C8F",
-     "#97A8B4",
-     "#CBD3DA"
+     "#0C171C",
+     "#162932",
+     "#203B48",
+     "#2A4D5E",
+     "#315B6F",
+     "#6F8C9A",
+     "#A2B5BE",
+     "#D6DEE2"
     ]
    },
    "ceu": {
@@ -202,7 +202,7 @@
    },
    "laranja": {
     "role": "primary",
-    "displayName": "Laranja (luz)",
+    "displayName": "Laranja (cor principal: ação chapada e detalhe)",
     "tonalRamp": [
      "#3E1D06",
      "#70340A",
@@ -256,18 +256,116 @@
      "#F0D0C2"
     ]
    },
-   "brasa": {
-    "role": "primary",
-    "displayName": "Brasa (texto sobre laranja)",
+   "petroleo-claro": {
+    "role": "secondary",
+    "displayName": "Petróleo claro",
     "tonalRamp": [
-     "#070301",
-     "#0D0501",
-     "#120701",
-     "#180902",
-     "#1C0A02",
-     "#554741",
-     "#8E8581",
-     "#C6C2C0"
+     "#111C21",
+     "#1F333B",
+     "#2D4955",
+     "#3B606F",
+     "#457183",
+     "#7D9CA8",
+     "#ABBFC7",
+     "#DAE3E6"
+    ]
+   },
+   "ardosia": {
+    "role": "secondary",
+    "displayName": "Ardósia (régua sobre claro)",
+    "tonalRamp": [
+     "#192022",
+     "#2D3A3D",
+     "#415458",
+     "#556E74",
+     "#648188",
+     "#92A7AC",
+     "#B9C6C9",
+     "#E0E6E7"
+    ]
+   },
+   "ardosia-clara": {
+    "role": "secondary",
+    "displayName": "Ardósia clara (metadado sobre noite)",
+    "tonalRamp": [
+     "#202626",
+     "#394445",
+     "#536364",
+     "#6C8183",
+     "#7F989A",
+     "#A5B7B8",
+     "#C5D1D2",
+     "#E5EAEB"
+    ]
+   },
+   "areia": {
+    "role": "secondary",
+    "displayName": "Areia (metadado sobre noite)",
+    "tonalRamp": [
+     "#2A2722",
+     "#4C463D",
+     "#6E6558",
+     "#908573",
+     "#AA9C87",
+     "#C3BAAB",
+     "#D9D2C9",
+     "#EEEBE7"
+    ]
+   },
+   "marrom": {
+    "role": "secondary",
+    "displayName": "Marrom",
+    "tonalRamp": [
+     "#241E18",
+     "#41372B",
+     "#5E4F3E",
+     "#7A6851",
+     "#907A5F",
+     "#B1A28F",
+     "#CDC3B7",
+     "#E9E4DF"
+    ]
+   },
+   "marrom-escuro": {
+    "role": "secondary",
+    "displayName": "Marrom escuro",
+    "tonalRamp": [
+     "#140E0A",
+     "#241913",
+     "#34241B",
+     "#442F24",
+     "#50372A",
+     "#84736A",
+     "#B0A59F",
+     "#DCD7D4"
+    ]
+   },
+   "ferrugem": {
+    "role": "secondary",
+    "displayName": "Ferrugem (filete)",
+    "tonalRamp": [
+     "#221307",
+     "#3E220C",
+     "#5A3112",
+     "#754117",
+     "#8A4C1B",
+     "#AD825F",
+     "#CAAE98",
+     "#E8DBD1"
+    ]
+   },
+   "campo": {
+    "role": "neutral",
+    "displayName": "Campo claro quente (areia do quadro)",
+    "tonalRamp": [
+     "#363431",
+     "#615E58",
+     "#8C887F",
+     "#B8B2A7",
+     "#D8D1C4",
+     "#E4DFD6",
+     "#EDEAE4",
+     "#F7F6F3"
     ]
    }
   },
@@ -344,7 +442,7 @@
    "refersTo": "botao",
    "description": "Ação principal: laranja, texto escuro, canto reto.",
    "html": "<a class=\"ds-botao\" href=\"#\">Assinar Newsletter</a>",
-   "css": ".ds-botao{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;background:#F97316;color:#1C0A02;font-family:\"Hanken Grotesk\",system-ui,sans-serif;font-weight:700;font-size:16px;text-decoration:none;transition:background-color .2s}.ds-botao:hover{background:#FB923C}.ds-botao:focus-visible{outline:2px solid #FB923C;outline-offset:3px}"
+   "css": ".ds-botao{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;background:#F97316;color:#0B1A33;font-family:\"Hanken Grotesk\",system-ui,sans-serif;font-weight:700;font-size:16px;text-decoration:none;transition:background-color .2s}.ds-botao:hover{background:#FB923C}.ds-botao:focus-visible{outline:2px solid #FB923C;outline-offset:3px}"
   },
   {
    "name": "Contato (header)",
@@ -352,7 +450,7 @@
    "refersTo": "botao-contato",
    "description": "Botão de contorno no header.",
    "html": "<a class=\"ds-contato\" href=\"#\">Contato</a>",
-   "css": ".ds-contato{display:inline-flex;align-items:center;height:40px;padding:0 16px;border:1px solid rgba(249,115,22,.7);color:#FB923C;font-family:\"Hanken Grotesk\",sans-serif;font-weight:700;font-size:15px;text-decoration:none;background:#0B1A33;transition:background-color .2s,color .2s}.ds-contato:hover{background:#F97316;color:#1C0A02;border-color:#F97316}"
+   "css": ".ds-contato{display:inline-flex;align-items:center;height:40px;padding:0 16px;border:1px solid rgba(249,115,22,.7);color:#FB923C;font-family:\"Hanken Grotesk\",sans-serif;font-weight:700;font-size:15px;text-decoration:none;background:#0B1A33;transition:background-color .2s,color .2s}.ds-contato:hover{background:#F97316;color:#0B1A33;border-color:#F97316}"
   },
   {
    "name": "Chip de filtro",
@@ -360,7 +458,7 @@
    "refersTo": "chip-filtro",
    "description": "Categoria nos hubs; ativo em laranja.",
    "html": "<div class=\"ds-chips\"><button class=\"ds-chip ds-ativo\">Todos</button><button class=\"ds-chip\">Agentes</button></div>",
-   "css": ".ds-chips{display:flex;gap:8px;background:#0B1A33;padding:16px}.ds-chip{height:32px;padding:0 12px;border:1px solid #22385C;background:transparent;color:#C9D6E6;font:600 13px \"Hanken Grotesk\",sans-serif;cursor:pointer}.ds-chip:hover{border-color:#8FB3D9;color:#fff}.ds-chip.ds-ativo{background:#F97316;border-color:#F97316;color:#1C0A02}"
+   "css": ".ds-chips{display:flex;gap:8px;background:#0B1A33;padding:16px}.ds-chip{height:32px;padding:0 12px;border:1px solid #22385C;background:transparent;color:#C9D6E6;font:600 13px \"Hanken Grotesk\",sans-serif;cursor:pointer}.ds-chip:hover{border-color:#8FB3D9;color:#fff}.ds-chip.ds-ativo{background:#F97316;border-color:#F97316;color:#0B1A33}"
   },
   {
    "name": "Navegação",
@@ -395,10 +493,11 @@
  ],
  "narrative": {
   "northStar": "Pincelada: o mesmo gesto, nunca a mesma imagem",
-  "overview": "Van Gogh como sistema, com a amplitude do quadro da marca: cada tela é uma cena ampla de tinta (cerdas, empasto), sem foco único, numa de seis estruturas grandes (horizonte, vento, manchas, ondas, massas, faixas) escolhida pela semente ou pelo papel, gerada no build em escala de traço fixa por janela. Telas da mesma página não repetem anatomia nem enquadramento. O texto fica sempre em faixa sólida, costurada à pintura pelo fio laranja; a leitura acontece em papel frio.",
+  "overview": "Van Gogh como sistema, com a amplitude e a variedade de cor do quadro da marca: cada tela é uma cena ampla de tinta (cerdas, empasto) na paleta inteira do quadro — petróleo, ardósia, areia, marrom, ferrugem, com os laranjas como luz — numa de seis estruturas grandes (horizonte, vento, manchas, ondas, massas, faixas), gerada no build em escala de traço fixa por janela. Na página, o laranja é a cor principal em detalhes por toda seção, o azul-escuro é estrutura, os claros (papel frio e campo de areia) entram no ritmo e todo bloco escuro grande chega de um claro; o rodapé chega por uma fita pintada areia → noite.",
   "keyCharacteristics": [
-   "Tela gerada por texto e por papel (capa, OG, faixa, abertura, projeção, convite, capa do Substack), em seis arquétipos de composição",
-   "Azul-escuro como chão, laranja como luz rara",
+   "Tela gerada por texto e por papel, em seis arquétipos e na paleta do quadro (ferrugem × petróleo)",
+   "Laranja como cor principal em detalhes (fio, costura, filete, marca, ação), azul-escuro como estrutura",
+   "Claros no ritmo: papel frio e campo de areia; rodapé por fita pintada",
    "Literata + Hanken Grotesk",
    "Cantos retos, sem sombra, sem glow",
    "Coluna de leitura em papel frio a 40rem"
@@ -410,11 +509,6 @@
     "section": "elevation"
    },
    {
-    "name": "Fio na costura",
-    "body": "O fio laranja de 3px só aparece entre pintura e texto; o fio vivo só nos cards.",
-    "section": "colors"
-   },
-   {
     "name": "Rótulo abaixo",
     "body": "Eixo e categoria ficam abaixo do título, com a data.",
     "section": "typography"
@@ -423,25 +517,44 @@
     "name": "Amplitude",
     "body": "A tela usa a superfície inteira: estrutura grande, marcas variadas, áreas de descanso; nenhum foco único.",
     "section": "elevation"
+   },
+   {
+    "name": "Laranja em dois registros",
+    "body": "Chapado = ação (texto #0B1A33); detalhe não textual = presença (fio, costura de 6px, filete, marca de 8px, estado ativo). Sobre claro, texto laranja só #C2410C em links.",
+    "section": "colors"
+   },
+   {
+    "name": "Claro antes do escuro",
+    "body": "Nenhum bloco escuro grande empilhado sobre outro; o rodapé de toda página chega de um campo claro pela fita pintada.",
+    "section": "colors"
+   },
+   {
+    "name": "Cor do quadro com função",
+    "body": "Petróleo, ardósia, areia, marrom e ferrugem aparecem como célula, metadado, régua e filete; ferrugem nunca encosta em #C2410C nem no laranja chapado.",
+    "section": "colors"
    }
   ],
   "dos": [
    "Gerar a capa de texto novo pelo gerador",
-   "Laranja como luz rara: manchas e toques quentes pequenos espalhados, nunca luz-alvo concêntrica",
    "Subir VERSAO ao mudar o gerador",
    "Dar a cada tela um papel e uma semente; listas de textos só texto",
    "Definir formato novo como janela de um papel, no tamanho exibido (escala de traço fixa)",
    "Metadados e rótulos depois do título, nunca acima",
-   "Dar a cada tela da página uma anatomia diferente (arquétipo) e um enquadramento diferente (panorâmica, retrato, coluna, close, fita)"
+   "Dar a cada tela da página uma anatomia diferente (arquétipo) e um enquadramento diferente (panorâmica, retrato, coluna, close, fita)",
+   "Pôr ao menos um detalhe laranja estrutural em cada seção",
+   "Medir cada tela por família de cor (scripts/tela/medir.mjs): quente ≥ 12%, petróleo/aqua ≥ 15%, azul-claro ≤ 3%, escuro ≤ 45%"
   ],
   "donts": [
    "Sombra, glow, vidro, blur ou gradiente de texto",
-   "Borda colorida em cards e caixas",
    "Foto de banco como capa",
    "Mono fora de código",
    "Encolher uma tela num card (traço menor que a escala fixa)",
    "Repetir uma faixa de tela em cima de cada card",
-   "Voltar ao template vórtice central + luzes concêntricas"
+   "Voltar ao template vórtice central + luzes concêntricas",
+   "Borda lateral colorida em card isolado",
+   "Telas só de azul ou discos em #8FB3D9/#C9D6E6",
+   "#F97316 como texto sobre claro, #C2410C com azul-escuro, #F97316 com branco, preto sobre laranja",
+   "Dois blocos escuros grandes em sequência"
   ]
  }
 }
