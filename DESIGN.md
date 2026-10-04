@@ -41,10 +41,10 @@ typography:
     fontVariation: "'opsz' 72"
   heading:
     fontFamily: "Literata Variable, Literata, Georgia, serif"
-    fontSize: "clamp(1.875rem, 1.25rem + 1.6vw, 2.625rem)"
+    fontSize: "clamp(2.125rem, 1.35rem + 2.1vw, 3rem)"
     fontWeight: 600
-    lineHeight: 1.1
-    letterSpacing: "-0.014em"
+    lineHeight: 1.04
+    letterSpacing: "-0.02em"
   accent:
     fontFamily: "Literata Variable, Literata, Georgia, serif"
     fontStyle: "italic"
@@ -155,7 +155,7 @@ O site de antes, limpo e executado com acabamento de site premiado. O mundo não
 
 O quadro aparece com força **uma vez**: no hero da home, à direita, sem véu, abaixo de um header fino e sólido. Depois volta só como recorte: a faixa dos reflexos na água que faz a passagem da noite para o papel na home, e as capas do Substack. Nunca fica atrás de texto corrido.
 
-A memória do site vem de tipografia, escala e composição, nunca de ornamento: Literata com eixo óptico (o título do hero no desenho de exibição, opsz 72, tracking fechado), o acento em itálico da Literata nos títulos de seção, o "&" dos nomes em itálico azul-céu (a ponte da tese: tecnologia e negócio), fios de 1px e composições assimétricas diferentes em cada seção.
+A memória do site vem de tipografia, escala e composição, nunca de ornamento: Literata com eixo óptico (o título do hero no desenho de exibição, opsz 72, tracking fechado), o acento em itálico da Literata só onde a segunda metade do título carrega o sentido, o "&" dos nomes em itálico (azul-céu só no par negócio/tecnologia), fios de 1px e, abaixo do hero, uma ideia de página de revista por camada.
 
 Os modos seguem o conteúdo, não um seletor de tema. A home e o Radar (descoberta, curadoria) ficam no azul-escuro. Tudo o que é leitura (Insights, eixos, artigos, newsletter, páginas legais) fica em papel frio (`#F2F4F7`), com moldura azul em cima (header ou cabeçalho do texto) e embaixo (rodapé). O texto é o produto: a coluna de leitura é calma, e o mundo da marca mora na moldura.
 
@@ -172,7 +172,7 @@ Estratégia restrita: neutros tirados do mundo (azul e papel frio) e um acento, 
 - **noite `#0B1A33`**: chão da home (primeiro campo), do Radar, do header, das molduras. **noite-2 `#13284D`**: fundo de imagem ausente, hover de ícone. **noite-fundo `#081428`**: o campo final da home (como posso ajudar + rodapé) e o rodapé de todas as páginas.
 - **noite-fio `#22385C` / noite-fio-forte `#34507D`**: todas as réguas sobre azul.
 - **nevoa `#C9D6E6`**: texto corrido sobre azul (11:1). **nevoa-2 `#9FB1C8`**: secundário (8:1).
-- **ceu `#8FB3D9`** (8:1 sobre noite) e **ceu-fundo `#36608C`** (5,9:1 sobre papel): a cor de apoio, com função de **orientação** — data, eixo, público ("Para quem…"), origem de um link externo, linha de metadados, o "&" dos nomes, o fio que abre a Ferramenta. Nunca ação.
+- **ceu `#8FB3D9`** (8:1 sobre noite) e **ceu-fundo `#36608C`** (5,9:1 sobre papel): a cor de apoio, com função de **orientação** — data, eixo, público ("Para quem…"), origem de um link externo, linha de metadados, o "&" do par negócio/tecnologia ("Domínio & Arquitetura"), o fio grosso no alto do encarte da Ferramenta. Nunca ação.
 - **papel `#F2F4F7`**: chão da leitura (frio, nunca creme). **papel-2 `#E7EBF1`**: código inline, fundo de imagem. **papel-fio `#D3DAE4`**: réguas finas no claro.
 - **tinta `#0B1A33`**: títulos e régua forte no claro (15:1). **tinta-2 `#33445F`**: corpo de leitura. **tinta-3 `#56657D`**: datas e auxiliares.
 
@@ -193,9 +193,10 @@ Fontes self-hosted e recortadas para o português por `scripts/subset-fontes.py`
 ### Hierarchy
 - **display** (Literata 600, opsz 72, 2,5rem no celular → 4,75rem, entrelinha 0,96, -0,032em): só o H1 do hero. Um degrau real acima de tudo.
 - **display-hub** (Literata 600, opsz 72, 3rem → 4,5rem, -0,028em, `.display-opsz`): títulos de hub, 404, títulos de artigo e páginas legais.
-- **heading** (`.h-secao`, Literata 600, 1,875–2,625rem, 1,1): títulos de seção da home e "Edições". Lê como seção, não como segundo hero.
-- **accent** (`.acento`, itálico 400): a segunda metade de um título de seção ("O que eu escrevo, *e para quem*", "Engenharia é *mais do que código*"). O mesmo texto, outro desenho.
-- **title** (Literata 600, 1,375–1,75rem, 1,22): itens de índice, eixos, serviços.
+- **heading** (`.h-secao`, Literata 600, 2,125–3rem, 1,04, -0,02em): títulos de seção da home (inclusive o nome da Ferramenta) e "Edições". Um degrau abaixo do hero e um degrau claro acima de qualquer título interno.
+- **accent** (`.acento`, itálico 400): só quando a segunda metade do título carrega o sentido ("O que eu escrevo, *e para quem*", "Engenharia é *mais do que código*"). "Como posso ajudar" fica sem acento.
+- **title** (Literata 400–600, teto de 2,25rem): manchete da porta larga e oferta principal (2,25rem), cabeças de coluna dos eixos (1,625–2rem), áreas do Sobre (1,5rem), ofertas secundárias (1,375rem). Nada interno passa de 2,25rem.
+- **statement** (Literata 400, 1,5–2,25rem, 1,16): a frase-tese do Sobre, em escala de citação; a parte depois dos dois-pontos em itálico.
 - **deck** (Literata 400, 1,25–1,44rem, 1,5): o resumo sob o título dos artigos e hubs.
 - **reading** (Literata 400, 18px no celular, 19px a partir de md, 1,72, coluna de 66ch): corpo dos artigos.
 - **ui** (Hanken 400–600, 15–17px): texto da home, navegação, botões.
@@ -206,15 +207,20 @@ Fontes self-hosted e recortadas para o português por `scripts/subset-fontes.py`
 - **Ênfase é peso ou cor sólida, nunca gradiente.**
 - **Sem sobrelinha acima de título.** Linhas de contexto ("Ferramenta gratuita · Experimento aberto", "Experimento aberto") vão abaixo do título. A linha de assuntos do hero desceu para o rodapé do hero.
 - **Mono só para código.**
-- **O "&" é a ponte.** Em nomes com "&" (eixos, áreas, serviços), o "&" sai em itálico da Literata em céu (`<Amp>`, `.amp`). Só o glifo muda.
+- **O "&" azul é a ponte, e só ela.** Em nomes com "&" o glifo sai em itálico da Literata na cor do texto (`<Amp>`, `.amp`). Azul-céu (`<Amp ponte>`, `.amp-ponte`) só onde o "&" liga negócio e tecnologia: hoje, "Domínio & Arquitetura".
 
 ## Layout
 
 - Contêiner `max-w-7xl` (1280px) na home e no rodapé, `max-w-6xl` nos hubs, `max-w-3xl` na coluna de leitura (o corpo limita a 66ch). Imagem de artigo em `max-w-5xl`.
 - Gutter de 16px no celular e 24px a partir de sm. Nenhum texto encosta na borda.
-- Seções da home: 80px (celular) e 112px (desktop) verticais. Títulos de seção ficam em grade 5/7: título à esquerda, apoio alinhado à direita, base com base.
-- **Ritmo da home: três campos, não listras.** Noite (hero, eixos, ferramenta) → recorte do quadro (reflexos) → papel (sobre, ideias recentes) → noite funda (como posso ajudar, rodapé). Cada troca é uma virada da história: descobrir → conhecer → contratar.
-- **Uma composição por seção, nunca repetida em vizinhas:** eixos como portas desiguais (7/12 + duas empilhadas em 5/12); ferramenta liderada pela pergunta em itálico grande, com o nome como ficha à esquerda; sobre como índice tipográfico (nome em 2,5rem pendurado, explicação recuada a 38%); ideias recentes como lista de leitura com a data na margem; serviços como livro-razão (nome | o que é | ação à direita). O módulo "título + 3 colunas entre fios" não é usado.
+- Seções da home: 48–64px no topo e 64–80px na base (celular) / 56–96px (desktop). Sem vazios de 120px+: a base do hero emenda nos eixos a ~100px do título, e o encarte da Ferramenta fecha a 64px do recorte.
+- **Ritmo da home: três campos, não listras.** Noite (hero, eixos com o vídeo, ferramenta) → recorte do quadro (reflexos) → papel (sobre) → noite funda (como posso ajudar, rodapé). Cada troca é uma virada da história: descobrir → conhecer → contratar.
+- **Cada camada é uma página de revista com uma ideia própria:**
+  - **Eixos = primeira página.** Fio de capa (`.fio-capa`: 3px sobre 1px) no alto, colunas desiguais (7/12 | 5/12) separadas por fio vertical. Cada porta tem cabeça de coluna, manchete (o texto mais recente) e os seguintes com a data na margem. A coluna larga leva a manchete em 2,25rem, mais dois textos e, fechando, o vídeo em destaque como a foto da capa. No celular, o vídeo fecha a capa inteira. "Ideias recentes" foi fundida aqui.
+  - **Ferramenta = encarte.** A única caixa da home: noite-2, fio céu de 3px no alto, cantos de 4px só embaixo. O nome é o H2 (3rem); a pergunta em itálico (2rem) abre a coluna da direita; a letra miúda fica no pé da coluna do título.
+  - **Sobre = abertura de ensaio** em papel. Título e trajetória na mesma linha, a frase-tese em escala de citação, e as cinco áreas num quadro de fios 3×2 (grade com `gap-px`, não cartões) cuja sexta casa, em azul-noite, é o trabalho de hoje.
+  - **Como posso ajudar = página do pedido.** Título pendurado à esquerda; a Consultoria Estratégica em escala de abertura (descrição em Literata 1,5rem e botão sólido); Mentoria e Conteúdo como notas compactas lado a lado. Contraste de densidade, não lista.
+  - O módulo "título + 3 colunas entre fios" e a "lista entre fios" como estrutura de seção não são usados na home.
 - **Índice em linhas** nos hubs: data | título + resumo | miniatura, separados por fio. Varre rápido e tira o peso das fotos de banco.
 - **Hero:** no desktop o quadro ocupa de 36% da largura em diante (srcset em 64vw), rampa curta e quadro limpo a partir de ~55%; só a base tem degradê. No celular o quadro vira faixa de 34svh logo abaixo do header, recortada (sem costura), e o texto desce para o azul; o botão cabe em 390×844.
 

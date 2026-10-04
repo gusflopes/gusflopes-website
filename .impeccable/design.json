@@ -69,7 +69,7 @@
       },
       "heading": {
         "displayName": "Título de seção",
-        "purpose": ".h-secao até 2,625rem, com acento em itálico 400 (.acento)."
+        "purpose": ".h-secao de 2,125 a 3rem, um degrau acima de qualquer título interno (teto 2,25rem); acento em itálico 400 (.acento) só quando a segunda metade carrega o sentido."
       },
       "meta": {
         "displayName": "Metadados",
@@ -166,8 +166,8 @@
       "name": "Ampersand ponte",
       "kind": "custom",
       "refersTo": "amp",
-      "description": "O & dos nomes em itálico da Literata, azul-céu.",
-      "html": "<p class=\"ds-n\">Engenharia <span class=\"ds-amp\">&amp;</span> IA</p>",
+      "description": "O & dos nomes em itálico da Literata; azul-céu (.amp-ponte) só no par negócio/tecnologia, como em Domínio & Arquitetura.",
+      "html": "<p class=\"ds-n\">Domínio <span class=\"ds-amp\">&amp;</span> Arquitetura</p>",
       "css": ".ds-n{background:#0B1A33;padding:16px;margin:0;font:600 2.4rem 'Literata',serif;color:#fff}.ds-amp{font-style:italic;font-weight:400;color:#8FB3D9}"
     }
   ],
@@ -177,8 +177,8 @@
     "keyCharacteristics": [
       "Quadro como herói único, recorte uma vez",
       "Fio de 1px, sem sombras",
-      "Literata óptica: display opsz 72, acento em itálico, & em céu",
-      "Três campos na home: noite, papel, noite funda",
+      "Literata óptica: display opsz 72, acento em itálico com sentido, & em céu só na ponte",
+      "Três campos na home: noite, papel, noite funda; cada camada uma página de revista (primeira página, encarte, ensaio, pedido)",
       "Laranja é ação, céu é orientação"
     ],
     "rules": [

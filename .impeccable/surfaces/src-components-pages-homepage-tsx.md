@@ -67,3 +67,51 @@ rodapé). Três trocas, cada uma uma virada da história: descobrir → conhecer
 "Ideias recentes" repete parte do que as portas dos eixos já mostram (os mesmos textos mais
 recentes aparecem nas duas). Proposta: fundir as duas listas, ou trocar "Ideias recentes" pelos
 3 mais recentes que NÃO estão nas portas. Mantida até aval do dono.
+
+## Rodada 3: cada camada conquista sozinha (04/10/2026)
+
+Mandato do dono: "o hero prende a atenção, depois cada uma das camadas conquista." O hero
+acertou; abaixo dele a página "perdia o charme" (lista entre fios em sequência). O mundo é o de
+um site editorial premiado em azul-noite; cada camada ganhou uma ideia de página de revista.
+
+### Achados do revisor da rodada 2 → resposta
+1. Hierarquia: `.h-secao` vai a 3rem (2,125rem no celular). Teto interno de 2,25rem: manchete da
+   porta larga 2,25rem e cabeça de coluna 2rem; áreas do Sobre 1,5rem; na Ferramenta o nome é o
+   H2 (3rem) e a pergunta desce para 2rem.
+2. Vazio da porta larga: a coluna larga agora leva a manchete, mais dois textos e o vídeo; as
+   duas colunas fecham na mesma altura.
+3. Sequência repetida: "Ideias recentes" saiu (fundida nos eixos). Sobre (ensaio com quadro de
+   fios 3×2) e Serviços (página do pedido, oferta principal + notas) têm estruturas diferentes.
+4. Acento: itálico só em "e para quem" e "mais do que código"; "Como posso ajudar" sem acento.
+   "&" na cor do texto; céu só em "Domínio & Arquitetura" (negócio ↔ tecnologia).
+5. Respiros: base do hero ~100px até o título dos eixos (era ~150); encarte fecha a 64px do recorte.
+
+### Camadas → gesto
+| Camada | Trabalho | Gesto |
+|---|---|---|
+| Eixos | escolher a porta e ler algo agora | PRIMEIRA PÁGINA: fio de capa 3px+1px, colunas 7/5 com fio vertical, manchete por porta, seguintes com data na margem, o vídeo como a foto da capa |
+| Ferramenta | experimentar algo agora | ENCARTE: a única caixa da home, noite-2 com fio céu grosso no alto; nome em 3rem, pergunta em itálico, ação no pé |
+| Recorte do quadro | passagem noite → papel | inalterado |
+| Sobre | entender por que a visão é sistêmica | ABERTURA DE ENSAIO: frase-tese em escala de citação; cinco áreas num quadro de fios 3×2 cuja sexta casa, em azul-noite, é o trabalho de hoje |
+| Como posso ajudar | entender o que contratar | PÁGINA DO PEDIDO: título pendurado, Consultoria em escala de abertura com botão sólido, Mentoria e Conteúdo como notas |
+| Rodapé | achar o resto | inalterado |
+
+### Ordem
+Hero → Eixos (+ vídeo) → Ferramenta → [recorte] → Sobre → Como posso ajudar → Rodapé.
+Campos: noite → papel → noite funda (três trocas).
+
+### Decisões aprovadas aplicadas
+- "Ideias recentes" fundida nos eixos: Engenharia leva 3 textos, Negócios e Bastidores 2 cada;
+  os dois textos que a lista mostrava (servidor MCP; "O conceito é dele") estão em Bastidores.
+  O "Ler Mais" da lista saiu com ela.
+- "Vídeo em Destaque" realocado para a primeira página (fecha a coluna larga; no celular fecha a
+  capa), texto mantido, "Vídeo em Destaque" como metadado depois do título.
+- 68b9f27 (links em caixa normal) mantido; newsletter no fim do artigo mantida.
+
+### Teste do dono ("conquista ou só organizado?")
+- Hero: conquista (inalterado).
+- Eixos: conquista — lê como capa de jornal; a manchete larga e a foto dão o foco.
+- Ferramenta: conquista — o encarte é a única caixa, muda de matéria sem mudar de mundo.
+- Sobre: conquista — a frase-tese domina e o quadro com a casa azul fecha a ideia de sistema.
+- Serviços: conquista no desktop pelo contraste de densidade; no celular é a camada mais simples.
+- Celular, Sobre: as áreas empilham em linhas (a grade 3×2 só existe a partir de md).
