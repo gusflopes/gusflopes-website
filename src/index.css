@@ -34,7 +34,6 @@
   --color-laranja-claro: #fb923c;
   --color-pessego: #fdba74;
   --color-laranja-fundo: #c2410c; /* laranja como texto sobre papel (4,9:1) */
-  --color-brasa: #1c0a02; /* texto sobre botão laranja (7,6:1) */
 
   --ease-pincel: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -77,7 +76,7 @@
 
   ::selection {
     background-color: var(--color-laranja);
-    color: var(--color-brasa);
+    color: var(--color-noite);
   }
 
   :focus-visible {
@@ -148,7 +147,7 @@
     min-height: 3rem;
     padding-inline: 1.5rem;
     background: var(--color-laranja);
-    color: var(--color-brasa);
+    color: var(--color-noite);
     font-family: var(--font-sans);
     font-weight: 700;
     font-size: 1rem;

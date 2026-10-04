@@ -28,7 +28,7 @@ export function LatestContent({ video }: { video?: FeaturedVideo }) {
         <a {...linkVideo} tabIndex={-1} aria-hidden="true" className="group block lg:col-span-7 lg:order-last lg:mr-[calc(50%-50vw)] -mx-4 md:mx-0">
           <div className="relative aspect-[16/9] overflow-hidden">
             <TelaPicture tela={video.tela} sizes="(min-width: 1024px) 62vw, 100vw" />
-            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 md:w-24 md:h-24 bg-laranja text-brasa flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 md:w-24 md:h-24 bg-laranja text-noite flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
               <Play fill="currentColor" size={34} className="ml-1" />
             </span>
           </div>

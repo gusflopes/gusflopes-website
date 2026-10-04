@@ -118,7 +118,7 @@ export function InsightsPage({
                   onClick={() => setSelectedCategory(cat)}
                   className={`px-3 h-8 border font-sans text-[0.8125rem] font-semibold transition-colors whitespace-nowrap ${
                     selectedCategory === cat
-                      ? 'bg-laranja border-laranja text-brasa'
+                      ? 'bg-laranja border-laranja text-noite'
                       : 'border-linha text-nevoa hover:border-ceu hover:text-white'
                   }`}
                 >

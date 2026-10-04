@@ -65,7 +65,7 @@ export function Header({ pathname: rawPathname, eixosAtivos = [] }: HeaderProps)
           ))}
           <a
             href={`mailto:${site.email}`}
-            className="font-sans text-[0.9375rem] font-bold text-laranja-claro border border-laranja/70 px-4 h-10 inline-flex items-center hover:bg-laranja hover:text-brasa hover:border-laranja transition-colors"
+            className="font-sans text-[0.9375rem] font-bold text-laranja-claro border border-laranja/70 px-4 h-10 inline-flex items-center hover:bg-laranja hover:text-noite hover:border-laranja transition-colors"
           >
             Contato
           </a>

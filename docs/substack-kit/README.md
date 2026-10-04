@@ -10,7 +10,7 @@ as cores e as fontes fazem o resto.
 
 | Campo | Valor | Por quê |
 |---|---|---|
-| Cor de destaque (accent) | `#C2410C` | Laranja profundo da marca. Sobre fundo claro passa AA para texto e links (4,9:1 em `#F2F4F7`, 5,2:1 em branco). O laranja de luz `#F97316` só passa 2,8:1 como texto em fundo claro — use `#F97316` apenas se o Substack aplicar o destaque só em botão com texto escuro, o que ele não garante. |
+| Cor de destaque (accent) | `#C2410C` | Laranja profundo da marca. Sobre fundo claro passa AA para texto e links (4,9:1 em `#F2F4F7`, 5,2:1 em branco). O laranja de luz `#F97316` só passa 2,8:1 como texto em fundo claro — use `#F97316` apenas se o Substack aplicar o destaque só em botão com texto no azul-escuro da marca `#0B1A33` (6,2:1; regra da marca desde 04/10: texto e ícone sobre laranja são sempre `#0B1A33`, e fundo laranja com texto é sempre `#F97316`, nunca `#C2410C`), o que ele não garante. |
 | Cor de fundo (background) | `#F2F4F7` | O papel frio da coluna de leitura do site. Se o seu plano só oferecer branco, use branco: o kit foi testado nos dois. |
 | Fonte de título | **Lora** ou **Merriweather** (serifa) | A Literata, usada no site, não estava na lista do Substack que conheço; não consegui confirmar a lista atual daqui. Entre as serifas que o Substack costuma oferecer, Lora e Merriweather são as mais próximas do desenho da Literata (serifa de leitura, olho médio, peso firme). Escolha a que estiver disponível, nessa ordem. |
 | Fonte de corpo | **a mesma serifa do título** ou a sans padrão do Substack | No site, título e leitura são Literata. Se o Substack permitir separar, mantenha serifa nos dois; se a única opção de corpo for sans, aceite a padrão. Alternativa segura se nada disso existir: Georgia (serifa) + sistema (sans). |
