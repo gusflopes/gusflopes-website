@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-04T03:04:01.256175Z",
+  "generatedAt": "2026-10-04T09:16:43.486207Z",
   "title": "Design System: gusflopes.dev — Evolução",
   "extensions": {
     "colorMeta": {
@@ -25,7 +25,8 @@
           "#FB8A3C",
           "#FB923C",
           "#FDBA74"
-        ]
+        ],
+        "note": "Cor principal. (a) Chapado = ação, com texto #0B1A33; (b) filete, marca, selo, estado = presença, distribuída pela página. Sobre claro #F97316 nunca é texto; #C2410C só em link (#9A3412 no campo areia)."
       },
       "papel": {
         "role": "neutral",
@@ -37,13 +38,36 @@
         ]
       },
       "ceu": {
-        "role": "secondary",
+        "role": "tertiary",
         "displayName": "Azul-céu do quadro",
         "tonalRamp": [
-          "#36608C",
           "#8FB3D9"
         ],
-        "note": "Orientação (data, eixo, público, origem, &). #36608C sobre papel. Nunca ação."
+        "note": "Apoio frio: só texto secundário sobre escuro. Não é acento estrutural."
+      },
+      "areia-campo": {
+        "role": "neutral",
+        "displayName": "Areia (campo claro quente)",
+        "tonalRamp": [
+          "#D9D4CB",
+          "#BFB7AA"
+        ],
+        "note": "Areia acinzentada do quadro, nunca creme. 'Como posso ajudar' na home."
+      },
+      "quadro": {
+        "role": "secondary",
+        "displayName": "Cores do quadro (apoio, 04/10)",
+        "tonalRamp": [
+          "#315B6F",
+          "#457183",
+          "#648188",
+          "#7F989A",
+          "#AA9C87",
+          "#907A5F",
+          "#50372A",
+          "#8A4C1B"
+        ],
+        "note": "Com função: petróleo = Engenharia & IA, metadados no claro, & da ponte no claro; areia = Negócios; ferrugem = Bastidores e casa 'hoje' do Sobre; ardósia e marrom só sem texto. Ferrugem nunca encosta em #C2410C nem em laranja chapado."
       }
     },
     "typographyMeta": {
@@ -118,9 +142,9 @@
       "name": "Botão primário",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Ação principal: laranja com texto escuro, canto de 3px.",
+      "description": "Ação principal: laranja #F97316 com texto azul-escuro #0B1A33 (6,19:1), canto de 3px.",
       "html": "<a class=\"ds-botao\" href=\"#\">Assinar Newsletter <span aria-hidden=\"true\">→</span></a>",
-      "css": ".ds-botao{display:inline-flex;align-items:center;gap:.5rem;min-height:48px;padding:0 22px;border-radius:3px;background:#F97316;color:#1C0A02;font:700 1rem 'Hanken Grotesk',system-ui,sans-serif;text-decoration:none;transition:background-color .18s cubic-bezier(.16,1,.3,1)}.ds-botao:hover{background:#FB8A3C}.ds-botao:focus-visible{outline:2px solid #F97316;outline-offset:3px}"
+      "css": ".ds-botao{display:inline-flex;align-items:center;gap:.5rem;min-height:48px;padding:0 22px;border-radius:3px;background:#F97316;color:#0B1A33;font:700 1rem 'Hanken Grotesk',system-ui,sans-serif;text-decoration:none;transition:background-color .18s cubic-bezier(.16,1,.3,1)}.ds-botao:hover{background:#FB8A3C}.ds-botao:focus-visible{outline:2px solid #F97316;outline-offset:3px}"
     },
     {
       "name": "Ação em texto",
@@ -134,9 +158,9 @@
       "name": "Chip de filtro",
       "kind": "chip",
       "refersTo": "chip-filtro",
-      "description": "Filtro de tema nos hubs; ativo preenchido de tinta.",
+      "description": "Filtro de tema nos hubs; ativo preenchido de laranja com texto #0B1A33.",
       "html": "<div class=\"ds-chips\"><button aria-pressed=\"true\">Todos</button><button aria-pressed=\"false\">Agentes</button></div>",
-      "css": ".ds-chips{display:flex;gap:8px;background:#F2F4F7;padding:12px}.ds-chips button{height:32px;padding:0 12px;border-radius:3px;border:1px solid #D3DAE4;background:transparent;color:#33445F;font:600 .8125rem 'Hanken Grotesk',sans-serif}.ds-chips button[aria-pressed=true]{background:#0B1A33;border-color:#0B1A33;color:#F2F4F7}"
+      "css": ".ds-chips{display:flex;gap:8px;background:#F2F4F7;padding:12px}.ds-chips button{height:32px;padding:0 12px;border-radius:3px;border:1px solid #D3DAE4;background:transparent;color:#33445F;font:600 .8125rem 'Hanken Grotesk',sans-serif}.ds-chips button[aria-pressed=true]{background:#F97316;border-color:#F97316;color:#0B1A33}"
     },
     {
       "name": "Busca",
@@ -169,22 +193,49 @@
       "description": "O & dos nomes em itálico da Literata; azul-céu (.amp-ponte) só no par negócio/tecnologia, como em Domínio & Arquitetura.",
       "html": "<p class=\"ds-n\">Domínio <span class=\"ds-amp\">&amp;</span> Arquitetura</p>",
       "css": ".ds-n{background:#0B1A33;padding:16px;margin:0;font:600 2.4rem 'Literata',serif;color:#fff}.ds-amp{font-style:italic;font-weight:400;color:#8FB3D9}"
+    },
+    {
+      "name": "Linha de índice",
+      "kind": "custom",
+      "refersTo": "indice-linha",
+      "description": "Linha dos índices dos hubs em papel: fio laranja de 2px, marca de 5px sobre a coluna da data, data em petróleo, marca do eixo na cor do quadro.",
+      "html": "<ul class=\"ds-ind\"><li><span class=\"d\">29 Set, 2026</span><span class=\"t\">Um servidor MCP sobre a calculadora oficial</span></li></ul>",
+      "css": ".ds-ind{list-style:none;margin:0;padding:12px;background:#F2F4F7}.ds-ind li{position:relative;border-top:2px solid #F97316;display:grid;grid-template-columns:8.5rem 1fr;gap:2.5rem;padding:20px 0;font-family:'Hanken Grotesk',sans-serif}.ds-ind li::before{content:'';position:absolute;left:0;top:-2px;width:11rem;height:5px;background:#F97316}.ds-ind .d{color:#315B6F;font-size:.875rem;font-weight:500}.ds-ind .t{font:600 1.375rem Literata,Georgia,serif;color:#0B1A33}"
+    },
+    {
+      "name": "Placa do eixo",
+      "kind": "custom",
+      "refersTo": "placa-eixo-engenharia",
+      "description": "Cabeça de coluna dos eixos na home: a cor do eixo (quadro) chapada.",
+      "html": "<div class=\"ds-placas\"><div class=\"e\"><b>Engenharia &amp; IA</b><small>Para quem constrói</small></div><div class=\"n\"><b>Negócios</b><small>Para quem decide</small></div><div class=\"b\"><b>Bastidores</b><small>Para quem quer ver funcionando</small></div></div>",
+      "css": ".ds-placas{display:flex;gap:12px;background:#F2F4F7;padding:12px}.ds-placas div{padding:14px 18px;border-radius:3px;display:flex;flex-direction:column;gap:4px}.ds-placas b{font:600 1.375rem Literata,Georgia,serif}.ds-placas small{font:600 .875rem 'Hanken Grotesk',sans-serif}.ds-placas .e{background:#315B6F;color:#fff}.ds-placas .n{background:#AA9C87;color:#0B1A33}.ds-placas .b{background:#8A4C1B;color:#fff}"
     }
   ],
   "narrative": {
     "northStar": "O site de sempre, sem timidez",
-    "overview": "Continuidade total de marca (azul-escuro, laranja, o quadro) com acabamento revisto: azul de verdade no lugar do slate, laranja sólido no lugar do gradiente, Literata e Hanken Grotesk, fio no lugar de cartão. O quadro aparece inteiro uma vez, no hero; a leitura acontece em papel frio dentro de uma moldura azul.",
+    "overview": "Continuidade de marca (azul-escuro, laranja, o quadro) com acabamento revisto e, desde a rodada 4, cor como sistema: laranja como cor principal em detalhes distribuídos pela página, azul-escuro como estrutura (hero, um encarte, molduras, rodapé), claros obrigatórios no ritmo (papel frio e areia) e as cores do quadro com função.",
     "keyCharacteristics": [
-      "Quadro como herói único, recorte uma vez",
-      "Fio de 1px, sem sombras",
-      "Literata óptica: display opsz 72, acento em itálico com sentido, & em céu só na ponte",
-      "Três campos na home: noite, papel, noite funda; cada camada uma página de revista (primeira página, encarte, ensaio, pedido)",
-      "Laranja é ação, céu é orientação"
+      "Quadro inteiro uma vez, no hero; dois recortes em faixa na home (passagens)",
+      "Laranja em dois registros: chapado = ação; filete, marca, selo e estado = presença",
+      "Azul é chão, não bloco: escuro nunca empilha, nenhum campo escuro passa de ~1.000px",
+      "Mapa da home: noite → recorte → papel (eixos, encarte escuro, sobre) → areia (serviços) → recorte → rodapé",
+      "Cores do quadro com função: petróleo (Engenharia & IA, metadados), areia (Negócios, campo), ferrugem (Bastidores, casa 'hoje')",
+      "Literata óptica: display opsz 72, acento em itálico com sentido"
     ],
     "rules": [
       {
-        "name": "Laranja tem duas mãos",
-        "body": "#F97316 sobre escuro, #C2410C sobre claro; botão laranja sempre com texto #1C0A02.",
+        "name": "Laranja é a marca, em detalhe",
+        "body": "Chapado para ação; filete, marca, selo e estado para presença. Pelo menos um detalhe laranja estrutural por seção. Sobre claro #F97316 nunca é texto; #C2410C só link.",
+        "section": "colors"
+      },
+      {
+        "name": "Texto sobre laranja é azul-escuro",
+        "body": "#F97316/#FB923C/#FDBA74 com texto #0B1A33. Laranja escuro (#C2410C, #9A3412) só com branco e em uso pontual. Nunca preto ou quase-preto.",
+        "section": "colors"
+      },
+      {
+        "name": "O rodapé chega de um claro",
+        "body": "Fio de capa laranja no alto do rodapé em todo modelo; na home, um recorte do quadro entre a areia e o rodapé.",
         "section": "colors"
       },
       {
@@ -204,11 +255,16 @@
       }
     ],
     "dos": [
-      "Use #C2410C para laranja sobre papel",
+      "Use #C2410C para link laranja sobre papel, #9A3412 sobre areia",
+      "Distribua o laranja em fios e marcas pela página inteira",
+      "Dê papel a cada cor do quadro (eixo, metadado, casa, campo)",
       "Mantenha a coluna de leitura em 66ch",
       "Use tabular-nums em datas"
     ],
     "donts": [
+      "Não empilhe blocos escuros nem deixe o rodapé chegar de um escuro",
+      "Não use #F97316 como texto no claro",
+      "Não ponha texto azul-escuro sobre #C2410C nem branco sobre #F97316",
       "Não use texto em gradiente nem glow",
       "Não use fundo creme",
       "Não ponha textura atrás de texto corrido"
