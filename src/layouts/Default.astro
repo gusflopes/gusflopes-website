@@ -4,6 +4,8 @@ import { publicado } from '../lib/publicado';
 import { Header } from '../components/Header';
 import { EIXO_IDS } from '../lib/eixos';
 import { Footer } from '../components/Footer';
+import { RecorteQuadro } from '../components/RecorteQuadro';
+import { fundoQuadro } from '../lib/imagens';
 // Fontes self-hosted, recortadas para o português por scripts/subset-fontes.py (@font-face em
 // src/index.css). Literata com eixo óptico (opsz 7–72): o título grande ganha contraste e o
 // corpo fica robusto. O itálico (peso fixo 400) e o JetBrains Mono só baixam se a página usa.
@@ -143,6 +145,8 @@ const jsonLd = {
   <body class="bg-noite min-h-screen text-nevoa overflow-x-hidden font-sans">
     <Header pathname={pathname} eixosAtivos={eixosAtivos} client:load />
     <slot />
+    {/* Recorte de fecho: as luzes da cidade fazem a passagem do último claro para o rodapé, em toda página */}
+    <RecorteQuadro fundo={await fundoQuadro()} momento="fecho" />
     <Footer client:load />
   </body>
 </html>

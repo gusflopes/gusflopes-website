@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { NewsletterCta } from '../NewsletterCta';
 import { ArtigoShell } from '../artigo/ArtigoShell';
+import type { FundoResponsivo } from '../../lib/imagens';
 
 export interface NewsletterEdicaoPageProps {
   id: string;
@@ -12,6 +13,8 @@ export interface NewsletterEdicaoPageProps {
   duration: string;
   image: string;
   substackUrl?: string;
+  /** O quadro, para o recorte na base da moldura. */
+  fundo: FundoResponsivo;
   /** Corpo da edição já renderizado (markdown via <Content /> no .astro). */
   children?: ReactNode;
 }
@@ -25,6 +28,7 @@ export function NewsletterEdicaoPage({
   duration,
   image,
   substackUrl,
+  fundo,
   children,
 }: NewsletterEdicaoPageProps) {
   return (
@@ -32,6 +36,7 @@ export function NewsletterEdicaoPage({
       title={title}
       excerpt={excerpt}
       image={image}
+      fundo={fundo}
       imageFit="inteira"
       voltar={null}
       voltarInline={{ href: '/newsletter', label: 'Todas as edições' }}

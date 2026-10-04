@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
-import { EIXOS, type EixoId } from '../../lib/eixos';
+import { EIXOS, EIXO_COR, type EixoId } from '../../lib/eixos';
+import type { FundoResponsivo } from '../../lib/imagens';
+import { PlacaEixo } from '../PlacaEixo';
 import { ArtigoShell } from '../artigo/ArtigoShell';
 import { NewsletterCta } from '../NewsletterCta';
 
@@ -11,6 +13,8 @@ export interface InsightArticlePageProps {
   dateFormatted: string;
   duration: string;
   image: string;
+  /** O quadro, para o recorte na base da moldura. */
+  fundo: FundoResponsivo;
   /** Corpo do artigo já renderizado (markdown via <Content /> no .astro). */
   children?: ReactNode;
 }
@@ -23,6 +27,7 @@ export function InsightArticlePage({
   dateFormatted,
   duration,
   image,
+  fundo,
   children,
 }: InsightArticlePageProps) {
   return (
@@ -30,16 +35,13 @@ export function InsightArticlePage({
       title={title}
       excerpt={excerpt}
       image={image}
+      fundo={fundo}
+      capaFallback={`placa-${EIXO_COR[eixo]}`}
       voltar={{ href: '/insights', label: 'Voltar' }}
-      depois={<NewsletterCta content="artigo-insights" />}
+      depois={<NewsletterCta content="artigo-insights" fioBase={false} />}
       meta={
         <>
-          <a
-            href={EIXOS[eixo].href}
-            className="font-semibold text-laranja-claro hover:text-laranja-palido underline-offset-4 hover:underline"
-          >
-            {EIXOS[eixo].shortLabel}
-          </a>
+          <PlacaEixo eixo={eixo} href={EIXOS[eixo].href} />
           <span className="text-nevoa">{category}</span>
           <span>{dateFormatted}</span>
           <span>{duration} leitura</span>

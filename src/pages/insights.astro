@@ -2,13 +2,15 @@
 import Default from '../layouts/Default.astro';
 import { InsightsPage } from '../components/pages/InsightsPage';
 import { getArtigos } from '../lib/artigos';
+import { fundoQuadro } from '../lib/imagens';
 
 const articles = await getArtigos();
+const fundo = await fundoQuadro();
 ---
 
 <Default
   title="Insights"
   description="Textos autorais de Gustavo Lopes sobre engenharia, negócio e IA aplicada — em três eixos: Engenharia & IA, Negócios e Bastidores."
 >
-  <InsightsPage articles={articles} client:load />
+  <InsightsPage articles={articles} fundo={fundo} client:load />
 </Default>

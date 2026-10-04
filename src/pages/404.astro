@@ -2,6 +2,8 @@
 // Página 404 real: o Worker (wrangler.jsonc → not_found_handling: "404-page")
 // serve este arquivo com status 404 para qualquer URL inexistente.
 import Default from '../layouts/Default.astro';
+import { RecorteQuadro } from '../components/RecorteQuadro';
+import { fundoQuadro } from '../lib/imagens';
 
 const caminhos = [
   { href: '/insights', label: 'Insights', desc: 'Textos autorais sobre engenharia, negócio e IA.' },
@@ -16,7 +18,7 @@ const caminhos = [
   noindex
 >
   <main class="claro min-h-screen bg-papel text-tinta">
-    <!-- Moldura em azul-escuro (o título), os caminhos em papel: o rodapé chega de um claro -->
+    <!-- Moldura em azul-escuro (o título) com o recorte do quadro na base, os caminhos em papel: o rodapé chega de um claro -->
     <div class="bg-noite pt-36 md:pt-44 pb-12 md:pb-16 px-4 sm:px-6">
       <div class="max-w-5xl mx-auto w-full">
         <h1 class="display-opsz font-serif font-semibold text-[2.625rem] md:text-[4.25rem] text-white leading-[1] max-w-[14ch]">
@@ -29,6 +31,8 @@ const caminhos = [
         </p>
       </div>
     </div>
+
+    <RecorteQuadro fundo={await fundoQuadro()} eager />
 
     <div class="px-4 sm:px-6 pt-10 md:pt-14 pb-20 md:pb-28">
       <div class="max-w-5xl mx-auto w-full">

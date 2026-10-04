@@ -9,7 +9,7 @@ const tituloCls = 'rotulo text-laranja mb-4 sm:mb-5';
 
 export function Footer() {
   return (
-    // O rodapé chega sempre de um claro (ou do recorte do quadro, na home) e abre com o fio de capa
+    // O rodapé chega sempre pelo recorte de fecho do quadro (no layout, depois de um claro) e abre com o fio de capa
     // laranja: a passagem para o escuro é um gesto, não um corte seco.
     <footer className="fio-capa bg-noite-fundo pt-12 md:pt-20 pb-8 md:pb-10 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">

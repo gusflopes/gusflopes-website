@@ -367,49 +367,55 @@
     border-radius: 2px;
   }
 
-  /* Marca do eixo (quadradinho na cor do quadro) nos metadados e na moldura dos hubs */
-  .marca-engenharia {
-    background-color: var(--color-petroleo);
-  }
-
-  .marca-negocios {
-    background-color: var(--color-areia);
-  }
-
-  .marca-bastidores {
-    background-color: var(--color-ferrugem);
-  }
-
   /*
-   * Linha de índice dos hubs (e da newsletter): o fio de 2px que separa as linhas é laranja (detalhe
-   * de presença, nunca texto) e engrossa para 4px sobre a coluna da data (até onde começa o título), como a marca da margem.
+   * Linha de índice dos hubs (e da newsletter, da 404): fio neutro e quente de 1px entre as linhas;
+   * o laranja fica só na marca de 5px sobre a data (no desktop, a largura da coluna da data).
    */
   .indice-linha {
     position: relative;
-    border-top: 2px solid var(--color-laranja);
+    border-top: 1px solid var(--color-papel-fio);
   }
 
   .indice-linha:last-child {
-    border-bottom: 2px solid var(--color-laranja);
+    border-bottom: 1px solid var(--color-papel-fio);
   }
 
   .indice-linha::before {
     content: "";
     position: absolute;
     left: 0;
-    top: -2px;
-    width: 2rem;
+    top: -3px;
+    width: 4.5rem;
     height: 5px;
     background-color: var(--color-laranja);
   }
 
   @media (min-width: 768px) {
     .indice-linha::before {
-      width: 11rem;
+      width: 8.5rem;
     }
   }
 
-  /* Placa da cabeça de coluna: a cor do eixo (quadro) chapada, texto com contraste AA */
+  /* Fonte externa no Radar: a voz de outro, que a curadoria comenta, leva o filete ardósia */
+  .fonte-externa {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4rem;
+  }
+
+  .fonte-externa::after {
+    content: "";
+    order: -1;
+    align-self: center;
+    width: 3px;
+    height: 0.95em;
+    background-color: var(--color-ardosia);
+  }
+
+  /*
+   * Placa do eixo: a cor do quadro chapada, texto com contraste AA. Cabeça de coluna na home,
+   * marca do eixo nos hubs, nas linhas do índice e no artigo (PlacaEixo), e capa que não carregou.
+   */
   .placa-engenharia {
     background-color: var(--color-petroleo-fundo);
     color: #fff;
@@ -465,13 +471,27 @@
     margin-bottom: 1.25em;
   }
 
+  /* H2 como linha de índice: fio quente de 1px na largura da coluna e a marca laranja por cima */
   .leitura :where(h2) {
+    position: relative;
     font-size: 1.6em;
     line-height: 1.2;
     font-weight: 600;
     letter-spacing: -0.01em;
     margin-top: 2.2em;
     margin-bottom: 0.6em;
+    padding-top: 0.75em;
+    border-top: 1px solid var(--color-papel-fio);
+  }
+
+  .leitura :where(h2)::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -3px;
+    width: 3.5rem;
+    height: 5px;
+    background-color: var(--color-laranja);
   }
 
   .leitura :where(h3) {
@@ -490,18 +510,21 @@
     margin-bottom: 0.4em;
   }
 
+  /* Link no corpo: o texto continua tinta; o laranja da marca vai no sublinhado (detalhe, não texto) */
   .leitura :where(a) {
     font-weight: 500;
+    color: var(--color-tinta);
     text-decoration-line: underline;
-    text-decoration-color: rgb(194 65 12 / 0.45);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.2em;
+    text-decoration-color: var(--color-laranja);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.22em;
+    text-decoration-skip-ink: auto;
     transition: text-decoration-color 160ms, color 160ms;
   }
 
   .leitura :where(a):hover {
     color: var(--color-laranja-brasa);
-    text-decoration-color: currentColor;
+    text-decoration-color: var(--color-laranja-brasa);
   }
 
   .leitura :where(h2, h3, h4, strong, b) {
@@ -513,7 +536,7 @@
   }
 
   .leitura :where(ul > li)::marker {
-    color: var(--color-laranja-fundo);
+    color: var(--color-laranja);
   }
 
   .leitura :where(ol > li)::marker {
@@ -524,7 +547,7 @@
   }
 
   .leitura :where(ul) {
-    list-style: disc;
+    list-style: square;
     padding-inline-start: 1.4em;
   }
 
@@ -544,10 +567,11 @@
     padding-inline-start: 0.25em;
   }
 
+  /* Citação: a voz de outro leva o filete ardósia (cor do quadro com função) */
   .leitura :where(blockquote) {
     margin: 2em 0;
     padding: 0.1em 0 0.1em 1.25em;
-    border-left: 1px solid var(--color-laranja-fundo);
+    border-left: 3px solid var(--color-ardosia);
     font-style: italic;
     font-weight: 400;
     color: var(--color-tinta);
@@ -563,7 +587,7 @@
     margin: 3em auto;
     width: 4rem;
     border: 0;
-    border-top: 1px solid var(--color-laranja-fundo);
+    border-top: 3px solid var(--color-laranja);
   }
 
   .leitura > :first-child {

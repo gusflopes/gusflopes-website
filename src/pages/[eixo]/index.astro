@@ -4,6 +4,7 @@ import { InsightsPage } from '../../components/pages/InsightsPage';
 import { getArtigos } from '../../lib/artigos';
 import { EIXOS, EIXO_IDS, type EixoId } from '../../lib/eixos';
 import { comUtm, projetos } from '../../config/site';
+import { fundoQuadro } from '../../lib/imagens';
 
 export function getStaticPaths() {
   return EIXO_IDS.map((eixo) => ({ params: { eixo } }));
@@ -14,6 +15,7 @@ const def = EIXOS[eixo];
 // Hub do eixo = textos autorais dos dois formatos (Insights + Radar local).
 const articles = await getArtigos({ eixo, incluirRadarLocal: true });
 const reforma = projetos.reforma;
+const fundo = await fundoQuadro();
 ---
 
 <Default
@@ -26,6 +28,7 @@ const reforma = projetos.reforma;
     heading={def.label}
     subheading={def.descricao}
     eixo={eixo}
+    fundo={fundo}
     client:load
   >
     {

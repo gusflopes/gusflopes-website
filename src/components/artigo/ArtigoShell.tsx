@@ -3,6 +3,8 @@ import { ArrowLeft, Check, Share2 } from 'lucide-react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { author } from '../../config/site';
 import { SocialLinks } from '../SocialLinks';
+import { RecorteQuadro } from '../RecorteQuadro';
+import type { FundoResponsivo } from '../../lib/imagens';
 import fotoAutor from '../../assets/autor.jpg?url';
 import logo from '../../assets/cfa6876664fcc921be5a7c0a58c353ea12577968.png?url';
 
@@ -25,13 +27,18 @@ interface ArtigoShellProps {
   voltarInline?: { href: string; label: string };
   autor?: boolean;
   depois?: ReactNode;
+  /** O quadro, para o recorte na base da moldura escura (a capa atravessa a passagem). */
+  fundo: FundoResponsivo;
+  /** Classe da capa que não carregou (ex.: a placa do eixo); sem ela, o placeholder neutro. */
+  capaFallback?: string;
   children?: ReactNode;
 }
 
 /**
  * Moldura de leitura compartilhada (Insights, Radar e newsletter): cabeçalho em azul-escuro
- * com o título, a imagem atravessando a borda e a coluna no papel quente. O mundo fica na
- * moldura; a coluna é só leitura.
+ * com o título, que termina num recorte do quadro; a capa atravessa a passagem do quadro para o
+ * papel. A coluna é só leitura; o fecho (newsletter e autor) fica numa faixa de creme, o claro
+ * que antecede o rodapé.
  */
 export function ArtigoShell({
   title,
@@ -44,6 +51,8 @@ export function ArtigoShell({
   voltarInline,
   autor = true,
   depois,
+  fundo,
+  capaFallback,
   children,
 }: ArtigoShellProps) {
   const [linkCopied, setLinkCopied] = useState(false);
@@ -109,7 +118,7 @@ export function ArtigoShell({
 
       <article>
         {/* Moldura: cabeçalho em azul-escuro */}
-        <header className={`bg-noite text-white ${voltar ? 'pt-14 md:pt-20' : 'pt-28 md:pt-36'} pb-28 md:pb-40`}>
+        <header className={`bg-noite text-white ${voltar ? 'pt-14 md:pt-20' : 'pt-28 md:pt-36'} pb-10 md:pb-14`}>
           <div className="max-w-3xl mx-auto px-4 sm:px-6">
             {voltarInline && (
               <a
@@ -131,48 +140,58 @@ export function ArtigoShell({
           </div>
         </header>
 
-        {/* Imagem atravessando a borda da moldura */}
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 -mt-20 md:-mt-28">
-          <div
-            className={`overflow-hidden rounded-[4px] bg-noite-2 ${
-              imageFit === 'faixa' ? 'aspect-[16/9] md:aspect-[21/9]' : ''
-            }`}
-          >
-            <ImageWithFallback
-              src={image}
-              alt=""
-              className={imageFit === 'faixa' ? 'w-full h-full object-cover' : 'w-full h-auto'}
-            />
+        {/* Recorte do quadro na base da moldura; a capa atravessa a passagem para o papel */}
+        <RecorteQuadro fundo={fundo} eager>
+          <div className="relative max-w-5xl mx-auto px-4 sm:px-6 -mt-14 md:-mt-24">
+            <div
+              className={`overflow-hidden rounded-[4px] bg-noite-2 ${
+                imageFit === 'faixa' ? 'aspect-[16/9] md:aspect-[21/9]' : ''
+              }`}
+            >
+              <ImageWithFallback
+                src={image}
+                alt=""
+                className={imageFit === 'faixa' ? 'w-full h-full object-cover' : 'w-full h-auto'}
+                fallbackClassName={capaFallback}
+              />
+            </div>
           </div>
-        </div>
+        </RecorteQuadro>
 
         {/* Coluna de leitura */}
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-14 md:pt-20 pb-24 md:pb-32">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-14 md:pt-20 pb-20 md:pb-24">
           <div className="leitura">{children}</div>
-
-          {depois && <div className="mt-16">{depois}</div>}
-
-          {autor && (
-            <div className={`${depois ? 'mt-12' : 'mt-20 pt-10 border-t border-tinta'} grid gap-6 sm:grid-cols-[auto_1fr] sm:gap-8 items-start`}>
-              <img
-                src={fotoAutor}
-                alt={author.name}
-                width={88}
-                height={88}
-                loading="lazy"
-                className="w-[88px] h-[88px] rounded-full object-cover bg-papel-2"
-              />
-              <div>
-                <h2 className="font-serif text-[1.75rem] md:text-[2rem] font-semibold leading-tight tracking-[-0.012em] text-tinta">{author.name}</h2>
-                <p className="meta mt-1.5 mb-4">
-                  <span>Sobre o Autor</span>
-                </p>
-                <p className="font-sans text-[0.9875rem] leading-relaxed text-tinta-2 max-w-[34rem] mb-4">{author.bio}</p>
-                <SocialLinks linkClassName="text-tinta-3 hover:text-tinta hover:bg-papel-3" />
-              </div>
-            </div>
-          )}
         </div>
+
+        {/* Fecho em creme: a newsletter e o autor, o claro que antecede o rodapé */}
+        {(depois || autor) && (
+          <div className="bg-creme">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-12 md:pt-16 pb-16 md:pb-20">
+              {depois}
+
+              {autor && (
+                <div className={`${depois ? 'mt-4' : ''} pt-8 border-t-2 border-marrom grid gap-6 sm:grid-cols-[auto_1fr] sm:gap-8 items-start`}>
+                  <img
+                    src={fotoAutor}
+                    alt={author.name}
+                    width={88}
+                    height={88}
+                    loading="lazy"
+                    className="w-[88px] h-[88px] rounded-full object-cover bg-papel-3"
+                  />
+                  <div>
+                    <h2 className="font-serif text-[1.75rem] md:text-[2rem] font-semibold leading-tight tracking-[-0.012em] text-tinta">{author.name}</h2>
+                    <p className="meta mt-1.5 mb-4">
+                      <span>Sobre o Autor</span>
+                    </p>
+                    <p className="font-sans text-[0.9875rem] leading-relaxed text-tinta-2 max-w-[34rem] mb-4">{author.bio}</p>
+                    <SocialLinks linkClassName="text-tinta-3 hover:text-tinta hover:bg-papel-3" />
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </article>
     </main>
   );

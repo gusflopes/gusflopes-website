@@ -4,6 +4,7 @@ import { publicado } from '../lib/publicado';
 import Default from '../layouts/Default.astro';
 import { RadarPage, type RadarItem } from '../components/pages/RadarPage';
 import { compareIsoDateDesc, formatDatePtBR } from '../lib/format';
+import { fundoQuadro } from '../lib/imagens';
 
 const entries = await getCollection('radar', publicado);
 const items: RadarItem[] = entries
@@ -20,5 +21,5 @@ const items: RadarItem[] = entries
   title="Radar"
   description="Curadoria comentada por Gustavo Lopes: o que mudou em IA, engenharia de software e negócios — e por que importa."
 >
-  <RadarPage items={items} client:load />
+  <RadarPage items={items} fundo={await fundoQuadro()} client:load />
 </Default>

@@ -5,6 +5,7 @@ import type { CollectionEntry } from 'astro:content';
 import Default from '../../../layouts/Default.astro';
 import { InsightArticlePage } from '../../../components/pages/InsightArticlePage';
 import { formatDatePtBR } from '../../../lib/format';
+import { fundoQuadro } from '../../../lib/imagens';
 
 export async function getStaticPaths() {
   const entries = await getCollection('insights', publicado);
@@ -35,6 +36,7 @@ const { title, excerpt, category, eixo, date, duration, image } = entry.data;
     dateFormatted={formatDatePtBR(date)}
     duration={duration}
     image={image}
+    fundo={await fundoQuadro()}
     client:load
   >
     <Content />

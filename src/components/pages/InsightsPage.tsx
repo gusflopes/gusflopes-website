@@ -3,6 +3,9 @@ import { ArrowRight, Search } from 'lucide-react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { EIXOS, EIXO_LIST, EIXO_COR, type EixoId } from '../../lib/eixos';
 import { Amp } from '../Amp';
+import { PlacaEixo } from '../PlacaEixo';
+import { RecorteQuadro } from '../RecorteQuadro';
+import type { FundoResponsivo } from '../../lib/imagens';
 
 export interface InsightArticle {
   id: string;
@@ -29,12 +32,15 @@ interface InsightsPageProps {
   eixo?: EixoId;
   /** Conteúdo extra abaixo do cabeçalho (ex.: destaque de projeto no eixo Bastidores). */
   aside?: ReactNode;
+  /** O quadro, para o recorte na base da moldura escura (passagem noite → claro). */
+  fundo: FundoResponsivo;
 }
 
 /**
- * Hub de leitura (Insights e páginas de eixo): cabeçalho em azul-escuro e um índice em papel
- * frio — data, título, resumo e miniatura em linhas separadas pelo fio laranja do índice (mais
- * grosso sobre a coluna da data), fácil de varrer. O eixo leva a marca da sua cor do quadro.
+ * Hub de leitura (Insights e páginas de eixo): moldura em azul-escuro que termina num recorte do
+ * quadro, a régua de busca no creme e o índice no papel — data, título, resumo e miniatura em
+ * linhas separadas por um fio neutro de 1px, com a marca laranja de 5px sobre a data. O eixo
+ * aparece como placa chapada na sua cor do quadro (na moldura do hub e em cada linha do geral).
  */
 export function InsightsPage({
   articles,
@@ -42,6 +48,7 @@ export function InsightsPage({
   subheading = 'Textos autorais sobre engenharia, negócio e IA aplicada — organizados em três eixos.',
   eixo,
   aside,
+  fundo,
 }: InsightsPageProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Todos');
@@ -68,18 +75,13 @@ export function InsightsPage({
   return (
     <main className="claro min-h-screen bg-papel text-tinta">
       {/* Moldura: cabeçalho em azul-escuro */}
-      <div className="bg-noite pt-32 md:pt-40 pb-12 md:pb-14">
+      <div className={`bg-noite pt-32 md:pt-40 ${eixo ? 'pb-10 md:pb-12' : 'pb-12 md:pb-14'}`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <h1 className="display-opsz font-serif font-semibold text-5xl md:text-[4.5rem] leading-[1] text-white">
             <Amp>{heading}</Amp>
           </h1>
           <p className="mt-6 font-serif text-xl md:text-[1.375rem] leading-[1.5] text-nevoa max-w-[42rem]">{subheading}</p>
-          {eixo && (
-            <p className="mt-4 font-sans text-[0.9375rem] font-semibold text-ceu flex items-center gap-2.5">
-              <span aria-hidden="true" className={`marca-${EIXO_COR[eixo]} w-2.5 h-2.5 rounded-[1px] shrink-0`} />
-              {EIXOS[eixo].publico}
-            </p>
-          )}
+          {eixo && <PlacaEixo eixo={eixo} texto={EIXOS[eixo].publico} tamanho="m" className="mt-6" />}
 
           {/* Eixos — só na listagem geral; nos hubs o eixo já está fixo */}
           {!eixo && (
@@ -105,17 +107,17 @@ export function InsightsPage({
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-10 md:pt-12 pb-24 md:pb-32">
-        {aside && <div className="mb-14">{aside}</div>}
+      <RecorteQuadro fundo={fundo} eager />
 
-        {/* Busca e temas */}
-        {articles.length > 0 && (
-          <div className="flex flex-col md:flex-row md:items-center gap-5 md:gap-8 pb-6">
+      {/* Régua de busca e temas no creme: a caixa de ferramentas entre o quadro e o índice */}
+      {articles.length > 0 && (
+        <div className="bg-creme">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 md:py-7 flex flex-col md:flex-row md:items-center gap-5 md:gap-8">
             <label className="relative flex items-center md:w-72 shrink-0">
               <Search size={16} aria-hidden="true" className="absolute left-0 text-tinta-3" />
               <input
                 aria-label="Buscar artigos"
-                className="w-full bg-transparent pl-7 pr-2 py-2 border-b border-papel-fio focus:border-tinta outline-none text-[0.9375rem] text-tinta placeholder:text-tinta-3 font-sans transition-colors"
+                className="w-full bg-transparent pl-7 pr-2 py-2 border-b border-creme-fio focus:border-tinta outline-none text-[0.9375rem] text-tinta placeholder:text-tinta-3 font-sans transition-colors"
                 placeholder="Filtrar ideias..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -133,7 +135,7 @@ export function InsightsPage({
                     className={`h-8 px-3 rounded-[3px] border text-[0.8125rem] font-semibold transition-colors whitespace-nowrap ${
                       ativo
                         ? 'bg-laranja border-laranja text-laranja-tinta'
-                        : 'border-papel-fio text-tinta-2 hover:border-tinta-3 hover:text-tinta'
+                        : 'border-creme-fio text-tinta-2 hover:border-tinta-3 hover:text-tinta'
                     }`}
                   >
                     {cat}
@@ -142,7 +144,11 @@ export function InsightsPage({
               })}
             </div>
           </div>
-        )}
+        </div>
+      )}
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 md:pt-10 pb-24 md:pb-32">
+        {aside && <div className="mb-14 empty:hidden">{aside}</div>}
 
         {/* Índice */}
         <ul>
@@ -163,9 +169,8 @@ export function InsightsPage({
                   <p className="meta mt-2.5">
                     <span className="so-movel">{article.date}</span>
                     {!eixo && (
-                      <span className="inline-flex items-center gap-1.5">
-                        <span aria-hidden="true" className={`marca-${EIXO_COR[article.eixo]} w-2 h-2 rounded-[1px]`} />
-                        <Amp>{EIXOS[article.eixo].shortLabel}</Amp>
+                      <span>
+                        <PlacaEixo eixo={article.eixo} />
                       </span>
                     )}
                     <span>{article.category}</span>
@@ -178,12 +183,13 @@ export function InsightsPage({
                     <ArrowRight size={15} aria-hidden="true" />
                   </span>
                 </div>
-                <div className="aspect-square sm:aspect-[4/3] overflow-hidden rounded-[3px] bg-papel-2 self-start">
+                <div className="aspect-square sm:aspect-[4/3] overflow-hidden rounded-[3px] bg-papel-3 self-start">
                   <ImageWithFallback
                     src={article.image}
                     alt=""
                     loading="lazy"
                     className="w-full h-full object-cover"
+                    fallbackClassName={`placa-${EIXO_COR[article.eixo]}`}
                   />
                 </div>
               </a>

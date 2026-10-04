@@ -31,3 +31,17 @@ export async function fundoResponsivo(
     height: img.height,
   };
 }
+
+let quadro: Promise<FundoResponsivo> | undefined;
+
+/**
+ * O quadro do hero (cidade noturna em pinceladas) em srcsets responsivos, memoizado no build:
+ * a home usa no hero e nos recortes; hubs, artigos e o rodapé reaproveitam os mesmos arquivos
+ * (em cache para quem chega da home) nos recortes de passagem.
+ */
+export function fundoQuadro(): Promise<FundoResponsivo> {
+  quadro ??= import('../assets/326189a758fea0fe0e2da42349b6da943b29ba51.png').then((m) =>
+    fundoResponsivo(m.default)
+  );
+  return quadro;
+}

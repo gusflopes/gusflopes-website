@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Search, ArrowRight, ExternalLink, Play } from 'lucide-react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
-import { EIXOS, EIXO_LIST, EIXO_COR, type EixoId } from '../../lib/eixos';
-import { Amp } from '../Amp';
+import { EIXO_LIST, EIXO_COR, type EixoId } from '../../lib/eixos';
+import { PlacaEixo } from '../PlacaEixo';
+import { RecorteQuadro } from '../RecorteQuadro';
+import type { FundoResponsivo } from '../../lib/imagens';
 
 export interface RadarItem {
   id: string;
@@ -22,14 +24,16 @@ export interface RadarItem {
 
 interface RadarPageProps {
   items: RadarItem[];
+  /** O quadro, para o recorte na base da moldura escura. */
+  fundo: FundoResponsivo;
 }
 
 /**
- * Radar: moldura em azul-escuro e o índice em papel, como os outros hubs (rodada 4: o índice de
- * leitura fica no claro e o rodapé chega de um claro). Mesmo índice em linhas, com o fio laranja
- * e a fonte externa marcada.
+ * Radar: moldura em azul-escuro com o recorte do quadro na base, régua de busca no creme e o
+ * índice no papel, como os outros hubs. Mesmo índice em linhas; a fonte externa (a voz de outro,
+ * que é o que a curadoria comenta) leva o filete ardósia.
  */
-export function RadarPage({ items }: RadarPageProps) {
+export function RadarPage({ items, fundo }: RadarPageProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Todos');
   const [selectedEixo, setSelectedEixo] = useState<EixoId | 'todos'>('todos');
@@ -50,7 +54,7 @@ export function RadarPage({ items }: RadarPageProps) {
 
   return (
     <main className="claro min-h-screen bg-papel text-tinta">
-      <div className="bg-noite pt-32 md:pt-40 border-b border-noite-fio">
+      <div className="bg-noite pt-32 md:pt-40">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <h1 className="display-opsz font-serif font-semibold text-5xl md:text-[4.5rem] leading-[1] text-white">
             Radar
@@ -82,20 +86,22 @@ export function RadarPage({ items }: RadarPageProps) {
               })}
             </nav>
           ) : (
-            <div className="h-12 md:h-14" />
+            <div className="h-10 md:h-12" />
           )}
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-10 md:pt-12 pb-24 md:pb-32">
-        {/* Busca e temas */}
-        <div className="flex flex-col md:flex-row md:items-center gap-5 md:gap-8 pb-6">
+      <RecorteQuadro fundo={fundo} eager />
+
+      {/* Régua de busca e temas no creme */}
+      <div className="bg-creme">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 md:py-7 flex flex-col md:flex-row md:items-center gap-5 md:gap-8">
           <label className="relative flex items-center md:w-72 shrink-0">
             <Search size={16} aria-hidden="true" className="absolute left-0 text-tinta-3" />
             <input
               placeholder="Buscar no radar..."
               aria-label="Buscar no radar"
-              className="w-full bg-transparent pl-7 pr-2 py-2 border-b border-papel-fio focus:border-tinta outline-none text-[0.9375rem] text-tinta placeholder:text-tinta-3 font-sans transition-colors"
+              className="w-full bg-transparent pl-7 pr-2 py-2 border-b border-creme-fio focus:border-tinta outline-none text-[0.9375rem] text-tinta placeholder:text-tinta-3 font-sans transition-colors"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -112,7 +118,7 @@ export function RadarPage({ items }: RadarPageProps) {
                   className={`h-8 px-3 rounded-[3px] border text-[0.8125rem] font-semibold transition-colors whitespace-nowrap ${
                     ativo
                       ? 'bg-laranja border-laranja text-laranja-tinta'
-                      : 'border-papel-fio text-tinta-2 hover:border-tinta-3 hover:text-tinta'
+                      : 'border-creme-fio text-tinta-2 hover:border-tinta-3 hover:text-tinta'
                   }`}
                 >
                   {cat}
@@ -121,6 +127,9 @@ export function RadarPage({ items }: RadarPageProps) {
             })}
           </div>
         </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 md:pt-10 pb-24 md:pb-32">
 
         {filteredItems.length > 0 ? (
           <ul>
@@ -151,13 +160,12 @@ export function RadarPage({ items }: RadarPageProps) {
                       <p className="meta mt-2.5">
                         <span className="so-movel">{item.date}</span>
                         {selectedEixo === 'todos' && eixosComConteudo.length > 1 && (
-                          <span className="inline-flex items-center gap-1.5">
-                            <span aria-hidden="true" className={`marca-${EIXO_COR[item.eixo]} w-2 h-2 rounded-[1px]`} />
-                            <Amp>{EIXOS[item.eixo].shortLabel}</Amp>
+                          <span>
+                            <PlacaEixo eixo={item.eixo} />
                           </span>
                         )}
                         <span>{item.category}</span>
-                        {externo && <span className="text-tinta-2">{item.source}</span>}
+                        {externo && <span className="fonte-externa text-tinta-2">{item.source}</span>}
                       </p>
                       <p className="hidden sm:block mt-3 font-sans text-[1.0625rem] leading-relaxed text-tinta-2 max-w-[40rem] line-clamp-3">
                         {item.excerpt}
@@ -167,12 +175,13 @@ export function RadarPage({ items }: RadarPageProps) {
                         {externo ? <ExternalLink size={14} aria-hidden="true" /> : <ArrowRight size={15} aria-hidden="true" />}
                       </span>
                     </div>
-                    <div className="relative aspect-square sm:aspect-[4/3] overflow-hidden rounded-[3px] bg-papel-2 self-start">
+                    <div className="relative aspect-square sm:aspect-[4/3] overflow-hidden rounded-[3px] bg-papel-3 self-start">
                       <ImageWithFallback
                         src={item.image}
                         alt=""
                         loading="lazy"
                         className="w-full h-full object-cover"
+                        fallbackClassName={`placa-${EIXO_COR[item.eixo]}`}
                       />
                       {item.type === 'video' && (
                         <span className="absolute left-2.5 bottom-2.5 w-9 h-9 rounded-full bg-laranja text-laranja-tinta flex items-center justify-center">

@@ -32,10 +32,10 @@ export function Hero({ fundo }: { fundo: FundoResponsivo }) {
               'linear-gradient(90deg, #0b1a33 0%, #0b1a33 11%, rgba(11,26,51,.7) 19%, rgba(11,26,51,.22) 25%, rgba(11,26,51,0) 30%)',
           }}
         />
-        {/* Só a base: emenda com a página. A faixa recorta (overflow) a pintura, inclusive durante o assentamento em escala, então nada vaza abaixo do degradê. */}
+        {/* Só a base, só no celular (o texto sobe sobre ela). No desktop a pintura desce reta até a costura laranja do recorte. */}
         <div
           aria-hidden="true"
-          className="absolute inset-0"
+          className="absolute inset-0 lg:hidden"
           style={{ background: 'linear-gradient(0deg, #0b1a33 0%, #0b1a33 3%, rgba(11,26,51,0) 42%)' }}
         />
       </div>

@@ -48,8 +48,8 @@ export function Themes() {
           </p>
         </div>
 
-        {/* A frase-tese, em escala de citação: é ela que a seção quer que fique */}
-        <p className="mt-12 md:mt-16 pt-9 md:pt-12 border-t border-tinta font-serif font-normal text-tinta text-[1.5rem] leading-[1.25] md:text-[2.25rem] md:leading-[1.16] tracking-[-0.016em] max-w-[34ch] [text-wrap:balance] lg:ml-[calc((100%+2.5rem)/12)]">
+        {/* A frase-tese, em escala de citação: é ela que a seção quer que fique. O fio marrom é a assinatura do autor (o mesmo da caixa do autor no fim dos artigos) */}
+        <p className="mt-12 md:mt-16 pt-9 md:pt-12 border-t-2 border-marrom font-serif font-normal text-tinta text-[1.5rem] leading-[1.25] md:text-[2.25rem] md:leading-[1.16] tracking-[-0.016em] max-w-[34ch] [text-wrap:balance] lg:ml-[calc((100%+2.5rem)/12)]">
           Analiso domínio, arquitetura, times e fluxo de entrega como partes do mesmo problema: <em className="italic">criar capacidade para o negócio evoluir.</em>
         </p>
 
