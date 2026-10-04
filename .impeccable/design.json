@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-04T01:32:01.189Z",
+  "title": "Design System: gusflopes.dev",
+  "extensions": {
+    "colorMeta": {
+      "azul": {
+        "role": "neutral",
+        "displayName": "Azul-escuro",
+        "tonalRamp": [
+          "#050d1a",
+          "#0b1a33",
+          "#13284d",
+          "#1d3866",
+          "#2f4f86",
+          "#5a7bb0",
+          "#8fb3d9",
+          "#d6e2f0"
+        ]
+      },
+      "papel": {
+        "role": "neutral",
+        "displayName": "Papel frio",
+        "tonalRamp": [
+          "#4a5872",
+          "#7e8ba1",
+          "#c9d3e0",
+          "#e4e9f0",
+          "#f2f4f7",
+          "#f7f8fa",
+          "#fbfcfd",
+          "#ffffff"
+        ]
+      },
+      "laranja": {
+        "role": "primary",
+        "displayName": "Laranja",
+        "tonalRamp": [
+          "#1c0a02",
+          "#7c2d12",
+          "#9a3412",
+          "#c2410c",
+          "#f97316",
+          "#fb923c",
+          "#fdba74",
+          "#ffedd5"
+        ]
+      },
+      "laranja-fundo": {
+        "role": "primary",
+        "displayName": "Laranja profundo (texto sobre papel)"
+      },
+      "ceu": {
+        "role": "secondary",
+        "displayName": "Céu do quadro"
+      }
+    },
+    "typographyMeta": {
+      "abertura": {
+        "displayName": "Abertura",
+        "purpose": "Títulos de texto gerados por src/lib/abertura.ts."
+      },
+      "rotulo": {
+        "displayName": "Rótulo",
+        "purpose": "Metadados, navegação e ações curtas."
+      },
+      "leitura": {
+        "displayName": "Leitura",
+        "purpose": "Corpo dos textos."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-saida",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Hover de botão, sublinhado de ação, barra do menu."
+      },
+      {
+        "name": "janela-desliza",
+        "value": "animation-timeline: view(); --desliza -7% → 7%",
+        "purpose": "Quadro desliza dentro da janela no scroll; off em reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botão primário",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Bloco laranja chapado, texto escuro, canto reto.",
+      "html": "<a class=\"ds-botao\" href=\"#\">Assinar Newsletter</a>",
+      "css": ".ds-botao{display:inline-flex;align-items:center;min-height:52px;padding:0 1.6rem;background:#f97316;color:#1c0a02;font:800 1rem/1 \"Archivo Variable\",Archivo,sans-serif;font-stretch:87%;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:background-color .16s cubic-bezier(.16,1,.3,1),color .16s}.ds-botao:hover{background:#f2f4f7;color:#0b1a33}.ds-botao:focus-visible{outline:3px solid #f97316;outline-offset:3px}"
+    },
+    {
+      "name": "Ação",
+      "kind": "custom",
+      "refersTo": "acao",
+      "description": "Rótulo laranja com sublinhado no hover.",
+      "html": "<a class=\"ds-acao\" href=\"#\">Ler Artigo →</a>",
+      "css": ".ds-acao{font:750 .875rem/1.3 \"Archivo Variable\",sans-serif;font-stretch:75%;letter-spacing:.12em;text-transform:uppercase;color:#c2410c;text-decoration:underline 2px transparent;text-underline-offset:.35em;transition:text-decoration-color .2s}.ds-acao:hover{text-decoration-color:currentColor}"
+    },
+    {
+      "name": "Célula de filtro",
+      "kind": "chip",
+      "refersTo": "filtro-celula",
+      "description": "Célula de grade azul; ativa vira bloco laranja.",
+      "html": "<div class=\"ds-grade\"><button class=\"ds-celula\" aria-pressed=\"true\">Todos os eixos</button><button class=\"ds-celula\">Negócios</button></div>",
+      "css": ".ds-grade{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:#1d3866;border:2px solid #1d3866}.ds-celula{background:#0b1a33;color:#b7c6da;border:0;padding:12px 16px;text-align:left;font:650 .8125rem/1.35 \"Archivo Variable\",sans-serif;font-stretch:75%;letter-spacing:.12em;text-transform:uppercase}.ds-celula[aria-pressed=true]{background:#f97316;color:#1c0a02}.ds-celula:hover{color:#f2f4f7}"
+    },
+    {
+      "name": "Busca",
+      "kind": "input",
+      "refersTo": "input-busca",
+      "description": "Campo sem caixa, filete inferior.",
+      "html": "<label class=\"ds-busca\"><input placeholder=\"Filtrar ideias...\"></label>",
+      "css": ".ds-busca{display:flex;border-bottom:2px solid #0b1a33;padding-bottom:8px;background:#f2f4f7}.ds-busca:focus-within{border-color:#c2410c}.ds-busca input{border:0;background:transparent;outline:0;font:500 1.0625rem \"Archivo Variable\",sans-serif;font-stretch:87%;color:#0b1a33}"
+    },
+    {
+      "name": "Header",
+      "kind": "nav",
+      "refersTo": "nav-header",
+      "description": "Barra azul chapada, item ativo com barra laranja.",
+      "html": "<nav class=\"ds-nav\"><a aria-current=\"page\">Insights</a><a>Radar</a></nav>",
+      "css": ".ds-nav{display:flex;gap:28px;height:72px;align-items:stretch;background:#0b1a33;padding:0 24px}.ds-nav a{display:flex;align-items:center;color:#b7c6da;font:650 .8125rem \"Archivo Variable\",sans-serif;font-stretch:75%;letter-spacing:.12em;text-transform:uppercase;box-shadow:inset 0 -4px 0 transparent}.ds-nav a[aria-current]{color:#f2f4f7;box-shadow:inset 0 -4px 0 #f97316}"
+    },
+    {
+      "name": "Abertura",
+      "kind": "custom",
+      "refersTo": "abertura",
+      "description": "Título como bloco de tipo; linhas em cqi, uma vazada.",
+      "html": "<h1 class=\"ds-ab\"><span style=\"--fit:24\">Agent</span><span class=\"v\" style=\"--fit:23\">Skills<b>:</b></span></h1>",
+      "css": ".ds-ab{container-type:inline-size;background:#0b1a33;color:#f2f4f7;margin:0;padding:16px}.ds-ab span{display:block;font:900 min(calc(var(--fit)*1cqi),8rem)/.92 \"Archivo Variable\",sans-serif;letter-spacing:-.02em;text-transform:uppercase}.ds-ab .v{color:transparent;-webkit-text-stroke:2px #f2f4f7}.ds-ab b{color:#f97316;-webkit-text-stroke:0}"
+    }
+  ],
+  "narrative": {
+    "northStar": "A palavra como construção",
+    "overview": "O site é uma peça de poesia concreta brasileira composta com a disciplina da escola de Ulm: a tese da marca é montada como bloco de tipo, e todo o resto é grade rígida, filete e campo de cor chapado.",
+    "keyCharacteristics": [
+      "Aberturas tipográficas geradas do título",
+      "Grade de filetes e células por gap sobre azul",
+      "Cantos retos, zero sombra",
+      "Leitura calma em Source Serif 4",
+      "Uma janela laranja com o quadro por página, no máximo"
+    ],
+    "rules": [
+      {
+        "name": "The Two Fields Rule",
+        "body": "Toda seção é azul-escuro ou papel frio, inteira.",
+        "section": "colors"
+      },
+      {
+        "name": "The Solid Orange Rule",
+        "body": "O laranja é bloco chapado ou tipo; nunca halo, brilho, degradê ou sombra colorida.",
+        "section": "colors"
+      },
+      {
+        "name": "The Abertura Rule",
+        "body": "Todo título de texto é desenhado por src/lib/abertura.ts; forma por eixo.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Outline Rule",
+        "body": "Uma linha vazada por bloco, nunca mais.",
+        "section": "typography"
+      },
+      {
+        "name": "The Quiet Column Rule",
+        "body": "Nenhum jogo tipográfico dentro da coluna de leitura.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Plane Rule",
+        "body": "Se algo precisa se destacar, muda de campo ou de peso — não ganha sombra.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do gerar todo título de texto pela abertura; nunca compor quebra à mão por artigo.",
+      "Do alternar campos inteiros azul / papel ao descer a página.",
+      "Do usar #C2410C para texto laranja sobre papel e #F97316 sobre azul.",
+      "Do manter o corpo em Source Serif 4, 68ch, sem efeito.",
+      "Do usar filete e gap sobre azul para desenhar grades."
+    ],
+    "donts": [
+      "Don’t pôr o quadro ou qualquer textura atrás de texto corrido.",
+      "Don’t usar mais de uma janela por página, nem mais de uma linha vazada por bloco.",
+      "Don’t usar sombra, blur, vidro, degradê, cantos arredondados ou cards com borda.",
+      "Don’t usar caixa-alta em texto com mais de uma linha curta.",
+      "Don’t voltar a foto de banco no topo dos textos."
+    ]
+  }
+}
