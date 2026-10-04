@@ -60,7 +60,7 @@ export function Themes() {
         <dl className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-[2px] bg-azul border-2 border-azul">
           {themes.map((theme, i) => (
             <div key={theme.title} className={`campo-papel ${SPAN[i]} ${i === 4 ? 'md:col-span-2' : ''} p-6 md:p-7 flex flex-col gap-5`}>
-              <BlocoCelula titulo={theme.title} as="dt" teto={i >= 3 ? 4.25 : 3.5} className="text-azul" />
+              <BlocoCelula titulo={theme.title} as="dt" teto={4.75} className="text-azul" />
               <dd className="font-serif text-[1.0625rem] leading-relaxed text-tinta max-w-[46ch]">{theme.description}</dd>
             </div>
           ))}

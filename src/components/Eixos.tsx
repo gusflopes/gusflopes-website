@@ -24,7 +24,7 @@ export function Eixos({ eixos }: EixosProps) {
   if (eixos.length === 0) return null;
 
   return (
-    <section aria-labelledby="eixos-title" className="campo-azul">
+    <section aria-labelledby="eixos-title" className="campo-azul max-lg:pt-12">
       <div className="moldura !px-0 md:!px-[var(--gutter)]">
         <div className="grid lg:grid-cols-12 gap-[2px] bg-azul">
           <div
