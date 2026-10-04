@@ -308,16 +308,24 @@
   /* ---------- Corpo de leitura (markdown) ---------- */
   .leitura {
     font-family: var(--font-serif);
-    font-size: 1.1875rem;
-    line-height: 1.7;
+    font-size: 1.125rem;
+    line-height: 1.68;
     color: #0b1a33;
     max-width: 68ch;
     min-width: 0;
     overflow-wrap: break-word;
     font-optical-sizing: auto;
   }
-  .leitura > * + * {
+  .leitura > * + *,
+  .leitura > astro-slot > * + *,
+  .leitura > astro-static-slot > * + * {
     margin-top: 1.15em;
+  }
+  @media (min-width: 768px) {
+    .leitura {
+      font-size: 1.1875rem;
+      line-height: 1.7;
+    }
   }
   .leitura :where(h2) {
     font-family: var(--font-sans);
