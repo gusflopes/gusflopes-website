@@ -16,7 +16,7 @@ Momento memorável: o quadro respira inteiro à direita do hero, sem véu, e o t
 
 THESIS: o site de hoje executado sem timidez. O quadro aparece com força uma vez, no hero; tudo o mais é tipografia, ritmo e fio. Recusa o padrão "dark SaaS com glow, cards com tudo e texto em gradiente".
 
-OWN-WORLD: azul-escuro de verdade (#0B1A33, #13284D) e laranja (#F97316 sobre escuro, #C2410C sobre claro), azul-céu do quadro (#8FB3D9) como apoio frio; papel frio #F2F4F7 nos artigos. Literata (óptica variável) para títulos e leitura, Hanken Grotesk para UI, JetBrains Mono só para código. Fios de 1px no lugar de cartões, cantos de 3–4px, nenhuma sombra ou brilho decorativo; botão laranja com texto #1c0a02.
+OWN-WORLD: (reescrito na rodada 4, 04/10/2026, com os papéis das cores do PRODUCT.md) laranja (#F97316) é a cor principal da marca e vive em detalhes distribuídos pela página inteira, em dois registros: (a) chapado = ação (botão, play, chip ativo) e (b) detalhe não textual = presença (filete de 2–3px, fio de capa, fio de índice, marca de data, selo "Mais recente", número, estado ativo). Sobre claro, #F97316 nunca é texto: entra como filete ou marca; texto laranja sobre papel é #C2410C e só em link (#9A3412 no campo areia, onde #C2410C não passa). Texto sobre fundo laranja é o azul-escuro #0B1A33, e fundo laranja com texto é sempre #F97316. Azul-escuro (#0B1A33, #13284D, #081428) é estrutura e fundo: hero, um encarte, rodapé, moldura dos hubs; nunca dois blocos escuros em sequência e nenhum campo escuro de mais de ~1.000px sem passar por um claro. Claros são obrigatórios no ritmo: papel frio #F2F4F7 para leitura e um campo areia acinzentado (#DCD5CA, nunca creme) em poucas seções. As cores do quadro têm função abaixo do hero: petróleo (#315b6f/#457183) é a cor de Engenharia & IA, dos metadados e do "&" da ponte no claro; areia (#aa9c87) é a de Negócios e o campo quente; ferrugem (#8a4c1b) é a de Bastidores e a casa "hoje" do Sobre; ardósia (#648188/#7f989a) e marrom (#907a5f/#50372a) ficam para fios e fundos sem texto. Ferrugem nunca encosta em texto #C2410C nem no laranja chapado. O azul-céu #8FB3D9 caiu para apoio frio: texto secundário sobre escuro, nunca acento estrutural. Literata (óptica variável) para títulos e leitura, Hanken Grotesk para UI, JetBrains Mono só para código. Fios no lugar de cartões, cantos de 3–4px, nenhuma sombra ou brilho decorativo.
 
 STORY: o visitante entende em uma tela quem escreve e sobre o quê (tecnologia e negócio), escolhe a porta (eixo) e assina a newsletter ou lê um texto.
 
@@ -115,3 +115,19 @@ Campos: noite → papel → noite funda (três trocas).
 - Sobre: conquista — a frase-tese domina e o quadro com a casa azul fecha a ideia de sistema.
 - Serviços: conquista no desktop pelo contraste de densidade; no celular é a camada mais simples.
 - Celular, Sobre: as áreas empilham em linhas (a grade 3×2 só existe a partir de md).
+
+## Rodada 4: cor como sistema (04/10/2026)
+
+Mandato do dono: "a pincelada está muito azul"; "um blocão azul atrás do outro"; "o laranja
+sumiu do site, e ele é a cor principal"; "o rodapé, sem transição de clara, parece um bloco
+gigantesco". O revisor mediu a v3: noite contínua de 0 a 2.608px, claro em 20% da página,
+rodapé empilhado sobre Services, laranja só em links e botões, céu em todos os acentos
+estruturais. A composição de cada camada fica; muda o campo de cor e o papel de cada cor.
+
+### Contrato de cor (substitui as regras da rodada 1)
+- Removido: "laranja é ação, céu é orientação"; "rodapé no mesmo campo de Services"; céu como
+  fio de capa, fio do encarte, datas na margem e "&" da ponte.
+- Laranja em dois registros: chapado = ação; detalhe = presença (pelo menos um por seção).
+- Seção escura grande chega de um claro; o rodapé chega de um claro com um gesto (recorte do
+  quadro na home; fio de capa laranja no alto do rodapé em todo modelo).
+- Cores do quadro com função (tabela no OWN-WORLD).

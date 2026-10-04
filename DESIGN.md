@@ -161,26 +161,38 @@ Os modos seguem o conteúdo, não um seletor de tema. A home e o Radar (descober
 
 ## Colors
 
-Estratégia restrita: neutros tirados do mundo (azul e papel frio) e um acento, o laranja, que faz trabalho real (ação, link, eixo, estado ativo). O azul-céu do quadro (`#8FB3D9`) é o apoio frio, usado em rótulos sobre azul.
+Estratégia (rodada 4, com os papéis das cores do PRODUCT.md): **laranja é a cor principal e vive em detalhes pela página inteira; azul-escuro é estrutura e fundo; claros são obrigatórios no ritmo; as cores do quadro dão variedade, com função.** O azul-céu caiu para apoio frio.
 
-### Primary
-- **laranja `#F97316`**: botões (sempre com texto `brasa #1C0A02`, 7:1), links e estados ativos sobre azul-escuro (5,9:1 sobre `noite`). Hover do botão: `laranja-hover #FB8A3C`.
-- **laranja-fundo `#C2410C`**: o laranja sobre claro: links, rótulos e metadados em papel (5:1). Hover: `laranja-brasa #9A3412`.
-- **laranja-claro `#FB923C` / laranja-palido `#FDBA74`**: texto laranja pequeno sobre azul (linha de público, eixo nos metadados) e hover de títulos-link.
+### Primary: laranja, em dois registros
+- **(a) Chapado = ação.** `laranja #F97316` em botões, play, chip ativo. Texto e ícone sobre laranja são `laranja-tinta #0B1A33` (o azul-escuro da marca, 6,19:1). Fundo laranja com texto é sempre `#F97316` (sobre `#C2410C` o azul cairia para 3,35:1). Hover: `laranja-hover #FB8A3C`.
+- **(b) Detalhe não textual = presença.** Filete de 2–3px, fio de capa (`.fio-capa`, 3px + 1px), fio do índice dos hubs, marca da data na margem, selo "Mais recente", fio do encarte, fio do quadro 3×2, fio no alto do rodapé, estado ativo (aba, régua do header). Pelo menos um detalhe estrutural laranja por seção.
+- **Sobre claro, `#F97316` nunca é texto** (2,5:1): só filete ou marca. Texto laranja sobre papel é `laranja-fundo #C2410C`, e só em link (4,7:1). No campo areia, onde `#C2410C` não passa, o link é `laranja-brasa #9A3412` (5,2:1).
+- Sobre escuro, `#F97316` é texto e fio (6,2:1 em `noite`); `laranja-claro #FB923C` / `laranja-palido #FDBA74` para hover de títulos-link.
 
-### Neutral
-- **noite `#0B1A33`**: chão da home (primeiro campo), do Radar, do header, das molduras. **noite-2 `#13284D`**: fundo de imagem ausente, hover de ícone. **noite-fundo `#081428`**: o campo final da home (como posso ajudar + rodapé) e o rodapé de todas as páginas.
-- **noite-fio `#22385C` / noite-fio-forte `#34507D`**: todas as réguas sobre azul.
-- **nevoa `#C9D6E6`**: texto corrido sobre azul (11:1). **nevoa-2 `#9FB1C8`**: secundário (8:1).
-- **ceu `#8FB3D9`** (8:1 sobre noite) e **ceu-fundo `#36608C`** (5,9:1 sobre papel): a cor de apoio, com função de **orientação** — data, eixo, público ("Para quem…"), origem de um link externo, linha de metadados, o "&" do par negócio/tecnologia ("Domínio & Arquitetura"), o fio grosso no alto do encarte da Ferramenta. Nunca ação.
-- **papel `#F2F4F7`**: chão da leitura (frio, nunca creme). **papel-2 `#E7EBF1`**: código inline, fundo de imagem. **papel-fio `#D3DAE4`**: réguas finas no claro.
-- **tinta `#0B1A33`**: títulos e régua forte no claro (15:1). **tinta-2 `#33445F`**: corpo de leitura. **tinta-3 `#56657D`**: datas e auxiliares.
+### Estrutura: azul-escuro
+- **noite `#0B1A33`**: hero, header, encarte da Ferramenta, moldura dos hubs e do artigo. **noite-2 `#13284D`**: fundo de imagem ausente. **noite-fundo `#081428`**: o rodapé.
+- Regra de massa: nenhum campo escuro com mais de ~1.000px sem passar por um claro de ≥150px; nunca dois blocos escuros empilhados.
+- **noite-fio `#22385C` / noite-fio-forte `#34507D`**: réguas sobre azul. **nevoa `#C9D6E6`** (11:1) e **nevoa-2 `#9FB1C8`** (8:1): texto sobre azul.
+- **ceu `#8FB3D9`**: apoio frio, só texto secundário sobre escuro (metadados do hero, do encarte e da moldura dos hubs, títulos de coluna nunca). Não é mais acento estrutural.
+
+### Claros: papel e areia
+- **papel `#F2F4F7`**: chão da leitura e da maior parte da home (eixos, encarte, sobre). **papel-2 `#E7EBF1`**, **papel-fio `#D3DAE4`**.
+- **areia-campo `#DCD5CA`**: o campo claro quente, areia acinzentada puxada do quadro (nunca creme), em poucas seções: "Como posso ajudar" na home. **areia-fio `#C3B9A9`**: réguas sobre ele. Texto: tinta (11:1), tinta-2 (6,5:1), meta petróleo (4,9:1), link `#9A3412`.
+- **tinta `#0B1A33`** (15:1), **tinta-2 `#33445F`**, **tinta-3 `#56657D`**: texto no claro.
+
+### Cores do quadro (paleta de apoio aprovada em 04/10), com função
+- **petróleo `#315B6F`** (texto branco 7,4:1) / **`#457183`**: cor do eixo Engenharia & IA (placa da cabeça de coluna, marca no índice); metadados no claro (`.claro .meta`, 6,7:1 em papel); o "&" da ponte no claro.
+- **areia `#AA9C87`** (texto tinta 6,5:1): cor do eixo Negócios.
+- **ferrugem `#8A4C1B`** (texto branco 6,7:1): cor do eixo Bastidores e a sexta casa ("hoje") do quadro do Sobre. Nunca encosta em texto `#C2410C` nem no laranja chapado: pelo menos uma célula de distância.
+- **ardósia `#648188` / `#7F989A`** e **marrom `#907A5F` / `#50372A`**: só fios e fundos sem texto (ardósia com texto não passa AA).
 
 ### Named Rules
-- **Laranja é ação, céu é orientação.** Botão, link de ação e estado ativo são laranja; quando, de onde e para quem são céu.
-- **Laranja tem duas mãos.** `#F97316` sobre escuro, `#C2410C` sobre claro. Texto branco sobre laranja não existe.
-- **Uma pintura por página.** O quadro inteiro só no hero; recortes em faixa, nunca como fundo de seção com véu.
-- **Nada de creme.** O claro é papel frio azulado.
+- **Laranja é a marca, em detalhe.** Chapado para ação; filete, marca e estado para presença. Uma seção sem laranja perdeu a marca.
+- **Texto sobre laranja é azul-escuro.** `#0B1A33` sobre `#F97316`, nunca quase-preto, nunca sobre `#C2410C`.
+- **Azul é chão, não bloco.** Escuro em sequência apaga a identidade; o escuro grande chega de um claro.
+- **O rodapé chega de um claro, com um gesto.** Fio de capa laranja no alto do rodapé em todo modelo; na home, um segundo recorte do quadro entre o campo areia e o rodapé.
+- **Variedade com função.** Cada cor do quadro tem um papel nomeado (eixo, metadado, casa, campo). Cor sem papel não entra.
+- **Nada de creme.** O claro frio é papel azulado; o quente é areia acinzentada.
 
 ## Typography
 
