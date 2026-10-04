@@ -8,21 +8,21 @@ export function Services() {
       title: 'Consultoria Estratégica',
       description:
         'Diagnóstico de arquitetura, fluxo de entrega e desenho organizacional para transformar desafios de negócio em decisões técnicas claras e executáveis.',
-      action: 'AGENDAR DIAGNÓSTICO',
+      action: 'Agendar diagnóstico',
       link: `mailto:${site.email}?subject=${encodeURIComponent('Consultoria Estratégica — Agendar diagnóstico')}`,
     },
     {
       title: 'Mentoria & Formação',
       description:
         'Desenvolvimento de engenheiros e lideranças técnicas por meio de discussões práticas sobre arquitetura, DDD, plataformas e tomada de decisão.',
-      action: 'VER PROGRAMAS',
+      action: 'Ver programas',
       link: `mailto:${site.email}?subject=${encodeURIComponent('Mentoria & Cursos')}`,
     },
     {
       title: 'Conteúdo & Insights',
       description:
         'Artigos e análises sobre arquitetura, engenharia de software e IA aplicada para quem busca profundidade, contexto e ideias úteis além do hype.',
-      action: 'ACESSAR O RADAR',
+      action: 'Acessar o Radar',
       link: '/radar',
     },
   ];
