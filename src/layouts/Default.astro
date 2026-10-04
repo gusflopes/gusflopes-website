@@ -4,20 +4,24 @@ import { publicado } from '../lib/publicado';
 import { Header } from '../components/Header';
 import { EIXO_IDS } from '../lib/eixos';
 import { Footer } from '../components/Footer';
-// Fontes self-hosted (sem Google Fonts). Arquivos variáveis cobrem os pesos usados
-// (sans 300–700, serif 500/700, mono 400/500); só o estilo normal — o itálico do serif
-// continua sintetizado, como antes. Subsets carregam sob demanda via unicode-range.
-import '@fontsource-variable/plus-jakarta-sans/wght.css';
-import '@fontsource-variable/cormorant-garamond/wght.css';
+// Fontes self-hosted (sem Google Fonts), variáveis no eixo de peso:
+// Literata (títulos e leitura, com itálico real para citações e ênfases), Hanken Grotesk (UI e
+// rótulos) e JetBrains Mono (só código). Subsets e itálico carregam sob demanda via unicode-range.
+import '@fontsource-variable/literata/wght.css';
+import '@fontsource-variable/literata/wght-italic.css';
+import '@fontsource-variable/hanken-grotesk/wght.css';
 import '@fontsource-variable/jetbrains-mono/wght.css';
-import sansLatin from '@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url';
-import serifLatin from '@fontsource-variable/cormorant-garamond/files/cormorant-garamond-latin-wght-normal.woff2?url';
+import sansLatin from '@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2?url';
+import serifLatin from '@fontsource-variable/literata/files/literata-latin-wght-normal.woff2?url';
 import '../index.css';
 import fotoAutor from '../assets/autor.jpg?url';
 import { site, author, socials, newsletter } from '../config/site';
 
-// OG padrão: 1200×630, JPG (~95 KB) — a arte do hero recortada no formato das prévias sociais.
-const OG_DEFAULT = '/og-default.jpg';
+// OG padrão: 1200×630, JPG — a tela da abertura da home com a tagline em faixa sólida
+// (gerado no build por scripts/tela; o antigo /og-default.jpg continua em public/ para links antigos).
+const OG_DEFAULT = '/og/site/padrao.jpg';
+// OG gerado por texto (scripts/tela): também 1200×630 JPG.
+const ehOgGerado = (img: string) => img === OG_DEFAULT || img.startsWith('/og/');
 
 interface Props {
   title?: string;
@@ -98,7 +102,7 @@ const jsonLd = {
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Gustavo Lopes" />
-    <meta name="theme-color" content="#0f172a" />
+    <meta name="theme-color" content="#0b1a33" />
     <link rel="canonical" href={canonicalUrl} />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     {noindex && <meta name="robots" content="noindex, follow" />}
@@ -121,7 +125,7 @@ const jsonLd = {
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImage} />
     {
-      image === OG_DEFAULT && (
+      ehOgGerado(image) && (
         <>
           <meta property="og:image:width" content="1200" />
           <meta property="og:image:height" content="630" />
@@ -143,7 +147,7 @@ const jsonLd = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
   </head>
-  <body class="bg-slate-950 min-h-screen text-slate-200 overflow-x-hidden font-sans selection:bg-orange-500/30">
+  <body class="bg-noite min-h-screen text-nevoa overflow-x-hidden font-sans antialiased">
     <Header pathname={pathname} eixosAtivos={eixosAtivos} client:load />
     <slot />
     <Footer client:load />

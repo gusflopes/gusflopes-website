@@ -13,6 +13,7 @@ const edicoes = (await getCollection('newsletter', publicado))
     edicao: e.data.edicao,
     title: e.data.title,
     excerpt: e.data.excerpt,
+    image: e.data.image,
     dateFormatted: formatDatePtBR(e.data.date),
   }));
 ---

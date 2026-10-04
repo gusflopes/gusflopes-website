@@ -3,6 +3,7 @@ import { publicado } from './publicado';
 import type { InsightArticle } from '../components/pages/InsightsPage';
 import type { EixoId } from './eixos';
 import { compareIsoDateDesc, formatDatePtBR } from './format';
+import { telaCapa } from './telas';
 
 interface ArtigoOptions {
   /** Filtra por eixo. */
@@ -40,7 +41,8 @@ export async function getArtigos({ eixo, incluirRadarLocal = false }: ArtigoOpti
       date: formatDatePtBR(entry.data.date),
       isoDate: entry.data.date,
       duration: entry.data.duration,
-      image: entry.data.image,
+      // Capa = tela gerada do slug; a foto de banco do frontmatter fica só como dado.
+      tela: telaCapa(entry.collection, entry.id),
     })
   );
 }
