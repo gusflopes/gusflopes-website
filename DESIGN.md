@@ -141,20 +141,20 @@ components:
 
 O site é uma peça de poesia concreta brasileira (Noigandres, Augusto de Campos) composta com a disciplina da escola de Ulm que Alexandre Wollner trouxe ao Brasil: a tese da marca — "Tecnologia e negócio, partes do mesmo sistema" — é montada como bloco de tipo, e todo o resto é grade rígida, filete e campo de cor chapado. Não há ilustração, foto de banco, sombra ou vidro. A única imagem é o quadro da marca (cidade noturna em pinceladas), visto por uma janela laranja girada, uma vez por página no máximo.
 
-Dois campos dividem a página em regiões inteiras: **azul-escuro** é a moldura (cabeçalhos, aberturas, tese, eixos, ferramenta, rodapé) e **papel frio** é onde se lê (corpo dos textos, listas, ideias, temas, serviços). Um campo carrega várias seções: a home troca de campo só duas vezes. O **laranja** é plano estrutural — ocupa uma célula inteira quando marca a ação principal da região (newsletter, diagnóstico, simulador) ou a ordem real (o texto mais recente de um hub) — e, fora disso, aparece como tipo (o "&" dos temas, o dois-pontos da abertura), nunca como brilho.
+Dois campos dividem a página em regiões inteiras: **azul-escuro** é a moldura (cabeçalhos, aberturas, tese, eixos, ferramenta, rodapé) e **papel frio** é onde se lê (corpo dos textos, listas, vídeo, temas, serviços). Um campo carrega várias seções: a home troca de campo só duas vezes. O **laranja** é plano estrutural — ocupa uma célula inteira quando marca a ação principal da região (newsletter, diagnóstico, simulador) ou a ordem real (o texto mais recente de um hub) — e, fora disso, aparece como tipo (o "&" dos temas, o dois-pontos da abertura), nunca como brilho.
 
 A grade rígida é o motor de toda página, não só das aberturas: cada seção é uma composição de células desenhadas pelo próprio fundo nos vãos de 2px, com tipo que ocupa a célula inteira (abertura estreita, bloco justificado) e números que só aparecem quando codificam algo verdadeiro (data, número da edição, ordem).
 
 O sistema resolve o risco declarado da direção ("ótimo para a home, difícil sustentar em 40 textos") com regras, não com composição manual: cada título vira abertura por um algoritmo determinístico (`src/lib/abertura.ts`) cuja forma depende do eixo editorial.
 
 **Key Characteristics:**
-- Aberturas tipográficas geradas do título: caixa-alta Archivo 900 (larga) ou 850/62 (estreita, títulos de seção), linhas ajustadas à largura, uma linha vazada só no contorno, separador em laranja.
+- Aberturas tipográficas geradas do título: caixa-alta Archivo 900 (larga) ou 850/62 (estreita, títulos de seção), linhas ajustadas à largura, uma linha leve (o mesmo desenho no peso 100, sólida: o par 900/100), separador em laranja. Contorno vazado só no MESMO da tese e no Simulador.
 - Laranja como plano: a ação principal de cada região é uma célula laranja inteira, com botão azul sobre ela.
 - Rótulos nunca acima do título: metadados numa célula ao lado ou numa linha depois.
 - Grade de filetes de 1–2px e células separadas por `gap` sobre fundo azul (a cor do fundo vira a linha).
 - Cantos retos em tudo (`rounded: 0`), zero sombra.
 - Leitura calma: Source Serif 4, 18–19px, 68ch, tinta azul-escuro sobre papel frio.
-- Uma janela laranja girada 12° com o quadro, no máximo uma vez por página.
+- Uma janela laranja girada 12° com o quadro, no máximo uma vez por página. O ângulo conversa com um só elemento a mais: o quadrado do play do vídeo, girado 12°.
 
 ## Colors
 
@@ -186,10 +186,11 @@ Estratégia **comprometida em dois campos**: azul-escuro e papel frio dividem a 
 Uma família de display com dois eixos substitui três famílias da maquete: o mesmo desenho dá o bloco pesado e o rótulo estreito, que é exatamente a coerência de sistema que a escola de Ulm pedia.
 
 ### Hierarchy
-- **Tese** (900, line-height 0,86, sem respiro entre linhas): o bloco da home, cinco linhas, "e negócio," menor em laranja, MESMO vazado.
+- **Tese** (900, line-height 0,86, sem respiro entre linhas): o bloco da home, cinco linhas, "e negócio," menor em laranja, MESMO vazado (um dos dois contornos do site).
 - **Abertura larga** (900, caixa-alta, line-height 0,92, tracking −0,02em): títulos de texto, hubs, 404, páginas legais e as seções de tese da home (Ferramenta, Temas, Serviços). Corpo por linha em `cqi`, calculado no build; teto 7,5–11rem.
-- **Abertura estreita** (850, largura 62%, word-spacing 0,12em): títulos de seção que precisam de outra textura — "O que eu escrevo, e para quem", nomes dos eixos, "Ideias recentes", "Vídeo em Destaque", "Edições". Mesmas regras, métricas próprias.
-- **Bloco de célula** (850/62): nomes curtos de temas e serviços em duas linhas justificadas na largura da célula, "&" em laranja profundo; sem linha vazada.
+- **Abertura estreita** (850, largura 62%, word-spacing 0,12em): títulos de seção que precisam de outra textura — "O que eu escrevo, e para quem", "Edições". Mesmas regras, métricas próprias.
+- **Linha leve** (100, mesma largura da instância): a linha marcada de toda abertura, sólida, medida com as larguras do peso 100 (`abertura-metricas.json` traz `leve` e `estreita.leve`).
+- **Nome de célula** (`.nome-celula`, 780, largura 72%, caixa mista, 1,75–2,5rem): nomes dos temas, serviços e eixos, "Vídeo em Destaque" e a ação "Fazer o diagnóstico". Quebra no " & ", com o "&" em laranja profundo no fim da primeira linha.
 - **Numeral** (250, largura 125%, tabular): o dia nas listas e o número da edição. Leve e largo contra o bloco pesado — o contraste de peso faz a hierarquia.
 - **Display** (900, caixa-alta, 2–3rem): títulos auxiliares (nome do simulador em Bastidores, caminhos do 404).
 - **Título de lista** (800, largura 87%, 1,5–1,875rem, caixa normal): itens de hubs e listas; o mais recente do hub sobe para 900 caixa-alta.
@@ -198,9 +199,11 @@ Uma família de display com dois eixos substitui três famílias da maquete: o m
 - **Leitura** (Source Serif 4, 18px no celular, 19px a partir de 768px, line-height 1,7, máx. 68ch).
 
 ### Named Rules
-**The Abertura Rule.** Todo título de texto (artigo, edição, hub, seção de tese) é desenhado por `src/lib/abertura.ts`: corte no primeiro ": " (ou travessão, ou parêntese) em cabeça e cauda; palavras curtas grudam na seguinte; 1–5 linhas pelo comprimento; partição mais equilibrada pelas larguras reais dos glifos (`src/lib/abertura-metricas.json`, gerado por `scripts/gerar-metricas-abertura.mjs`). Forma por eixo: **Engenharia & IA / Newsletter = bloco** (linhas justificadas, última vazada); **Negócios = escada** (larguras decrescentes, à direita, primeira vazada); **Bastidores = degraus** (corpo único, recuo progressivo, linha do meio vazada).
+**The Abertura Rule.** Todo título de texto (artigo, edição, hub, seção de tese) é desenhado por `src/lib/abertura.ts`: corte no primeiro ": " (ou travessão, ou parêntese) em cabeça e cauda; palavras curtas grudam na seguinte; 1–5 linhas pelo comprimento; partição mais equilibrada pelas larguras reais dos glifos (`src/lib/abertura-metricas.json`, gerado por `scripts/gerar-metricas-abertura.mjs`). Forma por eixo: **Engenharia & IA / Newsletter = bloco** (linhas justificadas, última leve); **Negócios = escada** (larguras decrescentes, à direita, primeira leve); **Bastidores = degraus** (corpo único, recuo progressivo, linha do meio leve). A linha marcada é peso 100 sólido; `vazado: true` troca por contorno (só o Simulador usa).
 
-**The One Outline Rule.** Uma linha vazada por bloco, nunca mais. Se a cabeça tem uma linha só, nenhuma. Blocos de célula e títulos de lista nunca vazam.
+**The One Outline Rule.** O contorno vazado existe em dois lugares do site: MESMO, na tese, e a linha do meio do Simulador. Toda outra abertura marca a linha com o peso 100 sólido. Se a cabeça tem uma linha só, nenhuma linha é marcada. Nomes de célula e títulos de lista nunca vazam.
+
+**The Volume Rule.** Caixa-alta 900 é uma por seção: a abertura. Tudo que vive dentro da seção (nomes de tema, serviço, eixo, ações) fala em estreita 780 caixa mista. Pelo menos uma camada da home abre em volume baixo (o vídeo), para as outras voltarem a pesar.
 
 **The Two Instances Rule.** A instância larga é a voz das teses e dos textos; a estreita é a voz das seções. Pesos e larguras variam dentro do Archivo (900/100, 850/62, 250/125) para criar hierarquia sem empilhar caixa-alta 900 em todo título.
 
@@ -214,10 +217,10 @@ Grades de células usam `gap: 2px` sobre um fundo (azul no papel, azul-3 no azul
 
 ### Home, seção por seção (trabalho → composição)
 - **Tese** (entender a proposta): bloco de cinco linhas a .86; a janela encaixa no vão de MESMO/SISTEMA no celular e sangra na borda direita no desktop. Faixa de grade: metadados à esquerda, frase e apoio no meio, plano laranja da newsletter à direita, encostado na seção seguinte.
-- **Eixos** (escolher por onde entrar): plano laranja alto com a pergunta em abertura estreita, encostado em três linhas de papel; o nome de cada eixo ocupa a célula na forma do próprio eixo; "Mais recente" numa célula ao lado do título do texto.
-- **Ferramenta** (experimentar agora): grade de filetes azul-3; abertura em degraus + célula de metadados; a ação é a própria célula laranja.
-- **Ideias e vídeo** (ver o que saiu): "Ideias recentes" numa linha estreita da largura toda; linhas de tabela com data; o vídeo fecha numa linha de duas células (título à esquerda, célula azul inteira como link).
-- **Temas** (entender quem escreve): abertura em bloco + trajetória; os cinco temas numa partição 3 + 2 com nomes justificados na célula.
+- **Eixos** (escolher por onde entrar e ver o que saiu em cada porta): plano azul-2 alto com a pergunta em papel (abertura estreita), encostado em três linhas de papel. O plano saiu do laranja porque não é ação. Nome de cada eixo em estreita 780 caixa mista; os dois textos mais recentes do eixo descem como linhas de tabela dos hubs (dia em numeral leve, "Mês, ano", "Mais recente" no primeiro). "Ideias recentes" foi fundida aqui.
+- **Ferramenta** (experimentar agora): grade de filetes azul-3; abertura em degraus com a linha do meio vazada (o segundo e último contorno do site) + célula de metadados; a ação é a própria célula laranja.
+- **Vídeo** (assistir a uma coisa só): a camada de volume baixo. Abre o campo de papel com "Vídeo em Destaque" em nome de célula, sem bloco de tipo; linha de duas células (título à esquerda, célula azul inteira como link), quadrado laranja do play girado 12° que endireita no hover.
+- **Temas** (entender quem escreve): abertura em bloco + trajetória; os cinco temas numa partição 3 + 2 desenhada pelo fundo azul nos vãos (no celular, só filete de topo em cada tema, sem caixas), nomes em estreita 780 caixa mista.
 - **Serviços** (entender o que contratar): abertura em escada à direita; as três ofertas descem em degraus a partir dela.
 - **Rodapé**: células com filetes azul-3; a coluna da newsletter é o plano laranja.
 
@@ -225,20 +228,20 @@ Header fixo de 72px; páginas de texto trocam o header por uma barra de 56px (vo
 
 ## Elevation & Depth
 
-Plano. Nenhuma sombra, nenhum blur, nenhum vidro. Profundidade só por campo de cor (azul sobre papel, laranja sobre azul) e pela rotação de 12° da janela.
+Plano. Nenhuma sombra, nenhum blur, nenhum vidro. Profundidade só por campo de cor (azul sobre papel, laranja sobre azul) e pela rotação de 12° da janela (ecoada uma vez, no play do vídeo).
 
 ### Named Rules
 **The Flat Plane Rule.** Se algo precisa se destacar, muda de campo ou de peso — não ganha sombra.
 
 ## Shapes
 
-Cantos retos em tudo: botões, células, inputs, blocos de código, foto do autor (quadrada, em tons de cinza). A única forma não ortogonal é a janela: um quadrado laranja girado 12° com o quadro contra-girado dentro. Marcadores de lista e de citação são quadrados laranja.
+Cantos retos em tudo: botões, células, inputs, blocos de código, foto do autor (quadrada, em tons de cinza). As únicas formas não ortogonais são a janela (um quadrado laranja girado 12° com o quadro contra-girado dentro) e o seu eco, o quadrado do play do vídeo, no mesmo ângulo. Marcadores de lista e de citação são quadrados laranja.
 
 ## Components
 
 ### Buttons
 - **Primário (`.botao`)**: bloco laranja, texto `#1C0A02`, Archivo 800 largura 87% em caixa-alta, 52px de altura, canto reto. Hover: vira papel com tinta azul (sobre azul) ou azul com tinta papel (sobre papel). Dentro de um plano laranja (`.campo-laranja`) inverte: bloco azul, texto papel.
-- **Célula de ação (`.celula-acao`)**: a célula laranja inteira é o link, rótulo estreito 850/62 em caixa-alta e seta SVG no canto; hover vira papel.
+- **Célula de ação (`.celula-acao`)**: a célula laranja inteira é o link, rótulo estreito 800/72 em caixa mista e seta SVG no canto; hover vira papel.
 - **Ação (`.acao`)**: rótulo laranja com seta; sublinhado de 2px aparece no hover. Laranja `#F97316` sobre azul, `#C2410C` sobre papel.
 
 ### Chips (filtros)
@@ -258,7 +261,7 @@ Header azul chapado, itens em rótulo céu-claro; o ativo fica papel com uma bar
 `<Abertura titulo eixo as teto />` (`src/components/Abertura.tsx`). Renderiza o heading com o título completo na ordem original; cada linha é um `span` com `--fit` (cqi) e `--recuo`; o heading é contêiner de tamanho (`container-type: inline-size`). O mesmo dado alimenta o gerador de capas do Substack (`docs/substack-kit/gerar-capa.mjs`).
 
 ### Janela (signature component)
-Bloco laranja girado 12°, inset de 9%, com o quadro (AVIF/WebP responsivo) contra-girado e ampliado dentro. Com `animation-timeline: view()` o quadro desliza ±7% dentro da janela durante o scroll; desligado em `prefers-reduced-motion`. Uso: uma vez por página, no máximo (hoje só no hero da home e nas capas do Substack). Posição: no celular encaixa no vão à direita de MESMO/SISTEMA (sem tocar glifo) e sangra na borda; no desktop encosta no bloco da tese e sangra ~18% na borda direita (`.tese-janela`).
+Bloco laranja girado 12°, inset de 9%, com o quadro (AVIF/WebP responsivo) contra-girado e ampliado dentro. Com `animation-timeline: view()` o quadro desliza ±7% dentro da janela durante o scroll; desligado em `prefers-reduced-motion`. Uso: uma vez por página, no máximo (hoje só no hero da home e nas capas do Substack). Posição: no celular tem ~42% da largura da tela (46cqi), começa logo abaixo de PARTES DO (sem cobrir o DO), à direita de MESMO/SISTEMA, e sangra na borda direita; o bloco ganha respiro embaixo para ela; no desktop encosta no bloco da tese e sangra ~18% na borda direita (`.tese-janela`).
 
 ### Corpo de leitura (`.leitura`)
 H2 em Archivo 850 com filete de 2px acima; H3 em 800/87%; links laranja profundo sublinhados; listas com quadrado laranja; citação em itálico entre filetes com quadrado laranja; código em bloco azul-escuro (tema Shiki), código inline em papel 2; tabelas em rótulo + tabular-nums.
@@ -277,7 +280,8 @@ H2 em Archivo 850 com filete de 2px acima; H3 em 800/87%; links laranja profundo
 
 ### Don't:
 - **Don't** pôr o quadro ou qualquer textura atrás de texto corrido; ele só aparece dentro da janela.
-- **Don't** usar mais de uma janela por página, nem mais de uma linha vazada por bloco.
+- **Don't** usar mais de uma janela por página, nem contorno vazado fora do MESMO e do Simulador.
+- **Don't** empilhar caixa-alta 900 dentro de uma seção: uma abertura por seção, o resto em caixa mista.
 - **Don't** usar sombra, blur, vidro, degradê, cantos arredondados ou cards com borda.
 - **Don't** usar caixa-alta em texto com mais de uma linha curta (rótulos só para metadados curtos).
 - **Don't** pôr rótulo curto em caixa-alta acima de um título.

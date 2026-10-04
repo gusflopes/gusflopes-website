@@ -15,11 +15,11 @@ Direção fixada pelo dono: **3. Concretismo** (maquete `data-k="6"` da página 
 
 THESIS: a tese da marca é montada como construção tipográfica — "Tecnologia e negócio, partes do mesmo sistema" empilhada em blocos de tipo sobre azul-escuro. Recusa o hero de foto com degradê, título centrado e cards com brilho.
 
-OWN-WORLD: azul-escuro `#0B1A33` como campo, papel frio `#F2F4F7` como segundo campo, laranja `#F97316` em blocos chapados; Archivo variável (900/100 display, 600/75 rótulos) + Source Serif 4 para leitura. Grade rígida de filetes de 1–2px, cantos retos, zero sombra, zero vidro. Uma palavra vazada só no contorno por bloco.
+OWN-WORLD: azul-escuro `#0B1A33` como campo, papel frio `#F2F4F7` como segundo campo, laranja `#F97316` em blocos chapados; Archivo variável (900/100 display, 600/75 rótulos) + Source Serif 4 para leitura. Grade rígida de filetes de 1–2px, cantos retos, zero sombra, zero vidro. Par 900/100: a linha marcada de cada abertura no peso 100 sólido; contorno vazado só no MESMO da tese e no Simulador. Caixa-alta 900 uma vez por seção; nomes dentro da seção em estreita 780 caixa mista.
 
 STORY: o visitante lê a tese como poema concreto, entende que é uma pessoa que junta negócio e engenharia, escolhe a porta (Engenharia & IA / Negócios / Bastidores) e assina.
 
-FIRST VIEWPORT: tese em 5 linhas ajustadas à largura, entrelinha .86 (TECNOLOGIA / e negócio, em laranja menor / PARTES DO / MESMO vazado / SISTEMA) ocupando ~3/4 da largura; a janela laranja girada 12° com o quadro (única da página) encaixa no vão de MESMO/SISTEMA no celular e sangra na borda direita no desktop. Abaixo, faixa de grade: metadados | frase e apoio | plano laranja da newsletter, encostado nos eixos.
+FIRST VIEWPORT: tese em 5 linhas ajustadas à largura, entrelinha .86 (TECNOLOGIA / e negócio, em laranja menor / PARTES DO / MESMO vazado / SISTEMA) ocupando ~3/4 da largura; a janela laranja girada 12° com o quadro (única da página) no celular tem ~42% da largura da tela, começa abaixo de PARTES DO (sem cobrir o DO), no vão à direita de MESMO/SISTEMA, e sangra na borda direita; no desktop encosta no bloco e sangra na borda direita. Abaixo, faixa de grade: metadados | frase e apoio | plano laranja da newsletter, encostado nos eixos.
 
 FORM: sistema tipográfico concreto (poesia concreta Noigandres + escola de Ulm/Wollner); 1º e único da lista — direção escolhida pelo dono; seed key: n/a (decisão fixada, sem sorteio).
 
@@ -44,4 +44,19 @@ Ordem nova e porquê: tese → eixos → ferramenta → ideias e vídeo → tema
 
 Regra de laranja: chapado numa célula inteira = a ação principal da região, ou a ordem real (texto mais recente nos hubs). Regra de número: só data, número de edição ou ordem real; nada de 01/02/03 decorativo.
 
-Corte proposto (não aplicado): "Ideias recentes" repete parcialmente o "Mais recente" de cada eixo; dá para fundir as duas listas no futuro.
+Corte proposto na rodada 2 e aplicado na rodada 3 (aval do dono): ver abaixo.
+
+## Rodada 3 — volume
+
+Mandato do dono: "o hero prende a atenção, depois cada uma das camadas conquista". A grade fica; o conserto é volume. Cada camada continua com gesto próprio, mas nenhuma grita tão alto quanto as vizinhas.
+
+Ordem final: tese → eixos (com os textos recentes) → ferramenta → vídeo → temas → serviços → rodapé. Campos: azul (tese, eixos, ferramenta) → papel (vídeo, temas, serviços) → azul (rodapé). Duas trocas.
+
+- **Volume:** caixa-alta 900 só na abertura de cada seção. Nomes de eixos, temas e serviços, "Vídeo em Destaque" e "Fazer o diagnóstico" em Archivo estreita 780 caixa mista (as strings já são caixa mista na fonte; só CSS).
+- **Par 900/100:** a linha marcada de toda abertura (última no bloco, primeira na escada, a do meio nos degraus) é o mesmo desenho no peso 100, sólida, medida com as larguras do peso 100. Contorno vazado só em MESMO e no Simulador.
+- **Eixos** — escolher por onde entrar e ver o que saiu em cada porta. "Ideias recentes" fundida aqui: cada porta mostra os dois textos mais recentes como linhas de tabela dos hubs (dia em numeral leve, "Mês, ano", "Mais recente" no primeiro); os dois insights mais recentes do site sempre entram. O plano da pergunta saiu do laranja (não é ação) para azul-2, com a pergunta em papel.
+- **Vídeo** — assistir a uma coisa só. A camada de volume baixo, de propósito: abre o papel depois do Simulador (a camada mais alta) com o título em caixa mista, sem bloco de tipo, para os temas voltarem a pesar. Gesto: o quadrado laranja do play girado 12°, o mesmo ângulo da janela (único eco do giro fora do hero); endireita no hover.
+- **Temas no celular:** só filete de topo em cada tema, sem caixas fechadas.
+- **Hero:** metadados sem "·" pendurado (cada item sem quebra; o separador vai com o item seguinte); janela do celular maior, como no FIRST VIEWPORT acima.
+
+Teste do dono, camada a camada: tese (bloco + janela, conquista), eixos (plano azul alto + três linhas de papel com tabela datada, conquista), ferramenta (degraus vazados + célula laranja de ação, conquista — é a mais alta), vídeo (calma deliberada: duas células e o play girado; conquista pelo contraste, não pelo volume), temas (bloco 900/100 + partição 3+2, conquista), serviços (escada à direita + ofertas em degraus, conquista).

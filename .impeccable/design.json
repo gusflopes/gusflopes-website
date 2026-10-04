@@ -72,9 +72,13 @@
         "displayName": "Abertura estreita",
         "purpose": "Títulos de seção (Archivo 850/62, word-spacing .12em), mesmas regras da abertura com métricas próprias."
       },
-      "bloco-celula": {
-        "displayName": "Bloco de célula",
-        "purpose": "Nomes curtos de temas e serviços: duas linhas justificadas na largura da célula, \"&\" em laranja."
+      "abertura-leve": {
+        "displayName": "Linha leve",
+        "purpose": "A linha marcada de toda abertura: o mesmo desenho no peso 100, sólida (o par 900/100), medida com as larguras do peso 100."
+      },
+      "nome-celula": {
+        "displayName": "Nome de célula",
+        "purpose": "Nomes de temas, serviços e eixos, \"Vídeo em Destaque\" e a ação do Simulador: Archivo 780/72 em caixa mista, \"&\" em laranja no fim da primeira linha."
       },
       "numeral": {
         "displayName": "Numeral",
@@ -150,17 +154,17 @@
       "name": "Abertura",
       "kind": "custom",
       "refersTo": "abertura",
-      "description": "Título como bloco de tipo; linhas em cqi, uma vazada.",
+      "description": "Título como bloco de tipo; linhas em cqi, a linha marcada no peso 100 sólido (vazado só no MESMO da tese e no Simulador).",
       "html": "<h1 class=\"ds-ab\"><span style=\"--fit:24\">Agent</span><span class=\"v\" style=\"--fit:23\">Skills<b>:</b></span></h1>",
-      "css": ".ds-ab{container-type:inline-size;background:#0b1a33;color:#f2f4f7;margin:0;padding:16px}.ds-ab span{display:block;font:900 min(calc(var(--fit)*1cqi),8rem)/.92 \"Archivo Variable\",sans-serif;letter-spacing:-.02em;text-transform:uppercase}.ds-ab .v{color:transparent;-webkit-text-stroke:2px #f2f4f7}.ds-ab b{color:#f97316;-webkit-text-stroke:0}"
+      "css": ".ds-ab{container-type:inline-size;background:#0b1a33;color:#f2f4f7;margin:0;padding:16px}.ds-ab span{display:block;font:900 min(calc(var(--fit)*1cqi),8rem)/.92 \"Archivo Variable\",sans-serif;letter-spacing:-.02em;text-transform:uppercase}.ds-ab .v{font-weight:100}.ds-ab b{color:#f97316;font-weight:900}"
     },
     {
       "name": "Célula laranja de ação",
       "kind": "custom",
       "refersTo": "celula-acao",
-      "description": "A célula inteira é o link: rótulo estreito 850/62 em caixa-alta e seta no canto; hover vira papel.",
+      "description": "A célula inteira é o link: rótulo estreito 800/72 em caixa mista e seta no canto; hover vira papel.",
       "html": "<a class=\"ds-cel\" href=\"#\"><span>Fazer o diagnóstico</span><span aria-hidden=\"true\">→</span></a>",
-      "css": ".ds-cel{display:flex;flex-direction:column;justify-content:space-between;min-height:9rem;padding:24px;background:#f97316;color:#1c0a02;font:850 2.25rem/.9 \"Archivo Variable\",sans-serif;font-stretch:62%;text-transform:uppercase;text-decoration:none}.ds-cel:hover{background:#f2f4f7;color:#0b1a33}"
+      "css": ".ds-cel{display:flex;flex-direction:column;justify-content:space-between;min-height:9rem;padding:24px;background:#f97316;color:#1c0a02;font:800 2.25rem/.95 \"Archivo Variable\",sans-serif;font-stretch:72%;text-decoration:none}.ds-cel:hover{background:#f2f4f7;color:#0b1a33}"
     },
     {
       "name": "Célula de data",
@@ -181,7 +185,8 @@
       "Números só quando codificam algo verdadeiro (data, edição, ordem)",
       "Cantos retos, zero sombra",
       "Leitura calma em Source Serif 4",
-      "Uma janela laranja com o quadro por página, no máximo"
+      "Uma janela laranja com o quadro por página, no máximo; o ângulo de 12° ecoa só no play do vídeo",
+      "Caixa-alta 900 uma vez por seção; o resto em estreita caixa mista"
     ],
     "rules": [
       {
@@ -201,7 +206,12 @@
       },
       {
         "name": "The One Outline Rule",
-        "body": "Uma linha vazada por bloco, nunca mais.",
+        "body": "Contorno vazado só no MESMO da tese e no Simulador; nas demais aberturas a linha marcada é peso 100 sólido.",
+        "section": "typography"
+      },
+      {
+        "name": "The Volume Rule",
+        "body": "Caixa-alta 900 é uma por seção (a abertura); pelo menos uma camada da home abre em volume baixo (o vídeo).",
         "section": "typography"
       },
       {
@@ -234,7 +244,8 @@
     ],
     "donts": [
       "Don’t pôr o quadro ou qualquer textura atrás de texto corrido.",
-      "Don’t usar mais de uma janela por página, nem mais de uma linha vazada por bloco.",
+      "Don’t usar mais de uma janela por página, nem contorno vazado fora do MESMO e do Simulador.",
+      "Don’t empilhar caixa-alta 900 dentro de uma seção.",
       "Don’t usar sombra, blur, vidro, degradê, cantos arredondados ou cards com borda.",
       "Don’t usar caixa-alta em texto com mais de uma linha curta.",
       "Don’t voltar a foto de banco no topo dos textos."
