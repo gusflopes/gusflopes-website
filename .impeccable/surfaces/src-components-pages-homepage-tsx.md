@@ -32,11 +32,46 @@ fio laranja no topo; H1 "Tecnologia e negócio, partes do mesmo sistema" em Lite
 rótulo de áreas e botão "Assinar Newsletter" na coluna direita, dentro da primeira dobra em 1366×900 e 390×844.
 
 FORM: "Pincelada" (4ª no ranking do dono; maquete data-k="8"), sem seed key — direção fixada pelo usuário, concept-seed
-não executado por instrução. Assinatura: o gerador (capa, OG, faixa de hub, abertura, capa Substack). Interação: o fio
-laranja que se estende sob a tela no hover/foco dos cards; telas estáticas, zero JS extra.
+não executado por instrução. Assinatura: o gerador (capa, OG, faixa de hub, abertura, capa Substack), agora tinta em
+camadas (cerda + empasto, luzes em espiral) em escala de traço fixa por janela. Interação: o fio laranja que se estende
+no hover/foco; telas estáticas, zero JS extra.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+
+## Rodada 2 — a página inteira (o trabalho de cada seção → a composição)
+
+Regra de material: cada tela tem um papel (abrir, separar capítulo, ser capa), semente própria e enquadramento próprio
+(panorâmica, coluna vertical, close de traço, o quadro original uma vez). Telas nunca atrás de texto corrido, nunca uma
+por card em série. Traço com a mesma espessura em px de tela em todo formato (janelas de uma tela-mestre).
+
+Ordem da home e porquê: abertura → Eixos → Vídeo + Ideias recentes → Ferramenta → Sobre (Themes) → Serviços → rodapé.
+Primeiro escolher a porta, depois ver o que acabou de sair (prova de que a casa está viva), então experimentar algo de
+graça, depois saber quem escreve e, só então, o que contratar — o pedido mais caro vem depois da confiança.
+
+Campos de cor (2 trocas): noite carrega da abertura até "Sobre" (a noite do quadro; os capítulos se separam por telas e
+réguas, não por listras de fundo) → papel em Serviços (o "contrato", lido como documento) → noite no rodapé.
+
+- Abertura — "entender quem escreve e para quem": tela panorâmica + fio + faixa noite com H1 Literata (mantida). Laranja
+  só no fio, na 2ª linha do H1 e no botão; o rótulo de áreas volta ao azul-céu.
+- Eixos — "escolher por onde entrar": coluna vertical pintada (papel capitulo, semente própria, sticky) ao lado de uma
+  lista de três portas em linhas; cada linha = eixo em Literata grande à esquerda, público/descrição/mais recente à
+  direita. "Mais recente" desce para depois do título. No celular a coluna vira faixa baixa SEM luz, abrindo a seção.
+- Vídeo + Ideias recentes — "ver o que saiu agora": a capa do vídeo em plano aberto na largura da coluna (24:7) com o
+  play e o fio; abaixo, resumo do vídeo (7) ao lado de um sumário só de texto das ideias recentes (5), separados por régua.
+- Ferramenta — "experimentar algo agora": faixa em três tempos — close de uma luz (o único traço visto de perto na
+  home), texto, e a ação sozinha numa coluna com régua. "Ferramenta gratuita · Experimento aberto" já vem depois do título.
+- Sobre (Themes) — "confiar em quem escreve": o quadro original emoldurado ao lado do texto (única aparição) + as 5 áreas
+  no módulo título + colunas entre réguas (o único uso dele na home).
+- Serviços — "entender o que contratar": cardápio em papel — título à esquerda, três linhas largas (serviço em Literata,
+  o que resolve, ação), fio que se estende no hover/foco.
+- Hubs — Insights/eixos: faixa de abertura + destaque com a capa panorâmica do texto mais recente + índice de leitura só
+  texto (título e resumo, metadados ao lado). Radar: diário de bordo (data na margem, item e comentário, fonte e ação).
+  Newsletter: lista de edições + caixa de inscrição com a tela da própria newsletter (semente "Radar de IA") de perto.
+- Fim do artigo: nome do autor como título e "Sobre o Autor" depois; caixa da newsletter com a tela dela ao lado do convite.
+- 404: faixa com semente própria; privacidade e termos herdam a coluna de papel.
 
 ## Decisões em aberto
 - Fotos do Unsplash trocadas pela tela só no render; frontmatter intocado.
 - Capa autoral da newsletter (media.gusflopes.dev) mantida.
+- Corte proposto (não aplicado): "Ideias recentes" repete o "Mais recente" dos Eixos para 2 dos 3 eixos.
+- Anterior/próximo e relacionados no fim do artigo não existem; adicioná-los exige texto novo (a aprovar).

@@ -1,6 +1,6 @@
 {
  "schemaVersion": 2,
- "generatedAt": "2026-10-04T01:37:17.358Z",
+ "generatedAt": "2026-10-04",
  "title": "Design System: gusflopes.dev — Pincelada",
  "extensions": {
   "colorMeta": {
@@ -395,7 +395,7 @@
  ],
  "narrative": {
   "northStar": "Pincelada: o mesmo gesto, nunca a mesma imagem",
-  "overview": "Van Gogh como sistema: cada texto ganha uma tela de pinceladas gerada do próprio slug no build, nas cores do quadro e da marca. O texto fica sempre em faixa sólida, costurada à pintura pelo fio laranja; a leitura acontece em papel frio.",
+  "overview": "Van Gogh como sistema: cada texto ganha uma tela de tinta (cerdas, empasto, luzes em espiral) gerada do próprio slug no build, em escala de traço fixa por janela, nas cores do quadro e da marca. Cada tela tem um papel; listas são só texto. O texto fica sempre em faixa sólida, costurada à pintura pelo fio laranja; a leitura acontece em papel frio.",
   "keyCharacteristics": [
    "Tela gerada por texto (capa, OG, faixa, abertura, capa do Substack)",
    "Azul-escuro como chão, laranja como luz rara",
@@ -422,14 +422,19 @@
   ],
   "dos": [
    "Gerar a capa de texto novo pelo gerador",
-   "Manter o laranja em até quatro luzes por tela",
-   "Subir VERSAO ao mudar o gerador"
+   "Manter o laranja em até três luzes por tela",
+   "Subir VERSAO ao mudar o gerador",
+   "Dar a cada tela um papel e uma semente; listas de textos só texto",
+   "Definir formato novo como janela de um papel, no tamanho exibido (escala de traço fixa)",
+   "Metadados e rótulos depois do título, nunca acima"
   ],
   "donts": [
    "Sombra, glow, vidro, blur ou gradiente de texto",
    "Borda colorida em cards e caixas",
    "Foto de banco como capa",
-   "Mono fora de código"
+   "Mono fora de código",
+   "Encolher uma tela num card (traço menor que a escala fixa)",
+   "Repetir uma faixa de tela em cima de cada card"
   ]
  }
 }
