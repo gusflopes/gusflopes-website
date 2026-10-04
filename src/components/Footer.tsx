@@ -6,22 +6,24 @@ import logoLight from '../assets/cfa6876664fcc921be5a7c0a58c353ea12577968.png?ur
 
 const link = 'text-ceu-claro hover:text-papel transition-colors';
 
+/**
+ * Rodapé: grade de células azul com filetes azul-3 (o fundo nos vãos de 2px); a coluna da
+ * newsletter é o plano laranja — a mesma regra do hero: laranja chapado = a ação principal.
+ */
 export function Footer() {
   return (
     <footer className="campo-azul pb-8">
-      <div className="h-1 bg-laranja" aria-hidden="true" />
-      <div className="pt-14" />
-      <div className="moldura">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-x-[var(--gutter)] gap-y-12 mb-14">
-          <div className="lg:col-span-4">
+      <div className="moldura !px-0 md:!px-[var(--gutter)] pt-14 md:pt-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-[2px] bg-azul-3 border-y-2 border-azul-3 mb-8">
+          <div className="bg-azul lg:col-span-4 px-[var(--gutter)] md:px-0 md:pr-8 py-8">
             <img src={logoLight} alt="Gusflopes.dev" width={1028} height={556} loading="lazy" className="h-14 w-auto mb-6" />
             <p className="font-serif text-[1rem] leading-relaxed text-ceu-claro max-w-[36ch]">
               Tecnologia e negócio, partes do mesmo sistema. Arquitetura, plataformas e IA aplicada para sistemas que evoluem.
             </p>
           </div>
 
-          <div className="lg:col-span-3">
-            <h2 className="rotulo text-papel pb-3 mb-4 border-b-2 border-papel">Navegação</h2>
+          <div className="bg-azul lg:col-span-3 px-[var(--gutter)] md:px-6 py-8">
+            <h2 className="rotulo text-papel mb-5">Navegação</h2>
             <ul className="space-y-2.5 font-sans [font-stretch:87%] text-[0.9375rem]">
               {EIXO_LIST.map((eixo) => (
                 <li key={eixo.id}>
@@ -40,8 +42,8 @@ export function Footer() {
             </ul>
           </div>
 
-          <div className="lg:col-span-2">
-            <h2 className="rotulo text-papel pb-3 mb-4 border-b-2 border-papel">Contato</h2>
+          <div className="bg-azul lg:col-span-2 px-[var(--gutter)] md:px-6 py-8">
+            <h2 className="rotulo text-papel mb-5">Contato</h2>
             <ul className="space-y-2.5 font-sans [font-stretch:87%] text-[0.9375rem]">
               <li><a href={`mailto:${site.email}`} className={`${link} break-all`}>{site.email}</a></li>
               <li className="text-ceu-claro">Brasil | Global</li>
@@ -49,14 +51,16 @@ export function Footer() {
             <SocialLinks className="mt-5" linkClassName="text-ceu-claro hover:text-laranja" />
           </div>
 
-          <div className="lg:col-span-3">
-            <h2 className="rotulo text-papel pb-3 mb-4 border-b-2 border-papel">{newsletter.name}</h2>
-            <p className="font-sans [font-stretch:87%] text-[0.9375rem] leading-relaxed text-ceu-claro mb-5">{newsletter.pitch}</p>
+          <div className="campo-laranja lg:col-span-3 px-[var(--gutter)] md:px-6 py-8 flex flex-col justify-between gap-6">
+            <div>
+              <h2 className="rotulo mb-5">{newsletter.name}</h2>
+              <p className="font-sans font-medium [font-stretch:87%] text-[1rem] leading-relaxed">{newsletter.pitch}</p>
+            </div>
             <NewsletterForm variant="footer" />
           </div>
         </div>
 
-        <div className="border-t border-azul-3 pt-6 flex flex-col md:flex-row justify-between gap-4">
+        <div className="px-[var(--gutter)] md:px-0 flex flex-col md:flex-row justify-between gap-4">
           <p className="font-sans [font-stretch:87%] text-[0.8125rem] text-ceu">
             © {new Date().getFullYear()} Gusflopes.dev. Todos os direitos reservados.
           </p>

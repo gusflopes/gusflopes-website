@@ -2,6 +2,7 @@
 // Página 404 real: o Worker (wrangler.jsonc → not_found_handling: "404-page")
 // serve este arquivo com status 404 para qualquer URL inexistente.
 import Default from '../layouts/Default.astro';
+import { Abertura } from '../components/Abertura';
 
 const caminhos = [
   { href: '/insights', label: 'Insights', desc: 'Textos autorais sobre engenharia, negócio e IA.' },
@@ -17,11 +18,12 @@ const caminhos = [
 >
   <main class="campo-azul pt-[72px] min-h-screen">
     <div class="moldura pt-14 md:pt-20 pb-24">
-      <p class="rotulo text-laranja mb-8">Erro 404</p>
-      <h1 class="display uppercase text-papel text-[2.75rem] md:text-[5.5rem] leading-[0.92] mb-8 max-w-[14ch]">
-        Esta página não existe <br />
-        <span class="text-transparent [-webkit-text-stroke:2px_var(--papel)]">ou mudou de lugar</span>
-      </h1>
+      <div class="grid gap-6 lg:grid-cols-12 lg:gap-x-[var(--gutter)] items-start mb-10">
+        <div class="lg:col-span-9">
+          <Abertura titulo="Esta página não existe ou mudou de lugar" eixo="engenharia" teto={8} />
+        </div>
+        <p class="lg:col-span-3 rotulo text-laranja border-t-2 border-laranja pt-3 lg:mt-2">Erro 404</p>
+      </div>
       <p class="font-serif text-[1.1875rem] text-ceu-claro leading-relaxed max-w-xl mb-12">
         O link pode estar quebrado ou o texto foi renomeado. Comece por um destes caminhos:
       </p>

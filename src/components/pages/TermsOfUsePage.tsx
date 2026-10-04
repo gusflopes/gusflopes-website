@@ -1,19 +1,21 @@
 import React from 'react';
+import { Abertura } from '../Abertura';
 
 export function TermsOfUsePage() {
   return (
-    <main className="campo-papel pt-[72px] pb-24 min-h-screen">
-      <article className="moldura">
-        <header className="campo-azul -mx-[var(--gutter)] px-[var(--gutter)] pt-12 md:pt-16 pb-10 mb-12">
-          <h1 className="display uppercase text-[2.5rem] md:text-[4.5rem] text-papel mb-5">
-            Termos de Uso
-          </h1>
-          <p className="rotulo text-ceu">
+    <main className="campo-papel pb-24 min-h-screen">
+      <header className="campo-azul pt-[72px]">
+        <div className="moldura pt-12 md:pt-16 pb-12 grid gap-6 lg:grid-cols-12 lg:gap-x-[var(--gutter)] items-end">
+          <div className="lg:col-span-9">
+            <Abertura titulo="Termos de Uso" eixo="engenharia" teto={7.5} />
+          </div>
+          <p className="lg:col-span-3 rotulo text-ceu border-t border-azul-3 pt-3">
             Última atualização: Dezembro/2025
           </p>
-        </header>
-
-        <div className="leitura">
+        </div>
+      </header>
+      <article className="moldura pt-12 md:pt-16 grid grid-cols-[minmax(0,1fr)] lg:grid-cols-12 lg:gap-x-[var(--gutter)]">
+        <div className="leitura lg:col-start-4 lg:col-span-9">
           <section>
             <h2>1. Aceitação</h2>
             <p>

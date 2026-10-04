@@ -31,3 +31,13 @@ export function formatDatePtBR(isoDate: string): string {
 export function compareIsoDateDesc(a: string, b: string): number {
   return b.localeCompare(a);
 }
+
+/**
+ * A mesma data de `formatDatePtBR`, separada em partes para composição tipográfica
+ * (o dia como numeral grande, "Jun, 2026" como rótulo). O texto lido continua idêntico.
+ */
+export function datePartsPtBR(isoDate: string): { dia: string; mesAno: string } {
+  const f = formatDatePtBR(isoDate);
+  const i = f.indexOf(' ');
+  return i > 0 ? { dia: f.slice(0, i), mesAno: f.slice(i + 1) } : { dia: f, mesAno: '' };
+}

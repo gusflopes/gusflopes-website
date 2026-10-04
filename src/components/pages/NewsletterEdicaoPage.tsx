@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { NewsletterCta } from '../NewsletterCta';
 import { Abertura } from '../Abertura';
@@ -41,25 +41,29 @@ export function NewsletterEdicaoPage({
               Todas as edições
             </a>
 
-            <p className="rotulo flex flex-wrap border-y border-azul-3 mb-10 md:mb-14 tabular-nums">
-              <span className="py-2.5 pr-4 text-laranja">Edição #{edicao}</span>
-              <span className="py-2.5 px-4 border-l border-azul-3 text-ceu">{dateFormatted}</span>
-              <span className="py-2.5 px-4 border-l border-azul-3 text-ceu">{duration} leitura</span>
-            </p>
-
-            <div className="grid gap-10 lg:grid-cols-12 lg:gap-x-[var(--gutter)] items-end">
+            <div className="grid gap-10 lg:grid-cols-12 lg:gap-x-[var(--gutter)] items-end border-t border-azul-3 pt-8 md:pt-10">
               <div className="lg:col-span-8">
                 <Abertura titulo={title} eixo="newsletter" teto={8.5} />
               </div>
-              <div className="lg:col-span-4 pt-5 border-t-2 border-papel max-w-[44ch]">
-                <p className="font-serif text-[1.25rem] md:text-[1.3125rem] leading-[1.5] text-ceu-claro">{excerpt}</p>
-                {substackUrl && (
-                  <p className="mt-5">
-                    <a href={substackUrl} target="_blank" rel="noopener noreferrer" className="acao">
-                      Ler no Substack →
-                    </a>
-                  </p>
-                )}
+              <div className="lg:col-span-4 max-w-[44ch] grid gap-[2px] bg-azul-3 border-y-2 border-azul-3">
+                <p className="campo-azul rotulo flex flex-wrap items-baseline gap-x-3 gap-y-1 py-3 tabular-nums">
+                  <span className="text-laranja">
+                    Edição <span className="numeral normal-case text-[2.5rem] text-papel">#{edicao}</span>
+                  </span>
+                  <span className="text-ceu">{dateFormatted}</span>
+                  <span className="text-ceu">{duration} leitura</span>
+                </p>
+                <div className="campo-azul pt-4 pb-5">
+                  <p className="font-serif text-[1.25rem] md:text-[1.3125rem] leading-[1.5] text-ceu-claro">{excerpt}</p>
+                  {substackUrl && (
+                    <p className="mt-5">
+                      <a href={substackUrl} target="_blank" rel="noopener noreferrer" className="acao">
+                        Ler no Substack
+                        <ArrowUpRight size={16} strokeWidth={2.5} aria-hidden="true" />
+                      </a>
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
           </div>

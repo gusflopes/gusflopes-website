@@ -39,14 +39,14 @@ function Janela({ fundo }: { fundo: FundoResponsivo }) {
 export function Hero({ fundo }: { fundo: FundoResponsivo }) {
   return (
     <section aria-labelledby="tese" className="campo-azul pt-[72px] overflow-hidden">
-      <div className="moldura pt-10 md:pt-10 pb-10 md:pb-10">
-        {/* Bloco da tese: contêiner de tamanho para as linhas escalarem pela largura */}
-        <div className="tese relative [container-type:inline-size] lg:w-[min(72%,calc((100svh-380px)/0.62))]">
+      <div className="moldura pt-10 pb-12 md:pb-14">
+        {/* Bloco da tese: contêiner de tamanho; as linhas escalam pela largura, entrelinha .86 */}
+        <div className="tese relative [container-type:inline-size] lg:w-[min(72%,calc((100svh-360px)/0.54))]">
           <h1 id="tese" className="m-0 text-papel">
             {TESE.map((l, i) => (
               <span key={l.texto}>
                 <span
-                  className={`abertura-linha ${l.estilo === 'menor' ? '!text-laranja !py-[0.35em]' : ''}`}
+                  className={`abertura-linha ${l.estilo === 'menor' ? '!text-laranja' : ''}`}
                   data-estilo={l.estilo === 'vazado' ? 'vazado' : 'cheio'}
                   style={{ '--fit': fit(l.texto, l.fracao), '--teto': '20rem' } as CSSProperties}
                 >
@@ -56,25 +56,35 @@ export function Hero({ fundo }: { fundo: FundoResponsivo }) {
               </span>
             ))}
           </h1>
-          {/* A janela: única aparição do quadro na página, à direita de MESMO / SISTEMA */}
-          <div className="absolute right-[1cqi] bottom-[3cqi] w-[27cqi] lg:w-[27cqi] lg:-right-[27cqi] lg:bottom-[1cqi]">
+          {/*
+            A janela: única aparição do quadro na página. No celular encaixa no vão à direita de
+            MESMO / SISTEMA e sangra na borda; no desktop encosta no bloco e sangra na borda direita.
+          */}
+          <div className="tese-janela">
             <Janela fundo={fundo} />
           </div>
         </div>
       </div>
 
-      <div className="moldura">
-        <div className="grid gap-y-6 gap-x-[var(--gutter)] lg:grid-cols-12 border-t-2 border-papel pt-5 pb-12 md:pb-14">
-          <p className="rotulo lg:col-span-12 text-laranja">Estratégia · Arquitetura · Fluxo · IA aplicada</p>
-          <p className="lg:col-span-5 font-sans font-medium [font-stretch:87%] text-[1.375rem] md:text-[1.625rem] leading-[1.18] text-papel text-balance">
-            Arquitetura, plataformas e IA aplicada para transformar complexidade em sistemas que evoluem.
+      {/* Faixa de grade: frase, apoio, metadados ao lado e o plano laranja da newsletter */}
+      <div className="moldura !px-0 md:!px-[var(--gutter)]">
+        <div className="grid lg:grid-cols-12 gap-x-[var(--gutter)] border-t-2 border-papel">
+          <div className="lg:col-span-5 lg:col-start-4 px-[var(--gutter)] md:px-0 pt-6 pb-8 lg:pb-12 flex flex-col gap-5">
+            <p className="font-sans font-medium [font-stretch:87%] text-[1.375rem] md:text-[1.625rem] leading-[1.18] text-papel text-balance">
+              Arquitetura, plataformas e IA aplicada para transformar complexidade em sistemas que evoluem.
+            </p>
+            <p className="font-serif text-[1.0625rem] leading-relaxed text-ceu-claro max-w-[48ch]">
+              Conecto decisões técnicas aos objetivos da organização para ampliar autonomia, melhorar o fluxo de entrega e gerar valor continuamente.
+            </p>
+          </div>
+          <p className="rotulo text-laranja lg:col-span-3 lg:col-start-1 lg:row-start-1 px-[var(--gutter)] md:px-0 pb-8 lg:pt-7 lg:pb-0 lg:pr-4 max-lg:order-2">
+            Estratégia · Arquitetura · Fluxo · IA aplicada
           </p>
-          <p className="lg:col-span-4 font-serif text-[1.0625rem] leading-relaxed text-ceu-claro">
-            Conecto decisões técnicas aos objetivos da organização para ampliar autonomia, melhorar o fluxo de entrega e gerar valor continuamente.
-          </p>
-          <div className="lg:col-span-3 flex flex-col gap-4 items-start">
-            <p className="font-sans [font-stretch:87%] text-[0.9375rem] leading-snug text-ceu-claro">{newsletter.pitch}</p>
-            <NewsletterForm variant="hero" />
+          <div className="campo-laranja lg:col-span-4 lg:col-start-9 lg:row-start-1 max-lg:order-3 px-[var(--gutter)] md:px-7 py-7 flex flex-col justify-between gap-6">
+            <p className="font-sans font-semibold [font-stretch:87%] text-[1.0625rem] leading-snug">{newsletter.pitch}</p>
+            <div>
+              <NewsletterForm variant="hero" />
+            </div>
           </div>
         </div>
       </div>

@@ -27,21 +27,26 @@ export function NewsletterPage({ edicoes }: { edicoes: EdicaoResumo[] }) {
           </div>
 
           <section className="lg:col-span-7" aria-labelledby="edicoes-title">
-            <h2 id="edicoes-title" className="display uppercase text-[2rem] md:text-[2.75rem] text-azul mb-6">Edições</h2>
+            <Abertura id="edicoes-title" as="h2" titulo="Edições" instancia="estreita" teto={7} />
             {edicoes.length === 0 ? (
-              <p className="font-serif text-[1.0625rem] text-tinta-2 border-t-2 border-azul pt-6">A primeira edição sai em breve.</p>
+              <p className="font-serif text-[1.0625rem] text-tinta-2 border-t-2 border-azul pt-6 mt-6">A primeira edição sai em breve.</p>
             ) : (
-              <ul className="border-t-2 border-azul">
+              <ul className="mt-6 border-t-2 border-azul">
                 {edicoes.map((e) => (
                   <li key={e.id} className="border-b border-filete">
-                    <a href={`/newsletter/${e.id}`} className="group grid gap-2 py-7">
-                      <p className="rotulo text-laranja-fundo tabular-nums">
-                        Edição #{e.edicao} · {e.dateFormatted}
+                    <a href={`/newsletter/${e.id}`} className="group grid gap-x-6 gap-y-3 py-7 sm:grid-cols-[minmax(0,1fr)_8.5rem]">
+                      <div>
+                        <h3 className="font-sans font-extrabold [font-stretch:87%] text-[1.625rem] md:text-[2.125rem] leading-[1.05] tracking-[-0.012em] text-azul group-hover:text-laranja-fundo transition-colors text-balance mb-3">
+                          {e.title}
+                        </h3>
+                        <p className="font-serif text-[1.0625rem] leading-relaxed text-tinta-2 max-w-[60ch]">{e.excerpt}</p>
+                      </div>
+                      <p className="sm:col-start-2 sm:row-start-1 rotulo text-laranja-fundo tabular-nums">
+                        Edição{' '}
+                        <span className="numeral normal-case text-azul text-[1.75rem] sm:text-[3.75rem] sm:block sm:my-1">#{e.edicao}</span>
+                        <span className="sm:sr-only"> · </span>
+                        {e.dateFormatted}
                       </p>
-                      <h3 className="font-sans font-extrabold [font-stretch:87%] text-[1.625rem] md:text-[2.125rem] leading-[1.05] tracking-[-0.012em] text-azul group-hover:text-laranja-fundo transition-colors text-balance">
-                        {e.title}
-                      </h3>
-                      <p className="font-serif text-[1.0625rem] leading-relaxed text-tinta-2 max-w-[60ch]">{e.excerpt}</p>
                     </a>
                   </li>
                 ))}

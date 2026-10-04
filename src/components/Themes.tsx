@@ -1,4 +1,4 @@
-import { Abertura } from './Abertura';
+import { Abertura, BlocoCelula } from './Abertura';
 
 const themes = [
   {
@@ -28,19 +28,25 @@ const themes = [
   },
 ];
 
-/** "Sobre": trajetória em coluna de leitura e os cinco temas como tabela de grade, sem cards. */
+/** Posição de cada tema na partição 3 + 2 da grade de 12 colunas (desktop). */
+const SPAN = ['lg:col-span-4', 'lg:col-span-4', 'lg:col-span-4', 'lg:col-span-7', 'lg:col-span-5'];
+
+/**
+ * Trabalho da seção: entender quem escreve e em que áreas atua.
+ * Composição: abertura em bloco ocupando 7 colunas, trajetória em serifa alinhada pela base;
+ * embaixo, os cinco temas como partição de grade (3 + 2) desenhada pelo próprio fundo azul
+ * nos vãos de 2px. Cada nome de tema é um bloco justificado que ocupa a largura da célula,
+ * com o "&" em laranja: a ponte entre os dois termos.
+ */
 export function Themes() {
   return (
-    <section id="about" aria-labelledby="about-title" className="campo-papel py-20 md:py-28">
-      <div className="moldura grid gap-12 lg:grid-cols-12 lg:gap-x-[var(--gutter)]">
-        <div className="lg:col-span-5">
-          <div className="lg:sticky lg:top-28">
-            <Abertura id="about-title" as="h2" titulo="Engenharia é mais do que código" eixo="engenharia" teto={6.5} />
+    <section id="about" aria-labelledby="about-title" className="campo-papel pt-20 md:pt-28 pb-6 md:pb-10">
+      <div className="moldura">
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-x-[var(--gutter)] items-end">
+          <div className="lg:col-span-7">
+            <Abertura id="about-title" as="h2" titulo="Engenharia é mais do que código" eixo="engenharia" teto={10} />
           </div>
-        </div>
-
-        <div className="lg:col-span-7">
-          <div className="max-w-[62ch] font-serif text-[1.1875rem] leading-relaxed text-tinta">
+          <div className="lg:col-span-5 font-serif text-[1.125rem] leading-relaxed text-tinta border-t-2 border-azul pt-5">
             <p>
               Minha trajetória entre <strong className="font-semibold text-laranja-fundo">Direito, Contabilidade, gestão e tecnologia</strong> moldou uma visão sistêmica da engenharia de software.
               Analiso domínio, arquitetura, times e fluxo de entrega como partes do mesmo problema: criar capacidade para o negócio evoluir.
@@ -49,16 +55,16 @@ export function Themes() {
               Hoje, aplico essa perspectiva como líder técnico no sistema de precificação de locação veicular de uma plataforma de mobilidade do Grupo Volkswagen.
             </p>
           </div>
-
-          <dl className="mt-14 border-t-2 border-azul">
-            {themes.map((theme) => (
-              <div key={theme.title} className="grid gap-2 md:grid-cols-[minmax(0,15rem)_minmax(0,1fr)] md:gap-8 py-5 border-b border-filete">
-                <dt className="display text-[1.25rem] uppercase leading-[1.02] text-azul">{theme.title}</dt>
-                <dd className="font-serif text-[1.0625rem] leading-relaxed text-tinta">{theme.description}</dd>
-              </div>
-            ))}
-          </dl>
         </div>
+
+        <dl className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-[2px] bg-azul border-2 border-azul">
+          {themes.map((theme, i) => (
+            <div key={theme.title} className={`campo-papel ${SPAN[i]} ${i === 4 ? 'md:col-span-2' : ''} p-6 md:p-7 flex flex-col gap-5`}>
+              <BlocoCelula titulo={theme.title} as="dt" teto={i >= 3 ? 4.25 : 3.5} className="text-azul" />
+              <dd className="font-serif text-[1.0625rem] leading-relaxed text-tinta max-w-[46ch]">{theme.description}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );

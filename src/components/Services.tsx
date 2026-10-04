@@ -1,5 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 import { site } from '../config/site';
+import { Abertura, BlocoCelula } from './Abertura';
 
 export function Services() {
   const services = [
@@ -26,22 +27,22 @@ export function Services() {
     },
   ];
 
+  // Degraus de cada coluna no desktop: a escada da abertura continua nas ofertas.
+  const degrau = ['lg:mt-0', 'lg:mt-44', 'lg:mt-[22rem]'];
+
   return (
-    <section id="consulting" aria-labelledby="consulting-title" className="campo-azul py-20 md:py-28 relative">
+    <section id="consulting" aria-labelledby="consulting-title" className="campo-papel pt-20 md:pt-28 pb-20 md:pb-28 relative">
       <div id="courses" className="absolute top-0" />
       <div className="moldura">
-        <h2 id="consulting-title" className="display uppercase text-[2.5rem] md:text-[4.5rem] text-papel mb-10 md:mb-14">
-          Como posso <span className="text-laranja">ajudar</span>
-        </h2>
+        <div className="lg:w-[66%] lg:ml-auto">
+          <Abertura id="consulting-title" as="h2" titulo="Como posso ajudar" eixo="negocios" teto={11} />
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 border-t-2 border-papel">
+        <div className="mt-12 lg:-mt-36 grid grid-cols-1 md:grid-cols-3 gap-x-[var(--gutter)] gap-y-12 items-start">
           {services.map((service, i) => (
-            <article
-              key={service.title}
-              className={`group flex flex-col pt-6 pb-8 md:pb-2 md:pr-8 ${i > 0 ? 'border-t md:border-t-0 md:border-l md:pl-8' : ''} border-azul-3`}
-            >
-              <h3 className="display uppercase text-[1.625rem] leading-none text-papel mb-4">{service.title}</h3>
-              <p className="font-serif text-[1.0625rem] leading-relaxed text-ceu-claro mb-7 flex-grow">{service.description}</p>
+            <article key={service.title} className={`flex flex-col border-t-[6px] border-azul pt-5 ${degrau[i]}`}>
+              <BlocoCelula titulo={service.title} teto={4.5} className="text-azul mb-5" />
+              <p className="font-serif text-[1.0625rem] leading-relaxed text-tinta mb-7 max-w-[40ch]">{service.description}</p>
               <a href={service.link} className="acao self-start">
                 {service.action} <ArrowRight size={16} strokeWidth={2.5} aria-hidden="true" />
               </a>

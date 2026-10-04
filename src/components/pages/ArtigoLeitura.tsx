@@ -1,9 +1,10 @@
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { ArrowLeft, Check, Share2 } from 'lucide-react';
 import { EIXOS, type EixoId } from '../../lib/eixos';
 import { author } from '../../config/site';
 import { SocialLinks } from '../SocialLinks';
 import { Abertura } from '../Abertura';
+import { NewsletterCta } from '../NewsletterCta';
 import fotoAutor from '../../assets/autor.jpg?url';
 
 export interface ArtigoLeituraProps {
@@ -24,6 +25,13 @@ export interface ArtigoLeituraProps {
  */
 export function ArtigoLeitura({ title, excerpt, category, eixo, dateFormatted, duration, voltar, children }: ArtigoLeituraProps) {
   const [linkCopied, setLinkCopied] = useState(false);
+
+  // Tabelas largas rolam na horizontal dentro da coluna: precisam ser alcançáveis pelo teclado.
+  useEffect(() => {
+    document.querySelectorAll<HTMLTableElement>('.leitura table').forEach((t) => {
+      if (t.scrollWidth > t.clientWidth && !t.hasAttribute('tabindex')) t.tabIndex = 0;
+    });
+  }, []);
 
   const handleShare = async () => {
     const url = window.location.href;
@@ -96,13 +104,22 @@ export function ArtigoLeitura({ title, excerpt, category, eixo, dateFormatted, d
             {/* Corpo — markdown renderizado via slot */}
             <div className="leitura lg:col-start-4 lg:col-span-9">{children}</div>
 
-            <footer className="lg:col-start-4 lg:col-span-9 mt-20 pt-8 border-t-2 border-azul grid gap-6 sm:grid-cols-[96px_minmax(0,1fr)] max-w-[68ch]">
-              <img src={fotoAutor} alt={author.name} width={96} height={96} loading="lazy" className="w-24 h-24 object-cover grayscale contrast-110" />
-              <div>
-                <h2 className="rotulo text-laranja-fundo mb-2">Sobre o Autor</h2>
-                <p className="display uppercase text-[1.75rem] md:text-[2.25rem] text-azul mb-3">{author.name}</p>
-                <p className="font-serif text-[1.0625rem] leading-relaxed text-tinta-2 mb-4">{author.bio}</p>
-                <SocialLinks linkClassName="text-tinta-2 hover:text-laranja-fundo" />
+            {/*
+              Fecho: grade de células sobre azul — foto, nome com "Sobre o Autor" numa célula de
+              metadados ao lado, bio; e o plano laranja da newsletter fechando a linha.
+            */}
+            <footer className="lg:col-start-4 lg:col-span-9 mt-20 grid gap-[2px] bg-azul border-2 border-azul md:grid-cols-12">
+              <div className="campo-papel md:col-span-7 grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-5 gap-y-4 p-5 md:p-7">
+                <img src={fotoAutor} alt={author.name} width={96} height={96} loading="lazy" className="w-[5.5rem] h-[5.5rem] object-cover grayscale contrast-110" />
+                <div className="flex flex-col justify-between gap-2">
+                  <p className="font-sans font-[850] [font-stretch:62%] uppercase text-[2rem] md:text-[2.5rem] leading-[0.9] tracking-[-0.01em] text-azul">{author.name}</p>
+                  <h2 className="rotulo text-laranja-fundo">Sobre o Autor</h2>
+                </div>
+                <p className="col-span-2 font-serif text-[1.0625rem] leading-relaxed text-tinta-2">{author.bio}</p>
+                <SocialLinks className="col-span-2" linkClassName="text-tinta-2 hover:text-laranja-fundo" />
+              </div>
+              <div className="md:col-span-5 [&>div]:h-full">
+                <NewsletterCta content="artigo-fim" />
               </div>
             </footer>
           </div>

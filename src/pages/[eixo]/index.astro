@@ -32,12 +32,11 @@ const reforma = projetos.reforma;
       eixo === 'bastidores' && (
         <aside
           slot="aside"
-          class="campo-azul p-6 md:p-10 grid gap-6 lg:grid-cols-12 lg:gap-x-10"
+          class="grid lg:grid-cols-12 gap-[2px] bg-azul-3 border-2 border-azul-3"
         >
-          <h2 class="display uppercase text-[2rem] md:text-[3rem] text-papel lg:col-span-5">{reforma.nome}</h2>
-          <div class="lg:col-span-7">
-          <p class="rotulo text-laranja mb-4">Experimento aberto</p>
-          <p class="font-serif text-[1.125rem] leading-relaxed text-ceu-claro mb-6">
+          <h2 class="campo-azul lg:col-span-8 p-6 md:p-8 display uppercase text-[2rem] md:text-[3rem] text-papel">{reforma.nome}</h2>
+          <p class="campo-azul lg:col-span-4 px-6 pb-6 md:p-8 rotulo text-laranja">Experimento aberto</p>
+          <p class="campo-azul lg:col-span-8 p-6 md:p-8 font-serif text-[1.125rem] leading-relaxed text-ceu-claro">
             Uma dúvida real de empresário: como a reforma tributária afeta a minha empresa? Virou um experimento
             aberto. A mesma IA que você já usa, ligada a um servidor MCP com a calculadora oficial da
             Receita, passa a responder com números e fontes em vez de palpites. É a demonstração de
@@ -46,11 +45,11 @@ const reforma = projetos.reforma;
           </p>
           <a
             href={comUtm(reforma.url, reforma.campanha, 'bastidores-hub')}
-            class="acao"
+            class="celula-acao campo-laranja lg:col-span-4 p-6 md:p-8 min-h-[8rem] group"
           >
-            Testar o simulador →
+            <span class="font-sans font-[850] [font-stretch:62%] uppercase text-[1.75rem] md:text-[2.25rem] leading-[0.92]">Testar o simulador</span>
+            <svg class="self-end transition-transform duration-200 group-hover:translate-x-1" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" /></svg>
           </a>
-          </div>
         </aside>
       )
     }

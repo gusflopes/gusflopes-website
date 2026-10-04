@@ -2,6 +2,7 @@ import { useState, type ReactNode } from 'react';
 import { ArrowRight, Search } from 'lucide-react';
 import { EIXOS, EIXO_LIST, type EixoId } from '../../lib/eixos';
 import { Abertura } from '../Abertura';
+import { datePartsPtBR } from '../../lib/format';
 
 export interface InsightArticle {
   id: string;
@@ -28,6 +29,32 @@ interface InsightsPageProps {
   eixo?: EixoId;
   /** Conteúdo extra abaixo do cabeçalho (ex.: destaque de projeto no eixo Bastidores). */
   aside?: ReactNode;
+}
+
+/**
+ * Célula de data das listas: o dia como numeral grande, "Mês, ano" e a duração como rótulo.
+ * No item mais recente (sem filtro) a célula vira plano laranja — a cor marca a ordem real.
+ */
+export function DataCelula({ iso, data, duracao, destaque = false }: { iso?: string; data?: string; duracao: string; destaque?: boolean }) {
+  const partes = iso ? datePartsPtBR(iso) : (() => {
+    const i = (data ?? '').indexOf(' ');
+    return i > 0 ? { dia: data!.slice(0, i), mesAno: data!.slice(i + 1) } : { dia: data ?? '', mesAno: '' };
+  })();
+  const Tag = iso ? 'time' : 'p';
+  return (
+    <Tag
+      {...(iso ? { dateTime: iso } : {})}
+      className={`md:col-span-2 self-start flex md:flex-col items-baseline md:items-start gap-x-3 gap-y-2 tabular-nums ${
+        destaque ? 'campo-laranja px-3 pt-3 pb-3 md:pb-4 -mx-0' : ''
+      }`}
+    >
+      <span className={`numeral text-[2.75rem] md:text-[4.25rem] ${destaque ? '' : 'text-azul'}`}>{partes.dia}</span>
+      <span className={`rotulo flex md:flex-col gap-x-3 gap-y-1 ${destaque ? '' : 'text-tinta-2'}`}>
+        <span>{partes.mesAno}</span>
+        <span>{duracao}</span>
+      </span>
+    </Tag>
+  );
 }
 
 /** Botão de filtro em célula de grade: preenchido de laranja quando ativo. */
@@ -176,22 +203,21 @@ export function InsightsPage({
               const destaque = semFiltro && idx === 0;
               return (
                 <li key={article.id} className="border-b border-filete">
-                  <a href={article.href} className="group grid gap-x-[var(--gutter)] gap-y-3 py-7 md:grid-cols-12 hover:bg-papel-2/70 transition-colors">
-                    <p className="md:col-span-2 rotulo text-tinta-2 tabular-nums flex md:flex-col gap-x-3 gap-y-1">
-                      <time dateTime={article.isoDate}>{article.date}</time>
-                      <span>{article.duration}</span>
-                    </p>
+                  <a href={article.href} className="group grid gap-x-[var(--gutter)] gap-y-4 py-7 md:grid-cols-12 hover:bg-papel-2/70 transition-colors">
+                    <DataCelula iso={article.isoDate} duracao={article.duration} destaque={destaque} />
                     <div className="md:col-span-7">
                       <h2
-                        className={`font-sans font-extrabold [font-stretch:87%] tracking-[-0.012em] text-azul group-hover:text-laranja-fundo transition-colors text-balance mb-3 ${
-                          destaque ? 'text-[1.875rem] md:text-[2.75rem] leading-[1.02] uppercase !font-black [font-stretch:100%]' : 'text-[1.5rem] md:text-[1.875rem] leading-[1.08]'
+                        className={`font-sans text-azul group-hover:text-laranja-fundo transition-colors text-balance mb-3 ${
+                          destaque
+                            ? 'font-black uppercase text-[1.875rem] md:text-[3rem] leading-[0.95] tracking-[-0.02em]'
+                            : 'font-extrabold [font-stretch:87%] tracking-[-0.012em] text-[1.5rem] md:text-[1.875rem] leading-[1.08]'
                         }`}
                       >
                         {article.title}
                       </h2>
                       <p className="font-serif text-[1.0625rem] leading-relaxed text-tinta-2 max-w-[62ch]">{article.excerpt}</p>
                     </div>
-                    <div className="md:col-span-3 flex md:flex-col justify-between md:justify-start gap-3">
+                    <div className="md:col-span-3 flex md:flex-col justify-between md:justify-start gap-3 md:pt-1">
                       <p className="rotulo text-laranja-fundo">
                         {eixo ? article.category : `${EIXOS[article.eixo].shortLabel} · ${article.category}`}
                       </p>

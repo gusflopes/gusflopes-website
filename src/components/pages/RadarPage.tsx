@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ArrowRight, ExternalLink, Play } from 'lucide-react';
 import { EIXOS, EIXO_LIST, type EixoId } from '../../lib/eixos';
 import { Abertura } from '../Abertura';
-import { BarraFiltro, Celula } from './InsightsPage';
+import { BarraFiltro, Celula, DataCelula } from './InsightsPage';
 
 export interface RadarItem {
   id: string;
@@ -92,7 +92,7 @@ export function RadarPage({ items }: RadarPageProps) {
 
           {filteredItems.length > 0 ? (
             <ol className="list-none">
-              {filteredItems.map((item) => {
+              {filteredItems.map((item, idx) => {
                 const acao = item.isExternal
                   ? item.type === 'video' ? 'Assistir Agora' : 'Ler na Fonte'
                   : item.type === 'video' ? 'Assistir Vídeo' : 'Ler Artigo';
@@ -104,10 +104,7 @@ export function RadarPage({ items }: RadarPageProps) {
                       {...(item.isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                       className="group grid gap-x-[var(--gutter)] gap-y-3 py-7 md:grid-cols-12 hover:bg-papel-2/70 transition-colors"
                     >
-                      <p className="md:col-span-2 rotulo text-tinta-2 tabular-nums flex md:flex-col gap-x-3 gap-y-1">
-                        <span>{item.date}</span>
-                        <span>{item.duration}</span>
-                      </p>
+                      <DataCelula data={item.date} duracao={item.duration} destaque={!term && selectedCategory === 'Todos' && selectedEixo === 'todos' && idx === 0} />
                       <div className="md:col-span-7">
                         <h2 className="font-sans font-extrabold [font-stretch:87%] text-[1.375rem] md:text-[1.75rem] leading-[1.1] tracking-[-0.01em] text-azul group-hover:text-laranja-fundo transition-colors text-balance mb-3">
                           {item.type === 'video' && (

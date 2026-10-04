@@ -1,20 +1,22 @@
 import React from 'react';
+import { Abertura } from '../Abertura';
 import { newsletter } from '../../config/site';
 
 export function PrivacyPolicyPage() {
   return (
-    <main className="campo-papel pt-[72px] pb-24 min-h-screen">
-      <article className="moldura">
-        <header className="campo-azul -mx-[var(--gutter)] px-[var(--gutter)] pt-12 md:pt-16 pb-10 mb-12">
-          <h1 className="display uppercase text-[2.5rem] md:text-[4.5rem] text-papel mb-5">
-            Política de Privacidade
-          </h1>
-          <p className="rotulo text-ceu">
+    <main className="campo-papel pb-24 min-h-screen">
+      <header className="campo-azul pt-[72px]">
+        <div className="moldura pt-12 md:pt-16 pb-12 grid gap-6 lg:grid-cols-12 lg:gap-x-[var(--gutter)] items-end">
+          <div className="lg:col-span-9">
+            <Abertura titulo="Política de Privacidade" eixo="engenharia" teto={7.5} />
+          </div>
+          <p className="lg:col-span-3 rotulo text-ceu border-t border-azul-3 pt-3">
             Última atualização: Outubro/2026
           </p>
-        </header>
-
-        <div className="leitura">
+        </div>
+      </header>
+      <article className="moldura pt-12 md:pt-16 grid grid-cols-[minmax(0,1fr)] lg:grid-cols-12 lg:gap-x-[var(--gutter)]">
+        <div className="leitura lg:col-start-4 lg:col-span-9">
           <p className="text-[1.375rem] leading-normal italic">
             Esta política descreve, de forma direta, o que o gusflopes.dev faz (e o que não faz) com dados pessoais, em conformidade com a Lei Geral de Proteção de Dados (LGPD).
           </p>

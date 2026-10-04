@@ -25,6 +25,12 @@ import metricas from './abertura-metricas.json' with { type: 'json' };
 
 export type FormaAbertura = 'bloco' | 'escada' | 'degraus';
 export type EixoAbertura = 'engenharia' | 'negocios' | 'bastidores' | 'newsletter';
+/**
+ * Instância de desenho: "larga" (Archivo 900/100, aberturas de texto e da tese) ou "estreita"
+ * (850/62, aberturas de seção e de lista). Mesmas regras de corte, liga e forma; só muda a
+ * largura dos glifos usada no ajuste.
+ */
+export type InstanciaAbertura = 'larga' | 'estreita';
 
 export interface LinhaAbertura {
   texto: string;
@@ -39,6 +45,7 @@ export interface LinhaAbertura {
 
 export interface Abertura {
   forma: FormaAbertura;
+  instancia: InstanciaAbertura;
   alinhamento: 'start' | 'end';
   linhas: LinhaAbertura[];
   /** Separador mantido no fim da última linha (":" ou "—"), desenhado em laranja. */
@@ -53,14 +60,22 @@ const LIGA = new Set([
 ]);
 
 const TRACKING = -0.02; // em por glifo, igual ao letter-spacing do CSS
-const TETO_CQI = 24; // nenhuma linha passa de 24% da largura do bloco em corpo
-const larguras = metricas.larguras as Record<string, number>;
+const ESPACO_ESTREITA = 0.12; // em extra por espaço na estreita, igual ao word-spacing do CSS
+// nenhuma linha passa deste corpo (em % da largura do bloco): 24 na larga, 34 na estreita
+const TETOS: Record<InstanciaAbertura, number> = { larga: 24, estreita: 34 };
+const TABELAS: Record<InstanciaAbertura, { larguras: Record<string, number>; padrao: number }> = {
+  larga: { larguras: metricas.larguras as Record<string, number>, padrao: metricas.padrao },
+  estreita: { larguras: metricas.estreita.larguras as Record<string, number>, padrao: metricas.estreita.padrao },
+};
 
-/** Largura em em de um texto já em caixa-alta, na instância de display. */
-export function larguraEm(texto: string): number {
+/** Largura em em de um texto já em caixa-alta, na instância de display pedida. */
+export function larguraEm(texto: string, instancia: InstanciaAbertura = 'larga'): number {
+  const t = TABELAS[instancia];
   let soma = 0;
-  for (const ch of texto) soma += larguras[ch] ?? metricas.padrao;
-  return soma / metricas.upm + TRACKING * [...texto].length;
+  for (const ch of texto) soma += t.larguras[ch] ?? t.padrao;
+  // a estreita leva word-spacing de 0.12em no CSS (o espaço dela é apertado demais)
+  const espacos = instancia === 'estreita' ? (texto.match(/ /g)?.length ?? 0) * ESPACO_ESTREITA : 0;
+  return soma / metricas.upm + TRACKING * [...texto].length + espacos;
 }
 
 const caixaAlta = (s: string) => s.toLocaleUpperCase('pt-BR');
@@ -96,15 +111,16 @@ function unidades(cabeca: string): string[] {
   return out;
 }
 
-function numeroDeLinhas(cabeca: string, total: number): number {
-  const n = cabeca.length;
+function numeroDeLinhas(cabeca: string, total: number, instancia: InstanciaAbertura): number {
+  // A estreita cabe ~1,4× mais letras por linha: menos linhas para o mesmo título.
+  const n = instancia === 'estreita' ? cabeca.length / 1.4 : cabeca.length;
   const alvo = n <= 11 ? 1 : n <= 24 ? 2 : n <= 38 ? 3 : n <= 54 ? 4 : 5;
   return Math.max(1, Math.min(alvo, total));
 }
 
 /** Partição em n linhas que minimiza a linha mais larga (desempate: soma dos quadrados). */
-function particionar(us: string[], n: number): string[] {
-  const w = (a: number, b: number) => larguraEm(caixaAlta(us.slice(a, b).join(' ')));
+function particionar(us: string[], n: number, instancia: InstanciaAbertura): string[] {
+  const w = (a: number, b: number) => larguraEm(caixaAlta(us.slice(a, b).join(' ')), instancia);
   let melhor: { max: number; sq: number; cortes: number[] } | null = null;
   const busca = (inicio: number, resta: number, cortes: number[]) => {
     if (resta === 1) {
@@ -144,14 +160,21 @@ const FORMA: Record<EixoAbertura, FormaAbertura> = {
 
 const arred = (x: number) => Math.round(x * 100) / 100;
 
-export function abertura(titulo: string, eixo: EixoAbertura = 'engenharia'): Abertura {
+export function abertura(
+  titulo: string,
+  eixo: EixoAbertura = 'engenharia',
+  instancia: InstanciaAbertura = 'larga',
+): Abertura {
   const { cabeca, sep, cauda } = cortar(titulo);
   const us = unidades(cabeca);
-  const n = numeroDeLinhas(cabeca, us.length);
-  const textos = particionar(us, n);
+  const n = numeroDeLinhas(cabeca, us.length, instancia);
+  const textos = particionar(us, n, instancia);
   const forma = FORMA[eixo];
+  const TETO_CQI = TETOS[instancia];
   // A largura medida inclui o separador na última linha, para ele caber no ajuste.
-  const medidas = textos.map((t, i) => larguraEm(caixaAlta(i === textos.length - 1 && sep ? t + sep : t)));
+  const medidas = textos.map((t, i) =>
+    larguraEm(caixaAlta(i === textos.length - 1 && sep ? t + sep : t), instancia),
+  );
   // margem de 3% para kerning e arredondamento do navegador
   const util = 97;
 
@@ -189,5 +212,5 @@ export function abertura(titulo: string, eixo: EixoAbertura = 'engenharia'): Abe
     }));
   }
 
-  return { forma, alinhamento: forma === 'escada' ? 'end' : 'start', linhas, sep, cauda };
+  return { forma, instancia, alinhamento: forma === 'escada' ? 'end' : 'start', linhas, sep, cauda };
 }
