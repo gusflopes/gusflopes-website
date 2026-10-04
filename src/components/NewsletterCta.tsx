@@ -7,7 +7,7 @@ import { SocialLinks } from './SocialLinks';
  */
 export function NewsletterCta({ content }: { content: string }) {
   return (
-    <div className="bg-noite text-nevoa fio p-6 md:p-8">
+    <div className="bg-noite-2 text-nevoa p-6 md:p-8">
       <p className="font-serif text-lg md:text-xl text-white leading-snug mb-6 max-w-[48ch]">{newsletter.pitch}</p>
       {newsletter.substack ? (
         <a

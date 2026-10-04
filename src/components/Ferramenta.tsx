@@ -8,13 +8,13 @@ import { projetos, comUtm } from '../config/site';
 export function Ferramenta() {
   const reforma = projetos.reforma;
   return (
-    <section aria-labelledby="ferramenta-title" className="bg-noite-2 px-4 md:px-6 py-16 md:py-20 fio">
+    <section aria-labelledby="ferramenta-title" className="bg-noite-2 px-4 md:px-6 py-16 md:py-20">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
         <div className="lg:col-span-7">
           <h2 id="ferramenta-title" className="font-serif text-3xl md:text-[2.6rem] leading-tight text-white mb-3">
             {reforma.nome}
           </h2>
-          <p className="rotulo text-laranja-claro mb-6">Ferramenta gratuita · Experimento aberto</p>
+          <p className="font-sans text-sm font-semibold text-laranja-claro mb-6">Ferramenta gratuita · Experimento aberto</p>
           <p className="font-sans text-lg text-white/90 leading-relaxed mb-4 max-w-[60ch]">
             Como a reforma do IBS e da CBS afeta a sua empresa? Responda perguntas rápidas e veja para
             que lado o seu caso tende. Depois, simule com números do motor oficial da Receita, dentro

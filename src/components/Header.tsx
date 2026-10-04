@@ -56,8 +56,8 @@ export function Header({ pathname: rawPathname, eixosAtivos = [] }: HeaderProps)
               aria-current={isActive(item.href) ? 'page' : undefined}
               href={item.href}
               onClick={(e) => handleClick(e, item.href)}
-              className={`relative py-2 font-sans text-[0.9375rem] font-medium transition-colors after:absolute after:left-0 after:-bottom-px after:h-[2px] after:bg-laranja after:transition-[width] after:duration-300 ${
-                isActive(item.href) ? 'text-white after:w-full' : 'text-nevoa hover:text-white after:w-0 hover:after:w-full'
+              className={`relative py-2 font-sans text-[0.9375rem] font-medium transition-colors after:absolute after:left-0 after:-bottom-px after:h-[2px] after:bg-laranja after:w-full after:origin-left after:transition-transform after:duration-300 ${
+                isActive(item.href) ? 'text-white after:scale-x-100' : 'text-nevoa hover:text-white after:scale-x-0 hover:after:scale-x-100'
               }`}
             >
               {item.label}

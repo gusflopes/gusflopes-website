@@ -66,8 +66,8 @@ export function RadarPage({ items }: RadarPageProps) {
                   setSelectedEixo(e.id);
                   setSelectedCategory('Todos');
                 }}
-                className={`relative py-3 font-sans text-[0.9375rem] font-semibold transition-colors after:absolute after:left-0 after:-bottom-px after:h-[3px] after:bg-laranja after:transition-[width] after:duration-300 ${
-                  selectedEixo === e.id ? 'text-white after:w-full' : 'text-bruma hover:text-white after:w-0'
+                className={`relative py-3 font-sans text-[0.9375rem] font-semibold transition-colors after:absolute after:left-0 after:-bottom-px after:h-[3px] after:bg-laranja after:w-full after:origin-left after:transition-transform after:duration-300 ${
+                  selectedEixo === e.id ? 'text-white after:scale-x-100' : 'text-bruma hover:text-white after:scale-x-0'
                 }`}
               >
                 {e.label}
@@ -126,7 +126,11 @@ export function RadarPage({ items }: RadarPageProps) {
                     )}
                   </div>
                   <span className="fio-vivo" />
-                  <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 mt-5 mb-3">
+                  <h2 className="font-serif text-[1.4rem] leading-snug text-white group-hover:text-pessego transition-colors mt-5 mb-3">
+                    {item.title}
+                  </h2>
+                  <p className="font-sans text-nevoa leading-relaxed line-clamp-3 mb-4">{item.excerpt}</p>
+                  <div className="mt-auto mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                     <p className="rotulo text-laranja-claro">
                       {selectedEixo === 'todos' && eixosComConteudo.length > 1
                         ? `${EIXOS[item.eixo].shortLabel} · ${item.category}`
@@ -134,11 +138,7 @@ export function RadarPage({ items }: RadarPageProps) {
                     </p>
                     {externo && <p className="font-sans text-xs font-semibold text-bruma">{item.source}</p>}
                   </div>
-                  <h2 className="font-serif text-[1.4rem] leading-snug text-white group-hover:text-pessego transition-colors mb-3">
-                    {item.title}
-                  </h2>
-                  <p className="font-sans text-nevoa leading-relaxed line-clamp-3 mb-4">{item.excerpt}</p>
-                  <p className="font-sans text-sm text-bruma mt-auto mb-4">
+                  <p className="font-sans text-sm text-bruma mb-4">
                     {item.date} · {item.duration}
                   </p>
                   <span className="acao text-laranja-claro text-sm uppercase tracking-[0.1em]">

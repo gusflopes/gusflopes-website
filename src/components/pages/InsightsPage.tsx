@@ -83,8 +83,8 @@ export function InsightsPage({
                 type="button"
                 aria-pressed={selectedEixo === e.id}
                 onClick={() => selectEixo(e.id)}
-                className={`relative py-3 font-sans text-[0.9375rem] font-semibold transition-colors after:absolute after:left-0 after:-bottom-px after:h-[3px] after:bg-laranja after:transition-[width] after:duration-300 ${
-                  selectedEixo === e.id ? 'text-white after:w-full' : 'text-bruma hover:text-white after:w-0'
+                className={`relative py-3 font-sans text-[0.9375rem] font-semibold transition-colors after:absolute after:left-0 after:-bottom-px after:h-[3px] after:bg-laranja after:w-full after:origin-left after:transition-transform after:duration-300 ${
+                  selectedEixo === e.id ? 'text-white after:scale-x-100' : 'text-bruma hover:text-white after:scale-x-0'
                 }`}
               >
                 {e.label}
@@ -136,15 +136,17 @@ export function InsightsPage({
               <span className="fio-vivo" />
             </div>
             <div className="md:col-span-5 flex flex-col md:pt-2">
-              <p className="rotulo text-laranja-claro mb-4">
-                {eixo ? primeiro.category : `${EIXOS[primeiro.eixo].shortLabel} · ${primeiro.category}`}
-              </p>
               <h2 className="font-serif text-3xl md:text-[2.5rem] leading-[1.1] text-white group-hover:text-pessego transition-colors mb-4">
                 {primeiro.title}
               </h2>
               <p className="font-sans text-lg text-nevoa leading-relaxed mb-5">{primeiro.excerpt}</p>
               <p className="font-sans text-sm text-bruma mb-6">
-                {primeiro.date} · {primeiro.duration}
+                <span className="rotulo text-laranja-claro">
+                  {eixo ? primeiro.category : `${EIXOS[primeiro.eixo].shortLabel} · ${primeiro.category}`}
+                </span>
+                <span className="block mt-2">
+                  {primeiro.date} · {primeiro.duration}
+                </span>
               </p>
               <span className="acao text-laranja-claro">
                 Ler Artigo <ArrowRight size={16} aria-hidden="true" />
@@ -161,15 +163,17 @@ export function InsightsPage({
                   <TelaPicture tela={article.tela} sizes="(min-width: 1024px) 31vw, (min-width: 768px) 46vw, 100vw" />
                 </div>
                 <span className="fio-vivo" />
-                <p className="rotulo text-laranja-claro mt-5 mb-3">
-                  {eixo ? article.category : `${EIXOS[article.eixo].shortLabel} · ${article.category}`}
-                </p>
-                <h2 className="font-serif text-[1.45rem] leading-snug text-white group-hover:text-pessego transition-colors mb-3">
+                <h2 className="font-serif text-[1.45rem] leading-snug text-white group-hover:text-pessego transition-colors mt-5 mb-3">
                   {article.title}
                 </h2>
                 <p className="font-sans text-nevoa leading-relaxed mb-4 line-clamp-3">{article.excerpt}</p>
                 <p className="font-sans text-sm text-bruma mt-auto mb-4">
-                  {article.date} · {article.duration}
+                  <span className="rotulo text-laranja-claro">
+                    {eixo ? article.category : `${EIXOS[article.eixo].shortLabel} · ${article.category}`}
+                  </span>
+                  <span className="block mt-2">
+                    {article.date} · {article.duration}
+                  </span>
                 </p>
                 <span className="acao text-laranja-claro">
                   Ler Artigo <ArrowRight size={16} aria-hidden="true" />

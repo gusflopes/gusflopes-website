@@ -45,10 +45,10 @@ export function LatestContent({ articles, video }: LatestContentProps) {
                     <span className="fio-vivo" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="rotulo text-laranja-claro mb-2">{article.category}</span>
-                    <h3 className="font-serif text-xl md:text-[1.4rem] leading-snug text-white group-hover:text-pessego transition-colors mb-3">
+                    <h3 className="font-serif text-xl md:text-[1.4rem] leading-snug text-white group-hover:text-pessego transition-colors mb-2">
                       {article.title}
                     </h3>
+                    <span className="rotulo text-laranja-claro mb-4">{article.category}</span>
                     <span className="acao text-nevoa mt-auto">
                       Ler Mais <ArrowRight size={14} aria-hidden="true" />
                     </span>

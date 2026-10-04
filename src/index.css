@@ -119,14 +119,16 @@
   .fio-vivo {
     display: block;
     height: 3px;
-    width: 2.5rem;
+    width: 100%;
     background: var(--color-laranja);
-    transition: width 0.6s var(--ease-pincel);
+    transform: scaleX(0.12);
+    transform-origin: left;
+    transition: transform 0.6s var(--ease-pincel);
   }
   .cartao:hover .fio-vivo,
   .cartao:focus-visible .fio-vivo,
   .cartao:focus-within .fio-vivo {
-    width: 100%;
+    transform: scaleX(1);
   }
 
   .tela {
