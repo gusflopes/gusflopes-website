@@ -37,15 +37,16 @@ export function Services() {
           <span className="block h-1 w-14 bg-laranja mt-6" aria-hidden="true" />
         </div>
 
-        <ol className="lg:col-span-8 border-t border-regua">
-          {services.map((service) => (
+        <ol className="lg:col-span-8 border-t border-regua border-l-[3px] border-l-laranja">
+          {services.map((service, i) => (
             <li key={service.title} className="cartao border-b border-regua">
               <span className="fio-vivo -mt-px" />
-              <div className="grid gap-x-10 gap-y-3 py-7 md:py-9 md:grid-cols-[minmax(0,4fr)_minmax(0,6fr)]">
+              <div className="grid gap-x-10 gap-y-3 py-7 md:py-9 pl-5 md:pl-8 md:grid-cols-[minmax(0,4fr)_minmax(0,6fr)]">
                 <h3 className="font-serif text-2xl md:text-[1.75rem] leading-tight text-tinta">{service.title}</h3>
                 <div className="flex flex-col gap-4">
                   <p className="font-sans text-tinta-2 leading-relaxed">{service.description}</p>
-                  <a href={service.link} className="botao self-start min-h-11 px-5 text-sm tracking-[0.08em]">
+                  {/* uma só ação chapada na região (a primeira); as outras são links com seta */}
+                  <a href={service.link} className={i === 0 ? 'botao self-start min-h-11 px-5 text-[0.9375rem]' : 'acao self-start text-laranja-fundo'}>
                     {service.action} <ArrowRight size={16} aria-hidden="true" />
                   </a>
                 </div>

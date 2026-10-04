@@ -13,6 +13,8 @@ export interface NewsletterEdicaoPageProps {
   /** Capa autoral da edição (a mesma do Substack) — mantida, não é foto de banco. */
   image: string;
   substackUrl?: string;
+  /** Margem pintada da edição (fundoMargem), costurada à coluna pelo fio laranja. */
+  margem?: Record<string, string>;
   /** Corpo da edição já renderizado (markdown via <Content /> no .astro). */
   children?: ReactNode;
 }
@@ -26,6 +28,7 @@ export function NewsletterEdicaoPage({
   duration,
   image,
   substackUrl,
+  margem,
   children,
 }: NewsletterEdicaoPageProps) {
   return (
@@ -61,7 +64,14 @@ export function NewsletterEdicaoPage({
           </div>
         </div>
 
-        <div className="papel px-4 md:px-6 pt-12 md:pt-16 pb-16">
+        <div className={`papel relative pt-12 md:pt-16 pb-16 ${margem ? 'pl-12 pr-4 md:px-6' : 'px-4 md:px-6'}`}>
+          {margem && (
+            <div
+              aria-hidden="true"
+              className="margem absolute top-0 bottom-0 left-0 w-7 md:w-11 lg:w-24 lg:left-[max(0px,calc(50%-20rem-6rem-4rem))] border-r-[3px] lg:border-r-[7px] border-laranja"
+              style={margem}
+            />
+          )}
           <div className="leitura mx-auto">{children}</div>
           <div className="max-w-[40rem] mx-auto mt-16">
             <NewsletterCta content={`edicao-${id}`} />

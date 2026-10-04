@@ -17,11 +17,13 @@ export function HomePage({ video, eixos = [], fundo }: HomePageProps) {
   return (
     <main>
       <Hero />
-      {/* noite: horizonte → três estratos/portas → projeção → close → o quadro; papel: o que contratar */}
+      {/* ritmo (rodada 5): noite (abertura) → papel (portas) → creme (projeção) → o quadro → creme (sobre)
+          → noite (close da ferramenta) → papel (o que contratar) → fita → noite. Nenhum trecho escuro
+          longo: o vídeo saiu da noite e o quadro deixou de encostar no close. */}
       <Eixos eixos={eixos} />
       <LatestContent video={video} />
-      <Ferramenta />
       <Themes fundo={fundo} />
+      <Ferramenta />
       <Services />
     </main>
   );

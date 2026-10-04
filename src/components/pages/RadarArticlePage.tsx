@@ -14,6 +14,8 @@ export interface RadarArticlePageProps {
   tela: Tela;
   /** Slug, para o UTM da newsletter. */
   slug: string;
+  /** Margem pintada do texto (fundoMargem). */
+  margem?: Record<string, string>;
   /** Corpo do artigo já renderizado (markdown via <Content /> no .astro). */
   children?: ReactNode;
 }

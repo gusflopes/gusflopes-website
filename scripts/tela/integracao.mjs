@@ -16,7 +16,7 @@ import os from 'node:os';
 import { Worker } from 'node:worker_threads';
 import { janelaRaw, capaComTitulo } from './render.mjs';
 import { VERSAO, REVISAO, MATERIAL_PADRAO } from './pincel.mjs';
-import { PAPEIS, ABERTURA, ARQUETIPO_FAIXA, QUALIDADE, caminhoTela, caminhoOg, paramsCapa, ARQUETIPO_CONVITE } from './config.mjs';
+import { PAPEIS, ABERTURA, ARQUETIPO_FAIXA, QUALIDADE, caminhoTela, caminhoOg, paramsCapa, ARQUETIPO_CONVITE, chaveRodape, PARAMS_RODAPE, SEM_LUAS, PARAMS_MARGEM } from './config.mjs';
 
 const EIXO_LABEL = { engenharia: 'Engenharia & IA', negocios: 'Negócios', bastidores: 'Bastidores' };
 /** Faixas de abertura dos hubs: semente = nome da página. */
@@ -26,19 +26,20 @@ export const FAIXAS = ['insights', 'radar', 'engenharia', 'negocios', 'bastidore
  * semente — nunca a mesma tela repetida como textura. Ver src/lib/telas.ts.
  */
 export const TELAS_PAPEL = [
-  // três estratos ao lado das três portas: a tela tem a estrutura da lista
-  ['home', 'portas', 'capitulo', 'O que eu escrevo, e para quem', { arquetipo: 'faixas', bandas: 3, luz: 1.8 }],
+  // três estratos ao lado das três portas, um por família (petróleo / ferrugem / areia): a tela tem a estrutura da lista
+  ['home', 'portas', 'capitulo', 'O que eu escrevo, e para quem', { arquetipo: 'faixas', bandas: 3, luz: 1.8, densidade: 1.3, familias: ['petroleo', 'ferrugem', 'areia'] }],
   // o pintor chegando perto: o único close (2,5×) do site, uma corrente de vento vista de perto
   ['home', 'ferramenta', 'close', 'Simulador da Reforma Tributária', { arquetipo: 'vento' }],
   // a fala: ondas largas na tela de projeção do vídeo
-  ['home', 'video', 'projecao', 'Vídeo em Destaque', { arquetipo: 'ondas' }],
+  ['home', 'video', 'projecao', 'Vídeo em Destaque', { arquetipo: 'ondas', ...SEM_LUAS }],
   // a tela da newsletter (semente da capa no Substack): correntes que passam, 1:1
-  ['marca', 'newsletter', 'convite', 'Radar de IA', { arquetipo: ARQUETIPO_CONVITE }],
-  ['marca', 'newsletter-fita', 'fita', 'Radar de IA', { arquetipo: 'horizonte' }],
+  ['marca', 'newsletter', 'convite', 'Radar de IA', { arquetipo: ARQUETIPO_CONVITE, ...SEM_LUAS }],
+  ['marca', 'newsletter-fita', 'fita', 'Radar de IA', { arquetipo: 'horizonte', ...SEM_LUAS }],
   ['marca', 'nao-encontrada', 'painel', 'nao-encontrada', { arquetipo: 'massas' }],
-  // a fita do rodapé de toda página: do claro (o campo acima) para a noite (o rodapé)
-  ['marca', 'rodape', 'rodape', 'gusflopes.dev', { arquetipo: 'faixas', degrade: true }],
 ];
+
+/** Páginas fixas (fora das coleções) que ganham fita de rodapé própria. */
+const PAGINAS_FIXAS = ['/', '/insights/', '/radar/', '/engenharia/', '/negocios/', '/bastidores/', '/newsletter/', '/privacy/', '/terms/', '/404'];
 
 function frontmatter(arquivo) {
   const txt = fs.readFileSync(arquivo, 'utf8');
@@ -70,7 +71,8 @@ export function arquivosJanela(grupo, nome, papel) {
   const out = [];
   for (const [jn, j] of Object.entries(PAPEIS[papel].janelas)) {
     if (!j.larguras) continue;
-    for (const w of j.larguras) for (const ext of ['avif', 'webp']) out.push(caminhoTela(grupo, `${nome}-${jn}`, w, ext));
+    for (const w of j.larguras) out.push(caminhoTela(grupo, `${nome}-${jn}`, w, 'avif'));
+    out.push(caminhoTela(grupo, `${nome}-${jn}`, j.larguras[0], 'webp'));
     out.push(caminhoTela(grupo, `${nome}-${jn}`, j.larguras[0], 'jpg'));
   }
   return out;
@@ -88,7 +90,7 @@ export async function executar(t) {
       if (!j.larguras) continue;
       const maior = Math.max(...j.larguras);
       const r = janelaRaw({ semente: t.semente, papel: t.papel, janela: jn, larguraArquivo: maior, material: MATERIAL_PADRAO, params: t.params });
-      const base = sharp(r.data, { raw: { width: r.width, height: r.height, channels: 3 } });
+      const base = sharp(r.data, { raw: { width: r.width, height: r.height, channels: r.canais ?? 3 } });
       const png = await base.png({ compressionLevel: 1 }).toBuffer();
       const tarefas = [];
       for (const w of j.larguras) {
@@ -98,8 +100,10 @@ export async function executar(t) {
         // acima de 1× o pixel é menor que o olho: qualidade mais baixa segura o peso sem perder a cerda
         const hi = w > j.larguras[0];
         tarefas.push(img().avif({ quality: hi ? QUALIDADE.avifHi : QUALIDADE.avif, effort: 2 }).toFile(arq('avif')));
-        tarefas.push(img().webp({ quality: hi ? QUALIDADE.webpHi : QUALIDADE.webp }).toFile(arq('webp')));
-        if (w === j.larguras[0]) tarefas.push(img().jpeg({ quality: QUALIDADE.jpg, mozjpeg: true }).toFile(arq('jpg')));
+        // WebP é só o reserva de quem não lê AVIF: uma largura (1×) basta
+        if (!hi) tarefas.push(img().webp({ quality: QUALIDADE.webp, alphaQuality: 70 }).toFile(arq('webp')));
+        // JPG não tem alfa: a fita de borda pintada achata sobre o papel
+        if (!hi) tarefas.push(img().flatten({ background: '#FFF8F2' }).jpeg({ quality: QUALIDADE.jpg, mozjpeg: true }).toFile(arq('jpg')));
       }
       await Promise.all(tarefas);
     }
@@ -173,12 +177,23 @@ export async function gerarTelas({ raiz, producao, log = console.log }) {
   const ogPadrao = caminhoOg('site', 'padrao');
   job('og:padrao', ABERTURA.semente, [ogPadrao], { tipo: 'og', arquivo: path.join(pub, ogPadrao), semente: ABERTURA.semente, titulo: ABERTURA.semente });
 
-  // Faixas dos hubs e dos eixos
-  for (const nome of FAIXAS) papel(`faixa:${nome}`, 'faixa', nome, 'faixa', nome, ARQUETIPO_FAIXA[nome] ? { arquetipo: ARQUETIPO_FAIXA[nome] } : {});
+  // Faixas dos hubs e dos eixos (sem lua garantida: faixa baixa)
+  for (const nome of FAIXAS) papel(`faixa:${nome}`, 'faixa', nome, 'faixa', nome, { ...(ARQUETIPO_FAIXA[nome] ? { arquetipo: ARQUETIPO_FAIXA[nome] } : {}), ...SEM_LUAS });
+
+  // Fita do rodapé: uma por página (semente = caminho), mais a padrão para o que não estiver na lista
+  const rotas = new Set(PAGINAS_FIXAS);
+  for (const e of entradas) if (!(e.colecao === 'radar' && e.isExternal)) rotas.add(`/${e.colecao}/article/${e.id}/`);
+  for (const e of lerColecao(raiz, 'newsletter')) {
+    rotas.add(`/newsletter/${e.id}/`);
+    papel(`margem:newsletter/${e.id}`, 'newsletter', `${e.id}-margem`, 'margem', `${e.id}|margem`, PARAMS_MARGEM);
+  }
+  for (const nome of ['padrao', ...[...rotas].map(chaveRodape)]) papel(`rodape:${nome}`, 'rodape', nome, 'rodape', nome === 'padrao' ? 'gusflopes.dev' : nome, PARAMS_RODAPE);
 
   // Capas e OG por texto (semente = slug: estável mesmo se o título for revisado)
   for (const e of entradas) {
     papel(`capa:${e.colecao}/${e.id}`, e.colecao, e.id, 'capa', e.id, paramsCapa(e.eixo));
+    // margem pintada: ao lado da coluna do texto e como lombada no índice (o Radar lista também os externos)
+    papel(`margem:${e.colecao}/${e.id}`, e.colecao, `${e.id}-margem`, 'margem', `${e.id}|margem`, PARAMS_MARGEM);
     if (e.colecao === 'radar' && e.isExternal) continue; // item externo não tem página nem OG
     const og = caminhoOg(e.colecao, e.id);
     job(`og:${e.colecao}/${e.id}`, `${e.id}|${e.title}|${e.eixo}`, [og], { tipo: 'og', arquivo: path.join(pub, og), semente: e.id, titulo: e.title, rotulo: EIXO_LABEL[e.eixo], params: paramsCapa(e.eixo) });

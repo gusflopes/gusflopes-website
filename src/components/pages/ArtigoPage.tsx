@@ -20,6 +20,8 @@ export interface ArtigoPageProps {
   voltar: { href: string; label: string };
   /** Identificador do ponto de clique da newsletter (UTM). */
   origem: string;
+  /** Margem pintada do texto (variáveis CSS da classe `.margem`), costurada à coluna pelo fio laranja. */
+  margem?: Record<string, string>;
   /** Corpo do artigo já renderizado (markdown via <Content /> no .astro). */
   children?: ReactNode;
 }
@@ -28,7 +30,7 @@ export interface ArtigoPageProps {
  * Página de texto (Insights e Radar): o título em faixa azul-escuro com a capa do texto em retrato
  * ao lado (fio laranja vertical) e, abaixo, a coluna de leitura em papel quente #FFF8F2 — nada atrás do texto.
  */
-export function ArtigoPage({ title, excerpt, category, eixo, dateFormatted, duration, tela, voltar, origem, children }: ArtigoPageProps) {
+export function ArtigoPage({ title, excerpt, category, eixo, dateFormatted, duration, tela, voltar, origem, margem, children }: ArtigoPageProps) {
   const [linkCopied, setLinkCopied] = useState(false);
 
   const handleShare = async () => {
@@ -103,8 +105,16 @@ export function ArtigoPage({ title, excerpt, category, eixo, dateFormatted, dura
           </div>
         </header>
 
-        {/* Coluna de leitura — markdown renderizado via slot */}
-        <div className="papel px-4 md:px-6 pt-12 md:pt-16 pb-16">
+        {/* Coluna de leitura — markdown renderizado via slot. A capa continua como margem pintada à
+            esquerda da coluna (no celular, uma tira na borda), costurada pelo fio laranja. */}
+        <div className={`papel relative pt-12 md:pt-16 pb-16 ${margem ? 'pl-12 pr-4 md:px-6' : 'px-4 md:px-6'}`}>
+          {margem && (
+            <div
+              aria-hidden="true"
+              className="margem absolute top-0 bottom-0 left-0 w-7 md:w-11 lg:w-24 lg:left-[max(0px,calc(50%-20rem-6rem-4rem))] border-r-[3px] lg:border-r-[7px] border-laranja"
+              style={margem}
+            />
+          )}
           <div className="leitura mx-auto">{children}</div>
         </div>
 

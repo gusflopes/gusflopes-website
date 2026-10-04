@@ -18,7 +18,8 @@ export const PAPEIS = {
     mestre: [1440, 450],
     janelas: {
       larga: { x: 0, y: 0, w: 1440, h: 450, larguras: [1440, 2160], margem: 24 },
-      estreita: { x: 500, y: 40, w: 400, h: 250, larguras: [400, 800], margem: 30 },
+      // celular: o recorte desce para a cidade e a água, e nenhuma lua é garantida nele (o céu de luas é do desktop)
+      estreita: { x: 500, y: 150, w: 400, h: 250, larguras: [400, 800], margem: 30, semLua: true },
     },
   },
   /** Faixa de abertura dos hubs e dos eixos: 6:1 no desktop (5:1 no tablet), 3:1 no celular. */
@@ -34,7 +35,7 @@ export const PAPEIS = {
   capa: {
     mestre: [1600, 600],
     janelas: {
-      larga: centro(1600, 600, 1440, 420, { larguras: [1440, 2160] }),
+      larga: centro(1600, 600, 1440, 420), // só medição (nenhuma página serve a panorâmica): não gera arquivo
       recorte: centro(1600, 600, 448, 252, { larguras: [448, 896], margem: 36 }),
       /** Retrato 4:5 — o destaque dos hubs e a coluna da abertura do texto (nunca a mesma panorâmica da faixa). */
       retrato: centro(1600, 600, 464, 580, { larguras: [464, 928] }),
@@ -98,13 +99,25 @@ export const PAPEIS = {
   },
   /**
    * Fita do rodapé: a passagem do campo claro para a noite, no topo do rodapé de toda página
-   * (faixas em degradê: areia em cima, petróleo e terra no meio, noite embaixo).
+   * (faixas em degradê: creme e areia em cima, petróleo e terra no meio, noite embaixo). A borda de
+   * cima é pintada e irregular, transparente acima dela (RGBA): encosta em papel ou creme sem emenda.
    */
   rodape: {
-    mestre: [1440, 112],
+    mestre: [1440, 150],
     janelas: {
-      larga: { x: 0, y: 0, w: 1440, h: 112, larguras: [1440, 2160] },
-      estreita: { x: 520, y: 16, w: 400, h: 80, larguras: [400, 800] },
+      larga: { x: 0, y: 0, w: 1440, h: 150, larguras: [1440, 2160] },
+      estreita: { x: 520, y: 0, w: 400, h: 110, larguras: [400, 800] },
+    },
+  },
+  /**
+   * Margem pintada do texto (rodada 5): uma tira vertical alta (96px), semeada pelo slug, que corre ao lado
+   * da coluna de leitura (costurada pelo fio laranja) e serve de lombada do texto no índice dos hubs.
+   * Repete em y a cada 2400px; as zonas de cor mudam ao rolar (petróleo, ferrugem, areia...).
+   */
+  margem: {
+    mestre: [96, 2400],
+    janelas: {
+      coluna: { x: 0, y: 0, w: 96, h: 2400, larguras: [96, 192] },
     },
   },
   /** Painel alto da página 404, ao lado da mensagem (faixa no celular). */
@@ -137,6 +150,15 @@ export const ARQUETIPO_FAIXA = {
 export const QUALIDADE = { avif: 31, avifHi: 24, webp: 52, webpHi: 42, jpg: 72 }; // v10: a paleta do quadro tem mais variedade (mais entropia); a qualidade desce para o peso não subir
 
 export const caminhoTela = (grupo, nome, largura, ext) => `/telas/${grupo}/${nome}-${largura}.${ext}`;
+
+/** Nome da fita do rodapé de uma página: o caminho vira a semente ('/' → 'home', '/a/b/' → 'a--b'). */
+export const chaveRodape = (pathname = '/') => pathname.replace(/\/index\.html$|\.html$/, '').replace(/^\/+|\/+$/g, '').replace(/\//g, '--') || 'home';
+
+/** Parâmetros da fita do rodapé (iguais em toda página; só a semente muda). */
+export const PARAMS_RODAPE = { arquetipo: 'faixas', degrade: true, borda: true, luas: false };
+
+/** Telas pequenas não têm "lua garantida": discos translúcidos, sobrepostos, com traço por cima. */
+export const SEM_LUAS = { luas: false };
 export const caminhoOg = (grupo, nome) => `/og/${grupo}/${nome}.jpg`;
 
 /** Só as fotos genéricas de banco (Unsplash) são trocadas pela tela; capa autoral fica. */
@@ -150,4 +172,7 @@ export const ARQUETIPO_CONVITE = 'vento';
  * do eixo do texto (a capa aparece logo abaixo dessas faixas, no destaque do hub) nem o do convite
  * da newsletter (que fecha a página do texto) — telas da mesma página não repetem anatomia.
  */
-export const paramsCapa = (eixo) => ({ evita: [ARQUETIPO_FAIXA.insights, ARQUETIPO_FAIXA[eixo], ARQUETIPO_CONVITE].filter(Boolean) });
+/** Margem do texto: arquétipo da semente, nunca o horizonte (não cabe numa tira de 64px), sem luas. */
+export const PARAMS_MARGEM = { evita: ['horizonte'], luas: false };
+
+export const paramsCapa = (eixo) => ({ evita: [ARQUETIPO_FAIXA.insights, ARQUETIPO_FAIXA[eixo], ARQUETIPO_CONVITE].filter(Boolean), luas: false });

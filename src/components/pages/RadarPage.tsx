@@ -20,6 +20,8 @@ export interface RadarItem {
   image: string;
   /** Capa: tela gerada do slug no build (substitui a foto de banco no render). */
   tela: Tela;
+  /** Margem pintada do item (variáveis CSS da classe `.margem`): a lombada no diário. */
+  margem?: Record<string, string>;
 }
 
 interface RadarPageProps {
@@ -109,15 +111,16 @@ export function RadarPage({ items }: RadarPageProps) {
 
         {filteredItems.length > 0 ? (
           /* Um diário de bordo: a data na margem, o item e o comentário no meio, a fonte e a ação à direita. */
-          <ol className="border-t-2 border-t-laranja border-l-[6px] border-l-laranja">
+          <ol className="border-t-2 border-t-laranja">
             {filteredItems.map((item) => {
               const externo = item.isExternal;
               return (
-                <li key={item.id} className="border-b-2 border-laranja">
+                <li key={item.id} className="relative border-b-2 border-laranja">
+                  {item.margem && <span aria-hidden="true" className="margem absolute left-0 top-0 bottom-0 w-5 md:w-14" style={item.margem} />}
                   <a
                     href={item.link}
                     {...(externo ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                    className="cartao group grid gap-x-10 gap-y-2 py-7 pl-5 lg:pl-8 md:grid-cols-12"
+                    className={`cartao group grid gap-x-10 gap-y-2 py-7 md:grid-cols-12 ${item.margem ? 'pl-9 md:pl-[5.5rem]' : 'pl-5 lg:pl-8'}`}
                   >
                     <span className="md:col-span-7 md:col-start-3 md:row-start-1 flex flex-col gap-2">
                       <span className="font-serif text-[1.35rem] md:text-[1.5rem] leading-snug text-tinta group-hover:text-laranja-fundo transition-colors">

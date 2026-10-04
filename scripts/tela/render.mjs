@@ -71,7 +71,7 @@ export async function tituloQueCabe({ conteudo, largura, tamanhos, maxLinhas, ..
   return { ...(await texto({ conteudo, largura, px, ...rest })), px };
 }
 
-const cru = (r) => sharp(r.data, { raw: { width: r.width, height: r.height, channels: 3 } });
+const cru = (r) => sharp(r.data, { raw: { width: r.width, height: r.height, channels: r.canais ?? 3 } });
 
 /**
  * Uma janela de um papel (scripts/tela/config.mjs) pintada para um arquivo de `larguraArquivo` px.

@@ -170,6 +170,23 @@
     background-color: var(--color-noite-2);
   }
 
+  /*
+   * Margem pintada do texto (rodada 5): a tira vertical semeada pelo slug (scripts/tela, papel
+   * `margem`), repetida em y na escala fixa de traço. As URLs chegam por variáveis (fundoMargem).
+   */
+  .margem {
+    background-color: var(--color-petroleo);
+    background-image: var(--margem-jpg);
+    background-repeat: repeat-y;
+    background-size: 96px 2400px;
+    background-position: center top;
+  }
+  @supports (background-image: image-set(url('a.avif') type('image/avif') 1x)) {
+    .margem {
+      background-image: var(--margem-set);
+    }
+  }
+
   /* Botão principal: laranja com texto escuro (AA). */
   .botao {
     display: inline-flex;
@@ -236,6 +253,15 @@
     color: var(--color-tinta);
     margin-top: 2.2em;
     margin-bottom: 0;
+  }
+  /* filete laranja sob cada H2: a marca de capítulo da home, dentro do texto (presença, não texto laranja) */
+  .leitura :where(h2)::after {
+    content: '';
+    display: block;
+    width: 2.5rem;
+    height: 3px;
+    margin-top: 0.45em;
+    background: var(--color-laranja);
   }
   .leitura :where(h3) {
     font-size: 1.25em;

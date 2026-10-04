@@ -12,7 +12,7 @@ import { TelaPicture } from './TelaPicture';
 export function Ferramenta() {
   const reforma = projetos.reforma;
   return (
-    <section aria-labelledby="ferramenta-title" className="bg-noite border-t border-linha grid lg:grid-cols-2">
+    <section aria-labelledby="ferramenta-title" className="bg-noite grid lg:grid-cols-2">
       <figure className="relative h-[220px] md:h-[300px] lg:h-auto lg:min-h-[560px] overflow-hidden border-b-[3px] lg:border-b-0 lg:border-r-[3px] border-laranja" aria-hidden="true">
         <div className="absolute inset-0">
           <TelaPicture tela={telaFerramenta()} sizes="(min-width: 1024px) 50vw, 100vw" />

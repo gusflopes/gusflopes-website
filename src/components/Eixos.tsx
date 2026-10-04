@@ -43,14 +43,14 @@ export function Eixos({ eixos }: EixosProps) {
             </div>
           </figure>
 
-          <ol className="lg:col-span-8 border-t-[6px] lg:border-t-0 lg:border-l-[6px] border-laranja">
+          <ol className="lg:col-span-8 border-l-[3px] lg:border-l-[6px] border-laranja">
             {eixos.map(({ id, recentes, projeto }, i) => {
               const eixo = EIXOS[id];
               const [maisRecente, anterior] = recentes;
               return (
                 <li key={id} className={`cartao ${i > 0 ? 'border-t border-regua' : ''}`}>
                   <span className="fio-vivo" />
-                  <div className="grid gap-x-10 gap-y-4 px-0 py-8 md:py-10 lg:pl-10 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+                  <div className="grid gap-x-10 gap-y-4 pl-5 pr-0 py-8 md:py-10 lg:pl-10 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
                     <div>
                       <h3 className="font-serif text-3xl md:text-[2.25rem] leading-[1.05] text-tinta mb-3">
                         <a href={eixo.href} className="hover:text-laranja-fundo transition-colors">

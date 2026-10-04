@@ -7,15 +7,16 @@ import { telaRodape } from '../lib/telas';
 import { TelaPicture } from './TelaPicture';
 import logoLight from '../assets/cfa6876664fcc921be5a7c0a58c353ea12577968.png?url';
 
-export function Footer() {
+export function Footer({ rodape = 'padrao' }: { rodape?: string }) {
   return (
-    <footer className="bg-noite">
-      {/* A passagem: toda página termina num campo claro, e o rodapé chega por esta fita pintada,
-          que vai da areia (em cima) à noite (embaixo). Nunca um bloco escuro sobre outro. */}
-      <div className="h-20 md:h-28 overflow-hidden" aria-hidden="true">
-        <TelaPicture tela={telaRodape()} sizes="100vw" />
+    <footer>
+      {/* A passagem: toda página termina num campo claro, e o rodapé chega por esta fita pintada
+          (semente própria por página), do creme à noite. A borda de cima é pintada e irregular,
+          transparente sobre o claro da página: sem emenda reta e sem fio. */}
+      <div className="h-[110px] md:h-[150px] overflow-hidden -mt-[56px] md:-mt-[64px] relative pointer-events-none" aria-hidden="true">
+        <TelaPicture tela={telaRodape(rodape)} sizes="100vw" className="bg-transparent" />
       </div>
-      <div className="fio" />
+      <div className="bg-noite">
       <div className="max-w-7xl mx-auto pt-12 md:pt-14 pb-8 px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
@@ -86,6 +87,7 @@ export function Footer() {
             <a href="/terms" className="hover:text-white">Termos de Uso</a>
           </div>
         </div>
+      </div>
       </div>
     </footer>
   );

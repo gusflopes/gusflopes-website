@@ -22,6 +22,8 @@ export interface InsightArticle {
   tela: Tela;
   /** Retrato 4:5 da capa (destaque do hub), com recorte 16:9 no celular. */
   retrato?: Tela;
+  /** Margem pintada do texto (variáveis CSS da classe `.margem`): a lombada no índice. */
+  margem?: Record<string, string>;
 }
 
 interface InsightsPageProps {
@@ -165,12 +167,14 @@ export function InsightsPage({
           </article>
         )}
 
-        {/* Os demais: um índice de leitura, só texto — a tela de cada um é a capa dentro do texto. */}
+        {/* Os demais: um índice de leitura em lombadas — cada texto entra com a tira da sua margem
+            pintada (a mesma que corre ao lado da coluna dele), uma estante de cores do quadro. */}
         {demais.length > 0 && (
-          <ol className="border-t-2 border-t-laranja border-l-[6px] border-l-laranja">
+          <ol className="border-t-2 border-t-laranja">
             {demais.map((article) => (
-              <li key={article.id} className="border-b-2 border-laranja">
-                <a href={article.href} className="cartao group grid gap-x-10 gap-y-2 py-7 pl-5 lg:pl-8 md:grid-cols-12">
+              <li key={article.id} className="relative border-b-2 border-laranja">
+                {article.margem && <span aria-hidden="true" className="margem absolute left-0 top-0 bottom-0 w-5 md:w-14" style={article.margem} />}
+                <a href={article.href} className={`cartao group grid gap-x-10 gap-y-2 py-7 md:grid-cols-12 ${article.margem ? 'pl-9 md:pl-[5.5rem]' : 'pl-5 lg:pl-8'}`}>
                   <span className="md:col-span-8 flex flex-col gap-2">
                     <span className="font-serif text-[1.4rem] md:text-[1.6rem] leading-snug text-tinta group-hover:text-laranja-fundo transition-colors">
                       {article.title}

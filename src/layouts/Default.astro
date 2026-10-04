@@ -4,6 +4,9 @@ import { publicado } from '../lib/publicado';
 import { Header } from '../components/Header';
 import { EIXO_IDS } from '../lib/eixos';
 import { Footer } from '../components/Footer';
+import fs from 'node:fs';
+import path from 'node:path';
+import { chaveRodape, caminhoTela } from '../../scripts/tela/config.mjs';
 // Fontes self-hosted (sem Google Fonts), variáveis no eixo de peso:
 // Literata (títulos e leitura, com itálico real para citações e ênfases), Hanken Grotesk (UI e
 // rótulos) e JetBrains Mono (só código). Subsets e itálico carregam sob demanda via unicode-range.
@@ -50,6 +53,9 @@ const autorais = [
 const eixosAtivos = EIXO_IDS.filter((id) => autorais.some((e) => e.data.eixo === id));
 
 const pathname = Astro.url.pathname;
+// Fita do rodapé desta página (semente própria); a padrão se a página não estiver na lista do gerador.
+const chaveDaPagina = chaveRodape(pathname);
+const rodape = fs.existsSync(path.join(process.cwd(), 'public', caminhoTela('rodape', `${chaveDaPagina}-larga`, 1440, 'avif'))) ? chaveDaPagina : 'padrao';
 const isHome = pathname === '/';
 
 const pageTitle = isHome
@@ -150,6 +156,6 @@ const jsonLd = {
   <body class="bg-noite min-h-screen text-nevoa overflow-x-hidden font-sans antialiased">
     <Header pathname={pathname} eixosAtivos={eixosAtivos} client:load />
     <slot />
-    <Footer client:load />
+    <Footer rodape={rodape} client:load />
   </body>
 </html>

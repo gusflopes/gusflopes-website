@@ -173,3 +173,9 @@ fio; Ferramenta — costura vertical, botão; Sobre — marca de capítulo, subl
 antes do metadado, filtro ativo; rodapé — fio sob a fita, marcas nos títulos, botão.
 
 Vídeo em Destaque: o h2 sobe para a escala de "O que eu escrevo, e para quem"; o título do vídeo é o título do item.
+
+## Rodada 5
+- Ordem: Hero (noite) → Eixos (papel) → Vídeo (creme) → Sobre (quadro + creme) → Ferramenta (noite) → Serviços (papel) → fita do rodapé.
+- Vídeo saiu da noite: o trecho escuro do meio (vídeo + ferramenta + quadro, ~2.300px) acabou.
+- Uma ação chapada por região: em Serviços só a primeira oferta é botão.
+- Telas: cor em zonas (famílias do quadro), três estratos legíveis nos eixos, sem luas garantidas nas telas pequenas; fita do rodapé com borda pintada irregular, por página.

@@ -29,9 +29,9 @@
  * Saída: RGB 8 bits cru ({ data, width, height }); quem codifica é o sharp (scripts/tela/render.mjs).
  */
 
-export const VERSAO = 10;
+export const VERSAO = 10; // a semente das telas (mudar refaz todas as composições)
 /** Revisão do gerador: entra só na impressão digital do cache (não muda a semente das telas). */
-export const REVISAO = "r5-claros";
+export const REVISAO = "r5-zonas-3";
 
 /**
  * Paleta (v10): derivada da amostra do quadro por agrupamento, não só dos azuis dele. O motor do
@@ -86,6 +86,11 @@ export const PARAMS_PADRAO = {
   bandas: undefined, // só no arquétipo faixas: número fixo de estratos
   evita: [], // arquétipos que a semente não pode sortear (ex.: o da faixa do hub onde a capa aparece)
   degrade: false, // só no arquétipo faixas: três estratos do claro (areia) para a noite, de cima para baixo (a fita do rodapé)
+  // v11 (rodada 5)
+  luas: true, // false: sem "lua garantida" por janela; discos translúcidos, sobrepostos, com traço por cima (telas pequenas)
+  zonas: true, // cor em zonas grandes (famílias do quadro), em vez de confete uniforme
+  familias: undefined, // só no arquétipo faixas: a família de cada estrato (ex.: ['petroleo', 'ferrugem', 'areia'])
+  borda: false, // só com degrade: a borda de cima é pintada e irregular (transparente acima dela, RGBA)
 };
 
 
@@ -199,6 +204,8 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
   const H = Math.round(jan.h * escala);
   const cor = new Float32Array(W * H * 3);
   const alt = new Float32Array(W * H);
+  // borda pintada (fita do rodapé): a tela começa transparente acima da borda; cada traço acumula cobertura
+  const alfa = p.borda && p.degrade ? new Float32Array(W * H).fill(1) : null;
   for (let i = 0; i < W * H; i++) {
     cor[i * 3] = C.fundo[0];
     cor[i * 3 + 1] = C.fundo[1];
@@ -350,9 +357,20 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
         const nr = tR[idx] + (r0 - tR[idx]) * mix;
         const ng = tG[idx] + (g0 - tG[idx]) * mix;
         const nb2 = tB[idx] + (b0 - tB[idx]) * mix;
-        cor[k3] = r0 + (nr - r0) * a;
-        cor[k3 + 1] = g0 + (ng - g0) * a;
-        cor[k3 + 2] = b0 + (nb2 - b0) * a;
+        if (alfa) {
+          // composição "sobre" com alfa: onde ainda é vazio, a cor é a do traço
+          const a0 = alfa[ci];
+          const na = a0 + (1 - a0) * a;
+          const w1 = na > 0 ? a / na : 1;
+          cor[k3] = r0 + (nr - r0) * w1;
+          cor[k3 + 1] = g0 + (ng - g0) * w1;
+          cor[k3 + 2] = b0 + (nb2 - b0) * w1;
+          alfa[ci] = na;
+        } else {
+          cor[k3] = r0 + (nr - r0) * a;
+          cor[k3 + 1] = g0 + (ng - g0) * a;
+          cor[k3 + 2] = b0 + (nb2 - b0) * a;
+        }
         if (relevo) alt[ci] = alt[ci] * (1 - a * 0.85) + th * o.carga * a;
       }
     }
@@ -393,6 +411,74 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
     costura: [[C.areiaClara, 3], [C.branco, 1.5], [C.pessego, 1], [C.ocre, 1]],
     quente: [[C.ocre, 2], [C.pessego, 1.2], [C.areia, 2], [C.ferrugem, 1.2]],
   };
+  // Zonas de cor (v11): como no quadro, a cor se organiza em áreas grandes — o céu de areia, o
+  // azul-petróleo das montanhas, a cidade de ferrugem —, cada uma dominada por uma família, com um
+  // pouco da complementar dentro (nunca monocromático). `pal` é o corpo, `claro` o valor alto
+  // (cristas, faixas claras), `escuro` a subpintura e as cavas. Gerador próprio: não altera o
+  // sorteio das telas já aprovadas (abertura).
+  const FAM = {
+    petroleo: { pal: [[C.petroleo, 4], [C.petroleo2, 3], [C.aqua, 1], [C.ardosia, 1.3], [C.terra, 0.6], [C.ferrugem, 0.4]], claro: [[C.aqua, 3], [C.ardosia2, 2.5], [C.areiaClara, 1], [C.petroleo, 1]], escuro: [[C.petroleo2, 4], [C.azulNoite, 2], [C.fundo, 1], [C.marrom2, 0.5]] },
+    ferrugem: { pal: [[C.ferrugem, 3.5], [C.terra, 3], [C.marrom, 1.5], [C.ocre, 1], [C.petroleo2, 1.2], [C.petroleo, 0.8]], claro: [[C.ocre, 3], [C.areia, 2.5], [C.areiaClara, 1.2], [C.pessego, 0.4]], escuro: [[C.marrom2, 3], [C.terra, 2], [C.petroleo2, 1.5], [C.fundo2, 0.6]] },
+    areia: { pal: [[C.areiaClara, 3.5], [C.areia, 3], [C.branco, 1], [C.ocre, 1], [C.petroleo, 1.2], [C.ardosia2, 0.8]], claro: [[C.areiaClara, 3], [C.branco, 2], [C.areia, 1.5]], escuro: [[C.marrom, 2], [C.terra, 1.5], [C.petroleo2, 2]] },
+    ardosia: { pal: [[C.ardosia, 4], [C.ardosia2, 3], [C.aqua, 1], [C.petroleo, 1.5], [C.marrom, 0.6]], claro: [[C.ardosia2, 3], [C.aqua, 2], [C.branco, 1]], escuro: [[C.petroleo2, 3], [C.ardosia, 1.5], [C.fundo, 1]] },
+    marrom: { pal: [[C.marrom, 4], [C.terra, 2.5], [C.marrom2, 1.2], [C.areia, 1], [C.petroleo, 1.2], [C.ocre, 0.6]], claro: [[C.areia, 3], [C.areiaClara, 2], [C.ocre, 1]], escuro: [[C.marrom2, 3], [C.terra, 2], [C.petroleo2, 1.2]] },
+  };
+  // subpintura da zona: o próprio corpo um tom abaixo — o chão entre os traços é da cor da zona,
+  // não o azul-noite (é isso que faz a zona ler como área, e não como confete sobre fundo escuro)
+  for (const F of Object.values(FAM)) F.sub = F.pal.map(([c, w]) => [valor(c, -0.22), w]);
+  const rz = mulberry32(hash(`${semente}|zonas|v${VERSAO}`));
+  const ruidoZ = criaRuido(rz);
+  // petróleo duas vezes no ciclo: é a família-mãe do quadro (e a meta de petróleo das capas)
+  const CICLO = ['petroleo', 'ferrugem', 'areia', 'petroleo', 'ardosia', 'marrom'];
+  // centros em grade com folga (toda tela, mesmo pequena, vê mais de uma zona); vizinhos de família diferente
+  const nZ0 = clamp(Math.round((MW * MH) / (360 * 360)), 3, 12);
+  const colsZ = Math.max(1, Math.round(Math.sqrt((nZ0 * MW) / MH)));
+  const linsZ = Math.max(1, Math.ceil(nZ0 / colsZ));
+  const nZ = colsZ * linsZ;
+  const f0 = Math.floor(rz() * CICLO.length);
+  const centrosZ = Array.from({ length: nZ }, (_, i) => {
+    const cx = i % colsZ, cy = Math.floor(i / colsZ);
+    return { x: ((cx + 0.2 + rz() * 0.6) / colsZ) * MW, y: ((cy + 0.2 + rz() * 0.6) / linsZ) * MH, fam: CICLO[(f0 + i + cy) % CICLO.length] };
+  });
+  // o centro da mestre (onde caem o recorte dos cards e o retrato) é sempre de petróleo, a família-mãe:
+  // troca de família com o centro de petróleo mais próximo
+  {
+    const dC = (c) => Math.hypot(c.x - MW / 2, c.y - MH / 2);
+    const centro = centrosZ.reduce((a, c) => (dC(c) < dC(a) ? c : a));
+    const pet = centrosZ.filter((c) => c.fam === 'petroleo').sort((a, b) => dC(a) - dC(b))[0];
+    if (centro.fam !== 'petroleo') [centro.fam, (pet ?? { fam: 'petroleo' }).fam] = ['petroleo', centro.fam];
+  }
+  const fZ = 1 / 240;
+  const zonaCor = (x, y) => {
+    let best = Infinity, f = centrosZ[0].fam;
+    for (let i = 0; i < nZ; i++) {
+      const c = centrosZ[i];
+      const d = Math.hypot(x - c.x, (y - c.y) * 1.25) + ruidoZ(x * fZ + i * 7.1, y * fZ + i * 3.7) * 110;
+      if (d < best) [best, f] = [d, c.fam];
+    }
+    return FAM[f];
+  };
+  // o chão também é da zona (um tom fundo da família), não o azul-noite uniforme: entre os traços,
+  // a zona continua lendo como área de cor. A abertura (horizonte) e a fita do rodapé têm chão próprio.
+  const CHAO = { petroleo: valor(C.petroleo2, -0.3), ferrugem: valor(C.terra, -0.4), areia: valor(C.marrom, -0.35), ardosia: valor(C.ardosia, -0.42), marrom: valor(C.marrom2, -0.1) };
+  for (const [k, F] of Object.entries(FAM)) F.chao = CHAO[k];
+  if (p.zonas && arquetipo !== 'horizonte' && !p.degrade) {
+    const passo = Math.max(1, Math.round(3 * escala));
+    for (let py = 0; py < H; py += passo) {
+      for (let px = 0; px < W; px += passo) {
+        const c = zonaCor(jan.x + (px + passo / 2) / escala, jan.y + (py + passo / 2) / escala).chao;
+        for (let yy = py; yy < Math.min(H, py + passo); yy++) {
+          for (let xx = px; xx < Math.min(W, px + passo); xx++) {
+            const k = (yy * W + xx) * 3;
+            cor[k] = c[0];
+            cor[k + 1] = c[1];
+            cor[k + 2] = c[2];
+          }
+        }
+      }
+    }
+  }
+
   // Manchas: a cor é sorteada primeiro por FAMÍLIA do quadro (nenhuma passa de ~30% dos discos),
   // depois o tom dentro dela. O azul-claro da marca entra só como acento raro.
   const FAMILIAS = [
@@ -439,13 +525,16 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
   // garantir a razão de tamanho (o quadro tem luas de 6–10× o diâmetro dos pingos).
   const manchas = [];
   const semear = ({ n, rMin = 3.5, rMax, aceita = () => true, quente = 0.12, sobrepoe = 0.78 }) => {
-    const rTeto = Math.max(rMin + 1, rMax);
-    const grandes = Math.max(3, Math.round(n / 12));
+    // sem luas (telas pequenas): discos menores, translúcidos e sobrepostos, nenhum garantido por janela
+    const rTeto = Math.max(rMin + 1, p.luas ? rMax : rMax * 0.7);
+    if (!p.luas) sobrepoe *= 0.3;
+    const comLua = todas.filter((j) => !j.semLua);
+    const grandes = p.luas && comLua.length ? Math.max(3, Math.round(n / 12)) : 0;
     const tetoQuente = Math.max(1, Math.round(n * 0.12)); // manchas laranja nunca dominam a tela
     let quentes = 0;
     for (let i = 0; i < n; i++) {
       // as grandes caem dentro das janelas do papel (uma por vez), para toda janela ter a sua lua
-      const jg = i < grandes ? todas[i % todas.length] : null;
+      const jg = i < grandes ? comLua[i % comLua.length] : null;
       const x = jg ? jg.x + rnd() * jg.w : rnd() * MW;
       const y = jg ? jg.y + rnd() * jg.h : rnd() * MH;
       const r = i < grandes ? rTeto * (0.62 + rnd() * 0.38) : rMin + (rTeto - rMin) * Math.pow(rnd(), 2.9);
@@ -455,10 +544,12 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
       const familia = q ? 'laranja' : NOMES_FAMILIA[ultimaFamilia];
       let c2 = q ? pick(rnd, MANCHA.quente) : rnd() < 0.5 ? corMancha(rnd) : c;
       const s = sub();
-      const op = 0.6 + rnd() * 0.37;
+      const op = p.luas ? 0.6 + rnd() * 0.37 : 0.32 + rnd() * 0.3;
       const sob = sobrepoe * (0.5 + rnd() * 0.65);
       const borda = rnd(); // < 0.28: sem borda; senão arcos com falhas de densidade variável
       if (!aceita(x, y, r)) continue;
+      // janela sem lua (o recorte do celular na abertura): disco grande que a toque fica de fora
+      if (r > 16 && todas.some((j) => j.semLua && x + r > j.x && x - r < j.x + j.w && y + r > j.y && y - r < j.y + j.h)) continue;
       if (manchas.some((m) => Math.hypot(m.x - x, m.y - y) < (m.r + r) * sob)) continue;
       if (q && !inteira(x, y, r)) [c, c2] = [C.areiaClara, C.areia]; // laranja cortado lê como defeito: vira areia
       // segunda cor sempre de valor vizinho: nada de miolo escuro numa mancha clara
@@ -475,7 +566,7 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
       const c = corMancha(rnd);
       const familia = NOMES_FAMILIA[ultimaFamilia];
       const s = sub();
-      const op = 0.7 + rnd() * 0.27;
+      const op = p.luas ? 0.7 + rnd() * 0.27 : 0.45 + rnd() * 0.3;
       if (!aceita(x, y, r)) continue;
       if (manchas.some((m) => Math.hypot(m.x - x, m.y - y) < m.r + r)) continue;
       manchas.push({ x, y, r, c, c2: c, s, op, borda: 0, familia });
@@ -493,6 +584,7 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
   // --- Arquétipos: campo de ângulo, zonas (paleta/densidade/escala) e marcas próprias ---
   let angulo;
   let zona;
+  let foraDaBorda = () => false; // fita com borda pintada: faíscas não caem acima da borda
   let marcas = () => {};
   const rMaxMancha = Math.min(66, Math.max(MH * 0.17, 26), MW * 0.17);
 
@@ -536,7 +628,8 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
           sub: tijolo ? [[C.terra, 3], [C.marrom2, 3], [C.ferrugem, 1]] : [[C.fundo, 3], [C.azulNoite, 3], [C.fundo2, 1]],
         };
       }
-      return { pal: [[C.petroleo2, 4], [C.azulNoite, 2.5], [C.petroleo, 3], [C.fundo, 1.5], [C.terra, 1], [C.ardosia, 1]], dens: 0.7, comp: 24, larg: 9, realce: 0.05, palR: REAL.frio, sub: [[C.fundo, 3], [C.petroleo2, 3], [C.azulNoite, 2], [C.marrom2, 1]] };
+      // água: petróleo claro na frente (a meta de petróleo das capas, cujo recorte cai na linha d'água)
+      return { pal: [[C.petroleo, 4.5], [C.petroleo2, 2.5], [C.azulNoite, 1.5], [C.fundo, 1], [C.terra, 1], [C.ardosia, 1.2]], dens: 0.7, comp: 24, larg: 9, realce: 0.05, palR: REAL.frio, sub: [[C.fundo, 3], [C.petroleo2, 3], [C.azulNoite, 2], [C.marrom2, 1]] };
     };
     // céu salpicado (mais denso no alto), poucas manchas descendo sobre a massa
     semear({ n: Math.round((MW * hy) / 1700), rMax: rMaxMancha, quente: 0.16, aceita: (x, y, r) => y + r * 0.4 < crista(x) && rnd() < 0.45 + 0.55 * (1 - y / hy) });
@@ -596,6 +689,13 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
     const quenteV = (x, y) => Math.cos(faseV(x, y)) > -0.15;
     zona = (x, y) => {
       const b = banda(x, y);
+      if (p.zonas) {
+        // as correntes atravessam zonas de cor: o valor vem da corrente, a família vem da zona
+        const F = zonaCor(x, y);
+        if (b > 0.72) return { pal: F.claro, dens: 0.95, comp: 62, larg: 11, realce: 0.2 + (b - 0.72) * 2.2, palR: REAL.claro, sub: F.sub };
+        if (b > 0.36) return { pal: F.pal, dens: 0.92, comp: 56, larg: 12, realce: 0.06, palR: quenteV(x, y) ? REAL.quente : REAL.frio, sub: F.sub };
+        return { pal: F.escuro, dens: 0.82, comp: 46, larg: 13, realce: 0.02, palR: REAL.frio, sub: F.escuro };
+      }
       if (b > 0.72) return { pal: PAL.claro, dens: 0.95, comp: 62, larg: 11, realce: 0.2 + (b - 0.72) * 2.2, palR: REAL.claro };
       if (b > 0.36) return quenteV(x, y) ? { pal: PAL.quente, dens: 0.88, comp: 56, larg: 12, realce: 0.07, palR: REAL.quente } : { pal: PAL.medio, dens: 0.88, comp: 56, larg: 12, realce: 0.06, palR: REAL.frio };
       return { pal: [[C.petroleo2, 3.5], [C.fundo, 2], [C.azulNoite, 0.8], [C.marrom2, 1], [C.petroleo, 1.5]], dens: 0.78, comp: 46, larg: 13, realce: 0.02, palR: REAL.frio };
@@ -617,6 +717,10 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
     zona = (x, y) => {
       const a = ar(x, y);
       const q = ruido(x * freq * 0.5 + 11, y * freq * 0.5 + 29) > 0.36;
+      if (p.zonas) {
+        const F = zonaCor(x, y);
+        return { pal: F.pal, dens: 0.8 + 0.2 * a, comp: 30, larg: 12, realce: 0.07, palR: q ? REAL.quente : REAL.frio, sub: F.sub };
+      }
       return { pal: q ? PAL.quente : PAL.ceu, dens: 0.75 + 0.25 * a, comp: 30, larg: 12, realce: 0.07, palR: q ? REAL.quente : REAL.frio };
     };
     const alvo = MW * MH * 0.2;
@@ -644,6 +748,12 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
     zona = (x, y) => {
       const f = fase(x, y);
       const crista = Math.exp(-(((f - 0.5) / 0.13) ** 2));
+      if (p.zonas) {
+        const F = zonaCor(x, y);
+        if (crista > 0.5) return { pal: F.claro, dens: 0.95, comp: 48, larg: 11, realce: 0.3 + crista * 0.55, palR: REAL.claro, sub: F.sub };
+        if (f < 0.25) return { pal: F.escuro, dens: 0.7, comp: 52, larg: 12, realce: 0.03, palR: REAL.frio, sub: F.escuro };
+        return { pal: F.pal, dens: 0.9, comp: 52, larg: 12, realce: 0.04, palR: REAL.frio, sub: F.sub };
+      }
       if (crista > 0.5) return { pal: PAL.claro, dens: 0.95, comp: 48, larg: 11, realce: 0.3 + crista * 0.55, palR: REAL.claro };
       // ondas alternadas: uma de petróleo, a seguinte de terra/ferrugem (o par complementar)
       const quente = Math.floor((y - y0(x, y) + ruido(x * freq, y * freq) * 22) / P) % 2 !== 0;
@@ -690,7 +800,11 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
     zona = (x, y) => {
       const [s, borda] = dono(x, y);
       const costura = borda < 14;
-      if (s.tipo === 'bloco') return { pal: [[C.ferrugem, 2.5], [C.terra, 3], [C.marrom2, 1.2], [C.azulNoite, 1.2], [C.petroleo2, 1.2], [C.marrom, 1.8], [C.ocre, 0.6]], dens: 0.95, comp: 16, larg: 13, realce: costura ? 0.95 : 0.04, palR: REAL.costura, sub: [[C.terra, 2.5], [C.marrom2, 1.5], [C.petroleo2, 2], [C.fundo, 1]] };
+      if (s.tipo === 'bloco') return { pal: [[C.ferrugem, 2.5], [C.terra, 3], [C.marrom2, 1.2], [C.azulNoite, 0.8], [C.petroleo, 1.6], [C.petroleo2, 1], [C.marrom, 1.8], [C.ocre, 0.6]], dens: 0.95, comp: 16, larg: 13, realce: costura ? 0.95 : 0.04, palR: REAL.costura, sub: [[C.terra, 2.5], [C.marrom2, 1.5], [C.petroleo2, 2], [C.fundo, 1]] };
+      if (s.tipo === 'campo' && p.zonas) {
+        const F = zonaCor(x, y);
+        return { pal: F.pal, dens: 0.7 + 0.3 * ar(x, y), comp: 70, larg: 11, realce: costura ? 0.95 : 0.06, palR: REAL.costura, sub: F.sub };
+      }
       if (s.tipo === 'campo') return { pal: PAL.medio, dens: 0.6 + 0.3 * ar(x, y), comp: 70, larg: 11, realce: costura ? 0.95 : 0.06, palR: REAL.costura };
       return { pal: PAL.claro, dens: 0.9, comp: 34, larg: 12, realce: costura ? 0.95 : 0.22, palR: REAL.claro };
     };
@@ -712,7 +826,13 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
     const pesos = Array.from({ length: nB }, () => (p.bandas || p.degrade ? 0.9 + rnd() * 0.2 : 0.35 + rnd()));
     const tot = pesos.reduce((a, b) => a + b, 0);
     let acc = 0;
-    const limites = pesos.map((w) => (acc += (w / tot) * MH));
+    let limites = pesos.map((w) => (acc += (w / tot) * MH));
+    // borda pintada: a fita ocupa só o que está abaixo de uma borda irregular (o resto é transparente)
+    const fE = 1 / (180 + rnd() * 160);
+    const fE2 = 1 / (38 + rnd() * 30);
+    const offE = rnd() * 100;
+    const bordaY = (x) => MH * 0.3 + ruido(x * fE + offE, 9.1) * MH * 0.32 + ruido(x * fE2 + offE, 3.3) * MH * 0.1;
+    if (alfa) limites = [0.55, 0.78, 1].map((f) => f * MH);
     const incl = (rnd() - 0.5) * 0.12;
     const fB = 1 / (300 + rnd() * 300);
     const ondula = 10 + rnd() * 26;
@@ -723,19 +843,46 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
     let escuros = 0;
     const descanso = p.bandas ? -1 : Math.floor(rnd() * nB);
     const reflexo = Math.floor(rnd() * nB);
+    // famílias dos estratos (modo zonas): sempre petróleo, uma quente e uma clara entre os três
+    // primeiros, em ordem sorteada; os seguintes nunca repetem o vizinho
+    const famsB = ['petroleo', rz() < 0.5 ? 'ferrugem' : 'marrom', rz() < 0.5 ? 'areia' : 'ardosia'].sort(() => rz() - 0.5);
+    while (famsB.length < nB) {
+      let f;
+      do f = CICLO[Math.floor(rz() * CICLO.length)];
+      while (f === famsB[famsB.length - 1]);
+      famsB.push(f);
+    }
+    // o estrato do meio (onde caem o recorte e o retrato da capa) é o de petróleo
+    if (!p.familias && !p.degrade) {
+      const im = Math.max(0, limites.findIndex((l) => l >= MH / 2));
+      const ip = famsB.indexOf('petroleo');
+      if (ip >= 0 && ip !== im) [famsB[im], famsB[ip]] = [famsB[ip], famsB[im]];
+    }
     const bandas = limites.map((_, i) => {
       let v;
       if (p.degrade) {
         // do claro para a noite: areia/branco em cima, petróleo e terra no meio, fundo e noite embaixo
-        const pal = [PAL.emenda, [[C.petroleo, 3], [C.petroleo2, 2], [C.terra, 2], [C.ferrugem, 1.3], [C.marrom, 1], [C.ardosia, 1]], [[C.fundo, 3], [C.fundo2, 2], [C.noite, 2], [C.petroleo2, 1.2], [C.marrom2, 1]]][i];
+        const pal = [PAL.emenda, [[C.petroleo, 3], [C.petroleo2, 2], [C.terra, 2], [C.ferrugem, 1.3], [C.marrom, 1], [C.ardosia, 1]], [[C.fundo, 3], [C.fundo2, 2], [C.noite, alfa ? 4 : 2], [C.petroleo2, 1.2], [C.marrom2, 1]]][i];
         return { pal, ang: (rnd() - 0.5) * 0.2, comp: [30, 30, 64][i], dens: 0.95, reflexo: i === 1, claro: i === 0, palR: i === 0 ? REAL.claro : REAL.quente };
+      }
+      if (p.familias?.[i] && FAM[p.familias[i]]) {
+        // estrato de uma família só (com a complementar dentro): a tela tem a estrutura da lista
+        const F = FAM[p.familias[i]];
+        return { pal: F.pal, sub: F.sub, ang: (rnd() - 0.5) * 0.3, comp: [48, 30, 60][i % 3], dens: 1, cheio: true, reflexo: false, claro: p.familias[i] === 'areia', palR: p.familias[i] === 'petroleo' ? REAL.frio : REAL.quente };
       }
       if (i < obrig.length && obrig[i] !== antes) v = obrig[i];
       else do v = Math.floor(rnd() * 4);
       while (v === antes || (v === 0 && escuros >= 1));
       if (v === 0) escuros++;
       antes = v;
-      return { pal: PAL[valores[v]], ang: (rnd() - 0.5) * 0.3, comp: [15, 30, 64][Math.floor(rnd() * 3)], dens: i === descanso ? 0.6 : v === 0 ? 0.8 : 0.95, reflexo: i === reflexo, claro: v === 2, palR: v === 3 ? REAL.quente : REAL.frio };
+      const comp = [15, 30, 64][Math.floor(rnd() * 3)];
+      if (p.zonas) {
+        // cada estrato toma uma família diferente da vizinha; o valor do estrato escolhe o registro
+        const F = FAM[famsB[i]];
+        const pal = v === 0 ? F.escuro : v === 2 ? F.claro : F.pal;
+        return { pal, sub: v === 0 ? F.escuro : F.sub, cheio: v !== 0, ang: (rnd() - 0.5) * 0.3, comp, dens: i === descanso ? 0.7 : 0.95, reflexo: i === reflexo, claro: v === 2, palR: v === 3 ? REAL.quente : REAL.frio };
+      }
+      return { pal: PAL[valores[v]], ang: (rnd() - 0.5) * 0.3, comp, dens: i === descanso ? 0.6 : v === 0 ? 0.8 : 0.95, reflexo: i === reflexo, claro: v === 2, palR: v === 3 ? REAL.quente : REAL.frio };
     });
     const qual = (x, y) => {
       for (let i = 0; i < nB; i++) {
@@ -751,11 +898,20 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
     if (p.degrade) {
       // a fita começa clara de verdade: o chão de cada estrato já é a cor dele (areia, petróleo,
       // noite), para a borda de cima encostar no papel sem faixa escura
-      const chao = [C.creme, C.petroleo2, C.fundo];
+      const chao = [C.creme, C.petroleo2, alfa ? C.noite : C.fundo];
       for (let py = 0; py < H; py++) {
         for (let px = 0; px < W; px++) {
-          const [i] = qual(jan.x + px / escala, jan.y + py / escala);
+          const mx = jan.x + px / escala, my = jan.y + py / escala;
+          const [i] = qual(mx, my);
           const k = (py * W + px) * 3;
+          if (alfa && my < bordaY(mx) + 9) {
+            // acima da borda (e numa margem logo abaixo dela) o chão fica vazio: quem desenha a borda são os traços
+            alfa[py * W + px] = 0;
+            cor[k] = C.creme[0];
+            cor[k + 1] = C.creme[1];
+            cor[k + 2] = C.creme[2];
+            continue;
+          }
           cor[k] = chao[i][0];
           cor[k + 1] = chao[i][1];
           cor[k + 2] = chao[i][2];
@@ -763,12 +919,14 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
       }
     }
     zona = (x, y) => {
+      if (alfa && y < bordaY(x) - 2) return null;
       const [i, d] = qual(x, y);
       const b = bandas[i];
       const costura = d < 7 && i < nB - 1;
-      return { pal: b.pal, dens: costura ? 1 : b.dens, comp: b.comp, larg: b.comp < 20 ? 13 : 11, realce: costura ? 0.9 : b.claro ? 0.2 : 0.05, palR: costura ? REAL.costura : b.palR };
+      return { pal: b.pal, sub: b.sub, cheio: b.cheio, dens: costura ? 1 : b.dens, comp: b.comp, larg: b.comp < 20 ? 13 : 11, realce: costura ? 0.9 : b.claro ? 0.2 : 0.05, palR: costura ? REAL.costura : b.palR };
     };
-    semear({ n: Math.round((MW * MH) / 9000), rMax: Math.min(rMaxMancha, 40), quente: 0.15, aceita: (x, y) => !bandas[qual(x, y)[0]].claro && rnd() < 0.5 });
+    if (!alfa) semear({ n: Math.round((MW * MH) / 9000), rMax: Math.min(rMaxMancha, 40), quente: 0.15, aceita: (x, y) => !bandas[qual(x, y)[0]].claro && rnd() < 0.5 });
+    if (alfa) foraDaBorda = (x, y) => y < bordaY(x) + 6;
     marcas = () => {
       const n = Math.round((MW * MH) / 1600);
       for (let i = 0; i < n; i++) {
@@ -833,18 +991,22 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
   };
 
   // 1. Subpintura: traços longos e largos nos azuis escuros, secos (o chão respira entre eles).
-  camada(1.1, 70 * 22, (x, y) => {
+  // com zonas, a subpintura cobre mais (e menos seca): o chão de cada zona fica pintado, sem campo chapado
+  const chaoZonas = p.zonas && arquetipo !== 'horizonte';
+  camada(chaoZonas ? 2 : 1.1, 70 * 22, (x, y) => {
     const z = zona(x, y);
+    if (!z) return;
     const c = pick(rnd, z.sub ?? [[C.petroleo2, 3.5], [C.azulNoite, 0.4], [C.fundo, 1.2], [C.terra, 1.5], [C.marrom2, 1], [C.petroleo, 1]]);
     const comp = varia(Math.max(z.comp * 1.6, 40), 0.5);
     const larg = (18 + rnd() * 12) * e;
     const s = sub();
-    if (rnd() < 0.8 + 0.2 * ar(x, y)) traco(x, y, comp, larg, c, 0.92, s, { ...OPT, secura: 0.85, afina: 0.35, contraste: 1.3 });
+    if (rnd() < 0.8 + 0.2 * ar(x, y)) traco(x, y, comp, larg, c, 0.92, s, { ...OPT, secura: chaoZonas ? 0.6 : 0.85, afina: 0.35, contraste: 1.3 });
   });
 
   // 2. Corpo: densidade e escala vêm da zona do arquétipo; o respiro abre campos.
   camada(1.15 * p.densidade, 34 * 10, (x, y) => {
     const z = zona(x, y);
+    if (!z) return;
     const a = ar(x, y);
     const vale = rnd() <= z.dens * (z.cheio ? 1 : 0.55 + 0.45 * a);
     const c = pick(rnd, z.pal);
@@ -866,6 +1028,7 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
   // 3. Realces: traços finos e claros onde a zona pede (cristas, costuras, faixas claras).
   camada(0.24 * p.realce, 22 * 5, (x, y) => {
     const z = zona(x, y);
+    if (!z) return;
     const vale = rnd() <= z.realce;
     const c = pick(rnd, z.palR);
     const comp = varia(26, 0.55);
@@ -929,6 +1092,19 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
         reto(m.x + Math.cos(am) * rb, m.y + Math.sin(am) * rb, am + Math.PI / 2, arc * rb, lw, c, opD, sArc, op, arc / 2);
       }
     }
+    // sem luas: o disco fica debaixo da pintura — alguns traços do campo passam por cima dele
+    if (!p.luas) {
+      const rv = mulberry32((m.s ^ 0x9e3779b9) >>> 0);
+      const nV = Math.max(1, Math.round((R * R) / 160));
+      for (let i = 0; i < nV; i++) {
+        const t = rv() * 6.283, rr = Math.sqrt(rv()) * R;
+        const vx = m.x + Math.cos(t) * rr, vy = m.y + Math.sin(t) * rr;
+        const z = zona(vx, vy);
+        if (!z) continue;
+        const c = pick(rv, z.pal);
+        traco(vx, vy, z.comp * Math.exp((rv() + rv() - 1) * 0.4), z.larg * (0.7 + rv() * 0.5) * e, c, 0.7 + rv() * 0.25, (rv() * 4294967296) >>> 0);
+      }
+    }
   }
 
   // 7. Faíscas soltas seguindo o fluxo (só inteiras em cada janela).
@@ -939,11 +1115,12 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
     const c = pick(rnd, MANCHA.quente);
     const comp = 10 + rnd() * 12;
     const s = sub();
-    if (inteira(x, y, comp * 0.7)) traco(x, y, comp, 4.5 * e, c, 0.95, s, { ...OPT, secura: 0.5, afina: 0.5, carga: 1.3 });
+    if (inteira(x, y, comp * 0.7) && !foraDaBorda(x, y)) traco(x, y, comp, 4.5 * e, c, 0.95, s, { ...OPT, secura: 0.5, afina: 0.5, carga: 1.3 });
   }
 
   // --- Luz rasante sobre o relevo (empasto) e quantização ---
-  const out = new Uint8Array(W * H * 3);
+  const NC = alfa ? 4 : 3;
+  const out = new Uint8Array(W * H * NC);
   const lx = -0.55, ly = -0.65, lz = 0.52;
   const forca = 1.1 * escala; // gradiente por px de dispositivo → por px de tela
   for (let y = 0; y < H; y++) {
@@ -961,8 +1138,9 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
       }
       for (let k = 0; k < 3; k++) {
         const v = cor[i * 3 + k] * sh + spec;
-        out[i * 3 + k] = v < 0 ? 0 : v > 255 ? 255 : v;
+        out[i * NC + k] = v < 0 ? 0 : v > 255 ? 255 : v;
       }
+      if (alfa) out[i * 4 + 3] = Math.round(Math.min(1, alfa[i]) * 255);
     }
   }
   // estatística das manchas visíveis nesta janela (medição da rodada 4)
@@ -971,5 +1149,5 @@ export function pintar({ semente, mestre, janela, janelas = [], escala = 1, mate
   for (const m of vis) familias[m.familia] = (familias[m.familia] ?? 0) + 1;
   const rs = vis.map((m) => m.r);
   const discos = { n: vis.length, razao: rs.length ? Math.max(...rs) / Math.min(...rs) : 0, familias, raios: rs.map((v) => Math.round(v)) };
-  return { data: out, width: W, height: H, arquetipo, discos };
+  return { data: out, width: W, height: H, canais: NC, arquetipo, discos };
 }

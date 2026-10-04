@@ -5,6 +5,7 @@ import type { CollectionEntry } from 'astro:content';
 import Default from '../../layouts/Default.astro';
 import { NewsletterEdicaoPage } from '../../components/pages/NewsletterEdicaoPage';
 import { formatDatePtBR } from '../../lib/format';
+import { fundoMargem } from '../../lib/telas';
 
 export async function getStaticPaths() {
   const entries = await getCollection('newsletter', publicado);
@@ -30,6 +31,7 @@ const { title, excerpt, edicao, date, duration, image, substackUrl } = entry.dat
     duration={duration}
     image={image}
     substackUrl={substackUrl}
+    margem={fundoMargem('newsletter', entry.id)}
     client:load
   >
     <Content />

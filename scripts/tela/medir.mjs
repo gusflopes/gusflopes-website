@@ -7,12 +7,14 @@
 import fs from 'node:fs';
 import sharp from 'sharp';
 import { janelaRaw } from './render.mjs';
-import { ABERTURA, ARQUETIPO_FAIXA, paramsCapa, ARQUETIPO_CONVITE } from './config.mjs';
+import { ABERTURA, ARQUETIPO_FAIXA, paramsCapa, ARQUETIPO_CONVITE, PARAMS_RODAPE, SEM_LUAS } from './config.mjs';
 
 export function familias(data) {
   const c = { escuro: 0, quente: 0, laranja: 0, areia: 0, ferrugem: 0, petroleo: 0, azul: 0, azulClaro: 0, claroNeutro: 0, ceuClaro: 0 };
   let N = 0;
-  for (let i = 0; i < data.length; i += 3) {
+  const nc = data.canais ?? 3;
+  for (let i = 0; i < data.length; i += nc) {
+    if (nc === 4 && data[i + 3] < 128) continue; // transparente (borda pintada da fita)
     N++;
     const R = data[i] / 255, G = data[i + 1] / 255, B = data[i + 2] / 255;
     const mx = Math.max(R, G, B), mn = Math.min(R, G, B), v = mx, s = mx ? (mx - mn) / mx : 0, d = mx - mn;
@@ -43,13 +45,14 @@ export const metas = (f, abertura = false) => {
 
 export const TELAS = [
   ['abertura', ABERTURA.semente, 'abertura', 'larga', ABERTURA.params],
-  ...Object.entries(ARQUETIPO_FAIXA).filter(([n]) => n !== 'nao-encontrada').map(([n, a]) => [`faixa ${n}`, n, 'faixa', 'larga', { arquetipo: a }]),
-  ['eixos (portas)', 'O que eu escrevo, e para quem', 'capitulo', 'coluna', { arquetipo: 'faixas', bandas: 3, luz: 1.8 }],
+  ...Object.entries(ARQUETIPO_FAIXA).filter(([n]) => n !== 'nao-encontrada').map(([n, a]) => [`faixa ${n}`, n, 'faixa', 'larga', { arquetipo: a, ...SEM_LUAS }]),
+  ['eixos (portas)', 'O que eu escrevo, e para quem', 'capitulo', 'coluna', { arquetipo: 'faixas', bandas: 3, luz: 1.8, densidade: 1.3, familias: ['petroleo', 'ferrugem', 'areia'] }],
   ['close ferramenta', 'Simulador da Reforma Tributária', 'close', 'quadro', { arquetipo: 'vento' }],
-  ['video', 'Vídeo em Destaque', 'projecao', 'quadro', { arquetipo: 'ondas' }],
-  ['convite newsletter', 'Radar de IA', 'convite', 'topo', { arquetipo: ARQUETIPO_CONVITE }],
-  ['fita newsletter', 'Radar de IA', 'fita', 'larga', { arquetipo: 'horizonte' }],
-  ['fita do rodapé', 'gusflopes.dev', 'rodape', 'larga', { arquetipo: 'faixas', degrade: true }],
+  ['video', 'Vídeo em Destaque', 'projecao', 'quadro', { arquetipo: 'ondas', ...SEM_LUAS }],
+  ['convite newsletter', 'Radar de IA', 'convite', 'topo', { arquetipo: ARQUETIPO_CONVITE, ...SEM_LUAS }],
+  ['fita newsletter', 'Radar de IA', 'fita', 'larga', { arquetipo: 'horizonte', ...SEM_LUAS }],
+  ['fita do rodapé', 'gusflopes.dev', 'rodape', 'larga', PARAMS_RODAPE],
+  ['fita do rodapé (artigo)', 'insights--article--agent-skills-pacotes-de-contexto', 'rodape', 'larga', PARAMS_RODAPE],
   ['404 painel', 'nao-encontrada', 'painel', 'quadro', { arquetipo: 'massas' }],
   ['capa agent-skills (retrato)', 'agent-skills-pacotes-de-contexto', 'capa', 'retrato', paramsCapa('engenharia')],
   ['capa agent-skills (OG)', 'agent-skills-pacotes-de-contexto', 'capa', 'og', paramsCapa('engenharia')],
@@ -65,14 +68,15 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   for (const [nome, semente, papel, janela, params] of TELAS) {
     if (so && !so.some((s) => nome.includes(s))) continue;
     const r = janelaRaw({ semente, papel, janela, larguraArquivo: undefined ?? (await import('./config.mjs')).PAPEIS[papel].janelas[janela].w * ((await import('./config.mjs')).PAPEIS[papel].ampliacao ?? 1), params });
+    r.data.canais = r.canais;
     const f = familias(r.data);
     const falhas = metas(f, papel === 'abertura');
     const d = r.discos;
     const tot = Object.values(d.familias).reduce((a, b) => a + b, 0) || 1;
     const maxFam = Math.max(0, ...Object.values(d.familias)) / tot;
     const fams = Object.keys(d.familias).filter((k) => k !== 'laranja').length;
-    if (d.n >= 8 && (fams < 4 || maxFam > 0.4 || d.razao < 6)) falhas.push(`discos(${fams} famílias, maior ${(maxFam * 100).toFixed(0)}%, razão ${d.razao.toFixed(1)})`);
+    if (params.luas !== false && d.n >= 8 && (fams < 4 || maxFam > 0.4 || d.razao < 6)) falhas.push(`discos(${fams} famílias, maior ${(maxFam * 100).toFixed(0)}%, razão ${d.razao.toFixed(1)})`);
     console.log(`${nome.padEnd(30)} ${r.arquetipo.padEnd(9)} escuro ${f.escuro.toFixed(1)} | quente ${f.quente.toFixed(1)} (areia ${f.areia.toFixed(1)}, ferrugem/marrom ${f.ferrugem.toFixed(1)}, laranja ${f.laranja.toFixed(1)}) | petróleo/aqua ${f.petroleo.toFixed(1)} | azul ${f.azul.toFixed(1)} | azul-claro ${f.azulClaro.toFixed(1)} | céu claro ${f.ceuClaro.toFixed(1)} | discos ${d.n} (razão ${d.razao.toFixed(1)}:1, ${Object.entries(d.familias).map(([k, v]) => `${k} ${Math.round((v / tot) * 100)}%`).join(', ')})  ${falhas.length ? 'FALHA ' + falhas.join(' ') : 'ok'}`);
-    if (out) await sharp(r.data, { raw: { width: r.width, height: r.height, channels: 3 } }).png().toFile(`${out}/${nome.replace(/[^a-z0-9]+/gi, '-')}.png`);
+    if (out) await sharp(r.data, { raw: { width: r.width, height: r.height, channels: r.canais ?? 3 } }).png().toFile(`${out}/${nome.replace(/[^a-z0-9]+/gi, '-')}.png`);
   }
 }
