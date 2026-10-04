@@ -10,13 +10,14 @@ const link = 'text-ceu-claro hover:text-papel transition-colors';
  * Rodapé: grade de células azul com filetes azul-3 (o fundo nos vãos de 2px). A newsletter é uma
  * célula de creme com filete laranja de 6px no topo e só o botão chapado; onde ela existe, abre o
  * rodapé (no celular vem primeiro: claro → creme → azul). Nas páginas que já terminam com o plano
- * laranja da newsletter (textos e /newsletter) ela é omitida, para a mesma chamada não se repetir.
+ * laranja da newsletter (textos e /newsletter) ela é omitida, para a mesma chamada não se repetir,
+ * e o filete laranja de 6px passa para o topo da grade (a costura claro → noite continua marcada).
  */
 export function Footer({ comNewsletter = true }: { comNewsletter?: boolean }) {
   return (
     <footer className="campo-azul pb-8">
       <div className={`moldura !px-0 md:!px-[var(--gutter)] pt-14 md:pt-20 ${comNewsletter ? 'max-md:!pt-0' : ''}`}>
-        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-[2px] bg-azul-3 border-y-2 border-azul-3 mb-8 ${comNewsletter ? 'max-md:border-t-0' : ''}`}>
+        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-[2px] bg-azul-3 border-y-2 border-azul-3 mb-8 ${comNewsletter ? 'max-md:border-t-0' : 'border-t-[6px] border-t-laranja'}`}>
           <div className={`bg-azul ${comNewsletter ? 'lg:col-span-4' : 'lg:col-span-5'} px-[var(--gutter)] md:px-0 md:pr-8 py-8`}>
             <img src={logoLight} alt="Gusflopes.dev" width={1028} height={556} loading="lazy" className="h-14 w-auto mb-6" />
             <p className="font-serif text-[1rem] leading-relaxed text-ceu-claro max-w-[36ch]">

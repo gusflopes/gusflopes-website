@@ -146,7 +146,7 @@ export function ArtigoLeitura({ title, excerpt, category, eixo, dateFormatted, d
             */}
             {secoes.length >= 2 && (
               <nav aria-label="Seções do texto" className="hidden lg:block lg:col-start-1 lg:col-span-3 lg:row-start-1">
-                <ol className="sticky top-[calc(56px+2.5rem)] border-t-4 border-laranja">
+                <ol className="sticky top-[calc(56px+2.5rem)] border-t-[6px] border-laranja">
                   {secoes.map((s) => {
                     const corrente = s.slug === ativa;
                     return (
@@ -156,7 +156,7 @@ export function ArtigoLeitura({ title, excerpt, category, eixo, dateFormatted, d
                           aria-current={corrente ? 'location' : undefined}
                           className={`block px-3 py-2.5 font-sans font-semibold [font-stretch:87%] text-[0.9375rem] leading-snug transition-colors ${
                             corrente
-                              ? `${EIXO_CAMPO[eixo].campo} ${EIXO_CAMPO[eixo].texto} relative before:absolute before:inset-x-0 before:top-0 before:h-1 before:bg-laranja`
+                              ? `${EIXO_CAMPO[eixo].campo} ${EIXO_CAMPO[eixo].texto} relative before:absolute before:inset-x-0 before:top-0 before:h-1.5 before:bg-laranja`
                               : 'text-tinta-2 hover:text-azul hover:bg-papel-3'
                           }`}
                         >
