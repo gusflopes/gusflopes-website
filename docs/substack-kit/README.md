@@ -8,6 +8,7 @@ deixa configurar: cor de destaque, cor de fundo, logo, wordmark, capa e fontes d
 | Campo | Valor | Por quê |
 |---|---|---|
 | Cor de destaque (accent) | `#C2410C` (laranja profundo) | O Substack põe texto **branco** sobre o accent nos botões. Branco sobre `#C2410C` dá 5,2:1 (AA). O laranja da marca `#F97316` com branco dá 2,8:1 e reprova. |
+| Texto sobre laranja (nas peças geradas) | `#0B1A33` (azul-escuro da marca) | Regra do dono (04/10): texto e ícone sobre fundo laranja usam o azul-escuro, não quase-preto. 6,19:1 sobre `#F97316`. Fundo laranja com texto é sempre `#F97316` (sobre `#C2410C` o azul cai para 3,35:1). Constante `COR.tintaLaranja` em `tipo.mjs`. |
 | Cor de fundo | `#F2F4F7` (papel frio) | É o fundo do corpo de leitura no site. Se o tema só aceitar branco, use branco: a identidade fica no wordmark, na capa e no accent. |
 | Logo (quadrado) | `logo-512.png` | G em Archivo 900 sobre azul-escuro com o bloco laranja girado. |
 | Wordmark (horizontal) | `wordmark.png` (fundo transparente, tinta azul-escuro) para fundo claro; `wordmark-azul.png` (bloco azul-escuro) quando o espaço tiver fundo próprio ou escuro | "Wordmark em bloco azul-escuro" é a assinatura pedida para o Substack. |

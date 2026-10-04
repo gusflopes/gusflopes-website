@@ -28,7 +28,7 @@
   --color-laranja-claro: #fb923c;
   --color-laranja-palido: #fdba74;
   --color-laranja-fundo: #c2410c;
-  --color-laranja-tinta: #1c0a02;
+  --color-laranja-tinta: #0b1a33;
 }
 
 :root {
@@ -74,7 +74,7 @@
 
   ::selection {
     background: var(--laranja);
-    color: #1c0a02;
+    color: var(--azul);
   }
 
   :focus-visible {
@@ -142,7 +142,7 @@
     line-height: 0.9;
   }
 
-  /* Botão primário: bloco laranja chapado, texto escuro, canto reto. */
+  /* Botão primário: bloco laranja chapado, texto azul-escuro da marca (6,19:1), canto reto. */
   .botao {
     display: inline-flex;
     align-items: center;
@@ -151,7 +151,7 @@
     min-height: 3.25rem;
     padding: 0 1.6rem;
     background: var(--laranja);
-    color: #1c0a02;
+    color: var(--azul);
     font-family: var(--font-sans);
     font-weight: 800;
     font-stretch: 87%;
@@ -312,7 +312,7 @@
   /* ---------- Campo laranja: o plano da ação principal de cada região ---------- */
   .campo-laranja {
     background: var(--laranja);
-    color: #1c0a02;
+    color: var(--azul);
   }
   .campo-laranja .botao,
   .campo-papel .campo-laranja .botao {
@@ -326,7 +326,7 @@
   }
   .campo-laranja .acao,
   .campo-papel .campo-laranja .acao {
-    color: #1c0a02;
+    color: var(--azul);
   }
   .campo-laranja :focus-visible,
   .campo-papel .campo-laranja :focus-visible,
@@ -334,10 +334,10 @@
     outline-color: var(--azul);
   }
   .campo-laranja .abertura {
-    color: #1c0a02;
+    color: var(--azul);
   }
   .campo-laranja .abertura-linha[data-estilo="vazado"] {
-    -webkit-text-stroke-color: #1c0a02;
+    -webkit-text-stroke-color: var(--azul);
   }
   .campo-laranja .abertura-sep {
     color: var(--azul);

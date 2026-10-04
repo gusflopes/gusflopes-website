@@ -70,6 +70,8 @@ export const COR = {
   azul3: '#1D3866',
   papel: '#F2F4F7',
   laranja: '#F97316',
+  // texto e ícone sobre laranja: azul-escuro da marca (6,19:1 sobre #F97316), nunca quase-preto
+  tintaLaranja: '#0B1A33',
   laranjaFundo: '#C2410C',
   ceu: '#8FB3D9',
   ceuClaro: '#B7C6DA',

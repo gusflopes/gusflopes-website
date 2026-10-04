@@ -15,7 +15,7 @@ colors:
   laranja-claro: "#FB923C"
   laranja-palido: "#FDBA74"
   laranja-fundo: "#C2410C"
-  laranja-tinta: "#1C0A02"
+  laranja-tinta: "#0B1A33"
 typography:
   abertura:
     fontFamily: "Archivo Variable, Archivo, Helvetica Neue, Arial, sans-serif"
@@ -161,7 +161,7 @@ O sistema resolve o risco declarado da direção ("ótimo para a home, difícil 
 Estratégia **comprometida em dois campos**: azul-escuro e papel frio dividem a página em regiões inteiras; o laranja é o único acento e aparece chapado.
 
 ### Primary
-- **Laranja** (`#F97316`): botão primário, célula de filtro ativa, janela, dois-pontos/travessão da abertura, rótulos sobre azul, barra de item ativo no menu. Sobre ele, texto `#1C0A02` (6,85:1).
+- **Laranja** (`#F97316`): botão primário, célula de filtro ativa, janela, dois-pontos/travessão da abertura, rótulos sobre azul, barra de item ativo no menu. Sobre ele, texto e ícones em azul-escuro da marca `#0B1A33` (6,19:1; 7,67:1 sobre `#FB923C`). Fundo laranja com texto é sempre `#F97316`: sobre `#C2410C` o azul cai para 3,35:1.
 - **Laranja profundo** (`#C2410C`): o laranja para texto e links sobre papel (4,7:1 sobre `#F2F4F7`); também o accent do Substack (branco sobre ele: 5,2:1).
 
 ### Neutral
@@ -240,7 +240,7 @@ Cantos retos em tudo: botões, células, inputs, blocos de código, foto do auto
 ## Components
 
 ### Buttons
-- **Primário (`.botao`)**: bloco laranja, texto `#1C0A02`, Archivo 800 largura 87% em caixa-alta, 52px de altura, canto reto. Hover: vira papel com tinta azul (sobre azul) ou azul com tinta papel (sobre papel). Dentro de um plano laranja (`.campo-laranja`) inverte: bloco azul, texto papel.
+- **Primário (`.botao`)**: bloco laranja, texto `#0B1A33`, Archivo 800 largura 87% em caixa-alta, 52px de altura, canto reto. Hover: vira papel com tinta azul (sobre azul) ou azul com tinta papel (sobre papel). Dentro de um plano laranja (`.campo-laranja`) inverte: bloco azul, texto papel.
 - **Célula de ação (`.celula-acao`)**: a célula laranja inteira é o link, rótulo estreito 800/72 em caixa mista e seta SVG no canto; hover vira papel.
 - **Ação (`.acao`)**: rótulo laranja com seta; sublinhado de 2px aparece no hover. Laranja `#F97316` sobre azul, `#C2410C` sobre papel.
 

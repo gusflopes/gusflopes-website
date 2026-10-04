@@ -69,6 +69,8 @@ mesmo sistema.
     areia `#aa9c87`, marrom `#907a5f`/`#50372a`, ferrugem `#8a4c1b`) entram como cores de apoio em campos e detalhes.
     Azul-escuro e laranja continuam as oficiais. Um campo claro quente (areia puxada do quadro, acinzentada, nunca
     creme) pode substituir o papel frio em poucas seções.
+  - **Texto sobre laranja é azul-escuro** `#0B1A33` (Gustavo, 04/10), nunca preto ou quase-preto. Contraste 6,19:1
+    sobre `#F97316`; por isso todo fundo laranja com texto usa `#F97316` (sobre `#C2410C` cairia para 3,35:1).
 
 ## Evidence on Hand
 
