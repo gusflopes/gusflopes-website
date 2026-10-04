@@ -18,7 +18,7 @@ const FONTES = {
 };
 const CACHE = path.resolve(path.dirname(new URL(import.meta.url).pathname), '../../node_modules/.cache/gusflopes-telas');
 
-function fonte(familia, peso) {
+export function fonte(familia, peso) {
   const f = FONTES[familia];
   const dir = path.join(CACHE, 'fontes');
   const ttf = path.join(dir, `${familia}-${peso}.ttf`);
