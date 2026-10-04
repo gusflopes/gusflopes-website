@@ -63,7 +63,7 @@ Pauta de publicação da demonstração de IA (artigos, shorts e vídeos, com ca
 
 ## Decisões pendentes do Gustavo
 
-1. ~~Contraste do botão laranja~~ — resolvido em 27/09 (texto escuro `#1c0a02`, DESIGN.md atualizado).
+1. ~~Contraste do botão laranja~~ — resolvido em 27/09 (texto escuro `#1c0a02`, DESIGN.md atualizado; trocado em 04/10 pelo azul-escuro da marca `#0B1A33`, decisão do dono).
 2. **Datas retroativas**: mostrar ou não "Escrito em … / publicado aqui em …".
 3. **Grok Bot**: qual produto (artigo 35 em espera).
 4. ~~CalcJud~~ — resolvido em 27/09: o artigo 5 virou princípio geral, sem citar o produto.

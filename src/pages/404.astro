@@ -16,32 +16,39 @@ const caminhos = [
   description="O endereço acessado não existe ou mudou de lugar."
   noindex
 >
-  <main class="campo-azul pt-[72px] min-h-screen">
-    <div class="moldura pt-14 md:pt-20 pb-24">
-      <div class="grid gap-6 lg:grid-cols-12 lg:gap-x-[var(--gutter)] items-start mb-10">
-        <div class="lg:col-span-9">
-          <Abertura titulo="Esta página não existe ou mudou de lugar" eixo="engenharia" teto={8} />
+  <main class="min-h-screen flex flex-col">
+    <div class="campo-azul pt-[72px]">
+      <div class="moldura pt-14 md:pt-20 pb-14 md:pb-16">
+        <div class="grid gap-6 lg:grid-cols-12 lg:gap-x-[var(--gutter)] items-start mb-10">
+          <div class="lg:col-span-9">
+            <Abertura titulo="Esta página não existe ou mudou de lugar" eixo="engenharia" teto={8} />
+          </div>
+          <p class="lg:col-span-3 rotulo text-laranja border-t-2 border-laranja pt-3 lg:mt-2">Erro 404</p>
         </div>
-        <p class="lg:col-span-3 rotulo text-laranja border-t-2 border-laranja pt-3 lg:mt-2">Erro 404</p>
+        <p class="font-serif text-[1.1875rem] text-ceu-claro leading-relaxed max-w-xl">
+          O link pode estar quebrado ou o texto foi renomeado. Comece por um destes caminhos:
+        </p>
       </div>
-      <p class="font-serif text-[1.1875rem] text-ceu-claro leading-relaxed max-w-xl mb-12">
-        O link pode estar quebrado ou o texto foi renomeado. Comece por um destes caminhos:
-      </p>
+    </div>
 
-      <ul class="grid md:grid-cols-3 gap-[2px] bg-azul border-y-2 border-papel mb-12">
-        {
-          caminhos.map((c) => (
-            <li class="bg-azul">
-              <a href={c.href} class="group block h-full py-6 md:pr-6 border-b md:border-b-0 border-azul-3">
-                <span class="block display uppercase text-[1.5rem] text-papel group-hover:text-laranja transition-colors mb-2">{c.label}</span>
-                <span class="block font-serif text-[1rem] text-ceu-claro leading-relaxed">{c.desc}</span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+    <!-- Os caminhos ficam no papel: o rodapé chega de um campo claro, como em toda página. -->
+    <div class="campo-papel flex-1">
+      <div class="moldura pt-12 md:pt-14 pb-24">
+        <ul class="grid md:grid-cols-3 gap-x-[var(--gutter)] mb-12">
+          {
+            caminhos.map((c) => (
+              <li class="border-t-2 border-laranja">
+                <a href={c.href} class="group block h-full py-6 md:pr-6 border-b md:border-b-0 border-filete">
+                  <span class="block display uppercase text-[1.5rem] text-azul group-hover:text-laranja-fundo transition-colors mb-2">{c.label}</span>
+                  <span class="block font-serif text-[1rem] text-tinta-2 leading-relaxed">{c.desc}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
 
-      <a href="/" class="botao">Voltar para o início</a>
+        <a href="/" class="botao">Voltar para o início</a>
+      </div>
     </div>
   </main>
 </Default>

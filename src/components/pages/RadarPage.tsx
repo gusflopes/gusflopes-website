@@ -51,7 +51,7 @@ export function RadarPage({ items }: RadarPageProps) {
             <div className="lg:col-span-7">
               <Abertura titulo="Radar" eixo="engenharia" teto={9} />
             </div>
-            <p className="lg:col-span-5 border-t-2 border-papel pt-4 font-serif text-[1.1875rem] leading-relaxed text-ceu-claro">
+            <p className="lg:col-span-5 bg-petroleo-escuro border-t-2 border-papel px-5 pt-4 pb-5 font-serif text-[1.1875rem] leading-relaxed text-papel">
               Curadoria comentada: o que mudou em IA, engenharia e negócios — e por que importa.
             </p>
           </div>
@@ -98,7 +98,7 @@ export function RadarPage({ items }: RadarPageProps) {
                   : item.type === 'video' ? 'Assistir Vídeo' : 'Ler Artigo';
                 const Icone = item.isExternal ? ExternalLink : ArrowRight;
                 return (
-                  <li key={item.id} className="border-b border-filete">
+                  <li key={item.id} className="border-t-2 border-laranja first:border-t-0">
                     <a
                       href={item.link}
                       {...(item.isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}

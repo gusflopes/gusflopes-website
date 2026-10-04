@@ -69,7 +69,7 @@ export function NewsletterEdicaoPage({
           </div>
         </header>
 
-        <div className="campo-papel pb-24">
+        <div className="campo-papel pb-52 md:pb-24">
           <div className="moldura pt-12 md:pt-16 grid grid-cols-[minmax(0,1fr)] lg:grid-cols-12 lg:gap-x-[var(--gutter)]">
             <div className="lg:col-start-4 lg:col-span-9 max-w-[68ch]">
               <ImageWithFallback src={image} alt={title} className="w-full h-auto mb-12 bg-papel-2" />

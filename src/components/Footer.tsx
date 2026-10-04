@@ -9,12 +9,15 @@ const link = 'text-ceu-claro hover:text-papel transition-colors';
 /**
  * Rodapé: grade de células azul com filetes azul-3 (o fundo nos vãos de 2px); a coluna da
  * newsletter é o plano laranja — a mesma regra do hero: laranja chapado = a ação principal.
+ * No celular o plano laranja abre o rodapé: a passagem do papel para o azul é um gesto (papel →
+ * laranja → azul), não um corte seco. Nas páginas de texto, que já terminam com o plano da
+ * newsletter, o rodapé mantém a ordem para não repetir dois planos laranja seguidos.
  */
-export function Footer() {
+export function Footer({ newsletterPrimeiro = true }: { newsletterPrimeiro?: boolean }) {
   return (
     <footer className="campo-azul pb-8">
-      <div className="moldura !px-0 md:!px-[var(--gutter)] pt-14 md:pt-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-[2px] bg-azul-3 border-y-2 border-azul-3 mb-8">
+      <div className={`moldura !px-0 md:!px-[var(--gutter)] pt-14 md:pt-20 ${newsletterPrimeiro ? 'max-md:!pt-0' : ''}`}>
+        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-[2px] bg-azul-3 border-y-2 border-azul-3 mb-8 ${newsletterPrimeiro ? 'max-md:border-t-0' : ''}`}>
           <div className="bg-azul lg:col-span-4 px-[var(--gutter)] md:px-0 md:pr-8 py-8">
             <img src={logoLight} alt="Gusflopes.dev" width={1028} height={556} loading="lazy" className="h-14 w-auto mb-6" />
             <p className="font-serif text-[1rem] leading-relaxed text-ceu-claro max-w-[36ch]">
@@ -51,7 +54,7 @@ export function Footer() {
             <SocialLinks className="mt-5" linkClassName="text-ceu-claro hover:text-laranja" />
           </div>
 
-          <div className="campo-laranja lg:col-span-3 px-[var(--gutter)] md:px-6 py-8 flex flex-col justify-between gap-6">
+          <div className={`campo-laranja lg:col-span-3 ${newsletterPrimeiro ? 'max-md:order-first' : ''} px-[var(--gutter)] md:px-6 py-8 flex flex-col justify-between gap-6`}>
             <div>
               <h2 className="rotulo mb-5">{newsletter.name}</h2>
               <p className="font-sans font-medium [font-stretch:87%] text-[1rem] leading-relaxed">{newsletter.pitch}</p>

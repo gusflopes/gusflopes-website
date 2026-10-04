@@ -6,7 +6,7 @@ import { Abertura } from './Abertura';
  * Trabalho da seção: experimentar algo agora (a ferramenta da Reforma Tributária).
  * Composição: grade de filetes azul-3 sobre o campo azul. O nome é abertura em "degraus"
  * (forma do eixo Bastidores), com a linha do meio vazada — o único contorno da home além do
- * MESMO da tese —, e os metadados numa célula ao lado; embaixo, a própria ação é
+ * MESMO da tese —, e os metadados numa célula de areia (cor do quadro) ao lado; embaixo, a própria ação é
  * uma célula laranja inteira, seguida do texto e da nota de cautela.
  */
 export function Ferramenta() {
@@ -18,7 +18,11 @@ export function Ferramenta() {
           <div className="bg-azul lg:col-span-9 pt-6 pb-8 lg:pr-10">
             <Abertura id="ferramenta-title" as="h2" titulo={reforma.nome} eixo="bastidores" teto={7.5} vazado />
           </div>
-          <p className="bg-azul lg:col-span-3 rotulo text-laranja pb-6 lg:pt-7 lg:pl-6">Ferramenta gratuita · Experimento aberto</p>
+          {/* Areia (cor do quadro): o campo dos metadados. No celular vai para o fim, depois da ação e da nota, para não virar sobretítulo. */}
+          <p className="relative bg-areia text-azul lg:col-span-3 max-lg:order-last rotulo p-5 pl-16 lg:p-6 lg:pt-16">
+            <span className="marca marca-canto" aria-hidden="true" />
+            Ferramenta gratuita · Experimento aberto
+          </p>
 
           <a
             href={comUtm(reforma.url, reforma.campanha, 'home-ferramenta')}

@@ -148,6 +148,6 @@ const jsonLd = {
   <body class="campo-azul min-h-screen overflow-x-hidden font-sans">
     <Header pathname={pathname} eixosAtivos={eixosAtivos} client:load />
     <slot />
-    <Footer client:load />
+    <Footer newsletterPrimeiro={type !== 'article'} client:load />
   </body>
 </html>

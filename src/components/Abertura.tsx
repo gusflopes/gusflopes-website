@@ -49,6 +49,7 @@ export function Abertura({
           <span
             className="abertura-linha"
             data-estilo={l.estilo}
+            data-acento={i > 0 && /[ÁÉÍÓÚÂÊÔÃÕÀ]/i.test(l.texto) ? '' : undefined}
             style={{ '--fit': l.fit, '--recuo': l.recuo } as CSSProperties}
           >
             {l.texto}
@@ -67,15 +68,37 @@ export function Abertura({
  * abaixo da abertura da seção, que é a única em caixa-alta 900. Quebra no " & " (o "&" fica no
  * fim da primeira linha, em laranja: a ponte entre os dois termos).
  */
-export function NomeCelula({ titulo, as: Tag = 'h3', className = '' }: { titulo: string; as?: 'h2' | 'h3' | 'dt' | 'p'; className?: string }) {
+export function NomeCelula({
+  titulo,
+  as: Tag = 'h3',
+  className = '',
+  inteiro = false,
+  ampClassName = 'text-laranja-fundo',
+}: {
+  titulo: string;
+  as?: 'h2' | 'h3' | 'dt' | 'p';
+  className?: string;
+  /** Não quebra no " & " (nomes de eixo: "Engenharia & IA" fica numa linha). */
+  inteiro?: boolean;
+  /** Cor do "&" (dentro de um campo do quadro o laranja profundo não tem contraste). */
+  ampClassName?: string;
+}) {
   const amp = titulo.includes(' & ');
+  if (amp && inteiro) {
+    const [x, y] = titulo.split(' & ');
+    return (
+      <Tag className={`nome-celula ${className}`}>
+        {x} <span className={ampClassName}>&amp;</span> {y}
+      </Tag>
+    );
+  }
   const [a, b] = amp ? titulo.split(' & ') : [titulo, ''];
   return (
     <Tag className={`nome-celula ${className}`}>
       {amp ? (
         <>
           <span className="block">
-            {a} <span className="text-laranja-fundo">&amp;</span>
+            {a} <span className={ampClassName}>&amp;</span>
           </span>{' '}
           <span className="block">{b}</span>
         </>

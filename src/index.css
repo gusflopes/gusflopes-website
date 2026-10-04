@@ -29,6 +29,15 @@
   --color-laranja-palido: #fdba74;
   --color-laranja-fundo: #c2410c;
   --color-laranja-tinta: #0b1a33;
+  /* Paleta de apoio do quadro (04/10): só campo chapado, um por seção. */
+  --color-petroleo: #457183;
+  --color-petroleo-escuro: #315b6f;
+  --color-ardosia: #648188;
+  --color-ardosia-clara: #7f989a;
+  --color-areia: #aa9c87;
+  --color-marrom: #907a5f;
+  --color-marrom-escuro: #50372a;
+  --color-ferrugem: #8a4c1b;
 }
 
 :root {
@@ -206,6 +215,24 @@
     outline-color: var(--laranja);
   }
 
+  /* Ação chapada compacta: a ação de uma célula (porta de eixo, oferta) — laranja registro (a). */
+  .acao.acao-chapada,
+  .campo-papel .acao.acao-chapada {
+    background: var(--laranja);
+    color: var(--azul);
+    padding: 0.6rem 0.85rem 0.55rem;
+    text-decoration: none;
+    transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1), color 160ms;
+  }
+  .acao.acao-chapada:hover,
+  .campo-papel .acao.acao-chapada:hover {
+    background: var(--azul);
+    color: var(--papel);
+  }
+  .campo-papel .acao.acao-chapada:focus-visible {
+    outline-color: var(--azul);
+  }
+
   /* ---------- Abertura tipográfica (src/lib/abertura.ts) ---------- */
   .abertura {
     container-type: inline-size;
@@ -372,6 +399,30 @@
     letter-spacing: -0.015em;
     text-wrap: balance;
   }
+  /* Laranja, registro (b): presença não textual — marca quadrada sólida. */
+  .marca {
+    display: inline-block;
+    flex: none;
+    width: 0.625rem;
+    height: 0.625rem;
+    background: var(--laranja);
+  }
+  /* Marca de canto: quadrado sólido encostado no canto superior esquerdo de uma célula de papel da grade. */
+  .marca-canto {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  /* Filete laranja de 2px no topo de uma linha (presença, nunca borda em volta). */
+  .filete-laranja {
+    border-top: 2px solid var(--laranja);
+  }
+  /* Acento de caixa-alta (É, Á…) ganha respiro para não encostar na linha de cima. */
+  .abertura-linha[data-acento] {
+    padding-top: 0.12em;
+  }
   /* Numeral de data/ordem: Archivo leve e largo, algarismos tabulares. */
   .numeral {
     font-family: var(--font-sans);
@@ -446,7 +497,8 @@
     margin-top: 2.4em;
     margin-bottom: 0.6em;
     padding-top: 0.7em;
-    border-top: 2px solid #0b1a33;
+    /* Laranja, registro (b): filete de 2px no topo da seção do texto (presença, não texto). */
+    border-top: 2px solid var(--laranja);
   }
   .leitura :where(h3) {
     font-family: var(--font-sans);

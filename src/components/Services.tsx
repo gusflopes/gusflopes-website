@@ -28,25 +28,36 @@ export function Services() {
   ];
 
   // Degraus de cada coluna no desktop: a escada da abertura continua nas ofertas.
-  const degrau = ['lg:mt-0', 'lg:mt-44', 'lg:mt-[22rem]'];
+  const degrau = ['lg:mt-0', 'lg:mt-60', 'lg:mt-[26rem]'];
 
   return (
-    <section id="consulting" aria-labelledby="consulting-title" className="campo-papel pt-20 md:pt-28 pb-20 md:pb-28 relative">
+    <section id="consulting" aria-labelledby="consulting-title" className="campo-papel pt-10 md:pt-14 pb-20 md:pb-28 relative">
       <div id="courses" className="absolute top-0" />
       <div className="moldura">
+        {/* Costura entre temas e serviços (os dois no papel): filete laranja de 2px na largura da grade. */}
+        <div className="border-t-2 border-laranja mb-12 md:mb-10" aria-hidden="true" />
         <div className="lg:w-[66%] lg:ml-auto">
           <Abertura id="consulting-title" as="h2" titulo="Como posso ajudar" eixo="negocios" teto={11} />
         </div>
 
-        <div className="mt-12 lg:-mt-36 grid grid-cols-1 md:grid-cols-3 gap-x-[var(--gutter)] gap-y-12 items-start">
+        <div className="mt-12 lg:-mt-52 grid grid-cols-1 md:grid-cols-3 gap-x-[var(--gutter)] gap-y-12 items-start">
           {services.map((service, i) => (
-            <article key={service.title} className={`flex flex-col border-t-[6px] border-azul pt-5 ${degrau[i]}`}>
-              <NomeCelula titulo={service.title} className="text-azul mb-5" />
-              <p className="font-serif text-[1.0625rem] leading-relaxed text-tinta mb-7 max-w-[40ch]">{service.description}</p>
-              <a href={service.link} className="acao self-start">
-                {service.action} <ArrowRight size={16} strokeWidth={2.5} aria-hidden="true" />
-              </a>
-            </article>
+            <div key={service.title} className={`${degrau[i]} ${i === 0 ? 'lg:self-stretch flex flex-col' : ''}`}>
+              <article className="flex flex-col border-t-2 border-laranja pt-6 relative">
+                {/* Filete laranja de 2px (presença) com o começo marcado em azul de 6px: a escada continua. */}
+                <span className="absolute -top-[2px] left-0 w-24 h-[6px] bg-azul" aria-hidden="true" />
+                <NomeCelula titulo={service.title} className="text-azul mb-5" />
+                <p className="font-serif text-[1.0625rem] leading-relaxed text-tinta mb-7 max-w-[40ch]">{service.description}</p>
+                <a href={service.link} className="acao acao-chapada self-start">
+                  {service.action} <ArrowRight size={16} strokeWidth={2.5} aria-hidden="true" />
+                </a>
+              </article>
+              {/*
+                Contrapeso da escada: campo chapado de ferrugem (cor do quadro) no vão embaixo à
+                esquerda, sem texto e longe de qualquer laranja (uma célula de papel de separação).
+              */}
+              {i === 0 && <div className="hidden lg:block mt-20 flex-1 min-h-[8rem] bg-ferrugem" aria-hidden="true" />}
+            </div>
           ))}
         </div>
       </div>

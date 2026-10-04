@@ -30,6 +30,8 @@ const themes = [
 
 /** Posição de cada tema na partição 3 + 2 da grade de 12 colunas (desktop). */
 const SPAN = ['lg:col-span-4', 'lg:col-span-4', 'lg:col-span-4', 'lg:col-span-7', 'lg:col-span-5'];
+/** A célula que vira campo de ardósia clara (a mais larga da partição). */
+const CAMPO = 3;
 
 /**
  * Trabalho da seção: entender quem escreve e em que áreas atua.
@@ -47,7 +49,7 @@ export function Themes() {
           <div className="lg:col-span-7">
             <Abertura id="about-title" as="h2" titulo="Engenharia é mais do que código" eixo="engenharia" teto={10} />
           </div>
-          <div className="lg:col-span-5 font-serif text-[1.125rem] leading-relaxed text-tinta border-t-2 border-azul pt-5">
+          <div className="lg:col-span-5 font-serif text-[1.125rem] leading-relaxed text-tinta border-t-2 border-laranja pt-5">
             <p>
               Minha trajetória entre <strong className="font-semibold text-laranja-fundo">Direito, Contabilidade, gestão e tecnologia</strong> moldou uma visão sistêmica da engenharia de software.
               Analiso domínio, arquitetura, times e fluxo de entrega como partes do mesmo problema: criar capacidade para o negócio evoluir.
@@ -58,14 +60,25 @@ export function Themes() {
           </div>
         </div>
 
-        {/* Celular: só o filete de topo de cada tema, sem caixas fechadas. */}
+        {/*
+          Celular: só o filete de topo de cada tema, em laranja (presença), sem caixas fechadas.
+          Desktop: partição 3 + 2 desenhada pelo fundo azul nos vãos; a marca laranja no canto de cada
+          célula é a presença; a célula mais larga é o campo de ardósia clara (cor do quadro, azul 5,67:1).
+        */}
         <dl className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 md:gap-[2px] md:bg-azul md:border-2 md:border-azul">
-          {themes.map((theme, i) => (
-            <div key={theme.title} className={`campo-papel ${SPAN[i]} ${i === 4 ? 'md:col-span-2' : ''} max-md:border-t-2 max-md:border-azul pt-5 pb-10 md:p-7 flex flex-col gap-4 md:gap-5`}>
-              <NomeCelula titulo={theme.title} as="dt" className="text-azul" />
-              <dd className="font-serif text-[1.0625rem] leading-relaxed text-tinta max-w-[46ch]">{theme.description}</dd>
-            </div>
-          ))}
+          {themes.map((theme, i) => {
+            const campo = i === CAMPO;
+            return (
+              <div
+                key={theme.title}
+                className={`relative ${campo ? 'bg-ardosia-clara text-azul' : 'campo-papel'} ${SPAN[i]} ${i === 4 ? 'md:col-span-2' : ''} max-md:border-t-2 max-md:border-laranja ${campo ? 'max-md:px-5' : ''} pt-5 pb-10 md:px-7 md:pb-7 md:pt-16 flex flex-col gap-4 md:gap-5`}
+              >
+                <span className="marca marca-canto max-md:hidden" aria-hidden="true" />
+                <NomeCelula titulo={theme.title} as="dt" className="text-azul" ampClassName={campo ? 'text-azul' : 'text-laranja-fundo'} />
+                <dd className={`font-serif text-[1.0625rem] leading-relaxed max-w-[46ch] ${campo ? 'text-azul' : 'text-tinta'}`}>{theme.description}</dd>
+              </div>
+            );
+          })}
         </dl>
       </div>
     </section>

@@ -31,9 +31,9 @@ export function NewsletterPage({ edicoes }: { edicoes: EdicaoResumo[] }) {
             {edicoes.length === 0 ? (
               <p className="font-serif text-[1.0625rem] text-tinta-2 border-t-2 border-azul pt-6 mt-6">A primeira edição sai em breve.</p>
             ) : (
-              <ul className="mt-6 border-t-2 border-azul">
+              <ul className="mt-6">
                 {edicoes.map((e) => (
-                  <li key={e.id} className="border-b border-filete">
+                  <li key={e.id} className="border-t-2 border-laranja border-b border-b-filete">
                     <a href={`/newsletter/${e.id}`} className="group grid gap-x-6 gap-y-3 py-7 sm:grid-cols-[minmax(0,1fr)_8.5rem]">
                       <div>
                         <h3 className="font-sans font-extrabold [font-stretch:87%] text-[1.625rem] md:text-[2.125rem] leading-[1.05] tracking-[-0.012em] text-azul group-hover:text-laranja-fundo transition-colors text-balance mb-3">

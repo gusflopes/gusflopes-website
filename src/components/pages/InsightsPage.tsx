@@ -160,9 +160,15 @@ export function InsightsPage({
             <div className="lg:col-span-7">
               <Abertura titulo={heading} eixo={eixo ?? 'engenharia'} teto={9} />
             </div>
-            <div className="lg:col-span-5 border-t-2 border-papel pt-4">
-              <p className="font-serif text-[1.1875rem] leading-relaxed text-ceu-claro">{subheading}</p>
-              {eixo && <p className="mt-4 font-sans font-semibold [font-stretch:87%] text-[1rem] leading-snug text-laranja">{EIXOS[eixo].publico}</p>}
+            {/* Campo de petróleo escuro (cor do quadro): a frase de apoio do hub. Papel sobre ele, 6,67:1. */}
+            <div className="lg:col-span-5 bg-petroleo-escuro border-t-2 border-papel px-5 pt-4 pb-5">
+              <p className="font-serif text-[1.1875rem] leading-relaxed text-papel">{subheading}</p>
+              {eixo && (
+                <p className="mt-4 flex items-baseline gap-2.5 font-sans font-semibold [font-stretch:87%] text-[1rem] leading-snug text-papel">
+                  <span className="marca" aria-hidden="true" />
+                  {EIXOS[eixo].publico}
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -202,7 +208,7 @@ export function InsightsPage({
             {filteredArticles.map((article, idx) => {
               const destaque = semFiltro && idx === 0;
               return (
-                <li key={article.id} className="border-b border-filete">
+                <li key={article.id} className="border-t-2 border-laranja first:border-t-0">
                   <a href={article.href} className="group grid gap-x-[var(--gutter)] gap-y-4 py-7 md:grid-cols-12 hover:bg-papel-2/70 transition-colors">
                     <DataCelula iso={article.isoDate} duracao={article.duration} destaque={destaque} />
                     <div className="md:col-span-7">
