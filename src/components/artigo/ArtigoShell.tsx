@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { ArrowLeft, Check, Share2 } from 'lucide-react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { author } from '../../config/site';
@@ -47,6 +47,13 @@ export function ArtigoShell({
   children,
 }: ArtigoShellProps) {
   const [linkCopied, setLinkCopied] = useState(false);
+
+  // Tabelas largas rolam na horizontal no celular: precisam receber foco pelo teclado.
+  useEffect(() => {
+    document.querySelectorAll<HTMLTableElement>('.leitura table').forEach((t) => {
+      if (!t.hasAttribute('tabindex')) t.tabIndex = 0;
+    });
+  }, []);
 
   const handleShare = async () => {
     const url = window.location.href;
@@ -113,7 +120,7 @@ export function ArtigoShell({
                 {voltarInline.label}
               </a>
             )}
-            <h1 className="font-serif font-semibold text-[2.25rem] leading-[1.08] sm:text-5xl md:text-[3.5rem] tracking-[-0.016em] text-white">
+            <h1 className="display-opsz font-serif font-semibold text-[2.25rem] leading-[1.06] sm:text-5xl md:text-[3.5rem] text-white">
               {title}
             </h1>
             <p className="mt-6 font-serif text-xl md:text-[1.4375rem] leading-[1.5] text-nevoa max-w-[38rem]">{excerpt}</p>
@@ -146,7 +153,7 @@ export function ArtigoShell({
           {depois && <div className="mt-16">{depois}</div>}
 
           {autor && (
-            <div className="mt-20 pt-10 border-t border-tinta grid gap-6 sm:grid-cols-[auto_1fr] sm:gap-8 items-start">
+            <div className={`${depois ? 'mt-12' : 'mt-20 pt-10 border-t border-tinta'} grid gap-6 sm:grid-cols-[auto_1fr] sm:gap-8 items-start`}>
               <img
                 src={fotoAutor}
                 alt={author.name}
@@ -156,8 +163,10 @@ export function ArtigoShell({
                 className="w-[88px] h-[88px] rounded-full object-cover bg-papel-2"
               />
               <div>
-                <h2 className="rotulo text-laranja-fundo mb-3">Sobre o Autor</h2>
-                <p className="font-serif text-[1.75rem] md:text-[2rem] font-semibold leading-tight text-tinta mb-3">{author.name}</p>
+                <h2 className="font-serif text-[1.75rem] md:text-[2rem] font-semibold leading-tight tracking-[-0.012em] text-tinta">{author.name}</h2>
+                <p className="meta mt-1.5 mb-4">
+                  <span>Sobre o Autor</span>
+                </p>
                 <p className="font-sans text-[0.9875rem] leading-relaxed text-tinta-2 max-w-[34rem] mb-4">{author.bio}</p>
                 <SocialLinks linkClassName="text-tinta-3 hover:text-tinta hover:bg-papel-2" />
               </div>

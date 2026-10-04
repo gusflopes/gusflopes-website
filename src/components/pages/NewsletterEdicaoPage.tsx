@@ -48,7 +48,7 @@ export function NewsletterEdicaoPage({
             href={substackUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm font-semibold text-laranja-claro hover:text-laranja-palido underline underline-offset-4 decoration-laranja-claro/40 hover:decoration-laranja-palido"
+            className="acao text-laranja"
           >
             Ler no Substack →
           </a>

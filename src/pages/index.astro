@@ -4,7 +4,7 @@ import { publicado } from '../lib/publicado';
 import Default from '../layouts/Default.astro';
 import { HomePage } from '../components/pages/HomePage';
 import type { LatestArticle, FeaturedVideo } from '../components/LatestContent';
-import { compareIsoDateDesc } from '../lib/format';
+import { compareIsoDateDesc, formatDatePtBR } from '../lib/format';
 import type { EixoResumo } from '../components/Eixos';
 import { EIXO_IDS } from '../lib/eixos';
 import { getArtigos } from '../lib/artigos';
@@ -28,6 +28,8 @@ const articles: LatestArticle[] = insights.slice(0, 2).map((entry) => ({
   category: entry.data.category,
   image: entry.data.image,
   link: `/insights/article/${entry.id}`,
+  date: formatDatePtBR(entry.data.date),
+  eixo: entry.data.eixo,
 }));
 
 const latestVideo = radar.find((entry) => entry.data.type === 'video');
@@ -48,7 +50,9 @@ const video: FeaturedVideo | undefined = latestVideo
 const autorais = await getArtigos({ incluirRadarLocal: true });
 const eixos: EixoResumo[] = EIXO_IDS.flatMap((id): EixoResumo[] => {
   const ultimo = autorais.find((a) => a.eixo === id);
-  const destaque = ultimo ? { title: ultimo.title, href: ultimo.href } : undefined;
+  const destaque = ultimo
+    ? { title: ultimo.title, href: ultimo.href, date: ultimo.date, duration: ultimo.duration }
+    : undefined;
   if (id === 'bastidores') {
     const reforma = projetos.reforma;
     return [

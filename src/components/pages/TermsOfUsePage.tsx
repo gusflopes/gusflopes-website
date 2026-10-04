@@ -5,11 +5,12 @@ export function TermsOfUsePage() {
     <main className="claro pt-32 md:pt-40 pb-24 px-4 sm:px-6 min-h-screen bg-papel text-tinta">
       <article className="max-w-3xl mx-auto">
         <header className="mb-12 border-b border-tinta pb-8">
-          <h1 className="font-serif text-4xl md:text-[3.5rem] leading-[1.06] tracking-[-0.016em] text-tinta mb-5 font-semibold">
+          <h1 className="display-opsz font-serif text-4xl md:text-[3.5rem] leading-[1.04] text-tinta mb-5 font-semibold">
             Termos de Uso
           </h1>
-          <p className="rotulo num text-tinta-3">
-            Última atualização: Dezembro/2025
+          <p className="meta">
+            <span>
+            Última atualização: Dezembro/2025</span>
           </p>
         </header>
 

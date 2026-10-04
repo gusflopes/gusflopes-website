@@ -17,21 +17,21 @@ const caminhos = [
 >
   <main class="pt-36 md:pt-44 pb-24 md:pb-32 px-4 sm:px-6 min-h-screen bg-noite">
     <div class="max-w-5xl mx-auto w-full">
-      <h1 class="font-serif font-semibold text-[2.625rem] md:text-6xl text-white leading-[1.04] tracking-[-0.018em] mb-6 max-w-[14ch]">
+      <h1 class="display-opsz font-serif font-semibold text-[2.625rem] md:text-[4.25rem] text-white leading-[1] max-w-[14ch]">
         Esta página não existe <br />
         <span class="text-laranja">ou mudou de lugar</span>
       </h1>
-      <p class="rotulo num text-ceu mb-10">Erro 404</p>
+      <p class="meta mt-5 mb-10"><span>Erro 404</span></p>
       <p class="font-sans text-lg text-nevoa leading-relaxed max-w-xl mb-14">
         O link pode estar quebrado ou o texto foi renomeado. Comece por um destes caminhos:
       </p>
 
-      <ul class="grid md:grid-cols-3 border-t border-noite-fio-forte mb-14">
+      <ul class="border-t border-noite-fio-forte mb-14 max-w-3xl">
         {
-          caminhos.map((c, i) => (
-            <li class={`border-b md:border-b-0 border-noite-fio ${i > 0 ? 'md:border-l md:pl-8' : ''} md:pr-8`}>
-              <a href={c.href} class="group block py-7">
-                <span class="block font-serif text-2xl text-white mb-2 group-hover:text-laranja-palido transition-colors">{c.label}</span>
+          caminhos.map((c) => (
+            <li class="border-b border-noite-fio">
+              <a href={c.href} class="group grid gap-1 sm:grid-cols-[12rem_minmax(0,1fr)] sm:gap-8 sm:items-baseline py-6">
+                <span class="block font-serif text-[1.625rem] leading-tight text-white group-hover:text-laranja-palido transition-colors">{c.label}</span>
                 <span class="block font-sans text-[0.9375rem] text-nevoa leading-relaxed">{c.desc}</span>
               </a>
             </li>

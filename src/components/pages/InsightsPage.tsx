@@ -2,6 +2,7 @@ import { useState, type ReactNode } from 'react';
 import { ArrowRight, Search } from 'lucide-react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { EIXOS, EIXO_LIST, type EixoId } from '../../lib/eixos';
+import { Amp } from '../Amp';
 
 export interface InsightArticle {
   id: string;
@@ -68,11 +69,11 @@ export function InsightsPage({
       {/* Moldura: cabeçalho em azul-escuro */}
       <div className="bg-noite pt-32 md:pt-40 pb-12 md:pb-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <h1 className="font-serif font-semibold text-5xl md:text-[4.25rem] leading-[1.02] tracking-[-0.018em] text-white">
-            {heading}
+          <h1 className="display-opsz font-serif font-semibold text-5xl md:text-[4.5rem] leading-[1] text-white">
+            <Amp>{heading}</Amp>
           </h1>
           <p className="mt-6 font-serif text-xl md:text-[1.375rem] leading-[1.5] text-nevoa max-w-[42rem]">{subheading}</p>
-          {eixo && <p className="mt-4 font-sans text-[0.9375rem] font-semibold text-laranja-claro">{EIXOS[eixo].publico}</p>}
+          {eixo && <p className="mt-4 font-sans text-[0.9375rem] font-semibold text-ceu">{EIXOS[eixo].publico}</p>}
 
           {/* Eixos — só na listagem geral; nos hubs o eixo já está fixo */}
           {!eixo && (
@@ -143,28 +144,27 @@ export function InsightsPage({
             <li key={article.id} className="border-b border-papel-fio">
               <a
                 href={article.href}
-                className="group grid grid-cols-[minmax(0,1fr)_5.5rem] sm:grid-cols-[minmax(0,1fr)_10rem] md:grid-cols-[8.5rem_minmax(0,1fr)_12rem] gap-x-5 md:gap-x-10 gap-y-3 py-8 md:py-10"
+                className="group grid grid-cols-[minmax(0,1fr)_5.5rem] sm:grid-cols-[minmax(0,1fr)_10rem] md:grid-cols-[8.5rem_minmax(0,1fr)_12rem] gap-x-5 md:gap-x-10 py-7 md:py-10"
               >
-                <p className="num col-span-2 md:col-span-1 font-sans text-sm text-tinta-3 md:pt-2">
+                <p className="hidden md:block num font-sans text-sm text-ceu-fundo pt-2.5">
                   {article.date}
-                  <span className="md:block">
-                    <span className="md:hidden"> · </span>
-                    {article.duration}
-                  </span>
+                  <span className="block text-tinta-3">{article.duration}</span>
                 </p>
                 <div className="min-w-0">
-                  <p className="rotulo text-laranja-fundo mb-3">
-                    {eixo ? article.category : `${EIXOS[article.eixo].shortLabel} · ${article.category}`}
-                  </p>
-                  <h2 className="font-serif text-[1.375rem] sm:text-[1.75rem] font-semibold leading-[1.22] text-tinta group-hover:text-laranja-fundo transition-colors">
+                  <h2 className="font-serif text-[1.3125rem] sm:text-[1.75rem] font-semibold leading-[1.2] text-tinta group-hover:text-laranja-fundo transition-colors">
                     {article.title}
                   </h2>
+                  <p className="meta mt-2.5">
+                    <span className="so-movel">{article.date}</span>
+                    {!eixo && <span><Amp>{EIXOS[article.eixo].shortLabel}</Amp></span>}
+                    <span>{article.category}</span>
+                  </p>
                   <p className="hidden sm:block mt-3 font-sans text-[1.0625rem] leading-relaxed text-tinta-2 max-w-[40rem]">
                     {article.excerpt}
                   </p>
-                  <span className="mt-4 hidden sm:inline-flex items-center gap-2 font-sans text-sm font-semibold text-tinta">
+                  <span className="acao mt-4 hidden sm:inline-flex text-laranja-fundo">
                     Ler Artigo
-                    <ArrowRight size={14} aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1" />
+                    <ArrowRight size={15} aria-hidden="true" />
                   </span>
                 </div>
                 <div className="aspect-square sm:aspect-[4/3] overflow-hidden rounded-[3px] bg-papel-2 self-start">

@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { EIXOS, type EixoId } from '../../lib/eixos';
 import { ArtigoShell } from '../artigo/ArtigoShell';
+import { NewsletterCta } from '../NewsletterCta';
 
 export interface RadarArticlePageProps {
   title: string;
@@ -30,6 +31,7 @@ export function RadarArticlePage({
       excerpt={excerpt}
       image={image}
       voltar={{ href: '/radar', label: 'Voltar para o Radar' }}
+      depois={<NewsletterCta content="artigo-radar" />}
       meta={
         <>
           <a

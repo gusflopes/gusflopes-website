@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Search, ArrowRight, ExternalLink, Play } from 'lucide-react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { EIXOS, EIXO_LIST, type EixoId } from '../../lib/eixos';
+import { Amp } from '../Amp';
 
 export interface RadarItem {
   id: string;
@@ -50,7 +51,7 @@ export function RadarPage({ items }: RadarPageProps) {
     <main className="min-h-screen bg-noite text-nevoa">
       <div className="pt-32 md:pt-40 border-b border-noite-fio">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <h1 className="font-serif font-semibold text-5xl md:text-[4.25rem] leading-[1.02] tracking-[-0.018em] text-white">
+          <h1 className="display-opsz font-serif font-semibold text-5xl md:text-[4.5rem] leading-[1] text-white">
             Radar
           </h1>
           <p className="mt-6 font-serif text-xl md:text-[1.375rem] leading-[1.5] text-nevoa max-w-[42rem]">
@@ -136,38 +137,30 @@ export function RadarPage({ items }: RadarPageProps) {
                   <a
                     href={item.link}
                     {...(externo ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                    className="group grid grid-cols-[minmax(0,1fr)_5.5rem] sm:grid-cols-[minmax(0,1fr)_10rem] md:grid-cols-[8.5rem_minmax(0,1fr)_12rem] gap-x-5 md:gap-x-10 gap-y-3 py-8 md:py-10"
+                    className="group grid grid-cols-[minmax(0,1fr)_5.5rem] sm:grid-cols-[minmax(0,1fr)_10rem] md:grid-cols-[8.5rem_minmax(0,1fr)_12rem] gap-x-5 md:gap-x-10 py-7 md:py-10"
                   >
-                    <div className="num col-span-2 md:col-span-1 font-sans text-sm text-nevoa-2 md:pt-2 flex flex-wrap md:flex-col gap-x-2 gap-y-1">
+                    <div className="hidden md:flex num font-sans text-sm text-ceu pt-2.5 flex-col gap-y-1">
                       <span>{item.date}</span>
-                      <span aria-hidden="true" className="md:hidden">·</span>
-                      <span>{item.duration}</span>
-                      {externo && (
-                        <span className="md:mt-2 text-ceu">
-                          <span aria-hidden="true" className="md:hidden">· </span>
-                          {item.source}
-                        </span>
-                      )}
+                      <span className="text-nevoa-2">{item.duration}</span>
                     </div>
                     <div className="min-w-0">
-                      <p className="rotulo text-laranja-claro mb-3">
-                        {selectedEixo === 'todos' && eixosComConteudo.length > 1
-                          ? `${EIXOS[item.eixo].shortLabel} · ${item.category}`
-                          : item.category}
-                      </p>
-                      <h2 className="font-serif text-[1.375rem] sm:text-[1.75rem] font-semibold leading-[1.22] text-white group-hover:text-laranja-palido transition-colors">
+                      <h2 className="font-serif text-[1.3125rem] sm:text-[1.75rem] font-semibold leading-[1.2] text-white group-hover:text-laranja-palido transition-colors">
                         {item.title}
                       </h2>
+                      <p className="meta mt-2.5">
+                        <span className="so-movel">{item.date}</span>
+                        {selectedEixo === 'todos' && eixosComConteudo.length > 1 && (
+                          <span><Amp>{EIXOS[item.eixo].shortLabel}</Amp></span>
+                        )}
+                        <span>{item.category}</span>
+                        {externo && <span className="text-nevoa">{item.source}</span>}
+                      </p>
                       <p className="hidden sm:block mt-3 font-sans text-[1.0625rem] leading-relaxed text-nevoa max-w-[40rem] line-clamp-3">
                         {item.excerpt}
                       </p>
-                      <span className="mt-4 hidden sm:inline-flex items-center gap-2 font-sans text-sm font-semibold text-laranja">
+                      <span className="acao mt-4 hidden sm:inline-flex text-laranja">
                         {acao}
-                        {externo ? (
-                          <ExternalLink size={14} aria-hidden="true" />
-                        ) : (
-                          <ArrowRight size={14} aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1" />
-                        )}
+                        {externo ? <ExternalLink size={14} aria-hidden="true" /> : <ArrowRight size={15} aria-hidden="true" />}
                       </span>
                     </div>
                     <div className="relative aspect-square sm:aspect-[4/3] overflow-hidden rounded-[3px] bg-noite-2 self-start">

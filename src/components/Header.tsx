@@ -49,18 +49,18 @@ export function Header({ pathname: rawPathname, eixosAtivos = [] }: HeaderProps)
     }
   };
 
-  // Na home o header nasce transparente sobre o quadro e vira azul sólido ao rolar.
-  const solido = isScrolled || !isHome || isMenuOpen;
+  // Header fino sempre em azul sólido: o quadro do hero começa abaixo dele, sem véu por cima.
+  // Ao rolar, o fio de baixo acende um tom para marcar a borda sobre o conteúdo.
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color] duration-300 border-b ${
-        solido ? 'bg-noite border-noite-fio' : 'bg-transparent border-transparent'
+      className={`fixed top-0 left-0 right-0 z-50 bg-noite border-b transition-[border-color] duration-300 ${
+        isScrolled || isMenuOpen ? 'border-noite-fio-forte' : 'border-noite-fio'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-[72px] flex items-center justify-between gap-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 lg:h-[72px] flex items-center justify-between gap-6">
         <a href="/" onClick={(e) => handleClick(e, '/')} className="shrink-0">
-          <img src={logo} alt="Gusflopes.dev" width={1028} height={556} className="h-11 w-auto" />
+          <img src={logo} alt="Gusflopes.dev" width={1028} height={556} className="h-10 lg:h-11 w-auto" />
         </a>
 
         <nav aria-label="Principal" className="hidden lg:flex items-center gap-7">

@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { EIXOS, type EixoId } from '../../lib/eixos';
 import { ArtigoShell } from '../artigo/ArtigoShell';
+import { NewsletterCta } from '../NewsletterCta';
 
 export interface InsightArticlePageProps {
   title: string;
@@ -30,6 +31,7 @@ export function InsightArticlePage({
       excerpt={excerpt}
       image={image}
       voltar={{ href: '/insights', label: 'Voltar' }}
+      depois={<NewsletterCta content="artigo-insights" />}
       meta={
         <>
           <a

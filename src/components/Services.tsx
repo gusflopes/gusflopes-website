@@ -1,5 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 import { site } from '../config/site';
+import { Amp } from './Amp';
 
 const services = [
   {
@@ -41,29 +42,41 @@ const services = [
   },
 ];
 
+/**
+ * "Como posso ajudar": o trabalho é entender o que contratar e como começar. Abre o campo
+ * escuro do fim da página (o mesmo do rodapé) como um livro-razão de ofertas: cada linha tem o
+ * nome, o que é, e a ação na ponta direita — lê-se da esquerda para a direita como uma decisão.
+ */
 export function Services() {
   return (
-    <section id="consulting" className="relative bg-noite-2 py-20 md:py-28 px-4 sm:px-6">
+    <section id="consulting" aria-labelledby="consulting-title" className="relative bg-noite-fundo pt-20 md:pt-28 pb-16 md:pb-24 px-4 sm:px-6">
       <div id="courses" className="absolute top-0" />
       <div className="max-w-7xl mx-auto">
-        <h2 className="font-serif text-[2.125rem] md:text-5xl leading-[1.08] tracking-[-0.012em] text-white mb-14 md:mb-16">
-          Como posso ajudar
+        <h2 id="consulting-title" className="h-secao text-white mb-10 md:mb-14">
+          Como posso <span className="acento">ajudar</span>
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-12">
+        <ul className="border-t border-noite-fio-forte">
           {services.map((service) => (
-            <article key={service.title} className="group flex flex-col pt-7 border-t border-noite-fio-forte">
-              <h3 className="font-serif text-2xl md:text-[1.75rem] leading-tight text-white mb-4">{service.title}</h3>
-              <p className="font-sans text-[1.0625rem] leading-relaxed text-nevoa mb-8 flex-grow">{service.description}</p>
-              <a
-                href={service.link}
-                className="acao self-start text-sm tracking-[0.08em] text-laranja decoration-laranja/50 hover:decoration-laranja"
-              >
-                {service.action} <ArrowRight size={16} aria-hidden="true" />
-              </a>
-            </article>
+            <li key={service.title} className="group relative border-b border-noite-fio">
+              <span
+                aria-hidden="true"
+                className="absolute -bottom-px left-0 right-0 h-px bg-laranja origin-left scale-x-0 transition-transform duration-500 ease-[var(--ease-saida)] group-hover:scale-x-100 group-focus-within:scale-x-100"
+              />
+              <div className="grid gap-3 py-8 md:py-10 lg:grid-cols-12 lg:gap-x-10 lg:items-baseline">
+                <h3 className="lg:col-span-4 font-serif text-[1.625rem] md:text-[2rem] leading-[1.1] tracking-[-0.012em] text-white">
+                  <Amp>{service.title}</Amp>
+                </h3>
+                <p className="lg:col-span-5 font-sans text-[1rem] md:text-[1.0625rem] leading-relaxed text-nevoa max-w-[38rem]">
+                  {service.description}
+                </p>
+                <a href={service.link} className="acao mt-2 lg:mt-0 lg:col-span-3 lg:justify-self-end text-laranja">
+                  {service.action} <ArrowRight size={16} aria-hidden="true" />
+                </a>
+              </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );
