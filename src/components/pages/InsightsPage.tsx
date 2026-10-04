@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react';
 import { ArrowRight, Search } from 'lucide-react';
-import { EIXOS, EIXO_LIST, type EixoId } from '../../lib/eixos';
+import { EIXOS, EIXO_CAMPO, EIXO_LIST, type EixoId } from '../../lib/eixos';
 import { Abertura } from '../Abertura';
 import { datePartsPtBR } from '../../lib/format';
 
@@ -34,22 +34,25 @@ interface InsightsPageProps {
 /**
  * Célula de data das listas: o dia como numeral grande, "Mês, ano" e a duração como rótulo.
  * No item mais recente (sem filtro) a célula vira plano laranja — a cor marca a ordem real.
+ * Nos outros, a célula é o campo do quadro do eixo do texto (EIXO_CAMPO): a cor diz para quem é.
  */
-export function DataCelula({ iso, data, duracao, destaque = false }: { iso?: string; data?: string; duracao: string; destaque?: boolean }) {
+export function DataCelula({ iso, data, duracao, destaque = false, eixo }: { iso?: string; data?: string; duracao: string; destaque?: boolean; eixo?: EixoId }) {
   const partes = iso ? datePartsPtBR(iso) : (() => {
     const i = (data ?? '').indexOf(' ');
     return i > 0 ? { dia: data!.slice(0, i), mesAno: data!.slice(i + 1) } : { dia: data ?? '', mesAno: '' };
   })();
   const Tag = iso ? 'time' : 'p';
+  const campo = !destaque && eixo ? EIXO_CAMPO[eixo] : undefined;
+  const celula = destaque ? 'campo-laranja' : campo ? `${campo.campo} ${campo.texto}` : '';
   return (
     <Tag
       {...(iso ? { dateTime: iso } : {})}
       className={`md:col-span-2 self-start flex md:flex-col items-baseline md:items-start gap-x-3 gap-y-2 tabular-nums ${
-        destaque ? 'campo-laranja px-3 pt-3 pb-3 md:pb-4 -mx-0' : ''
+        celula ? `${celula} px-3 pt-3 pb-3 md:pb-4` : ''
       }`}
     >
-      <span className={`numeral text-[2.75rem] md:text-[4.25rem] ${destaque ? '' : 'text-azul'}`}>{partes.dia}</span>
-      <span className={`rotulo flex md:flex-col gap-x-3 gap-y-1 ${destaque ? '' : 'text-tinta-2'}`}>
+      <span className={`numeral text-[2.75rem] md:text-[4.25rem] ${celula ? '' : 'text-azul'}`}>{partes.dia}</span>
+      <span className={`rotulo flex md:flex-col gap-x-3 gap-y-1 ${celula ? '' : 'text-tinta-2'}`}>
         <span>{partes.mesAno}</span>
         <span>{duracao}</span>
       </span>
@@ -160,11 +163,11 @@ export function InsightsPage({
             <div className="lg:col-span-7">
               <Abertura titulo={heading} eixo={eixo ?? 'engenharia'} teto={9} />
             </div>
-            {/* Campo de petróleo escuro (cor do quadro): a frase de apoio do hub. Papel sobre ele, 6,67:1. */}
-            <div className="lg:col-span-5 bg-petroleo-escuro border-t-2 border-papel px-5 pt-4 pb-5">
-              <p className="font-serif text-[1.1875rem] leading-relaxed text-papel">{subheading}</p>
+            {/* Campo do quadro (o do eixo nos hubs; petróleo escuro na listagem geral): a frase de apoio. */}
+            <div className={`lg:col-span-5 ${eixo ? `${EIXO_CAMPO[eixo].campo} ${EIXO_CAMPO[eixo].texto}` : 'bg-petroleo-escuro text-papel'} border-t-2 border-papel px-5 pt-4 pb-5`}>
+              <p className="font-serif text-[1.1875rem] leading-relaxed">{subheading}</p>
               {eixo && (
-                <p className="mt-4 flex items-baseline gap-2.5 font-sans font-semibold [font-stretch:87%] text-[1rem] leading-snug text-papel">
+                <p className="mt-4 flex items-baseline gap-2.5 font-sans font-semibold [font-stretch:87%] text-[1rem] leading-snug">
                   <span className="marca" aria-hidden="true" />
                   {EIXOS[eixo].publico}
                 </p>
@@ -210,7 +213,7 @@ export function InsightsPage({
               return (
                 <li key={article.id} className="border-t-2 border-laranja first:border-t-0">
                   <a href={article.href} className="group grid gap-x-[var(--gutter)] gap-y-4 py-7 md:grid-cols-12 hover:bg-papel-3 transition-colors">
-                    <DataCelula iso={article.isoDate} duracao={article.duration} destaque={destaque} />
+                    <DataCelula iso={article.isoDate} duracao={article.duration} destaque={destaque} eixo={article.eixo} />
                     <div className="md:col-span-7">
                       <h2
                         className={`font-sans text-azul group-hover:text-laranja-fundo transition-colors text-balance mb-3 ${

@@ -30,7 +30,7 @@ const themes = [
 
 /** Posição de cada tema na partição 3 + 2 da grade de 12 colunas (desktop). */
 const SPAN = ['lg:col-span-4', 'lg:col-span-4', 'lg:col-span-4', 'lg:col-span-7', 'lg:col-span-5'];
-/** A célula que vira campo de ardósia clara (a mais larga da partição). */
+/** A célula que vira campo de areia (a mais larga da partição). */
 const CAMPO = 3;
 
 /**
@@ -38,12 +38,12 @@ const CAMPO = 3;
  * Composição: abertura em bloco ocupando 7 colunas, trajetória em serifa alinhada pela base;
  * embaixo, os cinco temas como partição de grade (3 + 2) desenhada pelo próprio fundo azul
  * nos vãos de 2px (no celular, só o filete de topo de cada tema). O nome de cada tema é
- * estreita 780 em caixa mista, com o "&" em laranja: a ponte entre os dois termos — a caixa-alta
+ * estreita 780 em caixa mista, com o "&" na cor do texto (regra única do site) — a caixa-alta
  * 900 fica só para a abertura da seção.
  */
 export function Themes() {
   return (
-    <section id="about" aria-labelledby="about-title" className="campo-papel pt-20 md:pt-28 pb-6 md:pb-10">
+    <section id="about" aria-labelledby="about-title" className="campo-papel campo-creme pt-20 md:pt-28 pb-6 md:pb-10">
       <div className="moldura">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-x-[var(--gutter)] items-end">
           <div className="lg:col-span-7">
@@ -62,19 +62,19 @@ export function Themes() {
 
         {/*
           Celular: só o filete de topo de cada tema, em laranja (presença), sem caixas fechadas.
-          Desktop: partição 3 + 2 desenhada pelo fundo azul nos vãos; a marca laranja no canto de cada
-          célula é a presença; a célula mais larga é o campo de ardósia clara (cor do quadro, azul 5,67:1).
+          Desktop: partição 3 + 2 desenhada pelo fundo azul nos vãos de 2px (sem marca de canto: era confete), com os
+          filetes de cima e de baixo em laranja;
+          a célula mais larga é o campo de areia (cor quente do quadro, azul sobre ela 6,4:1).
         */}
-        <dl className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 md:gap-[2px] md:bg-azul md:border-2 md:border-azul">
+        <dl className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 md:gap-[2px] md:bg-azul md:border-2 md:border-azul md:border-y-laranja">
           {themes.map((theme, i) => {
             const campo = i === CAMPO;
             return (
               <div
                 key={theme.title}
-                className={`relative ${campo ? 'bg-ardosia-clara text-azul' : 'campo-papel'} ${SPAN[i]} ${i === 4 ? 'md:col-span-2' : ''} max-md:border-t-2 max-md:border-laranja ${campo ? 'max-md:px-5' : ''} pt-5 pb-10 md:px-7 md:pb-7 md:pt-16 flex flex-col gap-4 md:gap-5`}
+                className={`relative ${campo ? 'bg-areia text-azul' : 'campo-papel'} ${SPAN[i]} ${i === 4 ? 'md:col-span-2' : ''} max-md:border-t-2 max-md:border-laranja ${campo ? 'max-md:px-5' : ''} pt-5 pb-10 md:px-7 md:pb-7 md:pt-8 flex flex-col gap-4 md:gap-5`}
               >
-                <span className="marca marca-canto max-md:hidden" aria-hidden="true" />
-                <NomeCelula titulo={theme.title} as="dt" className="text-azul" ampClassName={campo ? 'text-azul' : 'text-laranja-fundo'} />
+                <NomeCelula titulo={theme.title} as="dt" className="text-azul" />
                 <dd className={`font-serif text-[1.0625rem] leading-relaxed max-w-[46ch] ${campo ? 'text-azul' : 'text-tinta'}`}>{theme.description}</dd>
               </div>
             );

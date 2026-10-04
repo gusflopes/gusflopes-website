@@ -1,5 +1,5 @@
 import { ArrowRight } from 'lucide-react';
-import { EIXOS, type EixoId } from '../lib/eixos';
+import { EIXOS, EIXO_CAMPO, type EixoId } from '../lib/eixos';
 import { Abertura, NomeCelula } from './Abertura';
 
 export interface TextoEixo {
@@ -26,9 +26,10 @@ interface EixosProps {
 /**
  * Trabalho da seção: escolher por onde entrar — e ver o que saiu em cada porta.
  * Composição: um plano de petróleo alto (cor do quadro; a pergunta, em papel) encostado em três linhas de papel, uma
- * por porta. O nome do eixo é estreita 780 em caixa mista (a caixa-alta 900 fica para a
+ * por porta, cada uma aberta por filete laranja de 2px (sem marca de canto). A ação de cada porta é link com seta: a
+ * região não tem ação chapada. O nome do eixo é estreita 780 em caixa mista (a caixa-alta 900 fica para a
  * pergunta); os textos mais recentes do eixo descem como linhas de tabela iguais às dos hubs:
- * dia em numeral leve | título | "Mais recente" ao lado do primeiro.
+ * dia em numeral leve no campo do quadro do eixo | título | "Mais recente" ao lado do primeiro.
  */
 export function Eixos({ eixos }: EixosProps) {
   if (eixos.length === 0) return null;
@@ -50,15 +51,14 @@ export function Eixos({ eixos }: EixosProps) {
             const eixo = EIXOS[id];
             const temTexto = textos.length > 0;
             return (
-              <article key={id} className="relative campo-papel lg:col-span-8 grid md:grid-cols-8">
-                <span className="marca marca-canto" aria-hidden="true" />
-                <div className="md:col-span-3 px-[var(--gutter)] md:px-7 pt-14 md:pt-16 md:pb-8 flex flex-col gap-4">
+              <article key={id} className="campo-papel lg:col-span-8 grid md:grid-cols-8 border-t-2 border-laranja">
+                <div className="md:col-span-3 px-[var(--gutter)] md:px-7 pt-9 md:pt-12 md:pb-8 flex flex-col gap-4">
                   <a href={eixo.href} className="group block text-azul hover:text-laranja-fundo transition-colors">
                     <NomeCelula titulo={eixo.label} inteiro className="!text-[clamp(2rem,1.45rem+1.2vw,2.5rem)] !text-current lg:whitespace-nowrap" />
                   </a>
                   <p className="font-sans font-semibold [font-stretch:87%] text-[0.9375rem] leading-snug text-tinta-2">{eixo.publico}</p>
                 </div>
-                <div className="md:col-span-5 md:border-l border-filete px-[var(--gutter)] md:px-7 pt-4 pb-8 md:pt-16 md:pb-8 flex flex-col gap-5">
+                <div className="md:col-span-5 md:border-l border-filete px-[var(--gutter)] md:px-7 pt-4 pb-8 md:pt-12 md:pb-8 flex flex-col gap-5">
                   <p className="font-serif text-[1.0625rem] leading-relaxed text-tinta">{eixo.descricao}</p>
                   {temTexto && (
                     <ol className="filete-laranja">
@@ -66,14 +66,12 @@ export function Eixos({ eixos }: EixosProps) {
                         <li key={t.href} className="border-b border-filete">
                           <a
                             href={t.href}
-                            className="group grid grid-cols-[4.25rem_minmax(0,1fr)] gap-x-4 gap-y-1 py-3 hover:bg-papel-3 transition-colors"
+                            className="group grid grid-cols-[4.75rem_minmax(0,1fr)] gap-x-4 gap-y-1 py-3 hover:bg-papel-3 transition-colors"
                           >
-                            <time dateTime={t.isoDate} className="row-span-2 flex flex-col gap-1.5 pt-0.5">
-                              <span className="flex items-start gap-1.5">
-                                <span className="numeral text-[2.25rem] text-azul">{t.dia}</span>
-                                <span className="marca mt-0.5" aria-hidden="true" />
-                              </span>
-                              <span className="rotulo !text-[0.6875rem] !tracking-[0.08em] text-tinta-2">{t.mesAno}</span>
+                            {/* Célula de data no campo do eixo (o mesmo dos hubs): a cor diz para quem é o texto. */}
+                            <time dateTime={t.isoDate} className={`row-span-2 self-start flex flex-col gap-1.5 px-2 pt-2 pb-2.5 ${EIXO_CAMPO[id].campo} ${EIXO_CAMPO[id].texto}`}>
+                              <span className="numeral text-[2.25rem]">{t.dia}</span>
+                              <span className="rotulo !text-[0.6875rem] !tracking-[0.08em]">{t.mesAno}</span>
                             </time>
                             <span className="font-sans font-bold [font-stretch:87%] text-[1.0625rem] leading-snug text-azul group-hover:text-laranja-fundo transition-colors">
                               {t.title}
@@ -89,7 +87,7 @@ export function Eixos({ eixos }: EixosProps) {
                       ))}
                     </ol>
                   )}
-                  <a href={temTexto ? eixo.href : projeto?.href ?? eixo.href} className="acao acao-chapada mt-auto self-start">
+                  <a href={temTexto ? eixo.href : projeto?.href ?? eixo.href} className="acao mt-auto self-start">
                     {temTexto ? `Ler ${eixo.shortLabel}` : projeto?.label ?? `Ver ${eixo.shortLabel}`}
                     <ArrowRight size={16} strokeWidth={2.5} aria-hidden="true" />
                   </a>

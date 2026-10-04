@@ -77,7 +77,7 @@ export function ArtigoLeitura({ title, excerpt, category, eixo, dateFormatted, d
       <article>
         <header className="campo-azul">
           <div className="moldura pt-8 md:pt-12 pb-12 md:pb-16">
-            <ul className="flex flex-wrap rotulo border-y border-azul-3 mb-10 md:mb-14">
+            <ul className="flex flex-wrap rotulo border-t border-azul-3 border-b-2 border-b-laranja mb-10 md:mb-14">
               <li className="py-2.5 pr-4">
                 <a href={EIXOS[eixo].href} className="text-laranja hover:text-laranja-palido transition-colors">
                   {EIXOS[eixo].shortLabel}
@@ -92,17 +92,21 @@ export function ArtigoLeitura({ title, excerpt, category, eixo, dateFormatted, d
               <div className="lg:col-span-8">
                 <Abertura titulo={title} eixo={eixo} teto={8.5} />
               </div>
-              <p className="lg:col-span-4 pt-5 border-t-2 border-papel max-w-[44ch] font-serif text-[1.25rem] md:text-[1.3125rem] leading-[1.5] text-ceu-claro">
+              <p className="lg:col-span-4 pt-5 border-t-2 border-laranja max-w-[44ch] font-serif text-[1.25rem] md:text-[1.3125rem] leading-[1.5] text-ceu-claro">
                 {excerpt}
               </p>
             </div>
+          </div>
+          {/* Costura noite → papel: filete laranja de 4px na largura da grade (a mesma dos Serviços na home). */}
+          <div className="moldura" aria-hidden="true">
+            <div className="h-1 bg-laranja" />
           </div>
         </header>
 
         <div className="campo-papel pb-24">
           <div className="moldura pt-12 md:pt-16 grid grid-cols-[minmax(0,1fr)] lg:grid-cols-12 lg:gap-x-[var(--gutter)]">
             {/* Corpo — markdown renderizado via slot */}
-            <div className="leitura lg:col-start-4 lg:col-span-9">{children}</div>
+            <div className="leitura lg:col-start-4 lg:col-span-9" data-eixo={eixo}>{children}</div>
 
             {/*
               Fecho: grade de células sobre azul — foto, nome com "Sobre o Autor" numa célula de

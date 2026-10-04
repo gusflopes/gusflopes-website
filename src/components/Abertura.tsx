@@ -66,21 +66,22 @@ export function Abertura({
 /**
  * Nome curto de célula (temas, serviços, eixos): Archivo estreita 780 em caixa mista — volume
  * abaixo da abertura da seção, que é a única em caixa-alta 900. Quebra no " & " (o "&" fica no
- * fim da primeira linha, em laranja: a ponte entre os dois termos).
+ * fim da primeira linha). O "&" vai na cor do texto em todo o site (rodada 5): pintá-lo só aqui e
+ * não nas aberturas, nos hubs e nos campos do quadro era inconsistente.
  */
 export function NomeCelula({
   titulo,
   as: Tag = 'h3',
   className = '',
   inteiro = false,
-  ampClassName = 'text-laranja-fundo',
+  ampClassName = '',
 }: {
   titulo: string;
   as?: 'h2' | 'h3' | 'dt' | 'p';
   className?: string;
   /** Não quebra no " & " (nomes de eixo: "Engenharia & IA" fica numa linha). */
   inteiro?: boolean;
-  /** Cor do "&" (dentro de um campo do quadro o laranja profundo não tem contraste). */
+  /** Classe opcional do "&" (por padrão, a cor do texto). */
   ampClassName?: string;
 }) {
   const amp = titulo.includes(' & ');

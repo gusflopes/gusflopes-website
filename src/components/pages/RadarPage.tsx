@@ -104,7 +104,7 @@ export function RadarPage({ items }: RadarPageProps) {
                       {...(item.isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                       className="group grid gap-x-[var(--gutter)] gap-y-3 py-7 md:grid-cols-12 hover:bg-papel-3 transition-colors"
                     >
-                      <DataCelula data={item.date} duracao={item.duration} destaque={!term && selectedCategory === 'Todos' && selectedEixo === 'todos' && idx === 0} />
+                      <DataCelula data={item.date} duracao={item.duration} destaque={!term && selectedCategory === 'Todos' && selectedEixo === 'todos' && idx === 0} eixo={item.eixo} />
                       <div className="md:col-span-7">
                         <h2 className="font-sans font-extrabold [font-stretch:87%] text-[1.375rem] md:text-[1.75rem] leading-[1.1] tracking-[-0.01em] text-azul group-hover:text-laranja-fundo transition-colors text-balance mb-3">
                           {item.type === 'video' && (

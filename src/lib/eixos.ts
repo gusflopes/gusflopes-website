@@ -58,3 +58,16 @@ export const EIXO_LIST: Eixo[] = EIXO_IDS.map((id) => EIXOS[id]);
 export function isEixoId(value: string): value is EixoId {
   return (EIXO_IDS as readonly string[]).includes(value);
 }
+
+/**
+ * Campo do quadro de cada eixo (rodada 5): a cor de apoio que marca o eixo nos hubs (célula de
+ * data, frase de apoio) e na leitura (marcadores de seção). Frio para quem constrói, quente para
+ * quem decide, ardósia para os bastidores. Classes completas para o Tailwind encontrar.
+ * Contraste do texto sobre o campo: papel em petróleo escuro 7:1, papel em ferrugem 6,4:1,
+ * azul-escuro em ardósia clara 5,6:1.
+ */
+export const EIXO_CAMPO: Record<EixoId, { campo: string; texto: string }> = {
+  engenharia: { campo: 'bg-petroleo-escuro', texto: 'text-papel' },
+  negocios: { campo: 'bg-ferrugem', texto: 'text-papel' },
+  bastidores: { campo: 'bg-ardosia-clara', texto: 'text-azul' },
+};

@@ -384,6 +384,29 @@
   .campo-laranja .abertura-sep {
     color: var(--azul);
   }
+  /*
+   * Newsletter do hero no celular: o plano laranja ocupava a largura toda da tela (a placa que se
+   * repetia). Abaixo de 1024px ele vira azul com filete laranja de 2px no topo, e só o botão fica
+   * chapado — a mesma regra da célula do rodapé.
+   */
+  @media (max-width: 1023.98px) {
+    .campo-laranja.hero-newsletter {
+      background: var(--azul);
+      color: var(--papel);
+      border-top: 2px solid var(--laranja);
+    }
+    .campo-laranja.hero-newsletter .botao {
+      background: var(--laranja);
+      color: var(--azul);
+    }
+    .campo-laranja.hero-newsletter .botao:hover {
+      background: var(--papel);
+      color: var(--azul);
+    }
+    .campo-laranja.hero-newsletter :focus-visible {
+      outline-color: var(--laranja);
+    }
+  }
   /* Ação que É a célula: o bloco inteiro é o link (Ferramenta, vídeo). */
   .celula-acao {
     display: flex;
@@ -421,14 +444,6 @@
     width: 0.625rem;
     height: 0.625rem;
     background: var(--laranja);
-  }
-  /* Marca de canto: quadrado sólido encostado no canto superior esquerdo de uma célula de papel da grade. */
-  .marca-canto {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 2.5rem;
-    height: 2.5rem;
   }
   /* Filete laranja de 2px no topo de uma linha (presença, nunca borda em volta). */
   .filete-laranja {
@@ -514,6 +529,62 @@
     padding-top: 0.7em;
     /* Laranja, registro (b): filete de 2px no topo da seção do texto (presença, não texto). */
     border-top: 2px solid var(--laranja);
+    position: relative;
+  }
+  .leitura[data-eixo] :where(h2) {
+    counter-increment: secao;
+    border-top-width: 4px;
+  }
+  /*
+   * Marco de seção (rodada 5): cada H2 ganha um campo chapado na cor do quadro do eixo do texto
+   * (EIXO_CAMPO em src/lib/eixos.ts), com o número da seção e um topo laranja (12px no desktop,
+   * 6px no celular) alinhado ao filete de 4px do H2: quente sobre frio, encostados. No celular é uma faixa acima do título; no desktop, uma placa na margem
+   * esquerda (as 3 colunas vazias ao lado da coluna de leitura). O número é decorativo: fica fora
+   * da árvore de acessibilidade (texto alternativo vazio no content).
+   */
+  .leitura[data-eixo] {
+    counter-reset: secao;
+    --eixo-campo: var(--color-petroleo-escuro);
+    --eixo-texto: var(--papel);
+  }
+  .leitura[data-eixo="negocios"] {
+    --eixo-campo: var(--color-ferrugem);
+  }
+  .leitura[data-eixo="bastidores"] {
+    --eixo-campo: var(--color-ardosia-clara);
+    --eixo-texto: var(--azul);
+  }
+  .leitura[data-eixo] :where(h2)::before {
+    content: counter(secao, decimal-leading-zero) / "";
+    display: flex;
+    align-items: flex-end;
+    height: 3.25rem;
+    margin: -1.225rem 0 0.55em;
+    padding: 0 0.75rem 0.35rem;
+    border-top: 6px solid var(--laranja);
+    background: var(--eixo-campo);
+    color: var(--eixo-texto);
+    font-weight: 250;
+    font-stretch: 125%;
+    font-size: 2.25rem;
+    line-height: 0.82;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  @media (min-width: 1024px) {
+    .leitura[data-eixo] :where(h2)::before {
+      /* largura de 3 colunas + 2 vãos da grade de 12, encostada um vão antes da coluna de leitura */
+      --coluna: calc((min(100vw - 2 * var(--gutter), var(--largura)) - 11 * var(--gutter)) / 12);
+      position: absolute;
+      top: -4px;
+      right: calc(100% + var(--gutter));
+      width: calc(3 * var(--coluna) + 2 * var(--gutter));
+      height: 10rem;
+      margin: 0;
+      padding: 0 1rem 0.75rem;
+      border-top-width: 0.75rem;
+      font-size: 4.25rem;
+    }
   }
   .leitura :where(h3) {
     font-family: var(--font-sans);
@@ -539,11 +610,12 @@
   .leitura :where(a) {
     color: var(--laranja-fundo);
     text-decoration: underline;
-    text-decoration-thickness: 1px;
+    /* sublinhado em laranja da marca (presença), texto no laranja escuro (contraste) */
+    text-decoration-color: var(--laranja);
+    text-decoration-thickness: 2px;
     text-underline-offset: 0.2em;
   }
   .leitura :where(a:hover) {
-    text-decoration-thickness: 2px;
     color: #0b1a33;
   }
   .leitura :where(strong) {
@@ -562,9 +634,9 @@
     content: "";
     position: absolute;
     left: -1.1em;
-    top: 0.62em;
-    width: 0.42em;
-    height: 0.42em;
+    top: 0.58em;
+    width: 0.5em;
+    height: 0.5em;
     background: var(--laranja);
   }
   .leitura :where(ol) {

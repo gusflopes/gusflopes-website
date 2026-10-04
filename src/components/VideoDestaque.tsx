@@ -21,8 +21,7 @@ export function VideoDestaque({ video }: { video: FeaturedVideo }) {
     <section aria-labelledby="video-title" className="campo-papel pt-14 md:pt-20">
       <div className="moldura">
         <div className="grid lg:grid-cols-12 gap-[2px] bg-azul border-2 border-azul">
-          <div className="relative campo-papel lg:col-span-4 p-6 pt-16 md:p-8 md:pt-16 flex items-end">
-            <span className="marca marca-canto" aria-hidden="true" />
+          <div className="campo-papel lg:col-span-4 p-6 pt-10 md:p-8 md:pt-12 flex items-end">
             <h2 id="video-title" className="nome-celula text-azul">Vídeo em Destaque</h2>
           </div>
           <a

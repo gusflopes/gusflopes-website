@@ -68,7 +68,7 @@ export function Hero({ fundo }: { fundo: FundoResponsivo }) {
         </div>
       </div>
 
-      {/* Faixa de grade: frase, apoio, metadados ao lado e o plano laranja da newsletter */}
+      {/* Faixa de grade: frase, apoio, metadados ao lado e o plano laranja da newsletter (no celular, só o botão é chapado) */}
       <div className="moldura !px-0 md:!px-[var(--gutter)]">
         <div className="grid lg:grid-cols-12 gap-x-[var(--gutter)] border-t-2 border-papel">
           <div className="lg:col-span-5 lg:col-start-4 px-[var(--gutter)] md:px-0 pt-6 pb-8 lg:pb-12 flex flex-col gap-5">
@@ -88,7 +88,7 @@ export function Hero({ fundo }: { fundo: FundoResponsivo }) {
               </span>
             ))}
           </p>
-          <div className="campo-laranja lg:col-span-4 lg:col-start-9 lg:row-start-1 max-lg:order-3 px-[var(--gutter)] md:px-7 py-7 flex flex-col justify-between gap-6">
+          <div className="campo-laranja hero-newsletter lg:col-span-4 lg:col-start-9 lg:row-start-1 max-lg:order-3 px-[var(--gutter)] md:px-7 py-7 flex flex-col justify-between gap-6">
             <p className="font-sans font-semibold [font-stretch:87%] text-[1.0625rem] leading-snug">{newsletter.pitch}</p>
             <div>
               <NewsletterForm variant="hero" />
