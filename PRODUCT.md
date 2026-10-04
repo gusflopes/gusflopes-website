@@ -67,8 +67,29 @@ mesmo sistema.
     tem mais cores; uma direção que só herda o azul do quadro perde a inspiração artística.
   - **Paleta de apoio aprovada (04/10):** as cores do quadro (petróleo `#457183`/`#315b6f`, ardósia `#648188`/`#7f989a`,
     areia `#aa9c87`, marrom `#907a5f`/`#50372a`, ferrugem `#8a4c1b`) entram como cores de apoio em campos e detalhes.
-    Azul-escuro e laranja continuam as oficiais. Um campo claro quente (areia puxada do quadro, acinzentada, nunca
-    creme) pode substituir o papel frio em poucas seções.
+    Azul-escuro e laranja continuam as oficiais. A areia `#aa9c87` é cor de apoio (filete, metadado sobre noite),
+    não fundo de leitura.
+  - **Claros quentes da Shelfye.ai** (Gustavo, 04/10, depois da rodada 4): o papel frio `#F2F4F7` e a areia acinzentada
+    `#D9D4CB`/`#D8D1C4` saem. Os claros passam a ser os da Shelfye (também marca do Gustavo, tokens de
+    `shelfye-ai/landing-page` e `webapp`):
+    - **papel `#FFF8F2`** ("pergaminho"): fundo claro padrão, de leitura;
+    - **creme `#FDEED9`**: campo quente para seções de destaque, caixas e o claro que antecede um bloco escuro;
+    - **tons de papel `#F9F2EC` / `#EEE7E1`**: aninhar cartões e células sem fio (mudança de tom, não borda).
+    O que se herda da Shelfye é só o claro. O laranja continua `#F97316` (não o `#FE8C00` dela, nem terracota), o
+    azul-escuro continua `#0B1A33`, e a tipografia e os traços "rubber-hose" dela não entram.
+    Contraste de texto sobre os claros (medido em 04/10):
+    - azul-escuro `#0B1A33`: 14,2–16,5:1 em todos;
+    - link/destaque laranja escuro: `#C2410C` só em papel e creme (4,9 e 4,5:1); em `#EEE7E1` use `#9A3412` (6,0:1);
+    - petróleo como texto: `#315b6f` (6,0–7,0:1); `#457183` só em papel (5,1:1) ou em tamanho grande;
+    - ardósia `#648188`/`#7f989a`, marrom `#907a5f` e laranja `#F97316` sobre claro **não** levam texto (abaixo de
+      4:1): ficam em filetes, marcas, campos e ilustração;
+    - texto secundário: `#475569` (6,2–7,2:1); `#64748b` não serve em creme nem em `#EEE7E1`.
+  - **Texto sobre laranja nunca é preto** (Gustavo, 04/10). A cor do texto depende do laranja:
+    - laranja da marca e laranjas claros (`#F97316`, `#FB923C`, `#FDBA74`) → texto **azul-escuro `#0B1A33`**
+      (6,19:1 sobre `#F97316`). É o padrão para botões e blocos.
+    - laranja escuro (`#C2410C`, `#9A3412`) → texto **branco** (5,18:1 sobre `#C2410C`). Uso pontual: hover/pressionado
+      do botão ou bloco sobre fundo claro onde o `#F97316` fique estridente. Não vira um segundo laranja oficial.
+    - Nunca `#C2410C` com texto azul-escuro (3,35:1), nunca `#F97316` com texto branco (2,8:1).
 
 ## Evidence on Hand
 
