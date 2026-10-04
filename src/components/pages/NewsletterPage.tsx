@@ -10,7 +10,7 @@ export interface EdicaoResumo {
 }
 
 /**
- * Arquivo da newsletter em papel frio, como o Substack: inscrição no topo, edições da mais
+ * Arquivo da newsletter no papel quente, como o Substack: inscrição no topo, edições da mais
  * recente para a mais antiga.
  */
 export function NewsletterPage({ edicoes }: { edicoes: EdicaoResumo[] }) {

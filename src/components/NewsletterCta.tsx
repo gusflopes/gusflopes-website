@@ -3,7 +3,7 @@ import { newsletter, linkInscricao } from '../config/site';
 import { SocialLinks } from './SocialLinks';
 
 /**
- * Caixa de inscrição das páginas da newsletter (papel frio, como o Substack). Sem
+ * Caixa de inscrição das páginas da newsletter (no papel quente, como o Substack). Sem
  * `newsletter.substack` configurado, avisa que as inscrições abrem em breve e aponta para as redes.
  */
 export function NewsletterCta({ content }: { content: string }) {

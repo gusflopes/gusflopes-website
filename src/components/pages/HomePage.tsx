@@ -15,7 +15,7 @@ interface HomePageProps {
 /**
  * Cada camada é uma página de revista com uma ideia própria. Campos (rodada 4, cor como sistema):
  * noite (hero) → recorte do quadro → papel (eixos, o encarte escuro da ferramenta, sobre) →
- * areia (serviços) → segundo recorte do quadro → rodapé escuro. O escuro nunca empilha.
+ * creme (serviços) → segundo recorte do quadro → rodapé escuro. O escuro nunca empilha.
  */
 export function HomePage({ video, eixos = [], fundo }: HomePageProps) {
   return (
@@ -29,7 +29,7 @@ export function HomePage({ video, eixos = [], fundo }: HomePageProps) {
       <Ferramenta />
       <Themes />
       <Services />
-      {/* Segundo recorte: as luzes da cidade fazem a passagem do campo areia para o rodapé */}
+      {/* Segundo recorte: as luzes da cidade fazem a passagem do campo creme para o rodapé */}
       <div aria-hidden="true" className="relative h-20 md:h-32 overflow-hidden bg-noite">
         <FundoPicture fundo={fundo} className="object-[50%_62%]" />
       </div>

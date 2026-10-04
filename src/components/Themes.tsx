@@ -29,7 +29,7 @@ const themes = [
 ];
 
 /**
- * "Sobre": mostrar quem escreve e por que a visão é sistêmica. Em papel frio, como a abertura de
+ * "Sobre": mostrar quem escreve e por que a visão é sistêmica. No papel quente, como a abertura de
  * um ensaio de revista: o título e a trajetória no alto; a frase-tese (a segunda do parágrafo,
  * sem mudar uma vírgula) vira a citação que domina a página; embaixo, as cinco áreas formam um
  * QUADRO de fios (o de cima em laranja) — partes do mesmo problema — e a sexta casa, em ferrugem

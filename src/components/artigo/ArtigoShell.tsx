@@ -30,7 +30,7 @@ interface ArtigoShellProps {
 
 /**
  * Moldura de leitura compartilhada (Insights, Radar e newsletter): cabeçalho em azul-escuro
- * com o título, a imagem atravessando a borda e a coluna em papel frio. O mundo fica na
+ * com o título, a imagem atravessando a borda e a coluna no papel quente. O mundo fica na
  * moldura; a coluna é só leitura.
  */
 export function ArtigoShell({
@@ -168,7 +168,7 @@ export function ArtigoShell({
                   <span>Sobre o Autor</span>
                 </p>
                 <p className="font-sans text-[0.9875rem] leading-relaxed text-tinta-2 max-w-[34rem] mb-4">{author.bio}</p>
-                <SocialLinks linkClassName="text-tinta-3 hover:text-tinta hover:bg-papel-2" />
+                <SocialLinks linkClassName="text-tinta-3 hover:text-tinta hover:bg-papel-3" />
               </div>
             </div>
           )}

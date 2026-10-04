@@ -56,7 +56,7 @@
   --color-nevoa: #c9d6e6;
   --color-nevoa-2: #9fb1c8;
   --color-ceu: #8fb3d9;
-  /* Céu sobre papel: o mesmo azul do quadro, escurecido para texto (5,9:1 em #F2F4F7) */
+  /* Céu sobre papel: o mesmo azul do quadro, escurecido para texto (6,2:1 no papel, 5,7:1 no creme) */
   --color-ceu-fundo: #36608c;
 
   /* Laranja: #F97316 sobre escuro, #C2410C (e mais fundo no hover) sobre claro */
@@ -69,17 +69,22 @@
   /* Texto e ícones sobre fundo laranja (#F97316 ou mais claro, nunca #C2410C): o azul-escuro da marca, 6,19:1 */
   --color-laranja-tinta: #0b1a33;
 
-  /* Papel frio (artigos e hubs) e a tinta azul sobre ele */
-  --color-papel: #f2f4f7;
-  --color-papel-2: #e7ebf1;
-  --color-papel-fio: #d3dae4;
+  /*
+   * Claros quentes da Shelfye.ai (PRODUCT.md, 04/10): papel de leitura, tons para aninhar sem fio
+   * e o fio quente derivado do papel. A tinta continua o azul-escuro da marca.
+   */
+  --color-papel: #fff8f2;
+  --color-papel-2: #f9f2ec;
+  --color-papel-3: #eee7e1;
+  --color-papel-fio: #e6d9c8;
   --color-tinta: #0b1a33;
   --color-tinta-2: #33445f;
-  --color-tinta-3: #56657d;
+  /* Texto secundário: 7,2:1 no papel, 6,6:1 no creme, 6,2:1 em #EEE7E1 */
+  --color-tinta-3: #475569;
 
-  /* Campo claro quente: areia acinzentada puxada do quadro, nunca creme */
-  --color-areia-campo: #d9d4cb;
-  --color-areia-fio: #bfb7aa;
+  /* Creme: campo quente de destaque, caixas e o claro que antecede um bloco escuro (1,08:1 contra o papel) */
+  --color-creme: #fdeed9;
+  --color-creme-fio: #e3cfb3;
 
   /* Cores do quadro (paleta de apoio aprovada em 04/10), cada uma com função */
   --color-petroleo: #457183;
@@ -163,7 +168,7 @@
 
   .claro,
   .claro * {
-    scrollbar-color: #b8c2d0 var(--color-papel);
+    scrollbar-color: #d6c3aa var(--color-papel);
   }
 
   :where(a) {
@@ -438,7 +443,7 @@
   }
 
   /* ---------------------------------------------------------------
-   * Corpo dos artigos (markdown via slot). Coluna calma em papel frio:
+   * Corpo dos artigos (markdown via slot). Coluna calma no papel quente:
    * Literata 18–19px, ~66 caracteres, tinta azul, links em laranja profundo.
    * --------------------------------------------------------------- */
   .leitura {
@@ -605,12 +610,12 @@
     vertical-align: top;
   }
 
-  /* Código inline: chip de papel mais escuro, tinta azul */
+  /* Código inline: chip no tom de papel mais fundo (#EEE7E1), tinta azul */
   .leitura :where(:not(pre) > code) {
     font-family: var(--font-mono);
     font-size: 0.84em;
     font-weight: 400;
-    background-color: var(--color-papel-2);
+    background-color: var(--color-papel-3);
     color: var(--color-tinta);
     border-radius: 3px;
     padding: 0.12em 0.36em;
