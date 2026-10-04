@@ -6,8 +6,8 @@ A newsletter no Substack (`gusflopes.substack.com`) é o segundo canal da mesma 
 
 | Campo no Substack | Valor | Por quê |
 |---|---|---|
-| Cor de destaque (accent) | `#F97316` | O laranja oficial. Botões e links do Substack usam essa cor; o texto do botão o Substack escolhe sozinho. |
-| Cor de destaque, alternativa | `#C2410C` | Use esta se o Substack puser texto branco no botão laranja, ou se os links ficarem claros demais no fundo claro. `#C2410C` dá contraste AA (cerca de 5:1) sobre papel; `#F97316` com texto branco não passa. |
+| Cor de destaque (accent) | `#F97316` | O laranja oficial. Botões e links do Substack usam essa cor. Se o tema deixar escolher o texto do botão, use o azul-escuro `#0B1A33` (6,19:1), nunca branco nem quase-preto. |
+| Cor de destaque, alternativa | `#C2410C` | Use esta se o Substack puser texto branco no botão laranja, ou se os links ficarem claros demais no fundo claro. `#C2410C` dá contraste AA (cerca de 5:1) como texto sobre papel; `#F97316` com texto branco não passa. Fundo `#C2410C` com texto escuro também não passa (3,35:1): texto sobre laranja só em `#F97316`, sempre em `#0B1A33`. |
 | Cor de fundo | `#F2F4F7` (papel frio) | É o fundo dos artigos do site. Se o campo só aceitar branco ou uma lista de opções, use branco. Nunca creme. |
 | Fonte de títulos | A serifada mais próxima da Literata que a lista oferecer | Ver "Fontes" abaixo. |
 | Fonte do texto | A mesma serifada, ou a sans padrão do Substack | O site lê em Literata; o e-mail cai para a fonte do sistema de qualquer jeito. |

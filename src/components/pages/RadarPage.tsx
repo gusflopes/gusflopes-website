@@ -110,7 +110,7 @@ export function RadarPage({ items }: RadarPageProps) {
                   onClick={() => setSelectedCategory(cat)}
                   className={`h-8 px-3 rounded-[3px] border text-[0.8125rem] font-semibold transition-colors whitespace-nowrap ${
                     ativo
-                      ? 'bg-laranja border-laranja text-brasa'
+                      ? 'bg-laranja border-laranja text-laranja-tinta'
                       : 'border-noite-fio-forte text-nevoa hover:border-nevoa-2 hover:text-white'
                   }`}
                 >
@@ -171,7 +171,7 @@ export function RadarPage({ items }: RadarPageProps) {
                         className="w-full h-full object-cover"
                       />
                       {item.type === 'video' && (
-                        <span className="absolute left-2.5 bottom-2.5 w-9 h-9 rounded-full bg-laranja text-brasa flex items-center justify-center">
+                        <span className="absolute left-2.5 bottom-2.5 w-9 h-9 rounded-full bg-laranja text-laranja-tinta flex items-center justify-center">
                           <Play size={15} fill="currentColor" className="ml-0.5" aria-hidden="true" />
                         </span>
                       )}

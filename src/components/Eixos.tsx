@@ -172,7 +172,7 @@ function Video({ video }: { video: FeaturedVideo }) {
           loading="lazy"
           className="w-full h-full object-cover opacity-90 transition-opacity duration-500 group-hover:opacity-100"
         />
-        <span className="absolute left-3 bottom-3 w-11 h-11 rounded-full bg-laranja text-brasa flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+        <span className="absolute left-3 bottom-3 w-11 h-11 rounded-full bg-laranja text-laranja-tinta flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
           <Play size={17} fill="currentColor" className="ml-0.5" aria-hidden="true" />
         </span>
       </div>

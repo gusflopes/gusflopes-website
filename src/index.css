@@ -66,7 +66,8 @@
   --color-laranja-palido: #fdba74;
   --color-laranja-fundo: #c2410c;
   --color-laranja-brasa: #9a3412;
-  --color-brasa: #1c0a02;
+  /* Texto e ícones sobre fundo laranja (#F97316 ou mais claro, nunca #C2410C): o azul-escuro da marca, 6,19:1 */
+  --color-laranja-tinta: #0b1a33;
 
   /* Papel frio (artigos e hubs) e a tinta azul sobre ele */
   --color-papel: #f2f4f7;
@@ -194,7 +195,7 @@
     padding: 0 1.375rem;
     border-radius: 3px;
     background-color: var(--color-laranja);
-    color: var(--color-brasa);
+    color: var(--color-laranja-tinta);
     font-family: var(--font-sans);
     font-weight: 700;
     font-size: 1rem;
