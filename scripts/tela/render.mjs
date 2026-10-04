@@ -6,7 +6,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import sharp from 'sharp';
-import { telaSvg, CORES } from './pincel.mjs';
+import { pintar, CORES } from './pincel.mjs';
+import { PAPEIS } from './config.mjs';
 import { woffParaSfnt } from './woff.mjs';
 
 const require = createRequire(import.meta.url);
@@ -30,6 +31,11 @@ export function fonte(familia, peso) {
   // vírgula final: o Pango lê o nome inteiro como família ("Literata SemiBold"), sem tratar "SemiBold" como peso
   return { arquivo: ttf, descricao: `${f.nome[peso]},` };
 }
+
+const centroCapa = (w, h) => {
+  const [mw, mh] = PAPEIS.capa.mestre;
+  return { x: Math.round((mw - w) / 2), y: Math.round((mh - h) / 2), w, h };
+};
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -65,10 +71,27 @@ export async function tituloQueCabe({ conteudo, largura, tamanhos, maxLinhas, ..
   return { ...(await texto({ conteudo, largura, px, ...rest })), px };
 }
 
-/** Tela rasterizada (Buffer sharp) no tamanho pedido. */
-export function telaSharp({ semente, largura, altura, params }) {
-  const svg = telaSvg({ semente, proporcao: largura / altura, largura, params });
-  return sharp(Buffer.from(svg)).resize(largura, altura);
+const cru = (r) => sharp(r.data, { raw: { width: r.width, height: r.height, channels: 3 } });
+
+/**
+ * Uma janela de um papel (scripts/tela/config.mjs) pintada para um arquivo de `larguraArquivo` px.
+ * A escala sai da janela: o traço fica com a mesma espessura em px de tela em qualquer formato.
+ */
+export function janelaRaw({ semente, papel, janela, larguraArquivo, material, params }) {
+  const P = PAPEIS[papel];
+  const j = typeof janela === 'string' ? P.janelas[janela] : janela;
+  return pintar({ semente, mestre: P.mestre, janela: j, janelas: Object.values(P.janelas), escala: larguraArquivo / j.w, material, params });
+}
+export const janelaSharp = (o) => cru(janelaRaw(o));
+
+/**
+ * Tela avulsa de `largura`×`altura` px de arquivo, com `escala` px de arquivo por px de tela
+ * (kit do Substack, estudo). Sem papel: a mestre é a própria tela.
+ */
+export function telaSharp({ semente, largura, altura, escala = 1, material, params }) {
+  const w = Math.round(largura / escala);
+  const h = Math.round(altura / escala);
+  return cru(pintar({ semente, mestre: [w, h], escala, material, params })).resize(largura, altura);
 }
 
 /**
@@ -88,7 +111,8 @@ export async function capaComTitulo({ semente, titulo, rotulo, largura = 1200, a
   const larguraTexto = largura - margem * 2;
 
   const [tela, rot, tit, ass] = await Promise.all([
-    telaSharp({ semente, largura, altura: alturaTela }).png().toBuffer(),
+    // a faixa pintada é a janela centrada da capa do texto, na escala fixa (1 px de arquivo = 1 px de tela)
+    janelaSharp({ semente, papel: 'capa', janela: { ...centroCapa(largura, alturaTela) }, larguraArquivo: largura }).resize(largura, alturaTela).png().toBuffer(),
     rotulo ? texto({ conteudo: rotulo.toUpperCase(), familia: 'hanken', peso: 700, px: Math.round(21 * s), cor: corRotulo, espacamento: 0.12 }) : null,
     tituloQueCabe({ conteudo: titulo, largura: larguraTexto, tamanhos: [58, 52, 46, 40].map((n) => Math.round(n * s)), maxLinhas: 3, familia: 'literata', peso: 600, cor: corTitulo, entrelinha: 1.12 }),
     texto({ conteudo: assinatura, familia: 'hanken', peso: 600, px: Math.round(22 * s), cor: corAssin }),

@@ -5,7 +5,7 @@ import type { CollectionEntry } from 'astro:content';
 import Default from '../../../layouts/Default.astro';
 import { InsightArticlePage } from '../../../components/pages/InsightArticlePage';
 import { formatDatePtBR } from '../../../lib/format';
-import { telaCapa, ogDoTexto } from '../../../lib/telas';
+import { telaCabecalho, ogDoTexto } from '../../../lib/telas';
 
 export async function getStaticPaths() {
   const entries = await getCollection('insights', publicado);
@@ -36,7 +36,7 @@ const { title, excerpt, category, eixo, date, duration } = entry.data;
     eixo={eixo}
     dateFormatted={formatDatePtBR(date)}
     duration={duration}
-    tela={telaCapa('insights', entry.id)}
+    tela={telaCabecalho('insights', entry.id)}
     slug={entry.id}
     client:load
   >

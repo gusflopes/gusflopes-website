@@ -1,44 +1,51 @@
 /**
  * Telas geradas no build (scripts/tela/): srcsets prontos para <picture>.
  * Função pura — serve tanto às páginas .astro quanto às ilhas React.
+ *
+ * Cada papel (scripts/tela/config.mjs) tem janelas no tamanho em que são exibidas; quando há uma
+ * janela estreita, ela entra como `estreita` e o <picture> troca por media query (celular).
  */
 // @ts-ignore — módulo .mjs compartilhado com o gerador (Node), sem tipos próprios
-import { CAPA, FAIXA, ABERTURA, caminhoTela, caminhoOg, ehFotoGenerica } from '../../scripts/tela/config.mjs';
+import { PAPEIS, caminhoTela, caminhoOg, ehFotoGenerica } from '../../scripts/tela/config.mjs';
 
-export interface Tela {
+export interface TelaArquivo {
   avif: string;
   webp: string;
   src: string;
   width: number;
   height: number;
 }
-
-interface Formato {
-  proporcao: number;
-  larguras: number[];
-  fallback: number;
+export interface Tela extends TelaArquivo {
+  /** Janela para o celular (art direction via <source media>). */
+  estreita?: TelaArquivo;
 }
 
-function montar(grupo: string, nome: string, f: Formato): Tela {
-  const srcset = (ext: string) => f.larguras.map((w) => `${caminhoTela(grupo, nome, w, ext)} ${w}w`).join(', ');
-  const maior = Math.max(...f.larguras);
-  return {
-    avif: srcset('avif'),
-    webp: srcset('webp'),
-    src: caminhoTela(grupo, nome, f.fallback, 'jpg'),
-    width: maior,
-    height: Math.round(maior / f.proporcao),
-  };
+type Papel = 'abertura' | 'faixa' | 'capa' | 'capitulo' | 'close';
+
+function arquivo(grupo: string, nome: string, papel: Papel, janela: string): TelaArquivo {
+  const j = PAPEIS[papel].janelas[janela];
+  const base = `${nome}-${janela}`;
+  const srcset = (ext: string) => j.larguras.map((w: number) => `${caminhoTela(grupo, base, w, ext)} ${w}w`).join(', ');
+  const w1 = j.larguras[0];
+  return { avif: srcset('avif'), webp: srcset('webp'), src: caminhoTela(grupo, base, w1, 'jpg'), width: w1, height: Math.round((w1 * j.h) / j.w) };
 }
 
-/** Capa 16:9 de um texto (semente = slug). */
-export const telaCapa = (colecao: 'insights' | 'radar', id: string): Tela => montar(colecao, id, CAPA);
+/** Uma janela de um papel, com a janela `estreita` opcional para o celular. */
+export function telaPapel(grupo: string, nome: string, papel: Papel, janela: string, estreita?: string): Tela {
+  return { ...arquivo(grupo, nome, papel, janela), ...(estreita ? { estreita: arquivo(grupo, nome, papel, estreita) } : {}) };
+}
+
+/** Capa de um texto nos cards: o recorte 16:9 da capa, no mesmo tamanho de traço (semente = slug). */
+export const telaCapa = (colecao: 'insights' | 'radar', id: string): Tela => telaPapel(colecao, id, 'capa', 'recorte');
+
+/** Cabeçalho do texto: a capa panorâmica no desktop, o recorte no celular. */
+export const telaCabecalho = (colecao: 'insights' | 'radar', id: string): Tela => telaPapel(colecao, id, 'capa', 'larga', 'recorte');
 
 /** Faixa panorâmica de abertura de hub/eixo. */
-export const telaFaixa = (nome: string): Tela => montar('faixa', nome, FAIXA);
+export const telaFaixa = (nome: string): Tela => telaPapel('faixa', nome, 'faixa', 'larga', 'estreita');
 
-/** Abertura da home: larga (desktop) e 4:3 (celular). */
-export const telaAbertura = () => ({ larga: montar('home', 'abertura', ABERTURA.larga), estreita: montar('home', 'abertura-m', ABERTURA.estreita) });
+/** Abertura da home. */
+export const telaAbertura = (): Tela => telaPapel('home', 'abertura', 'abertura', 'larga', 'estreita');
 
 /** Imagem OG 1200×630 gerada para o texto. */
 export const ogDoTexto = (colecao: 'insights' | 'radar', id: string): string => caminhoOg(colecao, id);

@@ -1,32 +1,17 @@
 import { NewsletterForm } from './NewsletterForm';
 import { newsletter } from '../config/site';
 import { telaAbertura } from '../lib/telas';
+import { TelaPicture } from './TelaPicture';
 
 /**
  * Abertura da home: a tela gerada (semente = tagline) em largura total e, abaixo dela,
  * a faixa azul-escuro costurada pelo fio laranja. Nenhum texto sobre a pintura.
  */
 export function Hero() {
-  const { larga, estreita } = telaAbertura();
   return (
     <section aria-labelledby="hero-title" className="bg-noite">
       <div className="h-[28svh] min-h-[200px] md:h-[calc(100svh-72px-400px)] md:min-h-[300px] md:max-h-[620px] overflow-hidden">
-        <picture>
-          <source media="(max-width: 767px)" type="image/avif" srcSet={estreita.avif} sizes="100vw" />
-          <source media="(max-width: 767px)" type="image/webp" srcSet={estreita.webp} sizes="100vw" />
-          <source type="image/avif" srcSet={larga.avif} sizes="100vw" />
-          <source type="image/webp" srcSet={larga.webp} sizes="100vw" />
-          <img
-            src={larga.src}
-            alt=""
-            width={larga.width}
-            height={larga.height}
-            decoding="async"
-            loading="eager"
-            {...({ fetchpriority: 'high' } as Record<string, string>)}
-            className="tela"
-          />
-        </picture>
+        <TelaPicture tela={telaAbertura()} sizes="100vw" priority />
       </div>
 
       <div className="fio">

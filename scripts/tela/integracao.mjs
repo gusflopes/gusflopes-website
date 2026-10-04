@@ -12,13 +12,17 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import { telaSharp, capaComTitulo } from './render.mjs';
-import { VERSAO } from './pincel.mjs';
-import { CAPA, FAIXA, ABERTURA, QUALIDADE, caminhoTela, caminhoOg } from './config.mjs';
+import os from 'node:os';
+import { Worker } from 'node:worker_threads';
+import { janelaRaw, capaComTitulo } from './render.mjs';
+import { VERSAO, MATERIAL_PADRAO } from './pincel.mjs';
+import { PAPEIS, ABERTURA, QUALIDADE, caminhoTela, caminhoOg } from './config.mjs';
 
 const EIXO_LABEL = { engenharia: 'Engenharia & IA', negocios: 'Negócios', bastidores: 'Bastidores' };
 /** Faixas de abertura dos hubs: semente = nome da página. */
 export const FAIXAS = ['insights', 'radar', 'newsletter', 'engenharia', 'negocios', 'bastidores'];
+/** Telas da home além da abertura: [nome, papel, semente]. Ver src/lib/telas.ts. */
+export const TELAS_HOME = [];
 
 function frontmatter(arquivo) {
   const txt = fs.readFileSync(arquivo, 'utf8');
@@ -45,24 +49,74 @@ function lerColecao(raiz, colecao) {
 
 const hoje = () => new Date().toLocaleDateString('en-CA', { timeZone: 'America/Campo_Grande' });
 
-async function gravarResponsiva(pub, grupo, nome, semente, { proporcao, larguras, fallback }, saidas) {
-  const maior = Math.max(...larguras);
-  const base = await telaSharp({ semente, largura: maior, altura: Math.round(maior / proporcao) }).png().toBuffer();
-  const sharp = (await import('sharp')).default;
-  const tarefas = [];
-  for (const w of larguras) {
-    const h = Math.round(w / proporcao);
-    for (const ext of ['avif', 'webp']) {
-      const rel = caminhoTela(grupo, nome, w, ext);
-      saidas.add(rel);
-      const img = sharp(base).resize(w, h);
-      tarefas.push((ext === 'avif' ? img.avif({ quality: QUALIDADE.avif, effort: 2 }) : img.webp({ quality: QUALIDADE.webp })).toFile(path.join(pub, rel)));
-    }
+/** Arquivos de uma janela: avif+webp em cada largura do srcset, jpg na largura 1×. */
+export function arquivosJanela(grupo, nome, papel) {
+  const out = [];
+  for (const [jn, j] of Object.entries(PAPEIS[papel].janelas)) {
+    if (!j.larguras) continue;
+    for (const w of j.larguras) for (const ext of ['avif', 'webp']) out.push(caminhoTela(grupo, `${nome}-${jn}`, w, ext));
+    out.push(caminhoTela(grupo, `${nome}-${jn}`, j.larguras[0], 'jpg'));
   }
-  const relJpg = caminhoTela(grupo, nome, fallback, 'jpg');
-  saidas.add(relJpg);
-  tarefas.push(sharp(base).resize(fallback, Math.round(fallback / proporcao)).jpeg({ quality: QUALIDADE.jpg, mozjpeg: true }).toFile(path.join(pub, relJpg)));
-  await Promise.all(tarefas);
+  return out;
+}
+
+/**
+ * Executa uma tarefa de geração (no processo principal ou num worker):
+ * - `papel`: pinta cada janela do papel na maior largura e deriva as menores por redução;
+ * - `og`: compõe tela + faixa sólida com o título (1200×630).
+ */
+export async function executar(t) {
+  const sharp = (await import('sharp')).default;
+  if (t.tipo === 'papel') {
+    for (const [jn, j] of Object.entries(PAPEIS[t.papel].janelas)) {
+      if (!j.larguras) continue;
+      const maior = Math.max(...j.larguras);
+      const r = janelaRaw({ semente: t.semente, papel: t.papel, janela: jn, larguraArquivo: maior, material: MATERIAL_PADRAO });
+      const base = sharp(r.data, { raw: { width: r.width, height: r.height, channels: 3 } });
+      const png = await base.png({ compressionLevel: 1 }).toBuffer();
+      const tarefas = [];
+      for (const w of j.larguras) {
+        const h = Math.round((w * r.height) / r.width);
+        const arq = (ext) => path.join(t.pub, caminhoTela(t.grupo, `${t.nome}-${jn}`, w, ext));
+        const img = () => (w === maior ? sharp(png) : sharp(png).resize(w, h, { kernel: 'lanczos3' }));
+        // acima de 1× o pixel é menor que o olho: qualidade mais baixa segura o peso sem perder a cerda
+        const hi = w > j.larguras[0];
+        tarefas.push(img().avif({ quality: hi ? QUALIDADE.avifHi : QUALIDADE.avif, effort: 2 }).toFile(arq('avif')));
+        tarefas.push(img().webp({ quality: hi ? QUALIDADE.webpHi : QUALIDADE.webp }).toFile(arq('webp')));
+        if (w === j.larguras[0]) tarefas.push(img().jpeg({ quality: QUALIDADE.jpg, mozjpeg: true }).toFile(arq('jpg')));
+      }
+      await Promise.all(tarefas);
+    }
+  } else if (t.tipo === 'og') {
+    const img = await capaComTitulo({ semente: t.semente, titulo: t.titulo, rotulo: t.rotulo });
+    await img.jpeg({ quality: QUALIDADE.jpg, mozjpeg: true }).toFile(t.arquivo);
+  }
+}
+
+/** Fila de tarefas em workers (a pintura é CPU pura em JS; um worker por núcleo, até 4). */
+async function rodarFila(tarefas) {
+  const n = Math.max(1, Math.min(4, os.availableParallelism?.() ?? os.cpus().length, tarefas.length));
+  if (n <= 1) {
+    for (const t of tarefas) await executar(t);
+    return;
+  }
+  const fila = [...tarefas];
+  await Promise.all(
+    Array.from({ length: n }, () => new Promise((ok, falha) => {
+      const w = new Worker(new URL('./trabalhador.mjs', import.meta.url));
+      const proxima = () => {
+        const t = fila.shift();
+        if (!t) {
+          w.terminate().then(() => ok());
+          return;
+        }
+        w.postMessage(t);
+      };
+      w.on('message', (m) => (m.erro ? (w.terminate(), falha(new Error(m.erro))) : proxima()));
+      w.on('error', falha);
+      proxima();
+    }))
+  );
 }
 
 export async function gerarTelas({ raiz, producao, log = console.log }) {
@@ -74,67 +128,49 @@ export async function gerarTelas({ raiz, producao, log = console.log }) {
   } catch {}
   const novo = {};
   const saidas = new Set();
-  let geradas = 0;
 
   const corte = hoje();
   const entradas = [...lerColecao(raiz, 'insights'), ...lerColecao(raiz, 'radar')].filter(
     (e) => e.title && (!producao || (e.date <= corte && !e.body.includes('[CONFIRMAR')))
   );
 
-  const jobs = [];
-  const job = (chave, impressao, arquivos, fn) => {
-    const digest = crypto.createHash('sha1').update(`v${VERSAO}|${impressao}`).digest('hex').slice(0, 12);
+  const tarefas = [];
+  const job = (chave, impressao, arquivos, tarefa) => {
+    const digest = crypto.createHash('sha1').update(`v${VERSAO}|${MATERIAL_PADRAO}|${JSON.stringify(PAPEIS[tarefa.papel] ?? PAPEIS.capa)}|${impressao}`).digest('hex').slice(0, 12);
     novo[chave] = { digest, arquivos };
     arquivos.forEach((a) => saidas.add(a));
     const existe = arquivos.every((a) => fs.existsSync(path.join(pub, a)));
     if (manifesto[chave]?.digest === digest && existe) return;
-    jobs.push(async () => {
-      for (const a of arquivos) fs.mkdirSync(path.dirname(path.join(pub, a)), { recursive: true });
-      await fn();
-      geradas++;
-    });
+    for (const a of arquivos) fs.mkdirSync(path.dirname(path.join(pub, a)), { recursive: true });
+    tarefas.push(tarefa);
   };
-  const listaResp = (grupo, nome, cfg) => [
-    ...cfg.larguras.flatMap((w) => ['avif', 'webp'].map((ext) => caminhoTela(grupo, nome, w, ext))),
-    caminhoTela(grupo, nome, cfg.fallback, 'jpg'),
-  ];
+  const papel = (chave, grupo, nome, papelNome, semente) =>
+    job(chave, semente, arquivosJanela(grupo, nome, papelNome), { tipo: 'papel', pub, grupo, nome, papel: papelNome, semente });
 
   // Abertura da home
-  job('home', ABERTURA.semente, [...listaResp('home', 'abertura', ABERTURA.larga), ...listaResp('home', 'abertura-m', ABERTURA.estreita)], async () => {
-    const s = new Set();
-    await gravarResponsiva(pub, 'home', 'abertura', ABERTURA.semente, ABERTURA.larga, s);
-    await gravarResponsiva(pub, 'home', 'abertura-m', ABERTURA.semente, ABERTURA.estreita, s);
-  });
+  papel('home', 'home', 'abertura', 'abertura', ABERTURA.semente);
 
-  // OG padrão (home e páginas sem texto próprio): a tela da abertura + a tagline em faixa sólida
-  job('og:padrao', ABERTURA.semente, [caminhoOg('site', 'padrao')], async () => {
-    const img = await capaComTitulo({ semente: ABERTURA.semente, titulo: ABERTURA.semente });
-    await img.jpeg({ quality: QUALIDADE.jpg, mozjpeg: true }).toFile(path.join(pub, caminhoOg('site', 'padrao')));
-  });
+  // Telas com papel próprio na home: cada uma com sua semente (nunca a mesma tela repetida).
+  for (const [nome, p, semente] of TELAS_HOME) papel(`home:${nome}`, 'home', nome, p, semente);
+
+  // OG padrão (home e páginas sem texto próprio): a tagline em faixa sólida sob a tela
+  const ogPadrao = caminhoOg('site', 'padrao');
+  job('og:padrao', ABERTURA.semente, [ogPadrao], { tipo: 'og', arquivo: path.join(pub, ogPadrao), semente: ABERTURA.semente, titulo: ABERTURA.semente });
 
   // Faixas dos hubs e dos eixos
-  for (const nome of FAIXAS) {
-    job(`faixa:${nome}`, nome, listaResp('faixa', nome, FAIXA), () => gravarResponsiva(pub, 'faixa', nome, nome, FAIXA, new Set()));
-  }
+  for (const nome of FAIXAS) papel(`faixa:${nome}`, 'faixa', nome, 'faixa', nome);
 
   // Capas e OG por texto (semente = slug: estável mesmo se o título for revisado)
   for (const e of entradas) {
-    job(`capa:${e.colecao}/${e.id}`, e.id, listaResp(e.colecao, e.id, CAPA), () => gravarResponsiva(pub, e.colecao, e.id, e.id, CAPA, new Set()));
+    papel(`capa:${e.colecao}/${e.id}`, e.colecao, e.id, 'capa', e.id);
     if (e.colecao === 'radar' && e.isExternal) continue; // item externo não tem página nem OG
     const og = caminhoOg(e.colecao, e.id);
-    job(`og:${e.colecao}/${e.id}`, `${e.id}|${e.title}|${e.eixo}`, [og], async () => {
-      const img = await capaComTitulo({ semente: e.id, titulo: e.title, rotulo: EIXO_LABEL[e.eixo] });
-      await img.jpeg({ quality: QUALIDADE.jpg, mozjpeg: true }).toFile(path.join(pub, og));
-    });
+    job(`og:${e.colecao}/${e.id}`, `${e.id}|${e.title}|${e.eixo}`, [og], { tipo: 'og', arquivo: path.join(pub, og), semente: e.id, titulo: e.title, rotulo: EIXO_LABEL[e.eixo] });
   }
 
-  // Concorrência limitada: sharp já paraleliza internamente.
-  const fila = [...jobs];
-  await Promise.all(
-    Array.from({ length: 4 }, async () => {
-      while (fila.length) await fila.shift()();
-    })
-  );
+  const t0 = Date.now();
+  await rodarFila(tarefas);
+  const geradas = tarefas.length;
 
   // Poda: no build de produção, tudo que não é saída esperada sai de public/telas e public/og.
   let podadas = 0;
@@ -155,7 +191,7 @@ export async function gerarTelas({ raiz, producao, log = console.log }) {
 
   fs.mkdirSync(path.dirname(manifestoArq), { recursive: true });
   fs.writeFileSync(manifestoArq, JSON.stringify(novo, null, 1));
-  log(`telas: ${geradas} geradas, ${Object.keys(novo).length - geradas} em cache${podadas ? `, ${podadas} sobras removidas` : ''}`);
+  log(`telas: ${geradas} geradas em ${((Date.now() - t0) / 1000).toFixed(1)} s, ${Object.keys(novo).length - geradas} em cache${podadas ? `, ${podadas} sobras removidas` : ''}`);
 }
 
 export default function telas() {

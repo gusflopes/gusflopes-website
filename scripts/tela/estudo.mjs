@@ -1,44 +1,83 @@
 /**
- * Estudo de calibragem das pinceladas: 4 variações de parâmetros, mesma semente, lado a lado.
+ * Estudo de calibragem do MATERIAL das pinceladas: chapado × cerda × empasto, mesma semente,
+ * nos tamanhos reais de exibição (abertura da home a 1366, faixa de hub a 1366, card no celular a
+ * 358), com um recorte do quadro da marca em 100% para comparar.
  * Uso: node scripts/tela/estudo.mjs  → docs/design-review/estudo-pinceladas.png
  */
 import fs from 'node:fs';
 import sharp from 'sharp';
-import { telaSharp, texto } from './render.mjs';
+import { janelaRaw, texto } from './render.mjs';
+import { PAPEIS } from './config.mjs';
 
-export const VARIACOES = [
-  { id: 'A', nome: 'A · Maquete', nota: 'traço fino e uniforme, 6 luzes, ruído alto: textura de filtro', params: { densidade: 0.75, espessura: 0.7, redemoinho: 0.3, ruido: 1.1, luzes: 6, realce: 1.7 } },
-  { id: 'B', nome: 'B · Contida', nota: 'pouco redemoinho, quase sem realce: some na tela, vira papel de parede', params: { densidade: 0.8, espessura: 1.35, redemoinho: 0.2, ruido: 0.3, luzes: 1, realce: 0.35 } },
-  { id: 'C', nome: 'C · Equilíbrio (escolhida)', nota: 'redemoinho deslocado + ruído suave, 3 luzes, realce no anel', params: {} },
-  { id: 'D', nome: 'D · Redemoinho forte', nota: 'vórtice dominante e denso: vira citação literal da Noite Estrelada', params: { densidade: 1.3, espessura: 0.9, redemoinho: 1.1, ruido: 0.25, luzes: 3, realce: 1.6 } },
+export const MATERIAIS_ESTUDO = [
+  { id: 'chapado', nome: 'Chapado', nota: 'polígono afinado de cor única: a forma certa, mas ainda lê como vetor recortado' },
+  { id: 'cerda', nome: 'Cerda', nota: '2–4 sub-estrias de cerda, entrada carregada, saída seca: já é tinta, mas plana' },
+  { id: 'empasto', nome: 'Empasto (escolhido)', nota: 'cerda + relevo de cada traço sob luz rasante: a tinta tem corpo, como no quadro' },
 ];
 
 const SEMENTE = 'agent-skills-pacotes-de-contexto';
-const TW = 800;
-const TH = 450;
 const M = 40;
-const LEG = 70;
+const W = 1366 + 2 * M;
+const COR = '#0B1A33';
+const COR2 = '#3D4E68';
 
-const tiles = await Promise.all(
-  VARIACOES.map(async (v, i) => {
-    const img = await telaSharp({ semente: SEMENTE, largura: TW, altura: TH, params: { ...v.params, fixo: true } }).png().toBuffer();
-    const t1 = await texto({ conteudo: v.nome, familia: 'hanken', peso: 700, px: 22, cor: '#0B1A33' });
-    const t2 = await texto({ conteudo: v.nota, familia: 'hanken', peso: 400, px: 17, cor: '#3D4E68', largura: TW });
-    const x = M + (i % 2) * (TW + M);
-    const y = M + Math.floor(i / 2) * (TH + LEG + M);
-    return [
-      { input: img, left: x, top: y },
-      { input: t1.input, left: x, top: y + TH + 12 },
-      { input: t2.input, left: x, top: y + TH + 42 },
-    ];
-  })
-);
+const raw = (r) => sharp(r.data, { raw: { width: r.width, height: r.height, channels: 3 } });
+async function janela(papel, jn, largura, altura, material) {
+  const j = PAPEIS[papel].janelas[jn];
+  const r = janelaRaw({ semente: SEMENTE, papel, janela: jn, larguraArquivo: largura, material });
+  // a janela é pintada exatamente na largura de exibição e recortada ao centro na altura exibida
+  const h = Math.round((largura * j.h) / j.w);
+  const top = Math.max(0, Math.round((h - altura) / 2));
+  return raw(r).extract({ left: 0, top, width: largura, height: Math.min(altura, h) }).png().toBuffer();
+}
 
-const W = M * 3 + TW * 2;
-const H = M * 3 + (TH + LEG) * 2;
+const camadas = [];
+let y = M;
+const rotulo = async (txt, px = 26, cor = COR, peso = 600) => {
+  const t = await texto({ conteudo: txt, familia: 'hanken', peso, px, cor, largura: W - 2 * M });
+  camadas.push({ input: t.input, left: M, top: y });
+  y += t.height + 10;
+};
+
+await rotulo('Estudo de material das telas: chapado × cerda × empasto', 34);
+await rotulo(`Mesma semente (${SEMENTE}), escala de traço fixa em px de tela, cada formato no tamanho em que é exibido.`, 19, COR2, 400);
+y += 16;
+
+// 1. Abertura da home, 1366×428 (1366×900 menos cabeçalho e faixa do título)
+for (const mt of MATERIAIS_ESTUDO) {
+  await rotulo(`Abertura da home a 1366 px · ${mt.nome}`, 21);
+  camadas.push({ input: await janela('abertura', 'larga', W - 2 * M, 300, mt.id), left: M, top: y });
+  y += 300 + 8;
+  await rotulo(mt.nota, 17, COR2, 400);
+  y += 14;
+}
+// 2. Faixa de hub a 1366 (6:1)
+for (const mt of MATERIAIS_ESTUDO) {
+  await rotulo(`Faixa de hub a 1366 px · ${mt.nome}`, 21);
+  const h = Math.round((W - 2 * M) / 6);
+  camadas.push({ input: await janela('faixa', 'larga', W - 2 * M, h, mt.id), left: M, top: y });
+  y += h + 20;
+}
+// 3. Card no celular (358×201) ao lado de um recorte do quadro em 100%
+await rotulo('Card no celular a 358 px, e o quadro da marca em 100% para comparar', 21);
+const cw = 358;
+const ch = 201;
+let x = M;
+for (const mt of MATERIAIS_ESTUDO) {
+  camadas.push({ input: await janela('capa', 'recorte', cw, ch, mt.id), left: x, top: y });
+  const t = await texto({ conteudo: mt.nome, familia: 'hanken', peso: 600, px: 16, cor: COR2 });
+  camadas.push({ input: t.input, left: x, top: y + ch + 8 });
+  x += cw + 14;
+}
+const quadro = await sharp('src/assets/326189a758fea0fe0e2da42349b6da943b29ba51.png').extract({ left: 1500, top: 430, width: cw - 60, height: ch }).png().toBuffer();
+camadas.push({ input: quadro, left: x, top: y });
+const tq = await texto({ conteudo: 'Quadro (100%)', familia: 'hanken', peso: 600, px: 16, cor: COR2 });
+camadas.push({ input: tq.input, left: x, top: y + ch + 8 });
+y += ch + 50;
+
 fs.mkdirSync('docs/design-review', { recursive: true });
-await sharp({ create: { width: W, height: H, channels: 3, background: '#F2F4F7' } })
-  .composite(tiles.flat())
-  .png({ compressionLevel: 9 })
+await sharp({ create: { width: W, height: y + M, channels: 3, background: '#F2F4F7' } })
+  .composite(camadas)
+  .png({ palette: true, quality: 92, effort: 8 })
   .toFile('docs/design-review/estudo-pinceladas.png');
 console.log('docs/design-review/estudo-pinceladas.png');
