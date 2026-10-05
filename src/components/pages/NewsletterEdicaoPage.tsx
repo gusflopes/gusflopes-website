@@ -32,7 +32,7 @@ export function NewsletterEdicaoPage({
   children,
 }: NewsletterEdicaoPageProps) {
   return (
-    <main className="bg-papel min-h-screen">
+    <main id="conteudo" tabIndex={-1} className="bg-papel min-h-screen">
       <article>
         <header className="bg-noite">
           <div className="max-w-[43rem] mx-auto px-4 md:px-6 pt-8 md:pt-12 pb-10 md:pb-12">

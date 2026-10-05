@@ -69,7 +69,7 @@ export function Header({ pathname: rawPathname, eixosAtivos = [] }: HeaderProps)
 
         <button
           type="button"
-          className="lg:hidden -mr-2 p-2 text-white"
+          className="lg:hidden -mr-2.5 inline-flex items-center justify-center size-11 text-white"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label={isMenuOpen ? 'Fechar menu' : 'Abrir menu'}
           aria-expanded={isMenuOpen}

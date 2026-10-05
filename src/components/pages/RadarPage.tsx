@@ -50,7 +50,7 @@ export function RadarPage({ items }: RadarPageProps) {
   });
 
   return (
-    <main className="bg-papel min-h-screen">
+    <main id="conteudo" tabIndex={-1} className="bg-papel min-h-screen">
       <AberturaHub
         tela={telaFaixa('radar')}
         titulo="Radar"
@@ -61,7 +61,7 @@ export function RadarPage({ items }: RadarPageProps) {
       <div className="bg-papel papel">
       <div className="max-w-7xl mx-auto px-4 md:px-6 pt-6 md:pt-8 pb-20 md:pb-28">
         {eixosComConteudo.length > 1 && (
-          <nav aria-label="Filtrar por eixo" className="flex flex-wrap gap-x-6 gap-y-1 border-b border-regua">
+          <nav aria-label="Filtrar por eixo" className="rolagem-x flex flex-nowrap md:flex-wrap gap-x-6 gap-y-1 border-b border-regua -mx-4 px-4 md:mx-0 md:px-0">
             {[{ id: 'todos' as const, label: 'Todos os eixos' }, ...eixosComConteudo].map((e) => (
               <button
                 key={e.id}
@@ -71,7 +71,7 @@ export function RadarPage({ items }: RadarPageProps) {
                   setSelectedEixo(e.id);
                   setSelectedCategory('Todos');
                 }}
-                className={`relative py-3 font-sans text-[0.9375rem] font-semibold transition-colors after:absolute after:left-0 after:-bottom-px after:h-[3px] after:bg-laranja after:w-full after:origin-left after:transition-transform after:duration-300 ${
+                className={`relative shrink-0 whitespace-nowrap py-3 font-sans text-[0.9375rem] font-semibold transition-colors after:absolute after:left-0 after:-bottom-px after:h-[3px] after:bg-laranja after:w-full after:origin-left after:transition-transform after:duration-300 ${
                   selectedEixo === e.id ? 'text-tinta after:scale-x-100' : 'text-tinta-2 hover:text-tinta after:scale-x-0'
                 }`}
               >
@@ -92,14 +92,14 @@ export function RadarPage({ items }: RadarPageProps) {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </label>
-          <div className="flex flex-wrap gap-2">
+          <div className="rolagem-x flex flex-nowrap md:flex-wrap gap-2 -mx-4 px-4 md:mx-0 md:px-0">
             {categories.map((cat) => (
               <button
                 key={cat}
                 type="button"
                 aria-pressed={selectedCategory === cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3 h-8 border font-sans text-[0.8125rem] font-semibold transition-colors whitespace-nowrap ${
+                className={`shrink-0 px-3.5 h-11 md:h-8 md:px-3 border font-sans text-[0.8125rem] font-semibold transition-colors whitespace-nowrap ${
                   selectedCategory === cat
                     ? 'bg-laranja border-laranja text-noite'
                     : 'border-regua text-tinta-2 hover:border-petroleo hover:text-tinta'

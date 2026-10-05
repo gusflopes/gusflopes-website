@@ -83,8 +83,8 @@ export function Footer({ rodape = 'padrao' }: { rodape?: string }) {
             © {new Date().getFullYear()} Gusflopes.dev. Todos os direitos reservados.
           </p>
           <div className="flex gap-6 text-xs text-bruma">
-            <a href="/privacy" className="hover:text-white">Política de Privacidade</a>
-            <a href="/terms" className="hover:text-white">Termos de Uso</a>
+            <a href="/privacy" className="inline-flex items-center min-h-11 hover:text-white">Política de Privacidade</a>
+            <a href="/terms" className="inline-flex items-center min-h-11 hover:text-white">Termos de Uso</a>
           </div>
         </div>
       </div>

@@ -31,7 +31,7 @@ export const SOCIAL_LINKS = [
 
 export function SocialLinks({ className = '', linkClassName = '' }: { className?: string; linkClassName?: string }) {
   return (
-    <div className={`flex flex-wrap gap-2 -ml-2 ${className}`}>
+    <div className={`flex flex-wrap gap-1 -ml-3 ${className}`}>
       {SOCIAL_LINKS.map(({ href, label, Icon }) => (
         <a
           key={label}
@@ -39,7 +39,7 @@ export function SocialLinks({ className = '', linkClassName = '' }: { className?
           target="_blank"
           rel="noopener noreferrer me"
           aria-label={`${label} de Gustavo Lopes`}
-          className={`inline-flex p-2 transition-colors ${linkClassName}`}
+          className={`inline-flex items-center justify-center size-11 transition-colors ${linkClassName}`}
         >
           <Icon size={20} />
         </a>

@@ -187,6 +187,43 @@
     }
   }
 
+  /* Link "pular para o conteúdo": invisível até receber foco pelo teclado; aí aparece sobre o header. */
+  .pular {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 100;
+    padding: 0.75rem 1.25rem;
+    background: var(--color-laranja);
+    color: var(--color-noite);
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.9375rem;
+    text-decoration: none;
+  }
+  .pular:focus {
+    top: 0.75rem;
+  }
+  #conteudo:focus {
+    outline: none;
+  }
+
+  /* Fileira de filtros que rola de lado no celular (abas de eixo e categorias), em vez de quebrar em
+     várias linhas antes do primeiro texto. Sem barra visível; no desktop volta a quebrar. */
+  .rolagem-x {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .rolagem-x::-webkit-scrollbar {
+    display: none;
+  }
+  @media (min-width: 768px) {
+    .rolagem-x {
+      overflow-x: visible;
+    }
+  }
+
   /* Botão principal: laranja com texto escuro (AA). */
   .botao {
     display: inline-flex;
@@ -218,6 +255,11 @@
     text-decoration: underline;
     text-decoration-color: transparent;
     transition: text-decoration-color 0.2s, gap 0.3s var(--ease-pincel);
+  }
+  /* Ação solta (link ou botão próprio) com alvo de toque de 44px; dentro de uma linha-link é só rótulo. */
+  a.acao,
+  button.acao {
+    min-height: 2.75rem;
   }
   .acao:hover {
     text-decoration-color: currentColor;

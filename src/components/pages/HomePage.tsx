@@ -15,7 +15,7 @@ interface HomePageProps {
 
 export function HomePage({ video, eixos = [], fundo }: HomePageProps) {
   return (
-    <main>
+    <main id="conteudo" tabIndex={-1}>
       <Hero />
       {/* ritmo (rodada 5): noite (abertura) → papel (portas) → creme (projeção) → o quadro → creme (sobre)
           → noite (close da ferramenta) → papel (o que contratar) → fita → noite. Nenhum trecho escuro

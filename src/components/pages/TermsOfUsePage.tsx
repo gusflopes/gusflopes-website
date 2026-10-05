@@ -1,7 +1,7 @@
 
 export function TermsOfUsePage() {
   return (
-    <main className="min-h-screen bg-papel">
+    <main id="conteudo" tabIndex={-1} className="min-h-screen bg-papel">
       <article>
         <header className="bg-noite px-4 md:px-6 pt-10 md:pt-16 pb-10 md:pb-12 border-b-[3px] border-laranja">
           <div className="max-w-[40rem] mx-auto">
