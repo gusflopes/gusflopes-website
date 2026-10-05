@@ -2,8 +2,8 @@
 
 <!-- impeccable:product-schema 1 -->
 
-> Rascunho de 03/10/2026, inferido do repositório (CLAUDE.md, `src/config/site.ts`, `docs/revisao-site-2026-09.md`,
-> `docs/CONTINUAR.md`). Aguarda confirmação do Gustavo; nada aqui é copy nova.
+> Confirmado pelo Gustavo em 04/10/2026, ao fim do redesign. Nada aqui é copy nova; mudanças de marca, cor ou
+> posicionamento seguem exigindo aval dele.
 
 ## Platform
 
