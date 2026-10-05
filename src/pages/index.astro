@@ -17,6 +17,10 @@ import { telaVideo } from '../lib/telas';
 // A abertura da home é a tela gerada (src/lib/telas.ts).
 const fundo = await fundoResponsivo(heroImg);
 
+// Abertura: leva ao texto autoral mais recente (Insights ou Radar local), não ao Substack.
+const [maisRecente] = await getArtigos({ incluirRadarLocal: true });
+const recente = maisRecente ? { title: maisRecente.title, href: maisRecente.href } : undefined;
+
 const insights = (await getCollection('insights', publicado)).sort((a, b) =>
   compareIsoDateDesc(a.data.date, b.data.date)
 );
@@ -70,5 +74,5 @@ const eixos: EixoResumo[] = EIXO_IDS.flatMap((id): EixoResumo[] => {
 
 {/* O layout monta o title da home ("gusflopes.dev — Tecnologia e negócio, partes do mesmo sistema") */}
 <Default>
-  <HomePage video={video} eixos={eixos} fundo={fundo} client:load />
+  <HomePage recente={recente} video={video} eixos={eixos} fundo={fundo} client:load />
 </Default>
