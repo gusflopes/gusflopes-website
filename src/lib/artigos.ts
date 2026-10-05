@@ -49,3 +49,25 @@ export async function getArtigos({ eixo, incluirRadarLocal = false }: ArtigoOpti
     })
   );
 }
+
+/** O que o fim do artigo precisa para apontar o próximo texto. */
+export type ProximoTexto = Pick<InsightArticle, 'title' | 'excerpt' | 'href' | 'eixo' | 'category' | 'date' | 'duration' | 'lombadas'>;
+
+/**
+ * Próximo texto para o fim de um artigo: o anterior no tempo dentro do mesmo eixo (quem terminou um texto
+ * lê o que veio antes dele); no mais antigo do eixo, volta ao mais recente; eixo com um texto só cai no
+ * mais recente do site. Só roda em build.
+ */
+export async function proximoTexto(colecao: 'insights' | 'radar', id: string, eixo: EixoId): Promise<ProximoTexto | undefined> {
+  const chave = `${colecao}-${id}`;
+  const escolher = (lista: InsightArticle[]) => {
+    const outros = lista.filter((a) => a.id !== chave);
+    if (outros.length === 0) return undefined;
+    const i = lista.findIndex((a) => a.id === chave);
+    return (i >= 0 && lista[i + 1]) || outros[0];
+  };
+  const p = escolher(await getArtigos({ eixo, incluirRadarLocal: true })) ?? escolher(await getArtigos({ incluirRadarLocal: true }));
+  if (!p) return undefined;
+  const { title, excerpt, href, category, date, duration, lombadas } = p;
+  return { title, excerpt, href, eixo: p.eixo, category, date, duration, lombadas };
+}

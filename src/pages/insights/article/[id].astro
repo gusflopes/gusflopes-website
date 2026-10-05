@@ -5,6 +5,7 @@ import type { CollectionEntry } from 'astro:content';
 import Default from '../../../layouts/Default.astro';
 import { InsightArticlePage } from '../../../components/pages/InsightArticlePage';
 import { formatDatePtBR } from '../../../lib/format';
+import { proximoTexto } from '../../../lib/artigos';
 import { telaRetrato, ogDoTexto, fundoMargem, fundoCapitulos } from '../../../lib/telas';
 
 export async function getStaticPaths() {
@@ -20,6 +21,7 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 // A foto de banco do frontmatter (image) não entra no render: capa e OG são a tela gerada do slug.
 const { title, excerpt, category, eixo, date, duration } = entry.data;
+const proximo = await proximoTexto('insights', entry.id, eixo);
 ---
 
 <Default
@@ -39,6 +41,7 @@ const { title, excerpt, category, eixo, date, duration } = entry.data;
     tela={telaRetrato('insights', entry.id)}
     margem={fundoMargem('insights', entry.id)}
     capitulos={fundoCapitulos('insights', entry.id)}
+    proximo={proximo}
     slug={entry.id}
     client:load
   >

@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import type { EixoId } from '../../lib/eixos';
 import type { Tela } from '../../lib/telas';
 import { ArtigoPage } from './ArtigoPage';
+import type { ProximoTexto } from '../../lib/artigos';
 
 export interface InsightArticlePageProps {
   title: string;
@@ -17,6 +18,8 @@ export interface InsightArticlePageProps {
   /** Margem pintada do texto (fundoMargem). */
   margem?: Record<string, string>;
   capitulos?: Record<string, string>;
+  /** Próximo texto sugerido no fim do artigo. */
+  proximo?: ProximoTexto;
   /** Corpo do artigo já renderizado (markdown via <Content /> no .astro). */
   children?: ReactNode;
 }

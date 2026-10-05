@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { Check, Share2 } from 'lucide-react';
+import { ArrowRight, Check, Share2 } from 'lucide-react';
 import { EIXOS, type EixoId } from '../../lib/eixos';
 import { author } from '../../config/site';
 import type { Tela } from '../../lib/telas';
@@ -7,6 +7,7 @@ import { SocialLinks } from '../SocialLinks';
 import { TelaPicture } from '../TelaPicture';
 import { NewsletterCta } from '../NewsletterCta';
 import fotoAutor from '../../assets/autor.jpg?url';
+import type { ProximoTexto } from '../../lib/artigos';
 
 export interface ArtigoPageProps {
   title: string;
@@ -25,6 +26,8 @@ export interface ArtigoPageProps {
   margem?: Record<string, string>;
   /** Faixas pintadas dos H2 (fundoCapitulos): a capa do texto abrindo cada capítulo. */
   capitulos?: Record<string, string>;
+  /** Próximo texto sugerido no fim (mesmo eixo, o anterior no tempo). */
+  proximo?: ProximoTexto;
   /** Corpo do artigo já renderizado (markdown via <Content /> no .astro). */
   children?: ReactNode;
 }
@@ -33,7 +36,7 @@ export interface ArtigoPageProps {
  * Página de texto (Insights e Radar): o título em faixa azul-escuro com a capa do texto em retrato
  * ao lado (fio laranja vertical) e, abaixo, a coluna de leitura em papel quente #FFF8F2 — nada atrás do texto.
  */
-export function ArtigoPage({ title, excerpt, category, eixo, dateFormatted, duration, tela, origem, margem, capitulos, children }: ArtigoPageProps) {
+export function ArtigoPage({ title, excerpt, category, eixo, dateFormatted, duration, tela, origem, margem, capitulos, proximo, children }: ArtigoPageProps) {
   const [linkCopied, setLinkCopied] = useState(false);
 
   const handleShare = async () => {
@@ -58,7 +61,7 @@ export function ArtigoPage({ title, excerpt, category, eixo, dateFormatted, dura
   };
 
   return (
-    <main className="bg-papel min-h-screen">
+    <main id="conteudo" tabIndex={-1} className="bg-papel min-h-screen">
       <article>
         {/* Abertura do texto: a faixa azul-noite com o título e, ao lado, a capa em retrato até a borda
             direita, costurada pelo fio vertical (no celular a capa vem antes, com o fio por baixo). */}
@@ -114,6 +117,36 @@ export function ArtigoPage({ title, excerpt, category, eixo, dateFormatted, dura
           )}
           <div className="leitura mx-auto" style={capitulos}>{children}</div>
         </div>
+
+        {/* Próximo texto: quem terminou a leitura tem para onde ir sem rolar até o rodapé. Uma linha do índice
+            (a lombada pintada do texto, título, resumo e metadados), não um card. */}
+        {proximo && (
+          <section aria-labelledby="proximo-titulo" className="papel px-4 md:px-6 pb-14 md:pb-16">
+            <div className="max-w-[40rem] mx-auto border-t-2 border-laranja pt-8">
+              <h2 id="proximo-titulo" className="font-serif text-xl md:text-2xl text-tinta mb-6">Próximo texto</h2>
+              <a href={proximo.href} className="cartao group relative block pl-9 md:pl-[4.75rem] py-1">
+                {proximo.lombadas?.[0] && (
+                  <picture aria-hidden="true" className="absolute left-0 top-0 bottom-0 w-5 md:w-14 overflow-hidden bg-petroleo">
+                    <source type="image/avif" srcSet={proximo.lombadas[0].avif} />
+                    <source type="image/webp" srcSet={proximo.lombadas[0].webp} />
+                    <img src={proximo.lombadas[0].src} alt="" width={proximo.lombadas[0].width} height={proximo.lombadas[0].height} loading="lazy" decoding="async" className="w-full h-full object-cover" />
+                  </picture>
+                )}
+                <span className="block font-serif text-[1.4rem] md:text-[1.6rem] leading-snug text-tinta group-hover:text-laranja-fundo transition-colors [overflow-wrap:anywhere]">
+                  {proximo.title}
+                </span>
+                <span className="block mt-2 font-sans text-tinta-2 leading-relaxed line-clamp-2">{proximo.excerpt}</span>
+                <span className="mt-3 flex flex-wrap items-center gap-x-2.5 gap-y-1 font-sans text-sm">
+                  <span className="font-bold text-petroleo inline-flex items-center gap-2"><span className="marca" aria-hidden="true" />{EIXOS[proximo.eixo].shortLabel} · {proximo.category}</span>
+                  <span className="text-tinta-2">{proximo.date} · {proximo.duration}</span>
+                </span>
+                <span className="acao text-laranja-fundo text-sm mt-3">
+                  Ler Artigo <ArrowRight size={14} aria-hidden="true" />
+                </span>
+              </a>
+            </div>
+          </section>
+        )}
 
         {/* Autor */}
         <footer className="papel px-4 md:px-6 pb-16 md:pb-24">
