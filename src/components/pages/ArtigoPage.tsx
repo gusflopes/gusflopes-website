@@ -167,7 +167,7 @@ export function ArtigoPage({ title, excerpt, category, eixo, dateFormatted, dura
             </div>
           </div>
           <div className="max-w-[40rem] mx-auto mt-12">
-            <NewsletterCta content={origem} />
+            <NewsletterCta content={origem} eixo={eixo} />
           </div>
         </footer>
       </article>

@@ -74,7 +74,7 @@ export function Footer({ rodape = 'padrao' }: { rodape?: string }) {
           <div>
             <h2 className="rotulo text-areia mb-4 flex items-center gap-2.5"><span className="marca" aria-hidden="true" />{newsletter.name}</h2>
             <p className="text-nevoa text-sm leading-relaxed mb-4">{newsletter.pitch}</p>
-            <NewsletterForm variant="footer" />
+            <NewsletterForm />
           </div>
         </div>
 

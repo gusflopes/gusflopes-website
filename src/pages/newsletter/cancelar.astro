@@ -1,0 +1,19 @@
+---
+// Link de descadastro do e-mail: GET /api/unsubscribe redireciona para cá com o token; o botão faz o POST.
+// Assim um scanner de link (antivírus, prévia do cliente de e-mail) não descadastra ninguém sozinho.
+import AvisoNewsletter from '../../components/AvisoNewsletter.astro';
+---
+
+<AvisoNewsletter title="Cancelar inscrição" rotulo="Newsletter">
+  <p>Você deixa de receber a newsletter e os avisos de textos novos.</p>
+  <form method="post" action="/api/unsubscribe" id="form-cancelar">
+    <input type="hidden" name="t" />
+    <button type="submit" class="botao">Confirmar cancelamento</button>
+  </form>
+</AvisoNewsletter>
+
+<script>
+  const t = new URLSearchParams(location.search).get('t') ?? '';
+  const campo = document.querySelector<HTMLInputElement>('#form-cancelar input[name="t"]');
+  if (campo) campo.value = t;
+</script>

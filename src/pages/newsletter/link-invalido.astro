@@ -1,0 +1,12 @@
+---
+import AvisoNewsletter from '../../components/AvisoNewsletter.astro';
+import { site } from '../../config/site';
+---
+
+<AvisoNewsletter title="Link inválido ou expirado" rotulo="Newsletter">
+  <p>
+    O link de confirmação vale por 7 dias. Para receber um novo, faça a inscrição de novo no fim de qualquer texto.
+    Se o problema for outro, escreva para <a href={`mailto:${site.email}`} class="underline">{site.email}</a>.
+  </p>
+  <p><a href="/newsletter" class="botao">Ir para a newsletter</a></p>
+</AvisoNewsletter>

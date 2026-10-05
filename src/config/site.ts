@@ -35,18 +35,10 @@ export const newsletter = {
   pitch:
     "Toda semana: o que mudou em IA, por que importa para quem trabalha ou empreende, e uma coisa prática para testar. Sem hype.",
   ctaLabel: "Assinar Newsletter",
-  // Publicação no Substack (02/10/2026), sem barra final.
-  // Vazia, o botão leva para /newsletter (arquivo das edições) e a inscrição aparece como "em breve".
-  // Preenchida, o botão (home, rodapé, /newsletter) vai para <substack>/subscribe com UTM
-  // e o ícone do Substack entra nas redes.
+  // Publicação no Substack (02/10/2026), sem barra final: entra nas redes e recebe a lista confirmada.
+  // A inscrição em si acontece no site (InscricaoForm → /api/subscribe, lista própria no D1).
   substack: "https://gusflopes.substack.com",
 } as const;
-
-/** Link de inscrição com UTM do ponto de clique; sem Substack configurado, cai no arquivo do site. */
-export function linkInscricao(content: string): string {
-  if (!newsletter.substack) return "/newsletter";
-  return comUtm(`${newsletter.substack}/subscribe`, "newsletter", content);
-}
 
 /**
  * Projetos próprios que o site promove (cross-promo). A Reforma Tributária tem
