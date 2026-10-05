@@ -1,6 +1,27 @@
-# Continuar daqui — estado em 27/09/2026 (newsletter e simulador: 02/10; redesign: 04/10)
+# Continuar daqui — estado em 27/09/2026 (newsletter e simulador: 02/10; redesign: 04/10; lista própria: 05/10)
 
 Documento de passagem para a próxima sessão (humana ou de agente). Leia este arquivo, depois `docs/revisao-site-2026-09.md` e `docs/pauta-editorial.md`.
+
+## Estado em 05/10/2026 (lista própria de e-mails no ar)
+
+**No ar (deploy de 05/10, validado com inscrição real):** a inscrição acontece no site, não no Substack.
+- Formulário (`src/components/InscricaoForm.tsx`) no fim dos textos, em `/newsletter`, nas edições e no rodapé →
+  `POST /api/subscribe` no Worker do site (`worker/`, só `/api/*` passa por ele) → D1 **`gusflopes-leads`**.
+- Dupla confirmação: e-mail de `newsletter@news.gusflopes.dev` (Cloudflare Email Service) com link HMAC de 7 dias
+  (`/api/confirm`); descadastro em `/api/unsubscribe` (botão e one-click). Páginas de retorno em `/newsletter/*`.
+- Tabelas: `subscribers` (pending → confirmed → unsubscribed; consentimento e atribuição do 1º cadastro: página,
+  eixo, página de entrada, origem, UTM), `emails_sent`, `syncs` (para os jobs de replicação).
+- Consentimento `site-2026-10-05.v1`: "newsletter, textos novos do site e avisos de cursos e projetos". Mudou o
+  texto do formulário → suba `CONSENT_VERSION` em `worker/src/subscribe.ts`.
+- `/assinar` → `/newsletter/` (formulário). O Substack só pelo link direto dele, sem atalho no site.
+- Segredos do Worker: `TURNSTILE_SECRET_KEY` (widget compartilhado com a reforma) e `LINK_SECRET`.
+- A tabela `newsletter` do D1 da reforma (endpoint antigo `/api/newsletter`) estava vazia em 05/10: nada a migrar.
+
+**Pendências da lista:**
+- Replicação para o Substack: job (homelab) gera CSV dos confirmados sem linha em `syncs` (destination `substack`),
+  importação manual no painel, job marca como copiado. Sem pressa.
+- Motivo para deixar o e-mail e e-mail de boas-vindas (depois dos primeiros números).
+- Etapa 2 em andamento: convergir Substack e blog (o que é edição, o que é texto do site, como um aponta para o outro).
 
 ## Estado em 04/10/2026 (redesign Pincelada no ar)
 
@@ -16,7 +37,7 @@ referência (Concretismo deve ser testado no projeto da reforma).
 - Vídeo da home: o Gustavo vai gravar um próprio e substituir o da palestra de terceiro.
 - Copy pendente de aval: "LER ARTIGO" (Radar) × "Ler Artigo" (Insights); deck do hub Newsletter sem "Radar de IA";
   "Conteúdo & Insights" → "Acessar o Radar"; "Limpar filtros" no estado vazio dos hubs.
-- **Próxima sessão: fluxo de audiência e captura de e-mail** (05/10). Fluxo desejado: redes → Substack → site; o
+- ~~**Fluxo de audiência e captura de e-mail**~~ — feito em 05/10 (ver acima). Registro da discussão: Fluxo desejado: redes → Substack → site; o
   site mostra o trabalho e não manda o visitante embora para o Substack. A abertura da home já leva a ler (branch
   `home/abertura-explorar`, na `main`). Falta decidir:
   - captura de e-mail no próprio site (formulário + consentimento LGPD + origem, Worker da Cloudflare + D1, como o
