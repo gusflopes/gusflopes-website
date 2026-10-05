@@ -22,6 +22,7 @@ Antes de trocar de versão, rode `git fetch origin` para ter as branches `design
 | redesign-v3-pincelada | `design/pincelada` | `e28b3fe6fb46e4180599d19c07484c5ab0b6a0e1` | `git checkout e28b3fe` |
 | redesign-v4-pincelada | `design/pincelada` | `fb4c63f7702f85ad3af00a826325a52d792edd4d` | `git checkout fb4c63f` |
 | redesign-v5-pincelada | `design/pincelada` | `35ec2165fd985733a9babcd762f58c0df8d9550e` | `git checkout 35ec216` |
+| redesign-v6-pincelada (no ar; daqui em diante evolui na `main`) | `main` | `4d7641d144329d8ecc2e233008c5056e71baae32` | `git checkout 4d7641d` |
 | redesign-v1-metro (descartada) | `design/metro` | `0d2753a427688371bd853105e1e7a38b408f2c26` | `git checkout 0d2753a` |
 
 
@@ -31,6 +32,7 @@ Antes de trocar de versão, rode `git fetch origin` para ter as branches `design
 - **v2:** refaz tudo abaixo do hero (mandato "mudou o hero, mas o resto continua ruim"). Na Pincelada, também o gerador de empasto.
 - **v3:** "o hero prende, cada camada conquista". "Ideias recentes" fundida nos eixos e vídeo realocado nas três. Concretismo baixa o volume (par 900/100, caixa mista); Evolução vira camadas de revista; Pincelada troca o padrão "duas luzes + espiral" por seis arquétipos de composição.
 - **v4:** cor como sistema (avaliação do dono: "um azulão só", "o laranja sumiu"). Laranja em detalhes pela página inteira, claros no ritmo, rodapé chegando do claro, cores do quadro (petróleo, areia, ferrugem, ardósia) com função, texto sobre laranja em azul-escuro. Na Pincelada, gerador recolorido com a paleta do quadro.
+- **v6 (main):** a Pincelada mergeada e no ar: sexta casa no Sobre, artigo menos decorado com o header do site, papel até o rodapé, logo leve, lombadas sob demanda, favicon do Substack, "Próximo texto", filtros compactos no celular e alvos de 44px. Daqui em diante o site evolui na `main`.
 - **v5:** claros quentes da Shelfye.ai (papel `#FFF8F2`, creme `#FDEED9`) no lugar do cinza frio, mais o refinamento pedido pelos revisores da v4 e da v5: uma ação chapada por região, cor do quadro e laranja com função em hubs e artigo, sumário fixo no artigo (Concretismo e Evolução), duotone nas capas (Evolução), zonas pintadas e céu aglomerado no gerador (Pincelada).
 
 ## Ver uma versão rodando
