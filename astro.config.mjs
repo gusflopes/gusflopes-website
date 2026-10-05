@@ -21,7 +21,12 @@ export default defineConfig({
   site: 'https://gusflopes.dev',
   output: 'static',
   // telas: capas/OG/faixas geradas no build a partir do slug (scripts/tela/)
-  integrations: [telas(), react(), sitemap()],
+  integrations: [
+    telas(),
+    react(),
+    // Páginas de retorno dos links do e-mail (noindex) ficam fora do sitemap.
+    sitemap({ filter: (url) => !/\/newsletter\/(confirmada|cancelar|cancelada|link-invalido)\/?$/.test(url) }),
+  ],
   server: { port: 3001 },
   markdown: { rehypePlugins: [rehypeTabelaFocavel] },
   vite: {
