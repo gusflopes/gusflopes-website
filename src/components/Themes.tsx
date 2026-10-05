@@ -60,21 +60,26 @@ export function Themes({ fundo }: { fundo: FundoResponsivo }) {
                 Minha trajetória entre <strong className="font-semibold text-tinta underline decoration-laranja decoration-[3px] underline-offset-[5px]">Direito, Contabilidade, gestão e tecnologia</strong> moldou uma visão sistêmica da engenharia de software.
                 Analiso domínio, arquitetura, times e fluxo de entrega como partes do mesmo problema: criar capacidade para o negócio evoluir.
               </p>
-              <p className="font-sans text-base text-tinta-2 leading-relaxed mt-5 max-w-[60ch]">
-                Hoje, aplico essa perspectiva como líder técnico de precificação no mais completo ecossistema de mobilidade do Brasil.
-              </p>
             </div>
           </div>
 
-          <dl className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-10">
+          <ul className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-10">
             {themes.map((theme) => (
-              <div key={theme.title} className="border-t border-ardosia pb-6 md:pb-8">
+              <li key={theme.title} className="border-t border-ardosia pb-6 md:pb-8">
                 <span className="block h-1 w-1/2 bg-laranja -mt-px mb-5 md:mb-6" aria-hidden="true" />
-                <dt className="font-serif text-xl md:text-[1.4rem] text-tinta mb-3 leading-tight">{theme.title}</dt>
-                <dd className="font-sans text-base text-tinta-2 leading-relaxed">{theme.description}</dd>
-              </div>
+                <h3 className="font-serif text-xl md:text-[1.4rem] text-tinta mb-3 leading-tight">{theme.title}</h3>
+                <p className="font-sans text-base text-tinta-2 leading-relaxed">{theme.description}</p>
+              </li>
             ))}
-          </dl>
+            {/* A sexta casa: onde as cinco áreas se aplicam hoje. Mesma régua das outras (fio inteiro
+                em laranja), sem título e sem campo chapado: a frase em itálico fecha a grade. */}
+            <li className="border-t border-ardosia pb-6 md:pb-8">
+              <span className="block h-1 w-full bg-laranja -mt-px mb-5 md:mb-6" aria-hidden="true" />
+              <p className="font-serif italic text-lg md:text-[1.2rem] text-tinta leading-snug max-w-[34ch]">
+                Hoje, aplico essa perspectiva como líder técnico de precificação no mais completo ecossistema de mobilidade do Brasil.
+              </p>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
