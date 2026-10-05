@@ -1,6 +1,6 @@
 # Versões do redesign
 
-Cada linha é uma versão navegável. O checkout pelo SHA funciona sempre. O checkout pela tag só funciona onde as tags existem: elas foram criadas na sessão de 04/10, mas o ambiente não deixou fazer push delas (veja o fim do arquivo).
+Cada linha é uma versão navegável. As tags `redesign-v*` estão publicadas no GitHub (04/10), então `git checkout <tag>` funciona igual ao SHA.
 
 Antes de trocar de versão, rode `git fetch origin` para ter as branches `design/*`. O checkout de um SHA deixa o repositório em "detached HEAD", o que é normal para olhar. Para voltar, use `git switch design/base` ou `git switch main`.
 
