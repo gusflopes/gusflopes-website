@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from 'react';
 import { ArrowRight, Search } from 'lucide-react';
 import { EIXOS, EIXO_LIST, type EixoId } from '../../lib/eixos';
-import { telaFaixa, lombada, type Tela } from '../../lib/telas';
+import { telaFaixa, type Tela, type LombadaImg } from '../../lib/telas';
 import { TelaPicture } from '../TelaPicture';
 import { AberturaHub } from '../AberturaHub';
 
@@ -24,6 +24,8 @@ export interface InsightArticle {
   retrato?: Tela;
   /** Margem pintada do texto (variáveis CSS da classe `.margem`): a lombada no índice. */
   margem?: Record<string, string>;
+  /** Lombada do índice: recortes da margem (um por recuo), carregados sob demanda. */
+  lombadas?: LombadaImg[];
 }
 
 interface InsightsPageProps {
@@ -173,8 +175,17 @@ export function InsightsPage({
           <ol className="border-t-2 border-t-laranja">
             {demais.map((article, i) => (
               <li key={article.id} className="relative border-b-2 border-laranja">
-                {article.margem && <span aria-hidden="true" className="margem absolute left-0 top-0 bottom-0 w-5 md:w-14" style={lombada(article.margem, i)} />}
-                <a href={article.href} className={`cartao group grid gap-x-10 gap-y-2 py-7 md:grid-cols-12 ${article.margem ? 'pl-9 md:pl-[5.5rem]' : 'pl-5 lg:pl-8'}`}>
+                {article.lombadas && (() => {
+                  const l = article.lombadas[i % article.lombadas.length];
+                  return (
+                    <picture aria-hidden="true" className="absolute left-0 top-0 bottom-0 w-5 md:w-14 overflow-hidden bg-petroleo">
+                      <source type="image/avif" srcSet={l.avif} />
+                      <source type="image/webp" srcSet={l.webp} />
+                      <img src={l.src} alt="" width={l.width} height={l.height} loading="lazy" decoding="async" className="w-full h-full object-cover" />
+                    </picture>
+                  );
+                })()}
+                <a href={article.href} className={`cartao group grid gap-x-10 gap-y-2 py-7 md:grid-cols-12 ${article.lombadas ? 'pl-9 md:pl-[5.5rem]' : 'pl-5 lg:pl-8'}`}>
                   <span className="md:col-span-8 min-w-0 flex flex-col gap-2">
                     <span className="font-serif text-[1.4rem] md:text-[1.6rem] leading-snug text-tinta group-hover:text-laranja-fundo transition-colors [overflow-wrap:anywhere]">
                       {article.title}

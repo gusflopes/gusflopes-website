@@ -179,5 +179,11 @@ export const ARQUETIPO_CONVITE = 'vento';
 export const PARAMS_MARGEM = { evita: ['horizonte', 'faixas', 'massas'], luas: false, ciclo: ['petroleo', 'ardosia', 'petroleo', 'ardosia', 'petroleo', 'ardosia'], nZonas: 6, f0: 0 };
 /** Recuos da margem que caem no meio das zonas frias (0–400 petróleo, 800–1200 ardósia, 1600–2000 ferrugem): a lombada dos índices. */
 export const LOMBADAS = ['0px', '-860px', '-1660px'];
+/**
+ * Lombada do índice como imagem própria (recorte da margem, carregada sob demanda): um recorte por recuo
+ * de LOMBADAS, `LOMBADA.w` × `LOMBADA.h` px de CSS (o miolo da tira de 96px), em 1× e 2×.
+ */
+export const LOMBADA = { w: 56, h: 360 };
+export const caminhoLombada = (grupo, id, k, escala, ext) => `/telas/${grupo}/${id}-lombada-${k}-${escala}x.${ext}`;
 
 export const paramsCapa = (eixo) => ({ evita: [ARQUETIPO_FAIXA.insights, ARQUETIPO_FAIXA[eixo], ARQUETIPO_CONVITE].filter(Boolean), luas: false });

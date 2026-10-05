@@ -5,7 +5,7 @@ import { site, newsletter, projetos, comUtm } from '../config/site';
 import { EIXO_LIST } from '../lib/eixos';
 import { telaRodape } from '../lib/telas';
 import { TelaPicture } from './TelaPicture';
-import logoLight from '../assets/cfa6876664fcc921be5a7c0a58c353ea12577968.png?url';
+import logoLight from '../assets/logo.webp?url';
 
 export function Footer({ rodape = 'padrao' }: { rodape?: string }) {
   return (
@@ -25,8 +25,8 @@ export function Footer({ rodape = 'padrao' }: { rodape?: string }) {
               <ImageWithFallback
                 src={logoLight}
                 alt="Gusflopes.dev"
-                width={1028}
-                height={556}
+                width={311}
+                height={168}
                 loading="lazy"
                 className="h-14 w-auto"
               />

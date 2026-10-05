@@ -55,7 +55,7 @@ y += (await rot('Cada tela no tamanho real da abertura da home (1366×428), esca
 const quadroH = Math.round((CW * 1080) / 1920);
 const topo = y;
 y += (await rot('O quadro original (inteiro)', M, y)) + 8;
-const quadro = sharp('src/assets/326189a758fea0fe0e2da42349b6da943b29ba51.png').removeAlpha().resize(CW, quadroH);
+const quadro = sharp('docs/referencia-visual/quadro-original.png').removeAlpha().resize(CW, quadroH);
 camadas.push({ input: await quadro.clone().png().toBuffer(), left: M, top: y });
 const fq = familias((await quadro.clone().raw().toBuffer()));
 const hq = await rot(medida(fq), M, y + quadroH + 6, 17, COR2, 600);
@@ -90,7 +90,7 @@ const png = await sharp({ create: { width: W, height: y + M, channels: 3, backgr
   .png({ palette: true, quality: 90, effort: 8 })
   .toBuffer();
 // proveniência embutida (chunk tEXt logo após o IHDR)
-const txt = Buffer.from(`impeccable:prompt\0Gerado por código: node scripts/tela/estudo.mjs (gerador scripts/tela/pincel.mjs VERSAO ${VERSAO}, paleta do quadro, medição por família de scripts/tela/medir.mjs, arquétipos ${ARQUETIPOS.join('/')}, sementes reais do site, janela larga da abertura) + o quadro da marca inteiro src/assets/326189a758fea0fe0e2da42349b6da943b29ba51.png`, 'latin1');
+const txt = Buffer.from(`impeccable:prompt\0Gerado por código: node scripts/tela/estudo.mjs (gerador scripts/tela/pincel.mjs VERSAO ${VERSAO}, paleta do quadro, medição por família de scripts/tela/medir.mjs, arquétipos ${ARQUETIPOS.join('/')}, sementes reais do site, janela larga da abertura) + o quadro da marca inteiro docs/referencia-visual/quadro-original.png`, 'latin1');
 const chunk = Buffer.alloc(12 + txt.length);
 chunk.writeUInt32BE(txt.length, 0);
 chunk.write('tEXt', 4, 'ascii');

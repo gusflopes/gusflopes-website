@@ -16,7 +16,8 @@ import os from 'node:os';
 import { Worker } from 'node:worker_threads';
 import { janelaRaw, capaComTitulo } from './render.mjs';
 import { VERSAO, REVISAO, MATERIAL_PADRAO } from './pincel.mjs';
-import { PAPEIS, ABERTURA, ARQUETIPO_FAIXA, QUALIDADE, caminhoTela, caminhoOg, paramsCapa, ARQUETIPO_CONVITE, chaveRodape, PARAMS_RODAPE, SEM_LUAS, PARAMS_MARGEM } from './config.mjs';
+import { PAPEIS, ABERTURA, ARQUETIPO_FAIXA, QUALIDADE, caminhoTela, caminhoOg, paramsCapa, ARQUETIPO_CONVITE, chaveRodape, PARAMS_RODAPE, SEM_LUAS, PARAMS_MARGEM, LOMBADAS, LOMBADA, caminhoLombada } from './config.mjs';
+import sharp from 'sharp';
 
 const EIXO_LABEL = { engenharia: 'Engenharia & IA', negocios: 'Negócios', bastidores: 'Bastidores' };
 /** Faixas de abertura dos hubs: semente = nome da página. */
@@ -201,6 +202,28 @@ export async function gerarTelas({ raiz, producao, log = console.log }) {
   const t0 = Date.now();
   await rodarFila(tarefas);
   const geradas = tarefas.length;
+
+  // Lombadas do índice: recortes pequenos da margem (miolo de 56px, um por recuo), em <img loading="lazy">,
+  // em vez da tira inteira de 96×2400 como fundo CSS (que o navegador baixa toda, de uma vez, por linha).
+  let lombadas = 0;
+  for (const e of entradas) {
+    const fonte = path.join(pub, caminhoTela(e.colecao, `${e.id}-margem-coluna`, 192, 'avif'));
+    const alvos = [];
+    LOMBADAS.forEach((recuo, k) => {
+      for (const escala of [1, 2]) for (const ext of ['avif', 'webp']) alvos.push({ k, recuo: -parseInt(recuo, 10), escala, ext, rel: caminhoLombada(e.colecao, e.id, k, escala, ext) });
+    });
+    alvos.forEach((a) => saidas.add(a.rel));
+    const desatualizado = (a) => !fs.existsSync(path.join(pub, a.rel)) || fs.statSync(path.join(pub, a.rel)).mtimeMs < fs.statSync(fonte).mtimeMs;
+    if (!fs.existsSync(fonte) || !alvos.some(desatualizado)) continue;
+    for (const a of alvos) {
+      // a fonte é a tira em 2× (192 × 4800): o miolo de 56px de CSS fica em x = (96 − 56) / 2 = 20px
+      const recorte = sharp(fonte).extract({ left: 2 * ((96 - LOMBADA.w) / 2), top: 2 * a.recuo, width: 2 * LOMBADA.w, height: 2 * LOMBADA.h });
+      const img = a.escala === 1 ? recorte.resize(LOMBADA.w, LOMBADA.h) : recorte;
+      await (a.ext === 'avif' ? img.avif({ quality: 50 }) : img.webp({ quality: 72 })).toFile(path.join(pub, a.rel));
+      lombadas++;
+    }
+  }
+  if (lombadas) log(`telas: ${lombadas} lombadas recortadas`);
 
   // Poda: no build de produção, tudo que não é saída esperada sai de public/telas e public/og.
   let podadas = 0;

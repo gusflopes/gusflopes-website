@@ -3,7 +3,7 @@ import { publicado } from './publicado';
 import type { InsightArticle } from '../components/pages/InsightsPage';
 import type { EixoId } from './eixos';
 import { compareIsoDateDesc, formatDatePtBR } from './format';
-import { telaCapa, telaRetrato, fundoMargem } from './telas';
+import { telaCapa, telaRetrato, fundoMargem, lombadaImg } from './telas';
 
 interface ArtigoOptions {
   /** Filtra por eixo. */
@@ -45,6 +45,7 @@ export async function getArtigos({ eixo, incluirRadarLocal = false }: ArtigoOpti
       tela: telaCapa(entry.collection, entry.id),
       retrato: telaRetrato(entry.collection, entry.id),
       margem: fundoMargem(entry.collection, entry.id),
+      lombadas: [0, 1, 2].map((k) => lombadaImg(entry.collection, entry.id, k)),
     })
   );
 }

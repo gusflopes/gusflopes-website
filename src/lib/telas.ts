@@ -6,7 +6,7 @@
  * janela estreita, ela entra como `estreita` e o <picture> troca por media query (celular).
  */
 // @ts-ignore — módulo .mjs compartilhado com o gerador (Node), sem tipos próprios
-import { PAPEIS, caminhoTela, caminhoOg, ehFotoGenerica, chaveRodape, LOMBADAS } from '../../scripts/tela/config.mjs';
+import { PAPEIS, caminhoTela, caminhoOg, ehFotoGenerica, chaveRodape, LOMBADAS, LOMBADA, caminhoLombada } from '../../scripts/tela/config.mjs';
 
 export interface TelaArquivo {
   avif: string;
@@ -86,6 +86,14 @@ export function fundoMargem(colecao: 'insights' | 'radar' | 'newsletter', id: st
 
 /** Lombada no índice: a margem recuada para uma zona fria (petróleo, ardósia ou ferrugem), alternando por linha. */
 export const lombada = (margem: Record<string, string>, i: number): Record<string, string> => ({ ...margem, backgroundPositionY: LOMBADAS[i % LOMBADAS.length] });
+
+/** Lombada do índice como imagem (recorte da margem gerado no build): AVIF/WebP em 1× e 2×, para `<img loading="lazy">`. */
+export interface LombadaImg { avif: string; webp: string; src: string; width: number; height: number }
+export const lombadaImg = (colecao: 'insights' | 'radar', id: string, i: number): LombadaImg => {
+  const k = i % LOMBADAS.length;
+  const set = (ext: string) => `${caminhoLombada(colecao, id, k, 1, ext)} 1x, ${caminhoLombada(colecao, id, k, 2, ext)} 2x`;
+  return { avif: set('avif'), webp: set('webp'), src: caminhoLombada(colecao, id, k, 1, 'webp'), width: LOMBADA.w, height: LOMBADA.h };
+};
 
 /**
  * Faixa pintada dos H2 (pincelada horizontal da capa do texto sobre cada capítulo): variáveis para

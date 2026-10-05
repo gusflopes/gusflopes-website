@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Search, ArrowRight, ExternalLink, Play } from 'lucide-react';
 import { EIXOS, EIXO_LIST, type EixoId } from '../../lib/eixos';
-import { telaFaixa, lombada, type Tela } from '../../lib/telas';
+import { telaFaixa, type Tela, type LombadaImg } from '../../lib/telas';
 import { AberturaHub } from '../AberturaHub';
 
 export interface RadarItem {
@@ -22,6 +22,8 @@ export interface RadarItem {
   tela: Tela;
   /** Margem pintada do item (variáveis CSS da classe `.margem`): a lombada no diário. */
   margem?: Record<string, string>;
+  /** Lombada do índice: recortes da margem (um por recuo), carregados sob demanda. */
+  lombadas?: LombadaImg[];
 }
 
 interface RadarPageProps {
@@ -116,11 +118,20 @@ export function RadarPage({ items }: RadarPageProps) {
               const externo = item.isExternal;
               return (
                 <li key={item.id} className="relative border-b-2 border-laranja">
-                  {item.margem && <span aria-hidden="true" className="margem absolute left-0 top-0 bottom-0 w-5 md:w-14" style={lombada(item.margem, i)} />}
+                  {item.lombadas && (() => {
+                  const l = item.lombadas[i % item.lombadas.length];
+                  return (
+                    <picture aria-hidden="true" className="absolute left-0 top-0 bottom-0 w-5 md:w-14 overflow-hidden bg-petroleo">
+                      <source type="image/avif" srcSet={l.avif} />
+                      <source type="image/webp" srcSet={l.webp} />
+                      <img src={l.src} alt="" width={l.width} height={l.height} loading="lazy" decoding="async" className="w-full h-full object-cover" />
+                    </picture>
+                  );
+                })()}
                   <a
                     href={item.link}
                     {...(externo ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                    className={`cartao group grid gap-x-10 gap-y-2 py-7 md:grid-cols-12 ${item.margem ? 'pl-9 md:pl-[5.5rem]' : 'pl-5 lg:pl-8'}`}
+                    className={`cartao group grid gap-x-10 gap-y-2 py-7 md:grid-cols-12 ${item.lombadas ? 'pl-9 md:pl-[5.5rem]' : 'pl-5 lg:pl-8'}`}
                   >
                     <span className="md:col-span-7 md:col-start-3 md:row-start-1 min-w-0 flex flex-col gap-2">
                       <span className="font-serif text-[1.35rem] md:text-[1.5rem] leading-snug text-tinta group-hover:text-laranja-fundo transition-colors [overflow-wrap:anywhere]">

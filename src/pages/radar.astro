@@ -4,7 +4,7 @@ import { publicado } from '../lib/publicado';
 import Default from '../layouts/Default.astro';
 import { RadarPage, type RadarItem } from '../components/pages/RadarPage';
 import { compareIsoDateDesc, formatDatePtBR } from '../lib/format';
-import { telaCapa, fundoMargem } from '../lib/telas';
+import { telaCapa, fundoMargem, lombadaImg } from '../lib/telas';
 
 const entries = await getCollection('radar', publicado);
 const items: RadarItem[] = entries
@@ -16,6 +16,7 @@ const items: RadarItem[] = entries
     link: entry.data.isExternal ? entry.data.link : `/radar/article/${entry.id}`,
     tela: telaCapa('radar', entry.id),
     margem: fundoMargem('radar', entry.id),
+    lombadas: [0, 1, 2].map((k) => lombadaImg('radar', entry.id, k)),
   }));
 ---
 

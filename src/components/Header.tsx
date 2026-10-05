@@ -3,7 +3,7 @@ import { Menu, X } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { site } from '../config/site';
 import { EIXOS, type EixoId } from '../lib/eixos';
-import logo from '../assets/cfa6876664fcc921be5a7c0a58c353ea12577968.png?url';
+import logo from '../assets/logo.webp?url';
 
 interface HeaderProps {
   pathname: string;
@@ -42,7 +42,7 @@ export function Header({ pathname: rawPathname, eixosAtivos = [] }: HeaderProps)
     <header className="sticky top-0 z-50 bg-noite border-b border-linha">
       <div className="max-w-7xl mx-auto px-4 md:px-6 h-16 md:h-[72px] flex items-center justify-between gap-6">
         <a href="/" onClick={(e) => handleClick(e, '/')} className="shrink-0">
-          <ImageWithFallback src={logo} alt="Gusflopes.dev" width={1028} height={556} className="h-10 md:h-11 w-auto" />
+          <ImageWithFallback src={logo} alt="Gusflopes.dev" width={311} height={168} className="h-10 md:h-11 w-auto" />
         </a>
 
         <nav aria-label="Principal" className="hidden lg:flex items-center gap-7">

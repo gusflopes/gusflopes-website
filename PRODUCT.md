@@ -50,7 +50,7 @@ mesmo sistema.
 - Voz: direta, sem juridiquês, sem hype; Engenharia e Negócios informativos, Bastidores pessoal.
 - Cores oficiais (confirmado em 03/10): azul-escuro com laranja (atual `#F97316`). Qualquer direção visual varia mundo,
   estrutura e tipografia, não a paleta.
-- Referência artística: o quadro do hero (cidade noturna em pinceladas, `src/assets/326189…png`) e Van Gogh são
+- Referência artística: o quadro do hero (cidade noturna em pinceladas, `docs/referencia-visual/quadro-original.png`; no build entra `src/assets/quadro.webp`) e Van Gogh são
   inspiração da marca.
 - Papéis das cores (Gustavo, 04/10, depois da rodada 3 do redesign):
   - **Laranja é a cor principal da marca**, mas, por ser forte, vive em **detalhes** distribuídos pela página inteira
