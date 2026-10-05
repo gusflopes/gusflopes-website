@@ -13,10 +13,8 @@ simulador, artigo do rt2026 (29/09), política de privacidade com Substack e Clo
 
 **Repo `reforma-tributaria` (commit `8be454b`, sem push nem deploy):** landing reescrita para a ferramenta
 (diagnóstico → conector na IA → "converse direto no seu Claude"), sem o texto do Simples/30-09. Antes do
-`pnpm deploy:web`: (1) Gustavo revisa o texto da landing (copy); (2) **validar o OAuth do MCP com um conector real no
-Claude** — a descoberta está certa (protected resource + AuthKit com DCR e CIMD), mas o AuthKit está em **Staging** e
-nunca foi testado ponta a ponta; para uso público, migrar o WorkOS para produção. Publicar em diretório de conectores
-é opcional e vem depois disso.
+`pnpm deploy:web`: Gustavo revisa o texto da landing (copy). O OAuth do MCP (WorkOS AuthKit) já foi testado pelo
+Gustavo com um conector real no Claude e funciona. Publicar em diretório de conectores é opcional e vem depois.
 
 **Rotina da newsletter:** skill `sync-newsletter` (importa do marketing quando a edição fica pronta, valida, coloca o
 link do Substack depois do envio, pede o deploy).
@@ -44,7 +42,7 @@ Pauta de publicação da demonstração de IA (artigos, shorts e vídeos, com ca
 ## Onde está cada coisa
 
 - `main` (publicada em 26/09): evolução de marca + hotfix da newsletter.
-- `feat/conteudo-eixos` (worktree `.worktrees/conteudo`, **não publicada**): tudo abaixo, pronto para revisão.
+- `feat/conteudo-eixos` — **histórico:** já mesclada na `main` (branch e worktree não existem mais). O que ela trouxe:
   - Eixos: **Engenharia & IA** (`/engenharia`), **Negócios** (`/negocios`), **Bastidores** (`/bastidores`); campo `eixo` no schema (`src/lib/eixos.ts`), filtros, RSS por eixo, seção na home.
   - Correções técnicas: hero em AVIF/WebP (home de 17 s → 3 s de LCP no celular), og 1200×630 `.jpg`, fontes self-hosted, 404 real, bio nova, política de privacidade corrigida, redes no rodapé, botões laranja com texto escuro (contraste 6,85:1).
   - Curadoria de 27/09: publicados 4 artigos novos de Engenharia & IA, 6 de Negócios e 4 de Bastidores (2 com data futura, 28 e 29/09, ficam fora do build até um deploy na data — `src/lib/publicado.ts`). Os outros 13 estão em `docs/rascunhos/`.
@@ -53,7 +51,7 @@ Pauta de publicação da demonstração de IA (artigos, shorts e vídeos, com ca
   - Pesquisa com fontes em `docs/pesquisa/` (coding agents, linha do tempo de IA/MCP, negócios, ensino de IA para crianças).
 - Branches de trabalho já mescladas na `feat/conteudo-eixos` (podem ser apagadas): `conteudo/eng-a`, `conteudo/eng-b`, `conteudo/neg`, `conteudo/bas`, `conteudo/fix`.
 
-## Para publicar a `feat/conteudo-eixos`
+## Para publicar a `feat/conteudo-eixos` (histórico — já feito; vale só o checklist pós-deploy do item 5)
 
 1. Revisar o preview: `cd .worktrees/conteudo && pnpm build && pnpm preview`.
 2. Resolver os `[CONFIRMAR]` que restam (`grep -rn CONFIRMAR src/content`).
@@ -72,14 +70,19 @@ Pauta de publicação da demonstração de IA (artigos, shorts e vídeos, com ca
 
 ## Próximos passos sugeridos
 
-0. **Lembrar o Gustavo (pedido em 03/10): ligar os MCPs de analytics neste repo** (`.mcp.json` na raiz).
-   Analytics do site e da landing ficam aqui; métricas das redes sociais ficam no repo de marketing (trypost).
-   - **Cloudflare Web Analytics** (fonte principal do gusflopes.dev, sem cookies): servidor MCP da Cloudflare para
-     a API GraphQL de analytics (conferir o endereço atual na documentação; skill `cloudflare`). Login OAuth do
-     Gustavo, só leitura. Filtrar por hostname (o mesmo token cobre a landing da reforma).
-   - **GA4** (`G-PKP8H2J89F`, só na landing, com consentimento): `google-analytics-mcp`, oficial, só leitura. Gustavo
-     roda `gcloud auth application-default login` com o escopo `analytics.readonly` e ativa as APIs Analytics Data
-     e Admin num projeto do Google Cloud. Filtrar por hostname `reforma-tributaria.gusflopes.dev`.
+0. **MCPs de analytics neste repo** (`.mcp.json` na raiz). Analytics do site e da landing ficam aqui; métricas das
+   redes sociais ficam no repo de marketing (trypost).
+   - **Cloudflare Web Analytics** — funcionando desde 03/10: `cloudflare-graphql` → `https://graphql.mcp.cloudflare.com/mcp`
+     (OAuth feito, só leitura). Conta `a4ff6f2d957f8687e7841d91cbb83093`; dataset `rumPageloadEventsAdaptiveGroups`
+     no nível da conta, agrupar por `requestHost`/`requestPath`. A mesma conta cobre gusflopes.dev, a landing da
+     reforma, mcp.gusflopes.dev e outros domínios — sempre filtrar por hostname. O servidor avisa que está
+     *deprecated* em favor de `https://mcp.cloudflare.com/mcp` (API inteira); trocar quando ele parar de funcionar.
+   - **GA4** (`G-PKP8H2J89F`, só na landing, com consentimento) — funcionando desde 04/10: `google-analytics` →
+     `uvx analytics-mcp`, credencial em `~/.config/gcloud/ga4-leitura.json`, projeto GCP `gusflopes-marketing`
+     (só leitura). Property `543042928` ("gusflopes-dev"), compartilhada com pessoas., arch-tools.,
+     arquitetura-software. e `localhost` (dev polui) — sempre filtrar por `hostName = reforma-tributaria.gusflopes.dev`.
+     Em 04/10 a landing tinha só 1 page_view em 90 dias e nenhum evento `click`: cliques de saída para o Substack
+     e o simulador ainda não aparecem (conferir medição otimizada/"cliques de saída" na stream e o consentimento).
    - Perguntas que isso deve responder: visitas por página e origem, cliques de saída para o Substack
      (`utm_content` por ponto de clique) e para o simulador.
 
