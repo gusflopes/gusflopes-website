@@ -29,10 +29,10 @@ export function Hero() {
 
           <div className="lg:col-span-5 flex flex-col gap-4 lg:pt-2">
             <p className="font-sans text-lg md:text-xl leading-snug text-white">
-              Arquitetura, plataformas e IA aplicada para transformar complexidade em sistemas que evoluem.
+              Tecnologia e IA aplicadas onde resolvem o problema do negócio, e deixadas de fora onde só complicam.
             </p>
             <p className="order-last lg:order-none font-sans text-base leading-relaxed text-nevoa">
-              Conecto decisões técnicas aos objetivos da organização para ampliar autonomia, melhorar o fluxo de entrega e gerar valor continuamente.
+              Sou advogado, contador e engenheiro de software: traduzo a regra do negócio em sistema, e o sistema em resultado.
             </p>
             <div className="flex flex-col gap-3 pt-1">
               <p className="font-sans text-sm leading-relaxed text-bruma max-w-md">{newsletter.pitch}</p>

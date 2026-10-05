@@ -5,13 +5,13 @@ export function Services() {
   const services = [
     {
       title: "Consultoria Estratégica",
-      description: "Diagnóstico de arquitetura, fluxo de entrega e desenho organizacional para transformar desafios de negócio em decisões técnicas claras e executáveis.",
+      description: "Um diagnóstico do seu problema olhando ao mesmo tempo o técnico, o legal e o contábil, e um plano do que fazer com tecnologia e IA, em linguagem de quem decide.",
       action: "Agendar diagnóstico",
       link: `mailto:${site.email}?subject=${encodeURIComponent('Consultoria Estratégica — Agendar diagnóstico')}`
     },
     {
       title: "Mentoria & Formação",
-      description: "Desenvolvimento de engenheiros e lideranças técnicas por meio de discussões práticas sobre arquitetura, DDD, plataformas e tomada de decisão.",
+      description: "Para engenheiros e líderes técnicos: arquitetura, DDD, plataformas e decisões que se sustentam no negócio, não só no código.",
       action: "Ver programas",
       link: `mailto:${site.email}?subject=${encodeURIComponent('Mentoria & Cursos')}`
     },
