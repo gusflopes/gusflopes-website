@@ -53,7 +53,7 @@ export function PrivacyPolicyPage() {
               A inscrição só vale depois que você confirma pelo link enviado ao seu e-mail. Sem confirmação, nada é enviado. Os dados ficam em banco de dados da Cloudflare, que atua como operadora.
             </p>
             <p>
-              Com a inscrição confirmada, você recebe a newsletter e avisos de textos novos do site. As edições são enviadas pelo <a href="https://substack.com" >Substack</a>, para onde o seu e-mail é copiado com esse fim, conforme a <a href="https://substack.com/privacy" >política de privacidade do Substack</a>. Todo envio traz o link de descadastro; ao cancelar, você sai da lista e deixa de receber os e-mails.
+              Com a inscrição confirmada, você recebe a newsletter, avisos de textos novos do site e de cursos e projetos meus (eventualmente pagos). As edições são enviadas pelo <a href="https://substack.com" >Substack</a>, para onde o seu e-mail é copiado com esse fim, conforme a <a href="https://substack.com/privacy" >política de privacidade do Substack</a>. Todo envio traz o link de descadastro; ao cancelar, você sai da lista e deixa de receber os e-mails.
             </p>
             <p>
               Quem se inscreveu pela página <a href="https://reforma-tributaria.gusflopes.dev" >reforma-tributaria.gusflopes.dev</a> tem os dados, os consentimentos e a forma de cancelar descritos na <a href="https://reforma-tributaria.gusflopes.dev/privacidade" >política de privacidade daquela página</a>.

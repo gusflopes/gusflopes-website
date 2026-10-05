@@ -167,7 +167,7 @@ export function InscricaoForm({ source, eixo, tom = 'claro' }: InscricaoFormProp
       )}
       <p id={`${id}-consent`} className={`mt-3 font-sans text-[0.8125rem] leading-relaxed ${textoFino}`}>
         {/* Mudou o texto? Suba CONSENT_VERSION em worker/src/subscribe.ts. */}
-        Você recebe a newsletter e os textos novos do site. Mandamos um e-mail para confirmar; dá para sair quando
+        Você recebe a newsletter, os textos novos do site e avisos de cursos e projetos. Mandamos um e-mail para confirmar; dá para sair quando
         quiser, com um clique.{' '}
         <a href="/privacy" className={`underline ${escuro ? 'hover:text-white' : 'hover:text-laranja-fundo'}`}>Política de Privacidade</a>.
       </p>
