@@ -25,8 +25,9 @@ referência (Concretismo deve ser testado no projeto da reforma).
   - texto do e-mail de boas-vindas e onde a lista vive (própria × direto no Substack).
 - **Análise: convergir Substack e blog** (05/10): o que é edição da newsletter, o que é texto do site, como um
   aponta para o outro. Resolve também a oferta "Conteúdo & Insights" de Serviços (hoje leva ao Radar).
-- **Posicionamento pessoal** (05/10): como se apresentar na credencial da home ("Advogado, contador e engenheiro de
-  software." está provisório) e manter igual no LinkedIn, no Substack e nas bios.
+- **Posicionamento pessoal** (05/10): credencial no ar "Líder de tecnologia, com formação em Direito e
+  Contabilidade."; discussão completa (ofício × formação, tagline em inglês, LinkedIn, "Sobre") em
+  `../mkt-strategy/brands/gusflopes/posicionamento.md`.
 - Texto do botão da abertura ("Ler o texto mais recente") e da linha com o título do texto: revisar depois.
 - Ideias da crítica final (não feitas): filtros dos hubs compactos no celular; Simulador mais alto na home;
   "próximo texto"/relacionados no fim do artigo; link "pular para o conteúdo"; alvos de toque de 44px no celular.
