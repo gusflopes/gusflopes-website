@@ -43,7 +43,7 @@ Mesmos campos, mais `type` (`article` | `video`), `isExternal`, `link` e `source
 - `isExternal: false` → o build gera `/radar/article/<slug>` com o corpo; `link` aponta para ela e `source: "Local"`.
 - `isExternal: true` → o card leva ao `link` externo; `source` = nome do veículo.
 
-Imagem: URL real e estável (Unsplash com `?auto=format&fit=crop&w=1080&q=80`). Links externos reais e verificados.
+Imagem: a capa exibida no site, o OG e a margem pintada são **gerados no build a partir do slug** (`scripts/tela/`); não procure foto. O campo `image` continua obrigatório no schema e fica só como dado: use uma URL real e estável (Unsplash com `?auto=format&fit=crop&w=1080&q=80`). Como o slug é a semente da capa, escolha-o bem antes de publicar: trocar o slug troca a capa. Links externos reais e verificados.
 
 ## Antes de commitar
 

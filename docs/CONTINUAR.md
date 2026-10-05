@@ -1,6 +1,23 @@
-# Continuar daqui — estado em 27/09/2026 (newsletter e simulador: 02/10)
+# Continuar daqui — estado em 27/09/2026 (newsletter e simulador: 02/10; redesign: 04/10)
 
 Documento de passagem para a próxima sessão (humana ou de agente). Leia este arquivo, depois `docs/revisao-site-2026-09.md` e `docs/pauta-editorial.md`.
+
+## Estado em 04/10/2026 (redesign Pincelada no ar)
+
+**No ar:** a nova identidade visual (direção **Pincelada**): telas pintadas geradas no build a partir do slug
+(`scripts/tela/`), claros quentes da Shelfye (papel `#FFF8F2`, creme `#FDEED9`), laranja de detalhe, artigo "menos
+decorado" com o header do site, favicon = ícone do Substack. Regras de cor e marca: `PRODUCT.md`; sistema visual:
+`DESIGN.md`; histórico das 5 rodadas e das direções: `docs/redesign-versoes.md` e `docs/redesign/HANDOFF.md`
+(branch `design/base`). Evolução e Concretismo ficam nas branches `design/evolucao` e `design/concretismo` como
+referência (Concretismo deve ser testado no projeto da reforma).
+
+**Pendências do redesign:**
+- Publicar as tags `redesign-v*` (comandos no fim de `docs/redesign-versoes.md`; o ambiente da sessão não deixou).
+- Vídeo da home: o Gustavo vai gravar um próprio e substituir o da palestra de terceiro.
+- Copy pendente de aval: "LER ARTIGO" (Radar) × "Ler Artigo" (Insights); deck do hub Newsletter sem "Radar de IA";
+  "Conteúdo & Insights" → "Acessar o Radar"; "Limpar filtros" no estado vazio dos hubs.
+- Ideias da crítica final (não feitas): filtros dos hubs compactos no celular; Simulador mais alto na home;
+  "próximo texto"/relacionados no fim do artigo; link "pular para o conteúdo"; alvos de toque de 44px no celular.
 
 ## Estado em 03/10/2026 (fim da sessão newsletter + simulador)
 
