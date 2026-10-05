@@ -214,6 +214,19 @@ export function InsightsPage({
             <p className="font-sans text-tinta-2 mt-3">
               {articles.length === 0 ? 'Os primeiros textos deste eixo estão a caminho.' : 'Nenhum artigo encontrado.'}
             </p>
+            {articles.length > 0 && (
+              <button
+                type="button"
+                className="acao text-laranja-fundo mt-4 min-h-11"
+                onClick={() => {
+                  setSearchTerm('');
+                  setSelectedCategory('Todos');
+                  setSelectedEixo('todos');
+                }}
+              >
+                Limpar filtros
+              </button>
+            )}
           </div>
         )}
       </div>
