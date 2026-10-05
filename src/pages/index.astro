@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import { publicado } from '../lib/publicado';
 import Default from '../layouts/Default.astro';
 import { HomePage } from '../components/pages/HomePage';
-import type { LatestArticle, FeaturedVideo } from '../components/LatestContent';
+import type { FeaturedVideo } from '../components/LatestContent';
 import { compareIsoDateDesc } from '../lib/format';
 import type { EixoResumo } from '../components/Eixos';
 import { EIXO_IDS } from '../lib/eixos';
@@ -11,8 +11,10 @@ import { getArtigos } from '../lib/artigos';
 import { comUtm, projetos } from '../config/site';
 import { fundoResponsivo } from '../lib/imagens';
 import heroImg from '../assets/326189a758fea0fe0e2da42349b6da943b29ba51.png';
+import { telaVideo } from '../lib/telas';
 
-// Fundo do hero/Themes: AVIF/WebP responsivos gerados no build (o PNG original tem 2,8 MB).
+// O quadro original (seção "sobre"): AVIF/WebP responsivos gerados no build (o PNG original tem 2,8 MB).
+// A abertura da home é a tela gerada (src/lib/telas.ts).
 const fundo = await fundoResponsivo(heroImg);
 
 const insights = (await getCollection('insights', publicado)).sort((a, b) =>
@@ -22,20 +24,12 @@ const radar = (await getCollection('radar', publicado)).sort((a, b) =>
   compareIsoDateDesc(a.data.date, b.data.date)
 );
 
-const articles: LatestArticle[] = insights.slice(0, 2).map((entry) => ({
-  id: entry.id,
-  title: entry.data.title,
-  category: entry.data.category,
-  image: entry.data.image,
-  link: `/insights/article/${entry.id}`,
-}));
-
 const latestVideo = radar.find((entry) => entry.data.type === 'video');
 const video: FeaturedVideo | undefined = latestVideo
   ? {
       title: latestVideo.data.title,
       excerpt: latestVideo.data.excerpt,
-      image: latestVideo.data.image,
+      tela: telaVideo(),
       link: latestVideo.data.isExternal
         ? latestVideo.data.link
         : `/radar/article/${latestVideo.id}`,
@@ -43,18 +37,26 @@ const video: FeaturedVideo | undefined = latestVideo
     }
   : undefined;
 
-// Eixos na home: cada um com o texto autoral mais recente. Bastidores entra mesmo sem
-// texto, apontando para o projeto em produção; eixo vazio sem projeto fica de fora.
+// Eixos na home: cada um com os dois textos autorais mais recentes (a antiga lista "Ideias
+// recentes" foi fundida aqui — os dois insights mais novos sempre aparecem no seu eixo).
+// Bastidores entra mesmo sem texto, apontando para o projeto em produção; eixo vazio sem
+// projeto fica de fora.
 const autorais = await getArtigos({ incluirRadarLocal: true });
+const ultimosInsights = insights.slice(0, 2).map((e) => `/insights/article/${e.id}`);
 const eixos: EixoResumo[] = EIXO_IDS.flatMap((id): EixoResumo[] => {
-  const ultimo = autorais.find((a) => a.eixo === id);
-  const destaque = ultimo ? { title: ultimo.title, href: ultimo.href } : undefined;
+  const doEixo = autorais.filter((a) => a.eixo === id);
+  const escolhidos = doEixo.slice(0, 2);
+  for (const href of ultimosInsights) {
+    const a = doEixo.find((x) => x.href === href);
+    if (a && !escolhidos.includes(a)) escolhidos.push(a);
+  }
+  const recentes = escolhidos.map((a) => ({ title: a.title, href: a.href }));
   if (id === 'bastidores') {
     const reforma = projetos.reforma;
     return [
       {
         id,
-        destaque,
+        recentes,
         projeto: {
           label: 'Testar o simulador da Reforma Tributária',
           href: comUtm(reforma.url, reforma.campanha, 'home-eixos'),
@@ -62,11 +64,11 @@ const eixos: EixoResumo[] = EIXO_IDS.flatMap((id): EixoResumo[] => {
       },
     ];
   }
-  return destaque ? [{ id, destaque }] : [];
+  return recentes.length ? [{ id, recentes }] : [];
 });
 ---
 
-{/* O layout monta o title da home ("gusflopes.dev — Engenharia e negócio, partes do mesmo sistema") */}
+{/* O layout monta o title da home ("gusflopes.dev — Tecnologia e negócio, partes do mesmo sistema") */}
 <Default>
-  <HomePage articles={articles} video={video} eixos={eixos} fundo={fundo} client:load />
+  <HomePage video={video} eixos={eixos} fundo={fundo} client:load />
 </Default>

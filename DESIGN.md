@@ -1,706 +1,230 @@
 ---
-name: gusflopes.dev
-tagline: Editorial-tech identity bridging business strategy and advanced engineering
-modes:
-  - dark   # default — home, radar, dark articles
-  - light  # editorial — insights, light long-form articles
-
+name: gusflopes.dev — Pincelada
+description: Van Gogh como sistema — cada texto ganha uma tela de pinceladas gerada do próprio slug, na paleta inteira do quadro; laranja em detalhes por toda a página, azul-escuro como estrutura, claros (papel e areia) no ritmo.
 colors:
-  brand:
-    primary:
-      value: "#F97316"
-      role: "Signature accent — buttons, links, focus rings, glows, brand bar"
-    primary-hover:
-      value: "#EA580C"
-      role: "Hover state for primary surfaces"
-    primary-soft:
-      value: "#FB923C"
-      role: "Iconography on dark surfaces, hover-lifted accent text"
-    primary-bright:
-      value: "#FDBA74"
-      role: "Hover-lifted icon and link tint, high-contrast accent on dark"
-    primary-deep:
-      value: "#9A3412"
-      role: "Glow tint and stamped 'shadow-orange-900/50' colored shadow"
-    accent-amber:
-      value: "#D97706"
-      role: "Right stop of the headline gradient (orange-400 → amber-600)"
-    accent-cream-100:
-      value: "#FFEDD5"
-      role: "Soft text on dark hero ('orange-100')"
-    accent-cream-200:
-      value: "#FED7AA"
-      role: "Selection background in light editorial mode"
-    accent-cream-900:
-      value: "#7C2D12"
-      role: "Selection text in light editorial mode"
-
-  dark:
-    bg-base:
-      value: "#020617"
-      role: "Page background — deep slate-950, near-black with cool blue cast"
-    bg-elevated:
-      value: "#0F172A"
-      role: "Card body, alternate sections (slate-900)"
-    bg-muted:
-      value: "#1E293B"
-      role: "Inputs, code blocks (slate-800)"
-    border-subtle:
-      value: "rgba(255, 255, 255, 0.05)"
-      role: "Sticky header divider when scrolled"
-    border-default:
-      value: "#1E293B"
-      role: "Section dividers, footer border (slate-800)"
-    border-strong:
-      value: "#334155"
-      role: "Input outlines, neutral card outlines (slate-700)"
-    text-primary:
-      value: "#FFFFFF"
-      role: "Headlines and key UI labels"
-    text-body:
-      value: "#E2E8F0"
-      role: "Body copy on dark (slate-200)"
-    text-secondary:
-      value: "#CBD5E1"
-      role: "Supporting paragraph text (slate-300)"
-    text-muted:
-      value: "#94A3B8"
-      role: "Meta, captions, footer links (slate-400)"
-    text-faint:
-      value: "#64748B"
-      role: "Timestamps, copyright, disabled labels (slate-500)"
-    overlay-hero-side:
-      value: "linear-gradient(to right, rgba(15,23,42,0.9), rgba(15,23,42,0.6), transparent)"
-      role: "Right-fading scrim across hero photo to hold left-aligned text"
-    overlay-hero-bottom:
-      value: "linear-gradient(to top, #020617, transparent 50%)"
-      role: "Lower fade that anchors the hero into the page"
-    overlay-section:
-      value: "rgba(2, 6, 23, 0.8)"
-      role: "Parallax background dimmer with backdrop-blur-sm"
-
-  light:
-    bg-base:
-      value: "#F5F5F0"
-      role: "Warm bone/cream — used on Insights and light long-form articles"
-    bg-paper:
-      value: "#FFFFFF"
-      role: "Quote cards, inline callouts, raised tiles"
-    bg-paper-translucent:
-      value: "rgba(255, 255, 255, 0.8)"
-      role: "Sticky pill filter bar (with backdrop-blur-lg)"
-    border-hairline:
-      value: "rgba(255, 255, 255, 0.2)"
-      role: "Crystalline edge on translucent pill bar"
-    border-soft:
-      value: "rgba(226, 232, 240, 0.6)"
-      role: "Sticky header divider on cream"
-    text-primary:
-      value: "#0F172A"
-      role: "Editorial headlines (slate-900)"
-    text-body:
-      value: "#334155"
-      role: "Long-form body (slate-700)"
-    text-secondary:
-      value: "#475569"
-      role: "Lead paragraphs, deck (slate-600)"
-    text-muted:
-      value: "#64748B"
-      role: "Bylines, meta (slate-500)"
-    text-faint:
-      value: "#94A3B8"
-      role: "Placeholder, disabled (slate-400)"
-
-  ambient:
-    glow-orange-soft:
-      value: "rgba(249, 115, 22, 0.10)"
-      role: "Hero halo blob (200–500px, blur ≥100px) behind page titles on dark"
-    glow-orange-medium:
-      value: "rgba(249, 115, 22, 0.30)"
-      role: "Card edge glow at rest (shadow-[0_0_15px_-3px_…])"
-    glow-orange-strong:
-      value: "rgba(249, 115, 22, 0.50)"
-      role: "Card edge glow on hover (shadow-[0_0_25px_-5px_…])"
-    glow-cream-200:
-      value: "rgba(254, 215, 170, 0.30)"
-      role: "Top-right organic blob in light editorial backdrop"
-    glow-cream-100:
-      value: "rgba(255, 237, 213, 0.40)"
-      role: "Bottom-right organic blob in light editorial backdrop"
-    glow-slate-300:
-      value: "rgba(203, 213, 225, 0.40)"
-      role: "Mid-left organic blob in light editorial backdrop"
-    glow-blue-secondary:
-      value: "rgba(59, 130, 246, 0.05)"
-      role: "Cool counterweight blob on dark article backgrounds"
-
-  semantic:
-    focus-ring:
-      value: "#F97316"
-      role: "All focus-visible rings — orange, never blue"
-    selection-dark:
-      value: "rgba(249, 115, 22, 0.30)"
-      role: "Text selection on dark (selection:bg-orange-500/30)"
-    selection-light-bg:
-      value: "#FED7AA"
-      role: "Text selection background on cream (orange-200)"
-    selection-light-fg:
-      value: "#7C2D12"
-      role: "Text selection ink on cream (orange-900)"
-
+  noite: "#0B1A33"
+  noite-2: "#13284D"
+  linha: "#22385C"
+  quadro: "#1F3A66"
+  ceu: "#8FB3D9"
+  petroleo: "#315B6F"
+  petroleo-claro: "#457183"
+  ardosia: "#648188"
+  ardosia-clara: "#7F989A"
+  areia: "#AA9C87"
+  marrom: "#907A5F"
+  marrom-escuro: "#50372A"
+  ferrugem: "#8A4C1B"
+  campo: "#FDEED9"
+  nevoa: "#C9D6E6"
+  bruma: "#9FB0C6"
+  papel: "#FFF8F2"
+  papel-tom: "#F9F2EC"
+  papel-2: "#EEE7E1"
+  regua: "#E6D9C8"
+  tinta: "#0B1A33"
+  tinta-2: "#3D4E68"
+  corpo-papel: "#1A2740"
+  laranja: "#F97316"
+  laranja-claro: "#FB923C"
+  pessego: "#FDBA74"
+  laranja-fundo: "#C2410C"
 typography:
-  families:
-    serif:
-      value: "'Cormorant Garamond', serif"
-      role: "All h1/h2/h3, blockquotes, editorial display — slow, literary, slightly italicizable"
-      weights: [300, 400, 500, 600, 700]
-    sans:
-      value: "'Plus Jakarta Sans', sans-serif"
-      role: "Body, UI labels, navigation, h4/h5/h6 — humanist geometric, modern"
-      weights: [300, 400, 500, 600, 700]
-    mono:
-      value: "'JetBrains Mono', monospace"
-      role: "Metadata strips on cards (date, duration), code, tags"
-      weights: [400, 500]
-
-  base-rules:
-    serif-default-weight: 500   # h1/h2/h3 inherit medium from base layer — measured, editorial
-    sans-default-weight: 400
-    headline-bold-opt-in: 700   # only when font-bold is added explicitly (landing display, section headers)
-    h4-h5-h6-family: sans       # never serif
-
-  scale:
-    display-xl:
-      font-size: "4.5rem"
-      line-height: "1.05"
-      letter-spacing: "-0.025em"
-      family: serif
-      weight: 700
-      role: "Hero headline at lg+ (text-7xl, font-bold) — landing only"
-    display-l:
-      font-size: "3.75rem"
-      line-height: "1.05"
-      letter-spacing: "-0.025em"
-      family: serif
-      weight: 700
-      role: "Hero at md, page titles at lg (text-6xl, font-bold)"
-    display-l-editorial:
-      font-size: "3.75rem"
-      line-height: "1.05"
-      family: serif
-      weight: 500
-      role: "Article headline (radar/article + insights/article) — measured, italicizable; weight 500 inherited from base layer (no font-bold)"
-    display-m:
-      font-size: "3rem"
-      line-height: "1.1"
-      letter-spacing: "-0.015em"
-      family: serif
-      weight: 700
-      role: "Section heading at md+ (text-5xl, font-bold)"
-    display-s:
-      font-size: "2.25rem"
-      line-height: "1.15"
-      family: serif
-      weight: 700
-      role: "Page header on mobile (text-4xl, font-bold)"
-    h2:
-      font-size: "1.875rem"
-      line-height: "1.2"
-      family: serif
-      weight: 700
-      role: "Section heading mobile (text-3xl, font-bold)"
-    h2-editorial:
-      font-size: "1.5rem"
-      line-height: "1.3"
-      family: serif
-      weight: 500
-      role: "Article in-text H2 (text-2xl, tracking-tight, no font-bold)"
-    h3:
-      font-size: "1.5rem"
-      line-height: "1.25"
-      family: serif
-      weight: 700
-      role: "Card-rail title with orange left border (text-2xl, font-bold)"
-    h4:
-      font-size: "1.25rem"
-      line-height: "1.3"
-      family: serif
-      weight: 700
-      role: "Theme/feature card title (text-xl, font-bold)"
-    lead-l:
-      font-size: "1.5rem"
-      line-height: "1.5"
-      family: sans
-      weight: 500
-      role: "Hero kicker / deck on dark (md:text-2xl)"
-    lead-m:
-      font-size: "1.25rem"
-      line-height: "1.6"
-      family: sans
-      weight: 300
-      role: "Article lead paragraph (text-xl, font-light)"
-    body-l:
-      font-size: "1.125rem"
-      line-height: "1.7"
-      family: sans
-      weight: 400
-      role: "Hero supporting copy, page intros (text-lg)"
-    body:
-      font-size: "1rem"
-      line-height: "1.65"
-      family: sans
-      weight: 400
-      role: "Default paragraph (text-base)"
-    body-s:
-      font-size: "0.875rem"
-      line-height: "1.5"
-      family: sans
-      weight: 400
-      role: "Footer columns, nav links (text-sm)"
-    caption:
-      font-size: "0.75rem"
-      line-height: "1.4"
-      family: sans
-      weight: 700
-      letter-spacing: "0.15em"
-      transform: "uppercase"
-      role: "Eyebrow labels above titles, 'Saiba mais' CTAs"
-    micro:
-      font-size: "0.625rem"
-      line-height: "1.3"
-      family: sans
-      weight: 700
-      letter-spacing: "0.18em"
-      transform: "uppercase"
-      role: "Badge text on cards (text-[10px])"
-    meta:
-      font-size: "0.75rem"
-      line-height: "1.3"
-      family: mono
-      weight: 400
-      role: "Date · duration strip on radar cards"
-
+  display-hero:
+    fontFamily: "Literata Variable, Literata, Georgia, serif"
+    fontSize: "clamp(2.4rem, 4vw, 3.5rem)"
+    fontWeight: 600
+    lineHeight: 1.06
+    letterSpacing: "-0.015em"
+  display-hub:
+    fontFamily: "Literata Variable, Literata, Georgia, serif"
+    fontSize: "3.75rem"
+    fontWeight: 600
+    lineHeight: 1.02
+    letterSpacing: "-0.015em"
+  titulo-artigo:
+    fontFamily: "Literata Variable, Literata, Georgia, serif"
+    fontSize: "3.1rem"
+    fontWeight: 600
+    lineHeight: 1.06
+    letterSpacing: "-0.012em"
+  titulo-secao:
+    fontFamily: "Literata Variable, Literata, Georgia, serif"
+    fontSize: "2.6rem"
+    fontWeight: 600
+    lineHeight: 1.15
+  titulo-card:
+    fontFamily: "Literata Variable, Literata, Georgia, serif"
+    fontSize: "1.45rem"
+    fontWeight: 600
+    lineHeight: 1.35
+  leitura:
+    fontFamily: "Literata Variable, Literata, Georgia, serif"
+    fontSize: "1.125rem"
+    fontWeight: 400
+    lineHeight: 1.72
+  ui:
+    fontFamily: "Hanken Grotesk Variable, Hanken Grotesk, system-ui, sans-serif"
+    fontSize: "1rem"
+    fontWeight: 400
+    lineHeight: 1.6
+  rotulo:
+    fontFamily: "Hanken Grotesk Variable, Hanken Grotesk, system-ui, sans-serif"
+    fontSize: "0.75rem"
+    fontWeight: 700
+    lineHeight: 1.2
+    letterSpacing: "0.12em"
+  codigo:
+    fontFamily: "JetBrains Mono Variable, JetBrains Mono, ui-monospace, monospace"
+    fontSize: "0.82rem"
+    fontWeight: 400
+    lineHeight: 1.7
+rounded:
+  none: "0px"
+  codigo-inline: "2px"
+  avatar: "9999px"
 spacing:
-  unit: "0.25rem"  # 4px base
-  scale:
-    "1": "0.25rem"
-    "2": "0.5rem"
-    "3": "0.75rem"
-    "4": "1rem"
-    "6": "1.5rem"   # default gutter
-    "8": "2rem"     # card padding
-    "12": "3rem"
-    "16": "4rem"    # section header bottom margin
-    "20": "5rem"    # section vertical padding (light)
-    "24": "6rem"    # section vertical padding (dark, py-24)
-    "32": "8rem"    # article bottom padding
-
-  layout:
-    page-gutter: "1.5rem"            # px-6
-    container-max: "80rem"           # max-w-7xl — landing, radar, footer
-    article-max: "56rem"             # max-w-4xl — long-form reads
-    field-max: "32rem"               # max-w-lg — newsletter row
-    column-gap-cards: "2rem"         # gap-8
-    column-gap-grid-tight: "1.5rem"  # gap-6
-    section-padding-y: "6rem"        # py-24
-    nav-padding-y: "1.5rem"          # py-6
-
-radii:
-  none: "0"
-  sm: "0.125rem"
-  md: "0.375rem"     # buttons, inputs
-  lg: "0.5rem"
-  xl: "0.75rem"      # cards, sticky filter bars
-  "2xl": "1rem"
-  full: "9999px"     # pills, avatars, icon wells, play button
-  usage:
-    button: md
-    input: md
-    card: xl
-    image-frame: xl
-    pill-filter: full
-    badge: full
-    blockquote: "right-only — rounded-r-lg"
-
-shadows:
-  none: "none"
-  sm:
-    value: "0 1px 2px 0 rgba(0, 0, 0, 0.05)"
-    role: "Quote cards on cream"
-  md:
-    value: "0 4px 6px -1px rgba(0, 0, 0, 0.10), 0 2px 4px -2px rgba(0, 0, 0, 0.10)"
-  lg:
-    value: "0 10px 15px -3px rgba(0, 0, 0, 0.10), 0 4px 6px -4px rgba(0, 0, 0, 0.10)"
-    role: "Primary CTA, badge, drop-shadows on hero text"
-  xl:
-    value: "0 20px 25px -5px rgba(0, 0, 0, 0.10), 0 8px 10px -6px rgba(0, 0, 0, 0.10)"
-  "2xl":
-    value: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
-    role: "Featured article hero image"
-
-  signature:
-    glow-rest:
-      value: "0 0 15px -3px rgba(249, 115, 22, 0.30)"
-      role: "Idle glow on bordered theme/service cards"
-    glow-hover:
-      value: "0 0 25px -5px rgba(249, 115, 22, 0.50)"
-      role: "Lifted hover state on bordered cards"
-    glow-soft:
-      value: "0 0 10px -3px rgba(249, 115, 22, 0.10)"
-      role: "Quieter resting glow on insight rail cards"
-    glow-tinted:
-      value: "0 10px 15px -3px rgba(154, 52, 18, 0.50)"
-      role: "Stamped 'shadow-orange-900/50' under play button & badges"
-    badge-pop:
-      value: "0 10px 15px -3px rgba(154, 52, 18, 0.50)"
-      role: "Category chip on radar card top-left"
-
-  drop-shadows:
-    text-lg: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.04))"
-    text-md: "drop-shadow(0 4px 3px rgba(0, 0, 0, 0.07))"
-
-elevation:
-  z-bg: 0
-  z-overlay: 1
-  z-content: 10
-  z-sticky-bar: 40
-  z-header: 50
-  z-noise: 50
-  blur:
-    sm: "4px"     # backdrop-blur-sm — overlays
-    md: "12px"    # backdrop-blur-md — sticky header, cards (most common)
-    lg: "16px"    # backdrop-blur-lg — light-mode pill bar
-    blob-soft: "80px"
-    blob-medium: "100px"
-    blob-strong: "120px"
-
-motion:
-  durations:
-    instant: "150ms"
-    fast: "200ms"
-    base: "300ms"
-    medium: "500ms"
-    slow: "700ms"
-    image-zoom: "700ms"
-    blob-pulse: "10000ms"
-  easings:
-    standard: "cubic-bezier(0.4, 0, 0.2, 1)"   # default Tailwind ease
-    in: "cubic-bezier(0.4, 0, 1, 1)"
-    out: "cubic-bezier(0, 0, 0.2, 1)"
-    in-out: "cubic-bezier(0.4, 0, 0.2, 1)"
-    linear: "linear"
-  transitions:
-    color: "color 200ms cubic-bezier(0.4, 0, 0.2, 1)"
-    transform: "transform 300ms cubic-bezier(0.4, 0, 0.2, 1)"
-    all-card: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)"
-    deep-card: "all 500ms cubic-bezier(0.4, 0, 0.2, 1)"
-    image-reveal: "transform 700ms cubic-bezier(0, 0, 0.2, 1)"
-  signature-gestures:
-    card-lift:
-      transform: "translateY(-4px)"
-      shadow: "glow-hover"
-      duration: "300ms"
-    card-scale-in-place:
-      transform: "scale(1.02)"
-      duration: "500ms"
-      role: "Themes grid — assertive but anchored"
-    cta-hover:
-      transform: "scale(1.05)"
-      duration: "300ms"
-      role: "Primary newsletter button"
-    image-zoom-in:
-      transform: "scale(1.10)"
-      duration: "700ms"
-    arrow-nudge:
-      gap-delta: "+0.25rem"
-      duration: "300ms"
-      role: "Group-hover gap on 'Ler Mais → ArrowRight'"
-    parallax-fixed:
-      background-attachment: "fixed"
-      role: "Hero and Themes section keep BG glued while content scrolls"
-    blob-breathe:
-      animation: "pulse"
-      duration: "10000ms"
-      iteration: "infinite"
-
-borders:
-  width:
-    hairline: "1px"
-    standard: "1px"
-    emphatic: "2px"   # bordered theme/service cards always 2px
-    rule: "4px"       # left rail before section subtitles, blockquote
-  default-style: "solid"
-  patterns:
-    card-bordered: "2px solid rgba(249, 115, 22, 0.80)"
-    card-bordered-hover: "2px solid #FB923C"
-    card-soft: "1px solid #1E293B"
-    section-divider: "1px solid #1E293B"
-    rail-accent: "4px solid #F97316"
-    blockquote-accent: "4px solid #F97316"
-
-surfaces:
-  card-glass-dark:
-    background: "rgba(15, 23, 42, 0.80)"
-    backdrop-blur: "12px"
-    border: "card-bordered"
-    radius: xl
-    padding: "2rem"
-    shadow: "glow-rest"
-    hover:
-      background: "rgba(15, 23, 42, 0.90)"
-      border: "card-bordered-hover"
-      shadow: "glow-hover"
-      transform: "card-scale-in-place"
-  card-radar:
-    background: "rgba(15, 23, 42, 0.80)"
-    backdrop-blur: "12px"
-    border: "1px solid #1E293B"
-    radius: xl
-    hover:
-      border: "1px solid rgba(249, 115, 22, 0.50)"
-      transform: "translateY(-8px)"
-  card-paper-light:
-    background: "#FFFFFF"
-    border: "1px solid rgba(226, 232, 240, 0.50)"
-    radius: xl
-    shadow: sm
-  pill-filter-light:
-    background: "rgba(255, 255, 255, 0.80)"
-    backdrop-blur: "16px"
-    border: "1px solid rgba(255, 255, 255, 0.20)"
-    radius: full
-    shadow: sm
-  header-scrolled-dark:
-    background: "rgba(2, 6, 23, 0.80)"
-    backdrop-blur: "12px"
-    border-bottom: "1px solid rgba(255, 255, 255, 0.05)"
-
-textures:
-  noise-overlay:
-    technique: "inline SVG fractal noise (feTurbulence baseFrequency 0.65, 3 octaves)"
-    opacity: 0.03
-    blend-mode: "overlay"
-    role: "Light-mode editorial pages — subtle paper grain over the cream field"
-  parallax-painting:
-    asset: "painterly oil-textured illustration — warm cathedral/architectural silhouette over deep navy ground, lit by burnt-orange highlights and brushy bokeh"
-    attachment: "fixed"
-    role: "Hero and Themes — long-take cinematic feel under content; gives the dark mode its 'studio at dusk' warmth"
-  organic-blobs:
-    technique: "absolute round divs, blur 80–120px, mix-blend-multiply (light) or no blend (dark)"
-    role: "Polimórfia — rooms feel atmospheric, not flat"
-
-iconography:
-  library: "lucide-react"
-  stroke-width: 1.75
-  default-size:
-    inline: "16px"
-    feature: "32px"
-    play: "32px in 64px disc"
-  treatment: "Outline only; orange tint on hover; never filled (except play disc)"
-
+  gutter-mobile: "16px"
+  gutter-desktop: "24px"
+  secao-mobile: "64px"
+  secao-desktop: "96px"
+  coluna-leitura: "40rem"
+  container: "80rem"
 components:
-  button:
-    base:
-      radius: md
-      height: "56px (h-14, hero CTA) | 36px (h-9 default) | 32px (h-8 small pill)"
-      padding-x: "2rem (lg) | 1rem (default) | 0.75rem (sm)"
-      font: "sans 600/700, tracking-wide; uppercase on outlined chips"
-      transition: all-card
-    variants:
-      primary:
-        background: brand.primary
-        text: "#1C0A02"  # 6,85:1 sobre #F97316 (branco dava 2,8:1 — reprovado WCAG AA)
-        hover-background: brand.primary-hover
-        hover-transform: "scale(1.05)"
-        shadow: "glow-tinted"
-      outline-pill:
-        background: "transparent"
-        border: "1px solid #F97316"
-        text: brand.primary
-        radius: full
-        hover-background: brand.primary
-        hover-text: "#FFFFFF"
-      filter-chip-active:
-        background: brand.primary
-        radius: full
-        text: "#FFFFFF"
-      filter-chip-idle:
-        background: "transparent"
-        border: "1px solid #334155"
-        text: dark.text-muted
-        hover-text: "#FFFFFF"
-        hover-border: brand.primary-soft
-      link:
-        text: brand.primary-soft
-        hover-text: brand.primary-bright
-        weight: 700
-        transform: "uppercase"
-        gap: "0.5rem → 0.75rem on group-hover"
-  input:
-    radius: md
-    height: "56px (hero), 36px (default)"
-    background-dark: "rgba(2, 6, 23, 0.50)"
-    background-cream: "rgba(255, 255, 255, 0.0)"  # ghost in pill-filter
-    border: "1px solid #475569"
-    placeholder: "slate-400"
-    focus-ring: "3px rgba(249, 115, 22, 0.50)"
-  badge:
-    radius: full
-    background: brand.primary
-    text: "#FFFFFF"
-    font: "sans 700, uppercase, tracking-widest, 10px"
-    shadow: "glow-tinted"
-  card:
-    pattern: "card-glass-dark | card-radar | card-paper-light"
-    feature-cards-have:
-      - "icon well: rounded-xl, slate-950/50 bg, orange/30 border"
-      - "title: serif xl, white"
-      - "body: sans base, slate-300"
-      - "footer CTA: caption — 'SAIBA MAIS' or 'AGENDAR DIAGNÓSTICO'"
-  blockquote-editorial-light:
-    background: "#FFFFFF"
-    border-left: "4px solid #F97316"
-    radius: "right-only — rounded-r-lg (8px)"
-    padding: "2rem"
-    type: "serif italic, 1.25–1.5rem, slate-800"
-    decoration: "huge faded right-quote glyph at top-right, opacity 0.10"
-  blockquote-dark:
-    background: "rgba(30, 41, 59, 0.50)"
-    border-left: "4px solid #F97316"
-    radius: "right-only — rounded-r-lg (8px)"
-    padding: "2rem"
-    type: "serif italic, 24px, slate-200, weight 400"
-    decoration: "inset 0 2px 4px rgba(0,0,0,0.05) at top edge"
-  insight-card-paper:
-    background: "#FFFFFF"
-    border: "1px solid rgba(226, 232, 240, 0.50)"
-    radius: xl
-    shadow: sm
-    image-treatment: "grayscale by default; warms to color on hover (transition 700ms)"
-    eyebrow: "uppercase tracking-widest, orange-600"
-    title: "serif weight 500, slate-900"
-    cta: "uppercase tracking-widest 'LER ARTIGO →', slate-900"
-
-backgrounds:
-  page:
-    dark:
-      base: dark.bg-base
-      enrichments: ["fixed parallax photograph", "section-scoped slate-950/80 dimmer with backdrop-blur-sm"]
-    light:
-      base: light.bg-base
-      enrichments: ["full-bleed SVG noise at 3% opacity", "three blurred organic blobs (orange-200/30, slate-300/40, orange-100/40) with mix-blend-multiply"]
-  hero-stack:
-    layers:
-      - "photograph (cover, fixed)"
-      - "right-fading slate gradient for text legibility"
-      - "bottom-anchoring slate-950 fade"
-      - "content (z-10), max-w-3xl, 1.5rem stack"
-  page-title-halo:
-    technique: "200px round div, bg-orange-500/10, blur-100px, behind H1"
-    role: "Quiet warmth without competing with text"
-
-content-modes:
-  dark-editorial:
-    mood: "Studio at night, warm tungsten on cool steel"
-    used-on: ["/", "/radar", "/radar/article/*"]
-    accent: "Orange against navy, glow as primary depth cue"
-  light-editorial:
-    mood: "Letterpress on warm bone paper — Polimórfia"
-    used-on: ["/insights", "/insights/article", "/privacy", "/terms"]
-    accent: "Orange used sparingly as ink — hairline rules, italic display"
-    signature-effects:
-      - "fractal-noise paper grain (3% opacity, mix-blend-overlay)"
-      - "three organic blurred blobs (warm + cool, mix-blend-multiply)"
-      - "sticky pill filter bar floating in glass"
-      - "grayscale featured image that warms to color on hover"
+  botao:
+    backgroundColor: "{colors.laranja}"
+    textColor: "{colors.noite}"
+    rounded: "{rounded.none}"
+    padding: "0 24px"
+    height: "48px"
+  botao-hover:
+    backgroundColor: "{colors.laranja-claro}"
+    textColor: "{colors.noite}"
+  botao-contato:
+    backgroundColor: "transparent"
+    textColor: "{colors.laranja-claro}"
+    rounded: "{rounded.none}"
+    height: "40px"
+    padding: "0 16px"
+  chip-filtro:
+    backgroundColor: "transparent"
+    textColor: "{colors.tinta-2}"
+    rounded: "{rounded.none}"
+    height: "32px"
+    padding: "0 12px"
+  chip-filtro-ativo:
+    backgroundColor: "{colors.laranja}"
+    textColor: "{colors.noite}"
+  faixa-titulo:
+    backgroundColor: "{colors.noite}"
+    textColor: "#FFFFFF"
+  coluna-leitura:
+    backgroundColor: "{colors.papel}"
+    textColor: "{colors.corpo-papel}"
+    typography: "{typography.leitura}"
+    width: "{spacing.coluna-leitura}"
+  caixa-newsletter:
+    backgroundColor: "{colors.campo}"
+    textColor: "{colors.tinta}"
+    padding: "32px"
 ---
 
-# gusflopes.dev — Design System
+# gusflopes.dev — Pincelada
 
-## Identity in one breath
+## Overview
 
-Editorial-tech: a personal site that looks like a serious technology magazine, not a SaaS landing page. Cormorant Garamond sets a measured, almost legal tone in the headlines; Plus Jakarta Sans handles the working text with a humanist warmth. JetBrains Mono shows up only where it belongs — on metadata strips that quietly say "this was logged, timestamped, archived."
+O site é Van Gogh como sistema, não como foto. A assinatura é o **gerador de telas** (`scripts/tela/pincel.mjs`, VERSAO 10): tinta, não vetor, e **cena ampla, não foco**. O segredo do quadro da marca é a amplitude — o céu inteiro salpicado de manchas redondas sem centro, massas grandes que organizam a cena, marcas variadas pela superfície toda — e é esse princípio (não a paisagem) que o gerador transporta. Cada tela tem uma estrutura grande, um **arquétipo** escolhido pela semente ou fixado pelo papel da tela na página: **horizonte** (céu de manchas, massa escura com crista, linha d'água e reflexos), **vento** (correntes diagonais largas, faixas de valor, respiros), **manchas** (campo de discos de vários tamanhos e cores, sem centro), **ondas** (cristas claras longas, cavas que descansam), **massas** (blocos verticais, campo horizontal e área clara que se encontram numa costura de luz) e **faixas** (estratos de alturas, escalas de traço e densidades diferentes). Não há vórtice nem luz-alvo concêntrica: quando há luz, é mancha ou disco espalhado, de tamanho e valor variados, ou toque quente curto (janela acesa, reflexo). Um respiro de baixa frequência abre campos onde o chão aparece, e o comprimento do traço varia muito (log-normal): toques quase quadrados ao lado de correntes longas. O corpo de tinta é o da rodada 2: renderizador raster em camadas (subpintura, corpo, realce, marcas do arquétipo, manchas, faíscas); cada traço é um feixe de cerdas em 2 a 4 sub-estrias de valores vizinhos, entrada carregada, saída seca, falhas da cerda, arrasto da tinta de baixo; no material **empasto** cada cerda deixa relevo iluminado por luz rasante. As manchas são discos preenchidos por toques de uma mão só, com borda redonda de arcos tangentes. Desde a VERSAO 10, a tinta é a **paleta do quadro inteiro**, não só os azuis dele: petróleo, ardósia, areia, marrom e ferrugem sobre o fundo azul-acinzentado, com os laranjas da marca como luz. O motor é o contraste complementar ferrugem × petróleo (torres de tijolo e janelas acesas no horizonte, correntes quentes e frias alternadas no vento, ondas alternadas, um estrato quente e um claro em toda faixa, bloco de tijolo nas massas) e o céu da abertura tem uma passagem clara de areia, como o alto-esquerdo do quadro. As manchas revezam cinco famílias (areia/pêssego, aqua, branco, ocre, azul-noite), com luas grandes e pingos (razão ≥ 6:1), opacidade, sobreposição e borda variáveis; os reflexos na água são faixas verticais quentes. O azul-claro da marca (`#8FB3D9`/`#C9D6E6`) ficou como acento raro. `scripts/tela/medir.mjs` mede cada tela por família de cor; o estudo `docs/design-review/estudo-pinceladas.png` põe os seis arquétipos no tamanho real do hero ao lado do quadro original inteiro, com a medição anotada.
 
-The system speaks in **two voices** that share the same vocabulary:
+**Escala fixa de traço.** Cada papel (`scripts/tela/config.mjs`: abertura, faixa, capa, capítulo, close, projeção, convite, fita, painel) tem uma tela-mestre em px de tela, e cada formato servido é uma **janela** dela pintada no tamanho em que é exibida: o traço tem a mesma espessura no hero, nas faixas, nas capas, no OG e no Substack. O card não é a capa encolhida, é um recorte dela; o celular recebe a sua própria janela via `<picture media>`. Marcas laranja ficam inteiras (ou inteiramente fora) em todas as janelas do papel; manchas azuis podem ser cortadas pela borda, como no quadro. A única exceção deliberada é o **close** da Ferramenta (o pintor chegando perto, 2,5×), nunca o contrário.
 
-- **Dark Editorial** is the front door — slate-950 deep, with a painterly oil-textured illustration (warm cathedral silhouette over deep navy, washed in burnt orange highlights) parallaxing under the hero and the Themes block. Cards float as glass tiles bordered in 2px orange, glowing softly at rest and brightening on hover. This is where authority lives.
-- **Light Editorial ("Polimórfia")** is the reading room — a warm bone paper (`#F5F5F0`) treated with 3% SVG fractal noise, three blurred organic blobs in warm and cool tints, and a translucent pill that holds the article filters. This is where ideas breathe.
+As telas são geradas **no build**, por uma integração Astro (`scripts/tela/integracao.mjs`, em workers), codificadas pelo `sharp` em AVIF em todas as larguras do srcset (q31 em 1×, q24 acima), WebP e JPG só na largura 1× como reserva (rodada 5: `dist/telas` caiu de 27 MB para 16 MB; a panorâmica `larga` da capa, que nenhuma página usava, deixou de ser gerada), mais a imagem OG 1200×630 de cada texto. Cache incremental por manifesto: só o que mudou é repintado. Zero JS no cliente: a tela é um `<picture>`. Elas substituem no render as fotos genéricas do Unsplash do frontmatter (que fica intocado); capa autoral (a da newsletter) é mantida.
 
-The bridge between them is the **single brand orange** (`#F97316`), the same serif/sans/mono triad, **and the persistent dark navigation bar**. The header is `slate-950/80 backdrop-blur` on every route except the very top of the homepage (where it's transparent over the hero). On cream pages it floats as a dark navy strip above the warm paper — a deliberate stitch that says "this is one site in two moods, not two different sites."
+Dois modos de página, decididos pela tarefa, não pela categoria:
 
-## Color logic
+- **Mostrar** (home, hubs, arquivo da newsletter, 404): a tela abre a página e o título vem numa faixa azul-escuro costurada pelo **fio laranja**; depois, o corpo alterna noite e claros (papel, areia) pela história. A abertura muda por tipo de página (ver Layout).
+- **Ler** (artigos, edições, páginas legais): a tela fica só na capa; o título em faixa azul-escuro; a coluna de leitura em **papel** `#FFF8F2` (o claro da Shelfye), Literata 17–18px, ~68 caracteres por linha, nada se mexendo atrás do texto. Papel em vez de azul-escuro porque a leitura longa acontece de dia, no celular: texto escuro em fundo claro quente tem contraste alto (16,5:1) sem o halo do texto claro em fundo escuro, e a pintura continua presente acima, como um quadro pendurado sobre a página.
 
-There is exactly one accent: orange-500. Everything else is slate or cream. That constraint is doing real work — it lets glow, gradient, italic, and uppercase all speak from the same vocal cord. The palette never reaches for green for "go" or red for "stop." Status, emphasis, and personality all share the orange channel:
+**Cada tela tem um papel e uma anatomia**, nunca textura em série. Arquétipos fixados por papel: abertura da home = horizonte; faixas de hub = Insights manchas, Radar vento, Engenharia massas, Negócios ondas, Bastidores faixas; eixos da home = faixas com 3 estratos (um por porta); vídeo = ondas; close da Ferramenta = vento; convite da newsletter = vento; fita do arquivo da newsletter = horizonte; 404 = massas. A capa de um texto é sorteada pela semente, mas nunca com o arquétipo da faixa de Insights, da faixa do seu eixo nem do convite da newsletter — as telas da mesma página não repetem anatomia. Listas de textos são só texto, com a **lombada** pintada de cada texto à esquerda (abaixo).
 
-- **Resting orange** = a soft 30%-alpha glow around bordered cards.
-- **Hover orange** = the same color, 50% alpha, pushed wider — the card doesn't *move* much, it *radiates*.
-- **Stamped orange** = the colored shadow under the play disc and category badges (`shadow-orange-900/50`), which gives buttons a planted, weighted feel instead of generic Material elevation.
+**Cor em zonas (v11, rodada 5).** Fora a abertura (horizonte, aprovada), a cor de cada tela se organiza em **zonas grandes**, como no quadro (céu de areia, montanha de petróleo, cidade de ferrugem): um campo de Voronoi de baixa frequência, em grade com folga, dá a cada área uma família (petróleo, ferrugem, areia, ardósia, marrom; petróleo duas vezes no ciclo e sempre no centro da mestre), com corpo, registro claro, subpintura e chão próprios e um pouco da complementar dentro — nunca monocromático. A **divisa entre zonas é pintada**, nunca um corte reto: numa faixa de ~90px cada traço sorteia (por hash da posição) entre as duas famílias, o chão mistura as duas cores e a divisa ondula em duas escalas (o mesmo vale para as massas do arquétipo massas, cujos traços cruzam a costura em cor e direção). Toda tela tem um **encontro quente × frio**: o centro é petróleo e o vizinho mais próximo é ferrugem. O arquétipo dá a estrutura e o valor; a zona dá a família. Nos eixos da home, os três estratos são três famílias (petróleo, ferrugem, areia). **Telas pequenas sem lua garantida** (faixas dos hubs, capas, vídeo, convite e fitas): discos menores, translúcidos e sobrepostos, com traços do campo por cima; o recorte do celular na abertura desce para a cidade e a água e nenhum disco grande o toca. **Céu da abertura**: as manchas se aglomeram numa região (quatro grandes de escala variada, sobrepostas, e as pequenas em volta), e a amplitude de cor vem dos traços do céu, em zonas de petróleo, ferrugem, ardósia e marrom. **Fita do rodapé**: uma por página (semente = caminho), RGBA, com a borda de cima pintada e irregular (entre 4% e 44% da altura) sobre um fundo de papel, sem sobrepor a seção anterior, sem fio laranja na emenda, terminando na noite; o topo mistura frio e quente (ardósia, aqua, petróleo, ferrugem), nunca bege sobre bege. **Margem pintada** (papel `margem`, 96×2400, semente = slug, zonas de 400px alternando **brasa** — ferrugem acesa pelos laranjas da marca — com petróleo, ardósia e ferrugem): corre à esquerda da coluna de leitura de artigos e edições (96px no desktop, 44px no tablet, 12px no celular, com recuo total de 28px), costurada por fio laranja de 2px. O laranja do artigo vive dentro da tira, não numa faixa lateral. A mesma tira é a **lombada** de cada linha nos índices dos hubs e do Radar (56px/20px), recuada para uma zona fria (petróleo, ardósia, ferrugem, alternando por linha). Cada **H2** do artigo abre com uma **faixa pintada** (40px no celular, 28px no desktop) do recorte da capa do próprio texto.
 
-The headline gradient (`orange-400 → amber-600`) is the only place where a second hue appears, and only inside text. It's the brand thesis rendered visually: warm-on-warm, no contrast trick.
+O quadro original da marca (cidade noturna em pinceladas) aparece uma vez, na largura da janela, abrindo a seção "Engenharia é mais do que código" (`#about`): a referência de onde o gerador veio.
 
-On the cream side, orange goes quieter — a hairline left-rule on a blockquote, the date eyebrow at uppercase 12px, the sparkle next to the page title. The light mode never *shouts* orange; it lets the serif italic carry mood and uses orange like ink.
+## Colors
 
-## Typography behavior
+Restrição de marca: azul-escuro + laranja oficiais, mais a paleta de apoio do quadro aprovada em 04/10 (PRODUCT.md, "Papéis das cores"). Estratégia: **laranja como cor principal em detalhes**, azul-escuro como estrutura, claros obrigatórios no ritmo, a variedade do quadro como apoio.
 
-The serif/sans split is strict and meaningful. **Headings are always serif.** Body, UI, and small labels are always sans. Code and timestamps are mono. This is not negotiable — h1 through h3 are wired to Cormorant Garamond at the base layer, while h4–h6 fall back to Jakarta. The implication: when something *should be felt* (a title, a quote, a hero deck) it goes serif; when something should be *read* or *operated*, it goes sans.
+- **Laranja** `#F97316` é a cor principal e aparece em toda seção, em dois registros. (a) **Chapado = ação**: botão, chip/aba ativa, play do vídeo, ações de Serviços; texto e ícone sobre ele em azul-escuro `#0B1A33` (6,19:1; sobre `#FB923C` no hover, 7,67:1). (b) **Detalhe não textual = presença**: o fio de 3px na costura pintura/texto, a costura de 6px ao lado das listas (portas da home, índices dos hubs), réguas de 2px no índice, o filete de 4px (marca de capítulo sob os títulos da home, topo das áreas do Sobre, célula de Serviços), a marca quadrada de 8px antes de um metadado, o sublinhado de 3px de um destaque. Sobre claro, `#F97316` nunca é texto (≈2,5:1); texto laranja sobre claro é `laranja-fundo` `#C2410C` (4,9:1), e só em links e ações. Fundo `#C2410C`/`#9A3412` com texto branco (5,18:1) só pontualmente; proibido `#C2410C` com azul-escuro (3,35:1) e `#F97316` com branco (2,8:1). Sobre azul-escuro, `laranja-claro` `#FB923C` é o laranja de texto/link e `pessego` `#FDBA74` a ênfase em títulos ("partes do mesmo sistema").
+- **Azul-escuro** é estrutura e fundo, não protagonista: **Noite** `#0B1A33` no cabeçalho, nas faixas de título, na Ferramenta e no rodapé; **Noite 2** `#13284D` e **Linha** `#22385C` (régua sobre azul-escuro). Nunca dois blocos escuros grandes empilhados.
+- **Claros** entram no ritmo: os claros são os da Shelfye.ai (decisão do dono, rodada 5). **Papel** `#FFF8F2` (coluna de leitura, Eixos, corpo dos hubs, Serviços, mensagem do 404) com `tinta` `#0B1A33` (16,5:1), corpo `#1A2740`, `tinta-2` `#3D4E68` (8,0:1) e `regua` quente `#E6D9C8`; **Creme** `#FDEED9` (token `campo`), o claro quente, no vídeo da home, no Sobre e no convite da newsletter (tinta 15,2:1, `tinta-2` 7,4:1, `#C2410C` 4,5:1). Células aninhadas mudam de tom (`#F9F2EC`/`#EEE7E1`) em vez de levar fio; em `#EEE7E1` o laranja como texto é `#9A3412`. O acento continua `#F97316`, sem terracota e sem serifa decorativa por causa do creme. Toda seção escura grande chega de um claro; o rodapé chega pela fita pintada creme → noite, de borda irregular.
+- **Paleta de apoio do quadro** (fora das telas, com função): **petróleo** `#315B6F` (célula chapada do título de Serviços e caixa do Bastidores, com branco 7,3:1; metadado sobre papel, 6,4:1), **petróleo claro** `#457183`, **ardósia** `#648188` (régua sobre claro; não é texto sobre papel), **ardósia clara** `#7F989A` (metadado sobre noite, 5,8:1), **areia** `#AA9C87` (metadado e rótulo sobre noite, 6,5:1), **marrom** `#907A5F`/`#50372A`, **ferrugem** `#8A4C1B` (filete; nunca encosta em texto `#C2410C` nem no laranja chapado — sempre uma célula de separação). Dentro das telas, a mesma família mais o fundo `#223040`/`#1C1F27`.
+- **Azul-claro da marca** — `ceu` `#8FB3D9`, `nevoa` `#C9D6E6` — é acento raro nas telas; fora delas, `nevoa` segue como texto secundário sobre azul-escuro (11:1) e `bruma` `#9FB0C6` como metadado (7,4:1).
 
-**The most important typographic decision** is hidden in the base layer: serif headings inherit `font-weight: 500` (medium). They are only bumped to 700 when a component opts in with `font-bold`. This produces two distinctly different voices for the same family:
+Seleção de texto: laranja com texto `noite` sobre azul-escuro; pêssego com `tinta` sobre claro. Foco: anel de 2px `laranja-claro` (`laranja-fundo` sobre claro), afastado 3px. Scrollbar em `petroleo` sobre `noite`.
 
-- **Display voice (700)** — landing hero, section headers, "Últimos Insights" rail. Bold, declarative, advertising. Used to *announce*.
-- **Editorial voice (500)** — long-form article H1s and inline H2s. Slim, literary, almost humanist; tracks tight without negative letter-spacing. Used to *think aloud*. The italicized words ("Domain-Driven Design", "Bounded Contexts") become genuinely italic-looking instead of pseudo-italic, because the surrounding weight is light enough to let italic register.
+## Typography
 
-The display sizes lean tall and tight (line-height 1.05–1.15, ~-0.025em letter-spacing on the largest sizes) so that long Portuguese phrases like "A Ponte entre Negócios e Engenharia Avançada" land like a magazine spread. Body copy is generous: 1.6–1.7 line-height, 18–20px lead size, 300–400 weight in long-form. Article leads use weight 300 — visibly thin, almost essayistic.
+- **Literata** (variável, peso; itálico real carregado sob demanda) para tudo que é título e para a leitura. Títulos em 600 com tracking levemente negativo nos tamanhos grandes; corpo em 400, linha 1,72.
+- **Hanken Grotesk** (variável) para UI: navegação, decks dos hubs, metadados, botões, rótulos.
+- **JetBrains Mono** só em código (blocos e inline). Nunca como fantasia "técnica".
 
-Eyebrows and CTAs use a uniform formula — uppercase, 700 weight, 0.15em–0.18em tracking, sans, 12px or smaller. They appear in three places: above category names, beside dates, and as text-buttons reading "SAIBA MAIS →" / "LER ARTIGO →". They are always orange or slate, never primary text color.
+O **rótulo** (Hanken 700, 0,75rem, caixa alta, tracking 0,12em) marca eixo e categoria — e fica sempre **abaixo** do título, junto da data, nunca como eyebrow acima. Frases longas de rótulo (as áreas do hero, "Ferramenta gratuita · Experimento aberto") ficam em Hanken 600 em caixa normal.
 
-A subtle dialect difference between the two modes: filter chips on **/radar are uppercase** ("TODOS", "ARQUITETURA") while filter chips on **/insights are initial-cap** ("Todos", "Arquitetura"). The radar shouts categories like a dashboard; insights name them like a table of contents.
+As fontes das imagens geradas (OG, capas do Substack) são as mesmas, em versão estática (`@fontsource/literata`, `@fontsource/hanken-grotesk`, WOFF convertido para TTF em `node_modules/.cache`) renderizadas pelo Pango do `sharp`.
 
-## Surfaces and depth
+## Layout
 
-There are essentially four surface archetypes:
+- Container de 80rem com gutter de 16px no celular e 24px a partir de `md`. Seções respiram 64px (celular) / 96px (desktop).
+- **Abertura, por tipo de página**: home — panorâmica alta em largura total, `calc(100svh − 72px − 400px)` entre 300 e 620px (janela 1440×450; 400×250 no celular), fio e faixa do título abaixo; hubs de leitura (Insights, eixos, Radar) — faixa 6:1/5:1 em largura total (janela 1440×240; 400×134 no celular); artigo — faixa do título à esquerda e a capa em **retrato** até a borda direita, costurada por fio vertical (janela 464×580; recorte 448×252 em cima, no celular); arquivo da newsletter — a mesma abertura dos outros hubs (faixa de tela 6:1, arquétipo horizonte, fio e o título na faixa escura baixa; desde a rodada 5); 404 — painel alto ao lado da mensagem, fio vertical; edição da newsletter — sem tela (a capa autoral entra abaixo do título; se ela não carregar, o lugar fica em creme `#FDEED9`, nunca cinza).
+- Home: H1 em 7/12 colunas, deck + newsletter em 5/12; o botão "Assinar Newsletter" cabe na primeira dobra em 1366×900 e 390×844.
+- Home, abaixo da abertura (ordem desde a rodada 5: Eixos → Vídeo → Sobre → Ferramenta → Serviços; "Ideias recentes" foi fundida nos eixos): cada camada tem um gesto próprio — **Eixos**: uma tela em três estratos ao lado das três portas, fio laranja vertical como costura, cada porta com os dois textos mais recentes do eixo (o rótulo "Mais recente" fica colado acima do título que qualifica); **Vídeo**: sala de projeção no creme, a tela 16:9 sangra até a borda direita com o play grande, título e resumo à esquerda; **Ferramenta**: meia seção é o close de traço 2,5× sangrando à esquerda de cima a baixo, a outra metade é a ferramenta e a ação; **Sobre**: a revelação da fonte, o quadro original na largura da janela (única aparição) com fio e faixa do texto, depois as áreas em colunas (o único "título + colunas entre réguas"); **Serviços**: cardápio em linhas largas sobre papel, com uma só ação chapada (a primeira); as outras são links com seta.
+- Hubs: Insights e eixos trazem o texto mais recente com a capa em **retrato 4:5** (4/12, fio vertical) ao lado do título grande (8/12) — nunca a panorâmica da faixa de abertura — e seguem num **índice de leitura** em lombadas (a margem pintada de cada texto à esquerda; título e resumo em 8/12, metadados ao lado em 4/12). Radar é um **diário de bordo**: data na margem (2/12), item e comentário (7/12), categoria, fonte e ação (3/12).
+- Artigo: título e coluna compartilham a mesma borda esquerda (43rem com padding → 40rem úteis). Blocos de código sangram 1–1,4rem para fora da coluna.
+- Ritmo de página (home), desde a rodada 5: noite na abertura → **papel** nos Eixos → **creme** no Vídeo → o quadro → **creme** no Sobre → noite na Ferramenta → **papel** em Serviços (título na célula de petróleo) → fita pintada → noite → rodapé. Nenhum trecho escuro passa de ~600px (a v4 empilhava vídeo, ferramenta e quadro, ~2.300px). A regra anterior ("duas trocas", noite da abertura até o Sobre) produzia um azulão só e foi revogada. Hubs, Radar, Newsletter, artigo, edição e 404: noite só na abertura e no rodapé; o corpo é claro. Em todo modelo, os ~400px acima do rodapé são majoritariamente claros.
 
-1. **Glass-bordered card (dark)** — `slate-900/80` background, `backdrop-blur-md` (12px), **2px** orange-500/80 border, `rounded-xl` (12px), and the signature `0 0 15px -3px` orange glow. On hover the glow expands to `25px -5px / 0.50` and the card scales 1.02 in place — assertive but anchored. This is the system's hero element; it's used wherever an idea is being introduced (Themes, Services).
-2. **Soft-bordered radar card (dark)** — same glass but with a slate-800 hairline border that turns orange-500/50 on hover, paired with a `-translate-y-2` lift. This is the workhorse for content lists; it doesn't compete with the bordered cards above.
-3. **Paper insight card (light)** — pure white, `rounded-xl`, 1px slate-200/50 border, `shadow-sm`, **and a grayscale featured image that warms to color on hover over 700ms**. This last detail is doing real work: it makes attention itself feel like a developing photograph.
-4. **Quote card (both modes)** — paper white in light mode, slate-800/50 in dark mode, both with a 4px orange left rule, `rounded-r-lg`, and a giant faded right-quote glyph (`opacity 0.10`) tucked into the top-right corner. Same gesture, recolored — proof that the system thinks in patterns, not chrome.
+## Elevation & Depth
 
-Depth is achieved primarily through **glow and blur**, not stacked shadows. The system avoids the generic Material 0/1/2/3 elevation ladder. Instead, an element is "elevated" when it picks up backdrop-blur (sticky bars, cards), gains a colored glow (interactive surfaces), or is anchored by a tinted shadow (`shadow-orange-900/50` on the play disc — which feels like a button you could press through the screen).
+Nenhuma sombra, nenhum glow, nenhum vidro. Profundidade vem só de três coisas: a tela (a única superfície com textura), a mudança de chão (`noite` / `noite-2` / `papel`) e réguas finas. O header é azul-escuro sólido e fixo no topo.
 
-## Motion grammar
+## Shapes
 
-Three speeds: **200ms** for color and small transforms, **300ms** for cards and CTAs, **700ms** for image reveals. Cubic-bezier defaults — no bouncy springs, no overshoot. The longest animation in the system is a 10-second `animate-pulse` on the cream-mode background blob, which is intentionally just slow enough to read as ambient breathing rather than motion.
+Cantos retos em tudo — telas, botões, chips, caixas. As únicas curvas são o avatar redondo do autor e o raio de 2px do código inline. A forma recorrente é o **fio**: uma régua laranja de 3px, em largura total, sempre na costura entre pintura e texto (abaixo da tela da home, dos hubs e do artigo; topo dos blocos de código; base do cabeçalho das páginas legais).
 
-The signature hover gestures are small but consistent:
+## Components
 
-- **Card-scale-in-place** (`scale(1.02)`) on bordered cards — they push toward you without leaving the grid.
-- **Card-lift** (`-translate-y-1` / `-translate-y-2`) on radar/insight cards — they break formation.
-- **Image-zoom** (`scale(1.10)`, 700ms) on every card image, with the ease-out curve that makes it feel optical rather than mechanical.
-- **Arrow-nudge** — the gap between the "Ler Mais" label and its arrow widens by 4px on group-hover, drawing the eye out of the card toward the action.
-- **Grayscale-to-color** on light-editorial featured images — the photograph "warms up" as you arrive, reinforcing the cream-mode metaphor of paper that responds to attention.
+- **Tela** (`TelaPicture`): `<picture>` AVIF → WebP → JPG, `object-fit: cover`, decorativa (`alt=""`), com a janela `estreita` por media query no celular quando o papel tiver; `priority` só na primeira dobra.
+- **Abertura de hub** (`AberturaHub`): faixa de tela + fio + H1 (Literata 2,6–3,75rem) e deck em Hanken.
+- **Linha de índice** (hubs, sobre papel): título Literata em `tinta` → resumo (2 linhas, `tinta-2`) → metadados ao lado (marca laranja de 8px + eixo · categoria em `petroleo`, data · duração em `tinta-2`) → ação em `laranja-fundo`. A linha inteira é o link; régua laranja de 2px embaixo; à esquerda, a lombada pintada do texto (sem a costura laranja de 6px da v4).
+- **Porta de eixo** (home, sobre papel): eixo em Literata 2,25rem + público em `petroleo` à esquerda; descrição, texto mais recente (régua de ardósia, "Mais recente" com marca laranja depois do título) e ação em `laranja-fundo` à direita; costura laranja de 6px entre a tela e as portas.
+- **Fio vivo**: régua laranja de 3px que mostra só 12% em repouso e se estende até a largura toda no hover ou foco (`transform: scaleX`, 0,6s, `cubic-bezier(0.22, 1, 0.36, 1)`), nas linhas de serviço: a interação-assinatura, a única animação do site.
+- **Botão** (`.botao`): laranja, texto `noite` `#0B1A33` (6,19:1), 48px de altura (44px nas ações de Serviços), canto reto; hover para `laranja-claro` (7,67:1). **Contato** no header: contorno laranja que se preenche no hover (texto `noite`).
+- **Marca** (`.marca`): quadrado laranja de 8px antes de um metadado ou rótulo (índice, "Mais recente", títulos do rodapé, "Erro 404"). **Marca de capítulo** (`.capitulo`): filete laranja de 4px × 3,5rem sob o título de seção na home.
+- **Fita do rodapé**: tela do papel `rodape` (faixas em degradê: areia em cima, petróleo/terra no meio, noite embaixo), 80/112px, seguida do fio; é a passagem do campo claro para o rodapé em toda página.
+- **Ação em texto** (`.acao`): Hanken 700 com seta; no hover sublinha e a seta se afasta 4px.
+- **Navegação**: links Hanken 15px em `nevoa`; o ativo fica branco com régua laranja de 2px embaixo (`scaleX`). No celular, menu em lista com títulos em Literata e o botão Contato.
+- **Filtros** (sobre papel): abas de eixo com régua laranja de 3px no ativo; busca como campo de linha única (régua `ardosia`, laranja no foco); categorias como chips retos em caixa mista (ativo laranja com texto `noite`), iguais no Radar e nos Insights.
+- **Coluna de leitura** (`.leitura`): papel, Literata 17/18px, 40rem; H2 1,6em com 2,2em acima; links `laranja-fundo` sublinhados; citação em itálico com um fio laranja curto acima (sem borda lateral); código sobre azul-escuro com fio laranja no topo; tabelas em Hanken com números tabulares e régua de 2px no cabeçalho.
+- **Caixa da newsletter** (`NewsletterCta`): bloco no **creme** `#FDEED9` (texto em `tinta`; nunca um bloco escuro logo acima do rodapé) com a tela da própria newsletter (semente "Radar de IA", arquétipo vento, o mesmo da capa do Substack) em escala 1:1 — coluna estreita de 200px ao lado do convite, ou faixa baixa em `pilha` — separada por fio de 3px; promessa em Literata, botão laranja. Fecha cada artigo e edição. Nunca o close da Ferramenta.
+- **Bloco do autor**: nome em Literata como título, "Sobre o Autor" como metadado logo depois, bio e redes.
+- **Imagens geradas**: OG 1200×630 por texto (tela em 40% superior, fio, rótulo do eixo e título em faixa azul-escuro, "gusflopes.dev"); OG padrão com a tagline; capa do Substack com faixa papel (`docs/substack-kit/`).
 
-`background-attachment: fixed` on the hero and Themes is the only "showy" effect; it's load-bearing, because it tells the user the warm photograph is the *room* the content is being staged in, not just decoration.
+## Do's and Don'ts
 
-## Spacing and rhythm
-
-The grid is opinionated and narrow:
-
-- **`max-w-7xl` (80rem)** for landing/index/footer.
-- **`max-w-4xl` (56rem)** for long-form reading — the same width Medium and Substack converged on, for the same reason: 65–75 characters per line.
-- **`px-6` (24px)** gutter on every page, even on desktop. The site never goes edge-to-edge with text.
-- **Sections breathe at `py-24` (96px)** on dark and `py-20` (80px) on light. Headings sit `mb-16` above grids. Card padding is `p-8` (32px), never less.
-
-The hero stack is a vertical 1.5rem rhythm: headline → kicker → deck → form. The Themes grid uses an unusual **3-on-top, 2-on-bottom centered layout** instead of a 2x3 or 3x2 — five themes deliberately broken into a heroic top row and a featured bottom pair, which subtly tells the eye that not all themes are peers.
-
-## What this system avoids
-
-- **No green/red/yellow status colors.** Orange is the only accent.
-- **No filled icons.** Lucide outline only, with optional orange tint.
-- **No Material/iOS shadow ladder.** Depth = blur + glow + tinted shadow.
-- **No light/dark switcher in the UI.** Mode is per-route, decided by content type — landing/discovery is dark, deep reading is light.
-- **No tile-rounded-2xl or "fluffy" radii.** Cards stop at `rounded-xl`, buttons at `rounded-md`, pills at `rounded-full`. Nothing in between.
-- **No drop shadows under text on flat surfaces.** Drop shadow on text is reserved for headlines floating over the parallax photograph, where legibility demands it.
-- **No saturated background gradients.** Backgrounds are slate or cream; warmth comes from blurred orange blobs at low alpha, never from gradient washes.
-
-## Voice this design supports
-
-The visual identity is calibrated for a writer who is a **practitioner-essayist** — someone who ships .NET architecture and DDD for a living and writes long, careful pieces about why. The serif headlines argue that ideas matter; the cream paper argues that they deserve to be read slowly; the orange glow argues that there's still heat in the work; the mono date strip argues that this is engineering, not marketing. The whole system resists the SaaS tendency to look "snappy" and instead aims for *reliable*, *considered*, *warm*. A reader should feel they've walked into a small, well-lit study — not a dashboard.
+- **Faça** gerar a imagem de um texto novo pelo gerador (semente = slug); não procure foto de banco.
+- **Faça** pôr todo texto em faixa sólida; a pintura fica acima ou ao lado, nunca atrás.
+- **Faça** pôr pelo menos um detalhe laranja estrutural em cada seção (fio, costura, filete, marca, estado ativo, ação); o laranja chapado é só ação.
+- **Faça** alternar campos claros e escuros pela história e fazer toda seção escura grande (o rodapé incluso) chegar de um claro.
+- **Faça** usar as cores do quadro (petróleo, ardósia, areia, marrom, ferrugem) com função: célula, metadado, régua, filete.
+- **Faça** manter rótulo de eixo/categoria/"Mais recente" depois do título (ou ao lado), nunca acima.
+- **Faça** dar a cada tela um papel e uma semente; lista de textos é só texto.
+- **Faça** definir um formato novo como janela de um papel em `scripts/tela/config.mjs`, na proporção e no tamanho em que é exibido.
+- **Faça** subir `VERSAO` em `scripts/tela/pincel.mjs` quando mudar o gerador (invalida o cache e regenera tudo).
+- **Não** use sombra, glow, vidro, gradiente de texto ou blur — nem dentro das telas.
+- **Não** volte ao template "vórtice central + luzes-alvo concêntricas": a tela é uma cena ampla, sem foco único. Nas telas, o laranja é luz de verdade (janelas, reflexos, poucas manchas), não pontinhos soltos.
+- **Não** pinte telas só de azul nem discos de `#8FB3D9`/`#C9D6E6`: cada tela passa nas metas de família de `scripts/tela/medir.mjs`.
+- **Não** use `#F97316` como texto sobre claro, `#C2410C` com azul-escuro, `#F97316` com branco, nem preto/quase-preto sobre laranja.
+- **Não** encoste ferrugem em texto `#C2410C` ou no laranja chapado.
+- **Não** mostre o traço menor que a escala fixa (tela encolhida num card): faça uma janela.
+- **Não** ponha borda lateral colorida em card isolado: o laranja de borda é costura de lista ou fio de costura, nunca listra de card.
+- **Não** coloque textura, tela ou o quadro atrás de texto corrido.
+- **Não** use mono fora de código.

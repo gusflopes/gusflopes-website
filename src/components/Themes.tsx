@@ -1,99 +1,85 @@
-import React from 'react';
-import { Code2, Bot, BrainCircuit, Building2, Cloud } from 'lucide-react';
-import { FundoPicture } from './FundoPicture';
 import type { FundoResponsivo } from '../lib/imagens';
 
+/**
+ * "Confiar em quem escreve": a revelação da fonte — o quadro original da marca na largura da janela
+ * (a única aparição), costurado pelo fio à faixa do texto (nunca atrás dele). O texto e as cinco
+ * áreas ficam no creme #FDEED9 (o claro quente da Shelfye): a noite do quadro desemboca
+ * num campo de luz, como o céu claro do alto-esquerdo dele. Cada área abre com uma marca laranja.
+ */
 export function Themes({ fundo }: { fundo: FundoResponsivo }) {
   const themes = [
     {
-      icon: <Code2 size={32} />,
       title: "Domínio & Arquitetura",
       description: "DDD, arquitetura de software e .NET para traduzir regras de negócio complexas em sistemas claros, resilientes e preparados para evoluir."
     },
     {
-      icon: <Bot size={32} />,
       title: "Dados & IA Aplicada",
       description: "Data Mesh, agentes e IA aplicada com contexto, governança e propósito. Tecnologia emergente tratada como capacidade de negócio, não como demonstração."
     },
     {
-      icon: <BrainCircuit size={32} />,
       title: "Fluxo & Entrega",
       description: "DevOps e DORA Metrics para tornar o trabalho visível, reduzir atritos e melhorar continuamente a capacidade de entregar software com qualidade."
     },
     {
-      icon: <Building2 size={32} />,
       title: "Estratégia & Governança",
       description: "Decisões tecnológicas conectadas a valor, risco e sustentabilidade. Uma perspectiva formada também por Direito, Contabilidade e Gestão Financeira."
     },
     {
-      icon: <Cloud size={32} />,
       title: "Times & Plataformas",
       description: "Team Topologies e Platform Engineering para criar limites claros, reduzir carga cognitiva e dar mais autonomia aos times de produto."
     }
   ];
 
   return (
-    <section id="about" className="relative py-24 px-6 min-h-[800px] flex items-center justify-center overflow-hidden">
-      {/* Fundo responsivo; parallax só a partir de md */}
-      <div className="absolute inset-0 z-0 [clip-path:inset(0)]">
-        <FundoPicture fundo={fundo} />
-        {/* Overlay Gradient */}
-        <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto relative z-10 w-full">
-        <div className="text-center mb-16 max-w-3xl mx-auto">
-          <h2 className="font-serif text-3xl md:text-5xl font-bold text-white mb-6 drop-shadow-lg">
-            Engenharia é mais do que código
-          </h2>
-          <p className="font-sans text-lg text-slate-200 font-medium leading-relaxed drop-shadow-md">
-            Minha trajetória entre <span className="text-orange-400 font-bold">Direito, Contabilidade, gestão e tecnologia</span> moldou uma visão sistêmica da engenharia de software.
-            Analiso domínio, arquitetura, times e fluxo de entrega como partes do mesmo problema: criar capacidade para o negócio evoluir.
-          </p>
-          <p className="font-sans text-base text-slate-300 leading-relaxed mt-5 drop-shadow-md">
-            Hoje, aplico essa perspectiva como líder técnico no sistema de precificação de locação veicular de uma plataforma de mobilidade do Grupo Volkswagen.
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-8 items-center">
-          {/* Top Row - 3 items */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
-            {themes.slice(0, 3).map((theme, index) => (
-              <div key={index} className="group relative h-full">
-                <div className="h-full w-full rounded-xl bg-slate-900/80 backdrop-blur-md border-2 border-orange-500/80 shadow-[0_0_15px_-3px_rgba(249,115,22,0.3)] flex flex-col items-start text-left p-8 transition-all duration-500 hover:scale-[1.02] hover:bg-slate-900/90 hover:border-orange-400 hover:shadow-[0_0_25px_-5px_rgba(249,115,22,0.5)]">
-                  <div className="mb-6 text-orange-400 group-hover:text-orange-300 transition-colors">
-                    {theme.icon}
-                  </div>
-                  <h3 className="font-serif text-xl font-bold text-white mb-4 leading-tight">
-                    {theme.title}
-                  </h3>
-                  <p className="font-sans text-base text-slate-300 leading-relaxed mb-6">
-                    {theme.description}
-                  </p>
-                </div>
-              </div>
-            ))}
+    <section id="about" aria-labelledby="about-title" className="bg-campo">
+      {/* A revelação da fonte: o quadro original, inteiro na largura da janela (a única vez que ele
+          aparece), com o fio por baixo. Todas as telas do site nascem da amplitude dele. */}
+      <figure className="h-[42vw] min-h-[220px] max-h-[600px] overflow-hidden">
+        <picture>
+          <source type="image/avif" srcSet={fundo.avif} sizes="100vw" />
+          <source type="image/webp" srcSet={fundo.webp} sizes="100vw" />
+          <img
+            src={fundo.src}
+            alt=""
+            width={fundo.width}
+            height={fundo.height}
+            loading="lazy"
+            decoding="async"
+            className="w-full h-full object-cover object-[50%_40%]"
+          />
+        </picture>
+      </figure>
+      <div className="fio papel bg-campo px-4 md:px-6 py-14 md:py-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-12 gap-6 lg:gap-12 mb-14 md:mb-20">
+            <h2 id="about-title" className="capitulo lg:col-span-5 font-serif text-3xl md:text-5xl leading-[1.08] tracking-[-0.01em] text-tinta">
+              Engenharia é mais do que código
+            </h2>
+            <div className="lg:col-span-7">
+              <p className="font-sans text-lg text-tinta leading-relaxed max-w-[60ch]">
+                Minha trajetória entre <strong className="font-semibold text-tinta underline decoration-laranja decoration-[3px] underline-offset-[5px]">Direito, Contabilidade, gestão e tecnologia</strong> moldou uma visão sistêmica da engenharia de software.
+                Analiso domínio, arquitetura, times e fluxo de entrega como partes do mesmo problema: criar capacidade para o negócio evoluir.
+              </p>
+            </div>
           </div>
 
-          {/* Bottom Row - 2 items */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl md:mt-2">
-            {themes.slice(3, 5).map((theme, index) => (
-              <div key={index + 3} className="group relative h-full">
-                <div className="h-full w-full rounded-xl bg-slate-900/80 backdrop-blur-md border-2 border-orange-500/80 shadow-[0_0_15px_-3px_rgba(249,115,22,0.3)] flex flex-col items-start text-left p-8 transition-all duration-500 hover:scale-[1.02] hover:bg-slate-900/90 hover:border-orange-400 hover:shadow-[0_0_25px_-5px_rgba(249,115,22,0.5)]">
-                  <div className="mb-6 text-orange-400 group-hover:text-orange-300 transition-colors">
-                    {theme.icon}
-                  </div>
-                  <h3 className="font-serif text-xl font-bold text-white mb-4 leading-tight">
-                    {theme.title}
-                  </h3>
-                  <p className="font-sans text-base text-slate-300 leading-relaxed mb-6">
-                    {theme.description}
-                  </p>
-                </div>
-              </div>
+          <ul className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-10">
+            {themes.map((theme) => (
+              <li key={theme.title} className="border-t border-ardosia pb-6 md:pb-8">
+                <span className="block h-1 w-1/2 bg-laranja -mt-px mb-5 md:mb-6" aria-hidden="true" />
+                <h3 className="font-serif text-xl md:text-[1.4rem] text-tinta mb-3 leading-tight">{theme.title}</h3>
+                <p className="font-sans text-base text-tinta-2 leading-relaxed">{theme.description}</p>
+              </li>
             ))}
-          </div>
+            {/* A sexta casa: onde as cinco áreas se aplicam hoje. Mesma régua das outras (fio inteiro
+                em laranja), sem título e sem campo chapado: a frase em itálico fecha a grade. */}
+            <li className="border-t border-ardosia pb-6 md:pb-8">
+              <span className="block h-1 w-full bg-laranja -mt-px mb-5 md:mb-6" aria-hidden="true" />
+              <p className="font-serif italic text-lg md:text-[1.2rem] text-tinta leading-snug max-w-[34ch]">
+                Hoje, aplico essa perspectiva como líder técnico de precificação no mais completo ecossistema de mobilidade do Brasil.
+              </p>
+            </li>
+          </ul>
         </div>
       </div>
     </section>

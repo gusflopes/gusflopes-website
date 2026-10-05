@@ -1,0 +1,560 @@
+{
+ "schemaVersion": 2,
+ "generatedAt": "2026-10-04",
+ "title": "Design System: gusflopes.dev — Pincelada",
+ "extensions": {
+  "colorMeta": {
+   "noite": {
+    "role": "neutral",
+    "displayName": "Noite",
+    "tonalRamp": [
+     "#03070D",
+     "#050C17",
+     "#071121",
+     "#09162B",
+     "#0B1A33",
+     "#485366",
+     "#858D99",
+     "#C2C6CC"
+    ]
+   },
+   "noite-2": {
+    "role": "neutral",
+    "displayName": "Noite 2",
+    "tonalRamp": [
+     "#050A13",
+     "#091223",
+     "#0C1A32",
+     "#102241",
+     "#13284D",
+     "#4E5E7A",
+     "#8994A6",
+     "#C4C9D3"
+    ]
+   },
+   "linha": {
+    "role": "neutral",
+    "displayName": "Linha",
+    "tonalRamp": [
+     "#090E17",
+     "#0F1929",
+     "#16243C",
+     "#1D304E",
+     "#22385C",
+     "#596A85",
+     "#919CAE",
+     "#C8CDD6"
+    ]
+   },
+   "quadro": {
+    "role": "secondary",
+    "displayName": "Azul do quadro",
+    "tonalRamp": [
+     "#080F1A",
+     "#0E1A2E",
+     "#142642",
+     "#1A3157",
+     "#1F3A66",
+     "#576B8C",
+     "#8F9DB3",
+     "#C7CED9"
+    ]
+   },
+   "petroleo": {
+    "role": "secondary",
+    "displayName": "Petróleo (célula, metadado sobre papel)",
+    "tonalRamp": [
+     "#0C171C",
+     "#162932",
+     "#203B48",
+     "#2A4D5E",
+     "#315B6F",
+     "#6F8C9A",
+     "#A2B5BE",
+     "#D6DEE2"
+    ]
+   },
+   "ceu": {
+    "role": "secondary",
+    "displayName": "Céu do quadro",
+    "tonalRamp": [
+     "#242D36",
+     "#405162",
+     "#5D748D",
+     "#7A98B8",
+     "#8FB3D9",
+     "#ABC6E3",
+     "#C7D9EC",
+     "#E3ECF6"
+    ]
+   },
+   "nevoa": {
+    "role": "neutral",
+    "displayName": "Névoa",
+    "tonalRamp": [
+     "#32363A",
+     "#5A6068",
+     "#838B96",
+     "#ABB6C4",
+     "#C9D6E6",
+     "#D7E0EC",
+     "#E4EBF3",
+     "#F2F5F9"
+    ]
+   },
+   "bruma": {
+    "role": "neutral",
+    "displayName": "Bruma",
+    "tonalRamp": [
+     "#282C32",
+     "#484F59",
+     "#677281",
+     "#8796A8",
+     "#9FB0C6",
+     "#B7C4D4",
+     "#CFD8E3",
+     "#E7EBF1"
+    ]
+   },
+   "papel": {
+    "role": "neutral",
+    "displayName": "Papel (Shelfye)",
+    "tonalRamp": [
+     "#4A433D",
+     "#7A7068",
+     "#B5A99D",
+     "#EEE7E1",
+     "#FFF8F2",
+     "#F9F2EC",
+     "#FFFBF7",
+     "#FFFDFB"
+    ]
+   },
+   "papel-2": {
+    "role": "neutral",
+    "displayName": "Papel 2",
+    "tonalRamp": [
+     "#393A3C",
+     "#66686C",
+     "#94979B",
+     "#C1C5CB",
+     "#EEE7E1",
+     "#EAEEF3",
+     "#F1F4F7",
+     "#F8F9FB"
+    ]
+   },
+   "regua": {
+    "role": "neutral",
+    "displayName": "Régua",
+    "tonalRamp": [
+     "#333538",
+     "#5C6065",
+     "#858A92",
+     "#ADB5BF",
+     "#E6D9C8",
+     "#D9E0E9",
+     "#E6EAF0",
+     "#F2F5F8"
+    ]
+   },
+   "tinta": {
+    "role": "neutral",
+    "displayName": "Tinta",
+    "tonalRamp": [
+     "#03070D",
+     "#050C17",
+     "#071121",
+     "#09162B",
+     "#0B1A33",
+     "#485366",
+     "#858D99",
+     "#C2C6CC"
+    ]
+   },
+   "tinta-2": {
+    "role": "neutral",
+    "displayName": "Tinta 2",
+    "tonalRamp": [
+     "#0F141A",
+     "#1B232F",
+     "#283344",
+     "#344258",
+     "#3D4E68",
+     "#6E7A8E",
+     "#9EA7B4",
+     "#CFD3D9"
+    ]
+   },
+   "corpo-papel": {
+    "role": "neutral",
+    "displayName": "Corpo sobre papel",
+    "tonalRamp": [
+     "#070A10",
+     "#0C121D",
+     "#11192A",
+     "#162136",
+     "#1A2740",
+     "#535D70",
+     "#8D93A0",
+     "#C6C9CF"
+    ]
+   },
+   "laranja": {
+    "role": "primary",
+    "displayName": "Laranja (cor principal: ação chapada e detalhe)",
+    "tonalRamp": [
+     "#3E1D06",
+     "#70340A",
+     "#A24B0E",
+     "#D46213",
+     "#F97316",
+     "#FB9650",
+     "#FCB98B",
+     "#FEDCC5"
+    ]
+   },
+   "laranja-claro": {
+    "role": "primary",
+    "displayName": "Laranja claro",
+    "tonalRamp": [
+     "#3F250F",
+     "#71421B",
+     "#A35F27",
+     "#D57C33",
+     "#FB923C",
+     "#FCAD6D",
+     "#FDC99E",
+     "#FEE4CE"
+    ]
+   },
+   "pessego": {
+    "role": "primary",
+    "displayName": "Pêssego",
+    "tonalRamp": [
+     "#3F2F1D",
+     "#725434",
+     "#A4794B",
+     "#D79E63",
+     "#FDBA74",
+     "#FECB97",
+     "#FEDDBA",
+     "#FFEEDC"
+    ]
+   },
+   "laranja-fundo": {
+    "role": "primary",
+    "displayName": "Laranja profundo (texto sobre papel)",
+    "tonalRamp": [
+     "#311003",
+     "#571D05",
+     "#7E2A08",
+     "#A5370A",
+     "#C2410C",
+     "#D17149",
+     "#E1A086",
+     "#F0D0C2"
+    ]
+   },
+   "petroleo-claro": {
+    "role": "secondary",
+    "displayName": "Petróleo claro",
+    "tonalRamp": [
+     "#111C21",
+     "#1F333B",
+     "#2D4955",
+     "#3B606F",
+     "#457183",
+     "#7D9CA8",
+     "#ABBFC7",
+     "#DAE3E6"
+    ]
+   },
+   "ardosia": {
+    "role": "secondary",
+    "displayName": "Ardósia (régua sobre claro)",
+    "tonalRamp": [
+     "#192022",
+     "#2D3A3D",
+     "#415458",
+     "#556E74",
+     "#648188",
+     "#92A7AC",
+     "#B9C6C9",
+     "#E0E6E7"
+    ]
+   },
+   "ardosia-clara": {
+    "role": "secondary",
+    "displayName": "Ardósia clara (metadado sobre noite)",
+    "tonalRamp": [
+     "#202626",
+     "#394445",
+     "#536364",
+     "#6C8183",
+     "#7F989A",
+     "#A5B7B8",
+     "#C5D1D2",
+     "#E5EAEB"
+    ]
+   },
+   "areia": {
+    "role": "secondary",
+    "displayName": "Areia (metadado sobre noite)",
+    "tonalRamp": [
+     "#2A2722",
+     "#4C463D",
+     "#6E6558",
+     "#908573",
+     "#AA9C87",
+     "#C3BAAB",
+     "#D9D2C9",
+     "#EEEBE7"
+    ]
+   },
+   "marrom": {
+    "role": "secondary",
+    "displayName": "Marrom",
+    "tonalRamp": [
+     "#241E18",
+     "#41372B",
+     "#5E4F3E",
+     "#7A6851",
+     "#907A5F",
+     "#B1A28F",
+     "#CDC3B7",
+     "#E9E4DF"
+    ]
+   },
+   "marrom-escuro": {
+    "role": "secondary",
+    "displayName": "Marrom escuro",
+    "tonalRamp": [
+     "#140E0A",
+     "#241913",
+     "#34241B",
+     "#442F24",
+     "#50372A",
+     "#84736A",
+     "#B0A59F",
+     "#DCD7D4"
+    ]
+   },
+   "ferrugem": {
+    "role": "secondary",
+    "displayName": "Ferrugem (filete)",
+    "tonalRamp": [
+     "#221307",
+     "#3E220C",
+     "#5A3112",
+     "#754117",
+     "#8A4C1B",
+     "#AD825F",
+     "#CAAE98",
+     "#E8DBD1"
+    ]
+   },
+   "campo": {
+    "role": "neutral",
+    "displayName": "Creme (Shelfye)",
+    "tonalRamp": [
+     "#4D4335",
+     "#80705A",
+     "#B8A486",
+     "#E6D9C8",
+     "#FDEED9",
+     "#FEF3E4",
+     "#FEF7EE",
+     "#FFFBF6"
+    ]
+   }
+  },
+  "typographyMeta": {
+   "display-hero": {
+    "displayName": "Display da home",
+    "purpose": "H1 da abertura da home, na faixa abaixo da tela."
+   },
+   "display-hub": {
+    "displayName": "Display de hub",
+    "purpose": "H1 de Insights, Radar, eixos, Newsletter, 404."
+   },
+   "titulo-artigo": {
+    "displayName": "Título de artigo",
+    "purpose": "H1 na faixa azul-escuro sob a capa."
+   },
+   "titulo-secao": {
+    "displayName": "Título de seção",
+    "purpose": "H2 das seções da home."
+   },
+   "titulo-card": {
+    "displayName": "Título de card",
+    "purpose": "Títulos nos cards de texto."
+   },
+   "leitura": {
+    "displayName": "Leitura",
+    "purpose": "Corpo dos artigos sobre papel (17px celular, 18px desktop)."
+   },
+   "ui": {
+    "displayName": "UI",
+    "purpose": "Decks, navegação, descrições."
+   },
+   "rotulo": {
+    "displayName": "Rótulo",
+    "purpose": "Eixo/categoria abaixo do título; nunca acima."
+   },
+   "codigo": {
+    "displayName": "Código",
+    "purpose": "Só blocos e trechos de código."
+   }
+  },
+  "shadows": [],
+  "motion": [
+   {
+    "name": "ease-pincel",
+    "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+    "purpose": "Fio vivo dos cards (0,6s, scaleX) e réguas de navegação (0,3s)."
+   },
+   {
+    "name": "cor",
+    "value": "0.2s",
+    "purpose": "Mudanças de cor em links e botões."
+   }
+  ],
+  "breakpoints": [
+   {
+    "name": "sm",
+    "value": "640px"
+   },
+   {
+    "name": "md",
+    "value": "768px"
+   },
+   {
+    "name": "lg",
+    "value": "1024px"
+   }
+  ]
+ },
+ "components": [
+  {
+   "name": "Botão",
+   "kind": "button",
+   "refersTo": "botao",
+   "description": "Ação principal: laranja, texto escuro, canto reto.",
+   "html": "<a class=\"ds-botao\" href=\"#\">Assinar Newsletter</a>",
+   "css": ".ds-botao{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;background:#F97316;color:#0B1A33;font-family:\"Hanken Grotesk\",system-ui,sans-serif;font-weight:700;font-size:16px;text-decoration:none;transition:background-color .2s}.ds-botao:hover{background:#FB923C}.ds-botao:focus-visible{outline:2px solid #FB923C;outline-offset:3px}"
+  },
+  {
+   "name": "Contato (header)",
+   "kind": "button",
+   "refersTo": "botao-contato",
+   "description": "Botão de contorno no header.",
+   "html": "<a class=\"ds-contato\" href=\"#\">Contato</a>",
+   "css": ".ds-contato{display:inline-flex;align-items:center;height:40px;padding:0 16px;border:1px solid rgba(249,115,22,.7);color:#FB923C;font-family:\"Hanken Grotesk\",sans-serif;font-weight:700;font-size:15px;text-decoration:none;background:#0B1A33;transition:background-color .2s,color .2s}.ds-contato:hover{background:#F97316;color:#0B1A33;border-color:#F97316}"
+  },
+  {
+   "name": "Chip de filtro",
+   "kind": "chip",
+   "refersTo": "chip-filtro",
+   "description": "Categoria nos hubs; ativo em laranja.",
+   "html": "<div class=\"ds-chips\"><button class=\"ds-chip ds-ativo\">Todos</button><button class=\"ds-chip\">Agentes</button></div>",
+   "css": ".ds-chips{display:flex;gap:8px;background:#0B1A33;padding:16px}.ds-chip{height:32px;padding:0 12px;border:1px solid #22385C;background:transparent;color:#C9D6E6;font:600 13px \"Hanken Grotesk\",sans-serif;cursor:pointer}.ds-chip:hover{border-color:#8FB3D9;color:#fff}.ds-chip.ds-ativo{background:#F97316;border-color:#F97316;color:#0B1A33}"
+  },
+  {
+   "name": "Navegação",
+   "kind": "nav",
+   "description": "Header azul-escuro; ativo com régua laranja.",
+   "html": "<nav class=\"ds-nav\"><a class=\"ds-ativo\" href=\"#\">Insights</a><a href=\"#\">Radar</a><a href=\"#\">Negócios</a></nav>",
+   "css": ".ds-nav{display:flex;gap:28px;background:#0B1A33;padding:20px 24px}.ds-nav a{position:relative;color:#C9D6E6;font:500 15px \"Hanken Grotesk\",sans-serif;text-decoration:none;padding:8px 0}.ds-nav a::after{content:\"\";position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:#F97316;transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.22,1,.36,1)}.ds-nav a:hover,.ds-nav a.ds-ativo{color:#fff}.ds-nav a:hover::after,.ds-nav a.ds-ativo::after{transform:scaleX(1)}"
+  },
+  {
+   "name": "Card de texto com fio vivo",
+   "kind": "card",
+   "description": "Tela 16:9, fio laranja que se estende no hover/foco, título, rótulo abaixo.",
+   "html": "<a class=\"ds-card\" href=\"#\"><div class=\"ds-tela\"></div><span class=\"ds-fio\"></span><h3>Agent Skills: pacotes de contexto e o fim do prompt gigante</h3><p class=\"ds-rot\">Engenharia &amp; IA · Agentes</p><p class=\"ds-meta\">3 Nov, 2025 · 8 min</p></a>",
+   "css": ".ds-card{display:block;max-width:360px;background:#0B1A33;padding:16px;text-decoration:none}.ds-tela{aspect-ratio:16/9;background:repeating-linear-gradient(115deg,#13284D 0 10px,#1F3A66 10px 16px,#2E5069 16px 19px)}.ds-fio{display:block;height:3px;background:#F97316;transform:scaleX(.12);transform-origin:left;transition:transform .6s cubic-bezier(.22,1,.36,1)}.ds-card:hover .ds-fio,.ds-card:focus-visible .ds-fio{transform:scaleX(1)}.ds-card h3{font:600 23px/1.35 Literata,Georgia,serif;color:#fff;margin:20px 0 12px}.ds-card:hover h3{color:#FDBA74}.ds-rot{font:700 12px \"Hanken Grotesk\",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#FB923C;margin:0 0 8px}.ds-meta{font:400 14px \"Hanken Grotesk\",sans-serif;color:#9FB0C6;margin:0}"
+  },
+  {
+   "name": "Faixa de título com fio",
+   "kind": "custom",
+   "refersTo": "faixa-titulo",
+   "description": "Costura entre a tela e o título: fio laranja de 3px e faixa sólida.",
+   "html": "<header class=\"ds-abertura\"><div class=\"ds-tela\"></div><div class=\"ds-faixa\"><h1>Insights</h1></div></header>",
+   "css": ".ds-abertura .ds-tela{height:120px;background:repeating-linear-gradient(160deg,#13284D 0 12px,#1F3A66 12px 18px,#8FB3D9 18px 20px)}.ds-faixa{background:#0B1A33;border-top:3px solid #F97316;padding:28px 24px}.ds-faixa h1{font:600 56px/1.02 Literata,Georgia,serif;letter-spacing:-.015em;color:#fff;margin:0}"
+  },
+  {
+   "name": "Coluna de leitura",
+   "kind": "custom",
+   "refersTo": "coluna-leitura",
+   "description": "Papel quente #FFF8F2, Literata 18px, 40rem.",
+   "html": "<div class=\"ds-leitura\"><h2>O que é uma skill</h2><p>Uma skill é um diretório com um arquivo <code>SKILL.md</code>. <a href=\"#\">Post de engenharia</a>.</p><blockquote>O modelo virou commodity.</blockquote></div>",
+   "css": ".ds-leitura{background:#FFF8F2;color:#1A2740;font:400 18px/1.72 Literata,Georgia,serif;max-width:40rem;padding:32px}.ds-leitura h2{font-weight:600;font-size:1.6em;line-height:1.2;color:#0B1A33;margin:0 0 .6em}.ds-leitura a{color:#C2410C}.ds-leitura code{font:.84em \"JetBrains Mono\",monospace;background:#EEE7E1;padding:.1em .35em;border-radius:2px}.ds-leitura blockquote{position:relative;margin:1.2em 0 0;padding:1.1em 0 0 1.25em;font-style:italic;color:#13284D}.ds-leitura blockquote::before{content:\"\";position:absolute;top:0;left:1.25em;width:2.5rem;height:3px;background:#F97316}"
+  }
+ ],
+ "narrative": {
+  "northStar": "Pincelada: o mesmo gesto, nunca a mesma imagem",
+  "overview": "Van Gogh como sistema, com a amplitude e a variedade de cor do quadro da marca: cada tela é uma cena ampla de tinta (cerdas, empasto) na paleta inteira do quadro — petróleo, ardósia, areia, marrom, ferrugem, com os laranjas como luz — numa de seis estruturas grandes (horizonte, vento, manchas, ondas, massas, faixas), gerada no build em escala de traço fixa por janela. Na página, o laranja é a cor principal em detalhes por toda seção, o azul-escuro é estrutura, os claros quentes da Shelfye (papel #FFF8F2 e creme #FDEED9) entram no ritmo e todo bloco escuro grande chega de um claro; o rodapé chega por uma fita pintada creme → noite.",
+  "keyCharacteristics": [
+   "Tela gerada por texto e por papel, em seis arquétipos e na paleta do quadro (ferrugem × petróleo)",
+   "Laranja como cor principal em detalhes (fio, costura, filete, marca, ação), azul-escuro como estrutura",
+   "Claros no ritmo: papel #FFF8F2 e creme #FDEED9 (Shelfye); rodapé por fita pintada",
+   "Literata + Hanken Grotesk",
+   "Cantos retos, sem sombra, sem glow",
+   "Coluna de leitura em papel #FFF8F2 a 40rem"
+  ],
+  "rules": [
+   {
+    "name": "Nada atrás do texto",
+    "body": "Pintura acima ou ao lado; todo texto em faixa sólida.",
+    "section": "elevation"
+   },
+   {
+    "name": "Rótulo abaixo",
+    "body": "Eixo e categoria ficam abaixo do título, com a data.",
+    "section": "typography"
+   },
+   {
+    "name": "Amplitude",
+    "body": "A tela usa a superfície inteira: estrutura grande, marcas variadas, áreas de descanso; nenhum foco único.",
+    "section": "elevation"
+   },
+   {
+    "name": "Laranja em dois registros",
+    "body": "Chapado = ação (texto #0B1A33); detalhe não textual = presença (fio, costura de 6px, filete, marca de 8px, estado ativo). Sobre claro, texto laranja só #C2410C em links.",
+    "section": "colors"
+   },
+   {
+    "name": "Claro antes do escuro",
+    "body": "Nenhum bloco escuro grande empilhado sobre outro; o rodapé de toda página chega de um campo claro pela fita pintada.",
+    "section": "colors"
+   },
+   {
+    "name": "Cor do quadro com função",
+    "body": "Petróleo, ardósia, areia, marrom e ferrugem aparecem como célula, metadado, régua e filete; ferrugem nunca encosta em #C2410C nem no laranja chapado.",
+    "section": "colors"
+   }
+  ],
+  "dos": [
+   "Gerar a capa de texto novo pelo gerador",
+   "Subir VERSAO ao mudar o gerador",
+   "Dar a cada tela um papel e uma semente; listas de textos só texto",
+   "Definir formato novo como janela de um papel, no tamanho exibido (escala de traço fixa)",
+   "Metadados e rótulos depois do título, nunca acima",
+   "Dar a cada tela da página uma anatomia diferente (arquétipo) e um enquadramento diferente (panorâmica, retrato, coluna, close, fita)",
+   "Pôr ao menos um detalhe laranja estrutural em cada seção",
+   "Medir cada tela por família de cor (scripts/tela/medir.mjs): quente ≥ 12%, petróleo/aqua ≥ 15%, azul-claro ≤ 3%, escuro ≤ 45%"
+  ],
+  "donts": [
+   "Sombra, glow, vidro, blur ou gradiente de texto",
+   "Foto de banco como capa",
+   "Mono fora de código",
+   "Encolher uma tela num card (traço menor que a escala fixa)",
+   "Repetir uma faixa de tela em cima de cada card",
+   "Voltar ao template vórtice central + luzes concêntricas",
+   "Borda lateral colorida em card isolado",
+   "Telas só de azul ou discos em #8FB3D9/#C9D6E6",
+   "#F97316 como texto sobre claro, #C2410C com azul-escuro, #F97316 com branco, preto sobre laranja",
+   "Dois blocos escuros grandes em sequência"
+  ]
+ }
+}

@@ -1,83 +1,59 @@
-import React from 'react';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from './ui/card';
-import { Button } from './ui/button';
-import { MonitorPlay, Users, ArrowRight, BookOpen } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { site } from '../config/site';
 
 export function Services() {
   const services = [
     {
-      icon: <Users className="w-10 h-10 text-orange-400 mb-4" />,
       title: "Consultoria Estratégica",
       description: "Diagnóstico de arquitetura, fluxo de entrega e desenho organizacional para transformar desafios de negócio em decisões técnicas claras e executáveis.",
-      action: "AGENDAR DIAGNÓSTICO",
+      action: "Agendar diagnóstico",
       link: `mailto:${site.email}?subject=${encodeURIComponent('Consultoria Estratégica — Agendar diagnóstico')}`
     },
     {
-      icon: <MonitorPlay className="w-10 h-10 text-orange-400 mb-4" />,
       title: "Mentoria & Formação",
       description: "Desenvolvimento de engenheiros e lideranças técnicas por meio de discussões práticas sobre arquitetura, DDD, plataformas e tomada de decisão.",
-      action: "VER PROGRAMAS",
+      action: "Ver programas",
       link: `mailto:${site.email}?subject=${encodeURIComponent('Mentoria & Cursos')}`
     },
-    /* 
     {
-      icon: <Mic className="w-10 h-10 text-orange-400 mb-4" />,
-      title: "Speaking & Palestras",
-      description: "Compartilhando visão de futuro em conferências e eventos corporativos. Keynotes sobre Inovação, Cultura DevOps e o impacto real da IA na Engenharia de Software.",
-      action: "CONVIDAR PARA EVENTO"
-    },
-    */
-    /*
-    {
-      icon: <Users className="w-10 h-10 text-orange-400 mb-4" />, // Usar um ícone diferente se quiser, ex: Presentation ou Easel
-      title: "Workshops In-Company",
-      description: "Treinamentos práticos e imersivos para elevar a régua técnica do seu time. Sessões focadas em DDD, Event Storming e modernização de legado.",
-      action: "VER TEMAS"
-    },
-    */
-    {
-      icon: <BookOpen className="w-10 h-10 text-orange-400 mb-4" />, // Import BookOpen
       title: "Conteúdo & Insights",
       description: "Artigos e análises sobre arquitetura, engenharia de software e IA aplicada para quem busca profundidade, contexto e ideias úteis além do hype.",
-      action: "ACESSAR O RADAR",
+      action: "Acessar o Radar",
       link: "/radar"
     }
   ];
 
+  // "Entender o que contratar": um cardápio em linhas largas sobre papel — o serviço em Literata,
+  // o que ele resolve e a ação alinhada à direita. O título vive numa célula chapada de petróleo
+  // (a cor-irmã do laranja no quadro); o fio laranja de cada linha se estende no hover/foco.
   return (
-    <section id="consulting" className="bg-slate-950 py-20 px-6 relative">
+    <section id="consulting" aria-labelledby="consulting-title" className="bg-papel text-tinta papel px-4 md:px-6 py-16 md:py-24 relative">
       <div id="courses" className="absolute top-0"></div>
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-12 text-center">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-white mb-4">Como posso ajudar</h2>
-          <div className="h-1 w-24 bg-orange-500 mx-auto rounded-full"></div>
+      <div className="max-w-7xl mx-auto grid gap-10 lg:grid-cols-12 lg:gap-12">
+        <div className="lg:col-span-4 self-start bg-petroleo px-6 py-8 md:px-8 md:py-10 lg:sticky lg:top-24">
+          <h2 id="consulting-title" className="font-serif text-[2.1rem] md:text-5xl leading-[1.08] tracking-[-0.01em] text-white">
+            Como posso ajudar
+          </h2>
+          <span className="block h-1 w-14 bg-laranja mt-6" aria-hidden="true" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <Card key={index} className="h-full flex flex-col bg-slate-900/80 backdrop-blur-md border-2 border-orange-500/60 shadow-[0_0_15px_-3px_rgba(249,115,22,0.15)] hover:border-orange-400 hover:shadow-[0_0_25px_-5px_rgba(249,115,22,0.4)] hover:bg-slate-900/90 transition-all duration-300 hover:-translate-y-1 group">
-              <CardHeader>
-                <div className="p-3 bg-slate-950/50 w-fit rounded-xl border border-orange-500/30 group-hover:border-orange-500/60 transition-colors">
-                  {service.icon}
-                </div>
-                <CardTitle className="font-serif text-2xl text-white mt-4">{service.title}</CardTitle>
-              </CardHeader>
-              <CardContent className="flex-grow">
-                <p className="font-sans text-slate-300 leading-relaxed">
-                  {service.description}
-                </p>
-              </CardContent>
-              <CardFooter className="mt-auto">
-                <Button asChild variant="link" className="text-orange-400 hover:text-orange-300 p-0 flex items-center gap-2 group-hover:gap-3 transition-all font-bold uppercase tracking-wide text-sm">
-                  <a href={service.link || "#"}>
-                    {service.action} <ArrowRight size={16} />
+        <ol className="lg:col-span-8 border-t border-regua border-l-[3px] border-l-laranja">
+          {services.map((service, i) => (
+            <li key={service.title} className="cartao border-b border-regua">
+              <span className="fio-vivo -mt-px" />
+              <div className="grid gap-x-10 gap-y-3 py-7 md:py-9 pl-5 md:pl-8 md:grid-cols-[minmax(0,4fr)_minmax(0,6fr)]">
+                <h3 className="font-serif text-2xl md:text-[1.75rem] leading-tight text-tinta">{service.title}</h3>
+                <div className="flex flex-col gap-4">
+                  <p className="font-sans text-tinta-2 leading-relaxed">{service.description}</p>
+                  {/* uma só ação chapada na região (a primeira); as outras são links com seta */}
+                  <a href={service.link} className={i === 0 ? 'botao self-start min-h-11 px-5 text-[0.9375rem]' : 'acao self-start text-laranja-fundo'}>
+                    {service.action} <ArrowRight size={16} aria-hidden="true" />
                   </a>
-                </Button>
-              </CardFooter>
-            </Card>
+                </div>
+              </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

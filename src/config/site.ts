@@ -10,7 +10,7 @@ export const site = {
   url: "https://gusflopes.dev",
   email: "gustavo@gusflopes.dev",
   description:
-    "Engenharia e negócio, partes do mesmo sistema: arquitetura, plataformas e IA aplicada por Gustavo Lopes.",
+    "Tecnologia e negócio, partes do mesmo sistema: arquitetura, plataformas e IA aplicada por Gustavo Lopes.",
 } as const;
 
 export const author = {

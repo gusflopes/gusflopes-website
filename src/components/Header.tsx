@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import { Button } from './ui/button';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { site } from '../config/site';
 import { EIXOS, type EixoId } from '../lib/eixos';
@@ -18,20 +17,9 @@ const normalizePath = (p: string) => p.replace(/\/+$/, '') || '/';
 export function Header({ pathname: rawPathname, eixosAtivos = [] }: HeaderProps) {
   const pathname = normalizePath(rawPathname);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const isHome = pathname === '/';
-  // Páginas de artigo escondem o Header — match por prefixo para cobrir
-  // tanto /insights/article (legado) quanto /insights/article/<id> e /radar/article/<id>.
-  const isArticlePage =
-    pathname.startsWith('/insights/article') || pathname.startsWith('/radar/article/');
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 10);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  if (isArticlePage) return null;
+  // O artigo também leva o header do site: é a porta de entrada por busca e redes, e o leitor
+  // precisa ver a marca e os eixos sem rolar até o rodapé.
 
   // Eixos primeiro (o "para quem"), depois os formatos e a oferta.
   const navItems = [
@@ -51,76 +39,65 @@ export function Header({ pathname: rawPathname, eixosAtivos = [] }: HeaderProps)
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 px-6 py-6 transition-all duration-300 ${
-        isScrolled || !isHome
-          ? 'bg-slate-950/80 backdrop-blur-md border-b border-white/5'
-          : 'bg-transparent border-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div>
-          <a href="/" onClick={(e) => handleClick(e, '/')}>
-            <ImageWithFallback src={logo} alt="Gusflopes.dev" className="h-12 w-auto" />
-          </a>
-        </div>
+    <header className="sticky top-0 z-50 bg-noite border-b border-linha">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 h-16 md:h-[72px] flex items-center justify-between gap-6">
+        <a href="/" onClick={(e) => handleClick(e, '/')} className="shrink-0">
+          <ImageWithFallback src={logo} alt="Gusflopes.dev" width={1028} height={556} className="h-10 md:h-11 w-auto" />
+        </a>
 
-        <nav className="hidden lg:flex items-center space-x-7">
+        <nav aria-label="Principal" className="hidden lg:flex items-center gap-7">
           {navItems.map((item) => (
             <a
               key={item.label}
-              aria-current={isActive(item.href) ? "page" : undefined}
+              aria-current={isActive(item.href) ? 'page' : undefined}
               href={item.href}
               onClick={(e) => handleClick(e, item.href)}
-              className={`font-sans text-sm font-medium uppercase tracking-wide transition-colors ${
-                isActive(item.href)
-                  ? 'text-orange-500'
-                  : 'text-gray-300 hover:text-white'
+              className={`relative py-2 font-sans text-[0.9375rem] font-medium transition-colors after:absolute after:left-0 after:-bottom-px after:h-[2px] after:bg-laranja after:w-full after:origin-left after:transition-transform after:duration-300 ${
+                isActive(item.href) ? 'text-white after:scale-x-100' : 'text-nevoa hover:text-white after:scale-x-0 hover:after:scale-x-100'
               }`}
             >
               {item.label}
             </a>
           ))}
-          <Button
-            asChild
-            variant="outline"
-            className="font-sans border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-[#1c0a02] bg-transparent rounded-full px-6"
+          <a
+            href={`mailto:${site.email}`}
+            className="font-sans text-[0.9375rem] font-bold text-laranja-claro border border-laranja/70 px-4 h-10 inline-flex items-center hover:bg-laranja hover:text-noite hover:border-laranja transition-colors"
           >
-            <a href={`mailto:${site.email}`}>Contato</a>
-          </Button>
+            Contato
+          </a>
         </nav>
 
         <button
-          className="lg:hidden text-white"
+          type="button"
+          className="lg:hidden -mr-2 p-2 text-white"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label={isMenuOpen ? 'Fechar menu' : 'Abrir menu'}
           aria-expanded={isMenuOpen}
+          aria-controls="menu-movel"
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {isMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-slate-900/95 backdrop-blur-md p-6 border-b border-slate-800 animate-in slide-in-from-top-5">
-          <nav className="flex flex-col space-y-4">
+        <div id="menu-movel" className="lg:hidden absolute top-full left-0 right-0 bg-noite border-b border-linha fio">
+          <nav aria-label="Principal" className="flex flex-col px-4 py-4">
             {navItems.map((item) => (
               <a
                 key={item.label}
-                aria-current={isActive(item.href) ? "page" : undefined}
+                aria-current={isActive(item.href) ? 'page' : undefined}
                 href={item.href}
                 onClick={(e) => handleClick(e, item.href)}
-                className={`font-sans text-lg font-medium ${
-                  isActive(item.href)
-                    ? 'text-orange-500'
-                    : 'text-gray-300 hover:text-white'
+                className={`font-serif text-xl py-3 border-b border-linha/70 ${
+                  isActive(item.href) ? 'text-laranja-claro' : 'text-white'
                 }`}
               >
                 {item.label}
               </a>
             ))}
-            <Button asChild className="font-sans bg-orange-500 text-[#1c0a02] hover:bg-orange-600 w-full">
-              <a href={`mailto:${site.email}`}>Contato</a>
-            </Button>
+            <a href={`mailto:${site.email}`} className="botao mt-5 w-full">
+              Contato
+            </a>
           </nav>
         </div>
       )}

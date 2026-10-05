@@ -5,6 +5,7 @@ import type { CollectionEntry } from 'astro:content';
 import Default from '../../../layouts/Default.astro';
 import { InsightArticlePage } from '../../../components/pages/InsightArticlePage';
 import { formatDatePtBR } from '../../../lib/format';
+import { telaRetrato, ogDoTexto, fundoMargem, fundoCapitulos } from '../../../lib/telas';
 
 export async function getStaticPaths() {
   const entries = await getCollection('insights', publicado);
@@ -17,13 +18,14 @@ interface Props {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, excerpt, category, eixo, date, duration, image } = entry.data;
+// A foto de banco do frontmatter (image) não entra no render: capa e OG são a tela gerada do slug.
+const { title, excerpt, category, eixo, date, duration } = entry.data;
 ---
 
 <Default
   title={title}
   description={excerpt}
-  image={image}
+  image={ogDoTexto('insights', entry.id)}
   type="article"
   publishedDate={date}
 >
@@ -34,7 +36,10 @@ const { title, excerpt, category, eixo, date, duration, image } = entry.data;
     eixo={eixo}
     dateFormatted={formatDatePtBR(date)}
     duration={duration}
-    image={image}
+    tela={telaRetrato('insights', entry.id)}
+    margem={fundoMargem('insights', entry.id)}
+    capitulos={fundoCapitulos('insights', entry.id)}
+    slug={entry.id}
     client:load
   >
     <Content />

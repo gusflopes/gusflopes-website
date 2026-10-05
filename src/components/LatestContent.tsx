@@ -1,114 +1,57 @@
-import { Card } from './ui/card';
-import { Button } from './ui/button';
-import { Play, ArrowRight } from 'lucide-react';
-import { ImageWithFallback } from './figma/ImageWithFallback';
-
-export interface LatestArticle {
-  id: string;
-  title: string;
-  category: string;
-  image: string;
-  link: string;
-}
+import { Play } from 'lucide-react';
+import type { Tela } from '../lib/telas';
+import { TelaPicture } from './TelaPicture';
 
 export interface FeaturedVideo {
   title: string;
   excerpt: string;
-  image: string;
+  /** Tela de projeção da home (ondas largas, semente própria). */
+  tela: Tela;
   link: string;
   isExternal: boolean;
 }
 
-interface LatestContentProps {
-  articles: LatestArticle[];
-  video?: FeaturedVideo;
-}
+/**
+ * "Assistir": o vídeo em destaque como uma sala de projeção — no creme (rodada 5): a home não
+ * empilha mais vídeo, ferramenta e quadro no escuro; a tela de projeção é a única pintura aqui. A tela 16:9 (ondas largas — a fala)
+ * sai do grid e sangra até a borda direita da janela, com o play grande e o fio por baixo; o
+ * título e o resumo ficam na coluna da esquerda, fora da pintura. A lista "Ideias recentes" foi
+ * fundida nos eixos.
+ */
+export function LatestContent({ video }: { video?: FeaturedVideo }) {
+  if (!video) return null;
 
-export function LatestContent({ articles, video }: LatestContentProps) {
-  if (articles.length === 0 && !video) {
-    return null;
-  }
+  const linkVideo = { href: video.link, ...(video.isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {}) };
 
   return (
-    <section className="bg-slate-900 py-20 px-6 pb-24 border-t border-slate-800">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+    <section aria-labelledby="video-title" className="bg-campo papel overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 pt-14 pb-16 md:pt-20 md:pb-24">
+        {/* Cabeçalho da seção na mesma escala de "O que eu escrevo, e para quem"; o vídeo é o item. */}
+        <div className="grid gap-4 lg:grid-cols-12 lg:gap-14 mb-8 md:mb-10">
+          <h2 id="video-title" className="capitulo lg:col-span-7 font-serif text-[2.1rem] md:text-5xl leading-[1.08] tracking-[-0.01em] text-tinta">
+            Vídeo em Destaque
+          </h2>
+        </div>
 
-          {/* Articles Column */}
-          {articles.length > 0 && (
-            <div>
-              <h3 className="font-serif text-2xl font-bold text-white mb-8 border-l-4 border-orange-500 pl-4 drop-shadow-lg">
-                Ideias recentes
-              </h3>
-              <div className="space-y-6">
-                {articles.map((article) => (
-                  <Card key={article.id} className="bg-slate-900/80 backdrop-blur-md border-2 border-orange-500/40 overflow-hidden group hover:border-orange-400 shadow-[0_0_10px_-3px_rgba(249,115,22,0.1)] hover:shadow-[0_0_20px_-5px_rgba(249,115,22,0.3)] transition-all duration-300">
-                    <div className="flex flex-col sm:flex-row h-full">
-                      <div className="sm:w-1/3 h-48 sm:h-auto relative overflow-hidden">
-                        <ImageWithFallback
-                          src={article.image}
-                          alt={article.title}
-                          className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
-                        />
-                        <div className="absolute inset-0 bg-orange-900/20 group-hover:bg-transparent transition-colors"></div>
-                      </div>
-                      <div className="flex-1 p-6 flex flex-col justify-between">
-                        <div>
-                          <span className="font-sans text-orange-400 text-xs font-bold uppercase tracking-wider mb-2 block drop-shadow-sm">
-                            {article.category}
-                          </span>
-                          <h4 className="font-serif text-white font-bold text-lg mb-2 group-hover:text-orange-300 transition-colors leading-tight">
-                            {article.title}
-                          </h4>
-                        </div>
-                        <Button asChild variant="link" className="font-sans text-slate-300 hover:text-white p-0 w-fit flex items-center gap-2 mt-4 font-medium">
-                          <a href={article.link}>
-                            Ler Mais <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                          </a>
-                        </Button>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-              </div>
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-14 items-center">
+          <a {...linkVideo} tabIndex={-1} aria-hidden="true" className="group block lg:col-span-7 lg:order-last lg:mr-[calc(50%-50vw)] -mx-4 md:mx-0">
+            <div className="relative aspect-[16/9] overflow-hidden">
+              <TelaPicture tela={video.tela} sizes="(min-width: 1024px) 62vw, 100vw" />
+              <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 md:w-24 md:h-24 bg-laranja text-noite flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+                <Play fill="currentColor" size={34} className="ml-1" />
+              </span>
             </div>
-          )}
+            <span className="fio block" />
+          </a>
 
-          {/* Video Column */}
-          {video && (
-            <div>
-              <h3 className="font-serif text-2xl font-bold text-white mb-8 border-l-4 border-orange-500 pl-4 drop-shadow-lg">
-                Vídeo em Destaque
-              </h3>
-              <a
-                href={video.link}
-                {...(video.isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                className="block h-[calc(100%-4rem)]"
-              >
-                <Card className="bg-slate-900/80 backdrop-blur-md border-2 border-orange-500/60 overflow-hidden group h-full shadow-[0_0_15px_-3px_rgba(249,115,22,0.2)] hover:border-orange-400 hover:shadow-[0_0_25px_-5px_rgba(249,115,22,0.4)] transition-all duration-300">
-                  <div className="relative h-full min-h-[300px]">
-                    <ImageWithFallback
-                      src={video.image}
-                      alt={video.title}
-                      className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity"
-                    />
-                    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-gradient-to-t from-slate-950/80 to-transparent">
-                      <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-orange-900/50 group-hover:scale-110 transition-transform cursor-pointer">
-                        <Play fill="white" className="text-white ml-1" size={32} />
-                      </div>
-                      <h4 className="font-serif text-2xl md:text-3xl font-bold text-white mb-2">
-                        {video.title}
-                      </h4>
-                      <p className="font-sans text-slate-300 max-w-md">
-                        {video.excerpt}
-                      </p>
-                    </div>
-                  </div>
-                </Card>
+          <div className="lg:col-span-5 border-t-4 border-laranja pt-6">
+            <h3 className="font-serif text-[1.6rem] md:text-[2rem] leading-[1.15] text-tinta mb-5">
+              <a {...linkVideo} className="hover:text-laranja-fundo transition-colors">
+                {video.title}
               </a>
-            </div>
-          )}
-
+            </h3>
+            <p className="font-sans text-lg text-tinta-2 leading-relaxed max-w-[56ch]">{video.excerpt}</p>
+          </div>
         </div>
       </div>
     </section>

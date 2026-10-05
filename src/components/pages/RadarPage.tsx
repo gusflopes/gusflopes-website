@@ -1,11 +1,8 @@
 import { useState } from 'react';
-import { Card, CardContent, CardFooter } from '../ui/card';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
-import { Badge } from '../ui/badge';
-import { Search, Calendar, Clock, ArrowRight, ExternalLink, PlayCircle } from 'lucide-react';
-import { ImageWithFallback } from '../figma/ImageWithFallback';
+import { Search, ArrowRight, ExternalLink, Play } from 'lucide-react';
 import { EIXOS, EIXO_LIST, type EixoId } from '../../lib/eixos';
+import { telaFaixa, lombada, type Tela } from '../../lib/telas';
+import { AberturaHub } from '../AberturaHub';
 
 export interface RadarItem {
   id: string;
@@ -21,6 +18,10 @@ export interface RadarItem {
   link: string;
   source: string;
   image: string;
+  /** Capa: tela gerada do slug no build (substitui a foto de banco no render). */
+  tela: Tela;
+  /** Margem pintada do item (variáveis CSS da classe `.margem`): a lombada no diário. */
+  margem?: Record<string, string>;
 }
 
 interface RadarPageProps {
@@ -47,22 +48,18 @@ export function RadarPage({ items }: RadarPageProps) {
   });
 
   return (
-    <main className="pt-24 pb-20 px-6 min-h-screen bg-slate-950">
-      <div className="max-w-7xl mx-auto">
+    <main className="bg-papel min-h-screen">
+      <AberturaHub
+        tela={telaFaixa('radar')}
+        titulo="Radar"
+        deck="Curadoria comentada: o que mudou em IA, engenharia e negócios — e por que importa."
+      />
 
-        {/* Page Header */}
-        <div className="mb-16 text-center relative">
-          <h1 className="font-serif text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
-            Radar
-          </h1>
-          <p className="font-sans text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Curadoria comentada: o que mudou em IA, engenharia e negócios — e por que importa.
-          </p>
-          <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] bg-orange-500/10 blur-[100px] rounded-full pointer-events-none"></div>
-        </div>
-
+      {/* Corpo em papel: o diário de bordo se lê de dia; o rodapé chega pela fita depois dele. */}
+      <div className="bg-papel papel">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 pt-6 md:pt-8 pb-20 md:pb-28">
         {eixosComConteudo.length > 1 && (
-          <nav aria-label="Filtrar por eixo" className="flex flex-wrap justify-center gap-2 mb-6">
+          <nav aria-label="Filtrar por eixo" className="flex flex-wrap gap-x-6 gap-y-1 border-b border-regua">
             {[{ id: 'todos' as const, label: 'Todos os eixos' }, ...eixosComConteudo].map((e) => (
               <button
                 key={e.id}
@@ -72,10 +69,8 @@ export function RadarPage({ items }: RadarPageProps) {
                   setSelectedEixo(e.id);
                   setSelectedCategory('Todos');
                 }}
-                className={`px-4 py-1.5 rounded-full border text-xs font-bold uppercase tracking-widest transition-colors ${
-                  selectedEixo === e.id
-                    ? 'bg-orange-500 border-orange-500 text-slate-950'
-                    : 'border-slate-700 text-slate-300 hover:border-orange-400 hover:text-white'
+                className={`relative py-3 font-sans text-[0.9375rem] font-semibold transition-colors after:absolute after:left-0 after:-bottom-px after:h-[3px] after:bg-laranja after:w-full after:origin-left after:transition-transform after:duration-300 ${
+                  selectedEixo === e.id ? 'text-tinta after:scale-x-100' : 'text-tinta-2 hover:text-tinta after:scale-x-0'
                 }`}
               >
                 {e.label}
@@ -84,121 +79,97 @@ export function RadarPage({ items }: RadarPageProps) {
           </nav>
         )}
 
-        {/* Search and Filter */}
-        <div className="flex flex-col md:flex-row gap-6 mb-12 items-center justify-between bg-slate-900/50 p-6 rounded-xl border border-slate-800 backdrop-blur-sm">
-          <div className="relative w-full md:w-96 group">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-orange-500 transition-colors" size={18} />
-            <Input
+        <div className="mt-8 mb-12 md:mb-16 flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
+          <label className="flex items-center gap-3 border-b border-ardosia focus-within:border-laranja md:w-72 shrink-0 transition-colors">
+            <Search size={16} className="text-tinta-2" aria-hidden="true" />
+            <input
               placeholder="Buscar no radar..."
               aria-label="Buscar no radar"
-              className="pl-10 bg-slate-950 border-slate-700 focus:ring-orange-500 text-white"
+              className="bg-transparent border-none w-full py-2.5 text-[0.9375rem] text-tinta placeholder:text-tinta-2 font-sans"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-          </div>
-
-          <div className="flex flex-wrap gap-2 justify-center">
-            {categories.map(cat => (
-              <Button
+          </label>
+          <div className="flex flex-wrap gap-2">
+            {categories.map((cat) => (
+              <button
                 key={cat}
-                variant={selectedCategory === cat ? "default" : "outline"}
+                type="button"
+                aria-pressed={selectedCategory === cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`
-                  ${selectedCategory === cat
-                    ? 'bg-orange-500 hover:bg-orange-600 text-[#1c0a02] border-orange-500'
-                    : 'bg-transparent border-slate-700 text-slate-400 hover:text-white hover:border-orange-400'
-                  } rounded-full px-4 py-1 h-8 text-xs uppercase tracking-wider font-bold transition-all
-                `}
+                className={`px-3 h-8 border font-sans text-[0.8125rem] font-semibold transition-colors whitespace-nowrap ${
+                  selectedCategory === cat
+                    ? 'bg-laranja border-laranja text-noite'
+                    : 'border-regua text-tinta-2 hover:border-petroleo hover:text-tinta'
+                }`}
               >
                 {cat}
-              </Button>
+              </button>
             ))}
           </div>
         </div>
 
-        {/* Grid */}
         {filteredItems.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredItems.map((item) => (
-              <Card key={item.id} className="bg-slate-900/80 backdrop-blur-md border-2 border-slate-800 hover:border-orange-500/50 transition-all duration-300 hover:-translate-y-2 group overflow-hidden flex flex-col h-full">
-                <div className="relative h-48 overflow-hidden">
-                  <ImageWithFallback
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent opacity-80"></div>
-
-                  <Badge className="absolute top-4 left-4 bg-orange-500 hover:bg-orange-600 border-none text-[#1c0a02] font-bold uppercase text-[10px] tracking-widest shadow-lg shadow-orange-900/50">
-                    {selectedEixo === 'todos' && eixosComConteudo.length > 1
-                      ? `${EIXOS[item.eixo].shortLabel} · ${item.category}`
-                      : item.category}
-                  </Badge>
-
-                  {item.type === 'video' && (
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <div className="bg-slate-950/50 backdrop-blur-sm p-3 rounded-full border border-white/20 group-hover:scale-110 transition-transform duration-300">
-                         <PlayCircle size={32} className="text-white fill-white/20" />
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <CardContent className="p-6 flex-grow">
-                  <div className="flex items-center justify-between gap-4 text-xs text-slate-500 mb-4 font-mono">
-                    <div className="flex items-center gap-3">
-                        <span className="flex items-center gap-1"><Calendar size={12} /> {item.date}</span>
-                        <span className="flex items-center gap-1">
-                            <Clock size={12} /> {item.duration}
-                        </span>
-                    </div>
-                    {item.isExternal && (
-                         <Badge variant="outline" className="text-[10px] text-slate-400 border-slate-700 bg-slate-900/50">
-                            {item.source}
-                         </Badge>
-                    )}
-                  </div>
-
-                  <h3 className="font-serif text-xl font-bold text-white mb-3 leading-tight group-hover:text-orange-400 transition-colors">
-                    {item.title}
-                  </h3>
-                  <p className="font-sans text-sm text-slate-400 leading-relaxed line-clamp-3">
-                    {item.excerpt}
-                  </p>
-                </CardContent>
-
-                <CardFooter className="p-6 pt-0 mt-auto">
-                  {item.isExternal ? (
-                      <Button asChild variant="link" className="p-0 text-orange-500 hover:text-orange-300 font-bold uppercase text-xs tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all">
-                        <a href={item.link} target="_blank" rel="noopener noreferrer">
-                            {item.type === 'video' ? 'Assistir Agora' : 'Ler na Fonte'}
-                            <ExternalLink size={14} />
-                        </a>
-                      </Button>
-                  ) : (
-                      <Button asChild variant="link" className="p-0 text-orange-500 hover:text-orange-300 font-bold uppercase text-xs tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all">
-                        <a href={item.link}>
-                            {item.type === 'video' ? 'Assistir Vídeo' : 'Ler Artigo'}
-                            <ArrowRight size={14} />
-                        </a>
-                      </Button>
-                  )}
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
+          /* Um diário de bordo: a data na margem, o item e o comentário no meio, a fonte e a ação à direita. */
+          <ol className="border-t-2 border-t-laranja">
+            {filteredItems.map((item, i) => {
+              const externo = item.isExternal;
+              return (
+                <li key={item.id} className="relative border-b-2 border-laranja">
+                  {item.margem && <span aria-hidden="true" className="margem absolute left-0 top-0 bottom-0 w-5 md:w-14" style={lombada(item.margem, i)} />}
+                  <a
+                    href={item.link}
+                    {...(externo ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    className={`cartao group grid gap-x-10 gap-y-2 py-7 md:grid-cols-12 ${item.margem ? 'pl-9 md:pl-[5.5rem]' : 'pl-5 lg:pl-8'}`}
+                  >
+                    <span className="md:col-span-7 md:col-start-3 md:row-start-1 min-w-0 flex flex-col gap-2">
+                      <span className="font-serif text-[1.35rem] md:text-[1.5rem] leading-snug text-tinta group-hover:text-laranja-fundo transition-colors [overflow-wrap:anywhere]">
+                        {item.type === 'video' && (
+                          <Play size={16} fill="currentColor" className="inline-block align-[-0.05em] mr-2 text-laranja" aria-hidden="true" />
+                        )}
+                        {item.title}
+                      </span>
+                      <span className="font-sans text-tinta-2 leading-relaxed line-clamp-2 max-w-[68ch]">{item.excerpt}</span>
+                    </span>
+                    <span className="md:col-span-2 md:col-start-1 md:row-start-1 md:pt-2 font-sans text-sm font-semibold text-tinta tabular-nums flex md:flex-col items-start gap-2"><span className="marca mt-1.5" aria-hidden="true" /><span>
+                      {item.date} · {item.duration}
+                    </span></span>
+                    <span className="md:col-span-3 md:row-start-1 flex flex-col gap-1 md:items-end md:text-right md:pt-2 font-sans text-sm">
+                      <span className="font-bold text-petroleo">
+                        {selectedEixo === 'todos' && eixosComConteudo.length > 1
+                          ? `${EIXOS[item.eixo].shortLabel} · ${item.category}`
+                          : item.category}
+                      </span>
+                      {externo && <span className="text-tinta-2">{item.source}</span>}
+                      <span className="acao text-laranja-fundo text-sm uppercase tracking-[0.1em] mt-2">
+                        {externo
+                          ? item.type === 'video' ? 'Assistir Agora' : 'Ler na Fonte'
+                          : item.type === 'video' ? 'Assistir Vídeo' : 'Ler Artigo'}
+                        {externo ? <ExternalLink size={14} aria-hidden="true" /> : <ArrowRight size={14} aria-hidden="true" />}
+                      </span>
+                    </span>
+                  </a>
+                </li>
+              );
+            })}
+          </ol>
         ) : (
-          <div className="text-center py-24 border-2 border-dashed border-slate-800 rounded-xl">
-            <p className="text-slate-500 font-sans">Nenhum item encontrado para sua busca.</p>
-            <Button
-              variant="link"
-              className="text-orange-500 mt-2"
-              onClick={() => {setSearchTerm(''); setSelectedCategory('Todos'); setSelectedEixo('todos');}}
+          <div className="py-24 border-t border-regua">
+            <p className="text-tinta-2 font-sans">Nenhum item encontrado para sua busca.</p>
+            <button
+              type="button"
+              className="acao text-laranja-fundo mt-3"
+              onClick={() => {
+                setSearchTerm('');
+                setSelectedCategory('Todos');
+                setSelectedEixo('todos');
+              }}
             >
               Limpar filtros
-            </Button>
+            </button>
           </div>
         )}
+      </div>
       </div>
     </main>
   );

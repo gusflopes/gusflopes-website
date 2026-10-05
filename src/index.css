@@ -3,19 +3,73 @@
 
 @plugin "@tailwindcss/typography";
 
+/*
+ * Pincelada — tokens do sistema visual (rodada 4: cor como sistema).
+ * Laranja é a cor principal, em detalhes distribuídos pela página inteira; azul-escuro é estrutura;
+ * os claros quentes da Shelfye (papel #FFF8F2, creme #FDEED9) entram no ritmo; as cores do quadro (petróleo, ardósia,
+ * areia, marrom, ferrugem) são apoio em campos, células, metadados e filetes.
+ * Fontes self-hosted (src/layouts/Default.astro).
+ */
 @theme {
-  /* Fontes self-hosted via @fontsource-variable (importadas em src/layouts/Default.astro). */
-  --font-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", sans-serif;
-  --font-serif: "Cormorant Garamond Variable", "Cormorant Garamond", serif;
-  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", monospace;
+  --font-sans: "Hanken Grotesk Variable", "Hanken Grotesk", system-ui, sans-serif;
+  --font-serif: "Literata Variable", "Literata", Georgia, serif;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace;
+
+  /* Noite: o chão do site */
+  --color-noite: #0b1a33;
+  --color-noite-2: #13284d;
+  --color-linha: #22385c; /* réguas sobre azul-escuro */
+  /* Azuis da marca (o céu só como acento raro) */
+  --color-quadro: #1f3a66;
+  --color-ceu: #8fb3d9;
+  /* Paleta de apoio do quadro (aprovada em 04/10) */
+  --color-petroleo: #315b6f; /* célula/campo; texto sobre papel (6,4:1); branco sobre ele (7,3:1) */
+  --color-petroleo-claro: #457183; /* filete, régua forte */
+  --color-ardosia: #648188; /* régua sobre claro (não é texto) */
+  --color-ardosia-clara: #7f989a; /* metadado sobre noite (5,8:1) */
+  --color-areia: #aa9c87; /* metadado sobre noite (6,5:1); filete sobre claro */
+  --color-marrom: #907a5f;
+  --color-marrom-escuro: #50372a; /* texto sobre areia/papel */
+  --color-ferrugem: #8a4c1b; /* filete e marca; nunca encosta em #C2410C nem no laranja chapado */
+  --color-campo: #fdeed9; /* creme (Shelfye): campo claro quente — destaque, caixas, o claro que antecede o escuro */
+  --color-nevoa: #c9d6e6; /* texto secundário sobre azul-escuro (11:1) */
+  --color-bruma: #9fb0c6; /* metadado sobre azul-escuro (7,4:1) */
+  /* Papel (Shelfye, "pergaminho"): a coluna de leitura e o claro padrão */
+  --color-papel: #fff8f2;
+  --color-papel-tom: #f9f2ec; /* cartão/célula aninhada sobre papel: mudança de tom, não fio */
+  --color-papel-2: #eee7e1; /* tom mais fundo (código inline); laranja como texto aqui é #9A3412 */
+  --color-regua: #e6d9c8; /* fio quente sobre papel e creme */
+  --color-tinta: #0b1a33; /* texto sobre papel (16,5:1) e creme (15,2:1) */
+  --color-tinta-2: #3d4e68; /* secundário: 8,0:1 no papel, 7,4:1 no creme, 6,9:1 em #EEE7E1 */
+  /* Luz */
+  --color-laranja: #f97316;
+  --color-laranja-claro: #fb923c;
+  --color-pessego: #fdba74;
+  --color-laranja-fundo: #c2410c; /* laranja como texto: só papel (4,9:1) e creme (4,5:1) */
+  --color-laranja-tinta: #9a3412; /* laranja como texto em #EEE7E1/#F9F2EC (6,0:1) */
+
+  --ease-pincel: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scrollbar-color: var(--color-petroleo) var(--color-noite);
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-noite);
+    color: var(--color-nevoa);
+    text-rendering: optimizeLegibility;
+  }
+
   h1,
   h2,
   h3 {
     font-family: var(--font-serif);
-    font-weight: var(--font-weight-medium);
+    font-weight: 600;
+    text-wrap: balance;
   }
 
   h4,
@@ -24,54 +78,333 @@
     font-family: var(--font-sans);
   }
 
-  body {
-    font-family: var(--font-sans);
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+
+  ::selection {
+    background-color: var(--color-laranja);
+    color: var(--color-noite);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-laranja-claro);
+    outline-offset: 3px;
+  }
+
+  .papel :focus-visible {
+    outline-color: var(--color-laranja-fundo);
+  }
+
+  input::placeholder {
+    color: var(--color-bruma);
+    opacity: 1;
+  }
+
+  input {
+    caret-color: var(--color-laranja);
   }
 }
 
 @layer components {
+  /* Rótulo de UI (eixo, data, formato): Hanken, caixa alta discreta. Nunca acima de um título. */
+  .rotulo {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* Marca laranja: quadrado de 8px antes de um metadado (presença, não texto). */
+  .marca {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--color-laranja);
+    flex-shrink: 0;
+  }
+
+  /* Marca de capítulo: filete laranja de 4px sob o título de cada seção da home (presença). */
+  .capitulo::after {
+    content: '';
+    display: block;
+    width: 3.5rem;
+    height: 4px;
+    margin-top: 1.25rem;
+    background: var(--color-laranja);
+  }
+
+  /* Fio laranja: a costura entre pintura e texto. */
+  .fio {
+    border-top: 3px solid var(--color-laranja);
+  }
+
+  /* O fio que se estende sob a tela quando o card recebe hover ou foco. */
+  .fio-vivo {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: var(--color-laranja);
+    transform: scaleX(0.2);
+    transform-origin: left;
+    transition: transform 0.6s var(--ease-pincel);
+  }
+  .cartao:hover .fio-vivo,
+  .cartao:focus-visible .fio-vivo,
+  .cartao:focus-within .fio-vivo {
+    transform: scaleX(1);
+  }
+
+  .tela {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: var(--color-noite-2);
+  }
+
   /*
-   * Code blocks gerados pelo Shiki (markdown das Content Collections).
-   * O tema default do Astro (github-dark) define cores via inline style;
-   * aqui ajustamos apenas moldura, espaçamento e tipografia para o tema do site.
+   * Margem pintada do texto (rodada 5): a tira vertical semeada pelo slug (scripts/tela, papel
+   * `margem`), repetida em y na escala fixa de traço. As URLs chegam por variáveis (fundoMargem).
    */
-  .prose pre.astro-code {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    padding: 1.5rem;
-    border-radius: 0.75rem;
-    border: 1px solid rgb(30 41 59); /* slate-800 */
-    box-shadow: 0 0 30px -10px rgb(0 0 0 / 0.5);
-    font-size: 0.875rem;
-    line-height: 1.75;
+  .margem {
+    background-color: var(--color-petroleo);
+    background-image: var(--margem-jpg);
+    background-repeat: repeat-y;
+    background-size: 96px 2400px;
+    background-position: center top;
+  }
+  @supports (background-image: image-set(url('a.avif') type('image/avif') 1x)) {
+    .margem {
+      background-image: var(--margem-set);
+    }
   }
 
-  .prose pre.astro-code code {
-    background: transparent;
-    padding: 0;
+  /* Botão principal: laranja com texto escuro (AA). */
+  .botao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 3rem;
+    padding-inline: 1.5rem;
+    background: var(--color-laranja);
+    color: var(--color-noite);
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.01em;
+    transition: background-color 0.2s var(--ease-pincel);
+  }
+  .botao:hover {
+    background: var(--color-laranja-claro);
+  }
+
+  /* Link de ação em texto, com seta. */
+  .acao {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.9375rem;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.2s, gap 0.3s var(--ease-pincel);
+  }
+  .acao:hover {
+    text-decoration-color: currentColor;
+    gap: 0.75rem;
+  }
+
+  /*
+   * Coluna de leitura (artigos, edições, páginas legais): papel quente #FFF8F2, Literata 17–18px,
+   * ~68 caracteres por linha, nada se mexendo atrás do texto.
+   */
+  .leitura {
+    font-family: var(--font-serif);
+    font-size: 1.0625rem;
+    line-height: 1.72;
+    color: #1a2740;
+    max-width: 40rem;
+    font-variant-ligatures: common-ligatures;
+    hanging-punctuation: first;
+  }
+  @media (min-width: 768px) {
+    .leitura {
+      font-size: 1.125rem;
+    }
+  }
+  /* O corpo chega por slot de ilha React: os blocos ficam dentro de <astro-slot>. */
+  .leitura > * + *,
+  .leitura > :is(astro-slot, astro-static-slot) > * + * {
+    margin-top: 1.15em;
+  }
+  .leitura :where(h2) {
+    font-size: 1.6em;
+    line-height: 1.2;
+    color: var(--color-tinta);
+    margin-top: 2.2em;
+    margin-bottom: 0;
+  }
+  /* Filete laranja de capítulo sob cada H2 (o mesmo gesto do .capitulo da home): a tela fica na capa e
+     na margem; dentro da leitura, só o laranja de estrutura. */
+  .leitura :where(h2)::after {
+    content: '';
+    display: block;
+    width: 3.5rem;
+    height: 4px;
+    margin-top: 0.45em;
+    background: var(--color-laranja);
+  }
+  .leitura :where(h3) {
+    font-size: 1.25em;
+    line-height: 1.3;
+    color: var(--color-tinta);
+    margin-top: 1.9em;
+  }
+  .leitura :where(h4) {
+    font-weight: 700;
+    color: var(--color-tinta);
+    margin-top: 1.6em;
+  }
+  .leitura :where(h2, h3, h4) + * {
+    margin-top: 0.6em;
+  }
+  .leitura :where(a) {
+    color: var(--color-laranja-fundo);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+  }
+  .leitura :where(a):hover {
+    text-decoration-thickness: 2px;
+  }
+  .leitura :where(strong) {
+    color: var(--color-tinta);
+    font-weight: 650;
+  }
+  .leitura :where(ul, ol) {
+    padding-left: 1.4em;
+  }
+  .leitura :where(ul) {
+    list-style: disc;
+  }
+  .leitura :where(ol) {
+    list-style: decimal;
+  }
+  .leitura :where(li) + :where(li) {
+    margin-top: 0.4em;
+  }
+  .leitura :where(li)::marker {
+    color: var(--color-laranja-fundo);
+  }
+  .leitura :where(hr) {
+    border: 0;
+    border-top: 1px solid var(--color-regua);
+    margin-block: 2.5em;
+  }
+  .leitura :where(blockquote) {
+    position: relative;
+    padding: 1.1em 0 0 1.25em;
+    font-style: italic;
+    font-size: 1.08em;
+    color: var(--color-noite-2);
+  }
+  .leitura :where(blockquote)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 1.25em;
+    width: 2.5rem;
+    height: 3px;
+    background: var(--color-laranja);
+  }
+  .leitura :where(blockquote p) + :where(p) {
+    margin-top: 0.8em;
+  }
+  .leitura :where(img) {
+    max-width: 100%;
+    height: auto;
+  }
+  .leitura :where(:not(pre) > code) {
     font-family: var(--font-mono);
-    font-weight: 400;
+    font-size: 0.84em;
+    background: var(--color-papel-2);
+    color: var(--color-tinta);
+    padding: 0.1em 0.35em;
+    border-radius: 2px;
+  }
+  .leitura :where(pre) {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    padding: 1.25rem 1.4rem;
+    overflow-x: auto;
+    border-top: 3px solid var(--color-laranja);
+    margin-inline: -1rem;
+  }
+  @media (min-width: 768px) {
+    .leitura :where(pre) {
+      margin-inline: -1.4rem;
+    }
+  }
+  /* Shiki (github-dark) pinta o fundo inline; o chão do código vira o azul-escuro da marca. */
+  .leitura pre.astro-code {
+    background-color: var(--color-noite) !important;
+  }
+  .leitura pre code {
+    font-family: inherit;
+    background: none;
+    padding: 0;
+  }
+  .leitura :where(table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    font-variant-numeric: tabular-nums;
+    display: block;
+    overflow-x: auto;
+  }
+  .leitura :where(th) {
+    text-align: left;
+    font-weight: 700;
+    color: var(--color-tinta);
+    border-bottom: 2px solid var(--color-tinta);
+    padding: 0.5em 0.9em 0.5em 0;
+    vertical-align: bottom;
+  }
+  .leitura :where(td) {
+    border-bottom: 1px solid var(--color-regua);
+    padding: 0.6em 0.9em 0.6em 0;
+    vertical-align: top;
+  }
+  .leitura :where(figcaption) {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--color-tinta-2);
   }
 
-  /* Remove as crases que o plugin typography injeta ao redor do code inline */
-  .prose :where(code)::before,
-  .prose :where(code)::after {
-    content: none;
+  .papel ::selection {
+    background-color: var(--color-pessego);
+    color: var(--color-tinta);
   }
+}
 
-  /* Code inline legível em cada tema de artigo */
-  .prose-invert :where(:not(pre) > code) {
-    background-color: rgb(30 41 59 / 0.7); /* slate-800 */
-    color: rgb(253 186 116); /* orange-300 */
-    border-radius: 0.25rem;
-    padding: 0.125rem 0.375rem;
-    font-weight: 500;
-  }
-
-  .prose-slate :where(:not(pre) > code) {
-    background-color: rgb(226 232 240 / 0.8); /* slate-200 */
-    border-radius: 0.25rem;
-    padding: 0.125rem 0.375rem;
-    font-weight: 500;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

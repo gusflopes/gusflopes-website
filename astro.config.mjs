@@ -2,16 +2,28 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
+import telas from './scripts/tela/integracao.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+// Tabela larga rola na horizontal no celular (.leitura table): precisa ser focável para quem usa teclado.
+function rehypeTabelaFocavel() {
+  const andar = (no) => {
+    if (no.type === 'element' && no.tagName === 'table') no.properties = { ...no.properties, tabIndex: 0 };
+    (no.children ?? []).forEach(andar);
+  };
+  return (arvore) => andar(arvore);
+}
+
 export default defineConfig({
   site: 'https://gusflopes.dev',
   output: 'static',
-  integrations: [react(), sitemap()],
+  // telas: capas/OG/faixas geradas no build a partir do slug (scripts/tela/)
+  integrations: [telas(), react(), sitemap()],
   server: { port: 3001 },
+  markdown: { rehypePlugins: [rehypeTabelaFocavel] },
   vite: {
     plugins: [tailwindcss()],
     resolve: {

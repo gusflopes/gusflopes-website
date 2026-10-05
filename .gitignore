@@ -5,3 +5,6 @@ docs/private/
 dist/
 .worktrees/
 .claude/settings.local.json
+# Telas e OG gerados no build (scripts/tela/integracao.mjs)
+public/telas/
+public/og/
