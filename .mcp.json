@@ -3,6 +3,14 @@
     "cloudflare-graphql": {
       "type": "http",
       "url": "https://graphql.mcp.cloudflare.com/mcp"
+    },
+    "google-analytics": {
+      "command": "uvx",
+      "args": ["analytics-mcp"],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "${HOME}/.config/gcloud/ga4-leitura.json",
+        "GOOGLE_PROJECT_ID": "gusflopes-marketing"
+      }
     }
   }
 }

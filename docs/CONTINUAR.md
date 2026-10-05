@@ -77,13 +77,12 @@ Pauta de publicação da demonstração de IA (artigos, shorts e vídeos, com ca
      no nível da conta, agrupar por `requestHost`/`requestPath`. A mesma conta cobre gusflopes.dev, a landing da
      reforma, mcp.gusflopes.dev e outros domínios — sempre filtrar por hostname. O servidor avisa que está
      *deprecated* em favor de `https://mcp.cloudflare.com/mcp` (API inteira); trocar quando ele parar de funcionar.
-   - **GA4** (`G-PKP8H2J89F`, só na landing, com consentimento) — **não configurado** (falta credencial). Passos do
-     Gustavo: (1) num projeto do Google Cloud, ativar as APIs Google Analytics Admin e Data; (2) criar um OAuth client
-     "Desktop" e baixar o JSON; (3) `gcloud auth application-default login --scopes
-     https://www.googleapis.com/auth/analytics.readonly,https://www.googleapis.com/auth/cloud-platform
-     --client-id-file=<json>`; (4) informar o ID do projeto. Aí entra no `.mcp.json`:
-     `"google-analytics": {"command": "uvx", "args": ["analytics-mcp"], "env": {"GOOGLE_PROJECT_ID": "<id>"}}`.
-     Filtrar por hostname `reforma-tributaria.gusflopes.dev`.
+   - **GA4** (`G-PKP8H2J89F`, só na landing, com consentimento) — funcionando desde 04/10: `google-analytics` →
+     `uvx analytics-mcp`, credencial em `~/.config/gcloud/ga4-leitura.json`, projeto GCP `gusflopes-marketing`
+     (só leitura). Property `543042928` ("gusflopes-dev"), compartilhada com pessoas., arch-tools.,
+     arquitetura-software. e `localhost` (dev polui) — sempre filtrar por `hostName = reforma-tributaria.gusflopes.dev`.
+     Em 04/10 a landing tinha só 1 page_view em 90 dias e nenhum evento `click`: cliques de saída para o Substack
+     e o simulador ainda não aparecem (conferir medição otimizada/"cliques de saída" na stream e o consentimento).
    - Perguntas que isso deve responder: visitas por página e origem, cliques de saída para o Substack
      (`utm_content` por ponto de clique) e para o simulador.
 
