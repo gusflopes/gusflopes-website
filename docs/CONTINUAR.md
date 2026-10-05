@@ -16,6 +16,18 @@ referência (Concretismo deve ser testado no projeto da reforma).
 - Vídeo da home: o Gustavo vai gravar um próprio e substituir o da palestra de terceiro.
 - Copy pendente de aval: "LER ARTIGO" (Radar) × "Ler Artigo" (Insights); deck do hub Newsletter sem "Radar de IA";
   "Conteúdo & Insights" → "Acessar o Radar"; "Limpar filtros" no estado vazio dos hubs.
+- **Próxima sessão: fluxo de audiência e captura de e-mail** (05/10). Fluxo desejado: redes → Substack → site; o
+  site mostra o trabalho e não manda o visitante embora para o Substack. A abertura da home já leva a ler (branch
+  `home/abertura-explorar`, na `main`). Falta decidir:
+  - captura de e-mail no próprio site (formulário + consentimento LGPD + origem, Worker da Cloudflare + D1, como o
+    `leads-service` da reforma/Shelfye) e convite posterior para o Substack (importação só de quem consentiu);
+  - o motivo para deixar o e-mail (guia curto, aviso de textos de um eixo, acesso antecipado a projeto);
+  - texto do e-mail de boas-vindas e onde a lista vive (própria × direto no Substack).
+- **Análise: convergir Substack e blog** (05/10): o que é edição da newsletter, o que é texto do site, como um
+  aponta para o outro. Resolve também a oferta "Conteúdo & Insights" de Serviços (hoje leva ao Radar).
+- **Posicionamento pessoal** (05/10): como se apresentar na credencial da home ("Advogado, contador e engenheiro de
+  software." está provisório) e manter igual no LinkedIn, no Substack e nas bios.
+- Texto do botão da abertura ("Ler o texto mais recente") e da linha com o título do texto: revisar depois.
 - Ideias da crítica final (não feitas): filtros dos hubs compactos no celular; Simulador mais alto na home;
   "próximo texto"/relacionados no fim do artigo; link "pular para o conteúdo"; alvos de toque de 44px no celular.
 
