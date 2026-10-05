@@ -20,7 +20,7 @@ export interface EdicaoResumo {
  */
 export function NewsletterPage({ edicoes }: { edicoes: EdicaoResumo[] }) {
   return (
-    <main className="bg-noite min-h-screen">
+    <main className="bg-papel min-h-screen">
       <AberturaHub tela={telaFaixa('newsletter')} titulo={newsletter.name} />
 
       {/* Corpo em papel: as edições se leem de dia; o rodapé chega pela fita depois deste campo. */}

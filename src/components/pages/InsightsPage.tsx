@@ -69,7 +69,7 @@ export function InsightsPage({
   const [primeiro, ...demais] = filteredArticles;
 
   return (
-    <main className="bg-noite min-h-screen">
+    <main className="bg-papel min-h-screen">
       <AberturaHub
         tela={telaFaixa(eixo ?? 'insights')}
         titulo={heading}
@@ -108,7 +108,7 @@ export function InsightsPage({
               <Search size={16} className="text-tinta-2" aria-hidden="true" />
               <input
                 aria-label="Buscar artigos"
-                className="bg-transparent border-none outline-none focus-visible:outline-none w-full py-2.5 text-[0.9375rem] text-tinta placeholder:text-tinta-2 font-sans"
+                className="bg-transparent border-none w-full py-2.5 text-[0.9375rem] text-tinta placeholder:text-tinta-2 font-sans"
                 placeholder="Filtrar ideias..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -175,13 +175,13 @@ export function InsightsPage({
               <li key={article.id} className="relative border-b-2 border-laranja">
                 {article.margem && <span aria-hidden="true" className="margem absolute left-0 top-0 bottom-0 w-5 md:w-14" style={lombada(article.margem, i)} />}
                 <a href={article.href} className={`cartao group grid gap-x-10 gap-y-2 py-7 md:grid-cols-12 ${article.margem ? 'pl-9 md:pl-[5.5rem]' : 'pl-5 lg:pl-8'}`}>
-                  <span className="md:col-span-8 flex flex-col gap-2">
-                    <span className="font-serif text-[1.4rem] md:text-[1.6rem] leading-snug text-tinta group-hover:text-laranja-fundo transition-colors">
+                  <span className="md:col-span-8 min-w-0 flex flex-col gap-2">
+                    <span className="font-serif text-[1.4rem] md:text-[1.6rem] leading-snug text-tinta group-hover:text-laranja-fundo transition-colors [overflow-wrap:anywhere]">
                       {article.title}
                     </span>
                     <span className="font-sans text-tinta-2 leading-relaxed line-clamp-2 max-w-[68ch]">{article.excerpt}</span>
                   </span>
-                  <span className="md:col-span-4 flex flex-col gap-1 md:items-end md:text-right md:pt-1.5 font-sans text-sm">
+                  <span className="md:col-span-4 min-w-0 flex flex-col gap-1 md:items-end md:text-right md:pt-1.5 font-sans text-sm">
                     <span className="font-bold text-petroleo inline-flex items-center gap-2"><span className="marca" aria-hidden="true" />{eixo ? article.category : `${EIXOS[article.eixo].shortLabel} · ${article.category}`}</span>
                     <span className="text-tinta-2">
                       {article.date} · {article.duration}

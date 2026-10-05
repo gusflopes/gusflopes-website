@@ -48,7 +48,7 @@ export function RadarPage({ items }: RadarPageProps) {
   });
 
   return (
-    <main className="bg-noite min-h-screen">
+    <main className="bg-papel min-h-screen">
       <AberturaHub
         tela={telaFaixa('radar')}
         titulo="Radar"
@@ -85,7 +85,7 @@ export function RadarPage({ items }: RadarPageProps) {
             <input
               placeholder="Buscar no radar..."
               aria-label="Buscar no radar"
-              className="bg-transparent border-none outline-none focus-visible:outline-none w-full py-2.5 text-[0.9375rem] text-tinta placeholder:text-tinta-2 font-sans"
+              className="bg-transparent border-none w-full py-2.5 text-[0.9375rem] text-tinta placeholder:text-tinta-2 font-sans"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -122,8 +122,8 @@ export function RadarPage({ items }: RadarPageProps) {
                     {...(externo ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                     className={`cartao group grid gap-x-10 gap-y-2 py-7 md:grid-cols-12 ${item.margem ? 'pl-9 md:pl-[5.5rem]' : 'pl-5 lg:pl-8'}`}
                   >
-                    <span className="md:col-span-7 md:col-start-3 md:row-start-1 flex flex-col gap-2">
-                      <span className="font-serif text-[1.35rem] md:text-[1.5rem] leading-snug text-tinta group-hover:text-laranja-fundo transition-colors">
+                    <span className="md:col-span-7 md:col-start-3 md:row-start-1 min-w-0 flex flex-col gap-2">
+                      <span className="font-serif text-[1.35rem] md:text-[1.5rem] leading-snug text-tinta group-hover:text-laranja-fundo transition-colors [overflow-wrap:anywhere]">
                         {item.type === 'video' && (
                           <Play size={16} fill="currentColor" className="inline-block align-[-0.05em] mr-2 text-laranja" aria-hidden="true" />
                         )}
