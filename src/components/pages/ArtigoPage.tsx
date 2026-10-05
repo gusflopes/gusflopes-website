@@ -114,7 +114,7 @@ export function ArtigoPage({ title, excerpt, category, eixo, dateFormatted, dura
           {margem && (
             <div
               aria-hidden="true"
-              className="margem absolute top-0 bottom-0 left-0 w-3 md:w-11 lg:w-24 lg:left-[max(0px,calc(50%-20rem-6rem-4rem))] border-r-2 border-laranja"
+              className="margem absolute top-0 bottom-0 left-0 w-3 md:w-8 lg:w-12 lg:left-[max(0px,calc(50%-20rem-3rem-4rem))] border-r-2 border-laranja"
               style={margem}
             />
           )}

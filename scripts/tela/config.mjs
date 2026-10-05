@@ -174,9 +174,9 @@ export const ARQUETIPO_CONVITE = 'vento';
  * da newsletter (que fecha a página do texto) — telas da mesma página não repetem anatomia.
  */
 /** Margem do texto: arquétipo da semente, só os arquétipos que seguem as zonas (vento, manchas, ondas), sem luas. */
-// zonas de 400px alternando brasa (laranja pintado: o laranja do texto vive na própria tira) com petróleo,
-// ferrugem e ardósia — quente encostado no frio a cada passagem
-export const PARAMS_MARGEM = { evita: ['horizonte', 'faixas', 'massas'], luas: false, ciclo: ['petroleo', 'brasa', 'ardosia', 'brasa', 'ferrugem', 'brasa'], nZonas: 6, f0: 0 };
+// zonas de 400px só frias (petróleo e ardósia): a margem acompanha a leitura sem disputar com o texto;
+// o laranja do artigo fica nos filetes dos H2, nos links e nos marcadores
+export const PARAMS_MARGEM = { evita: ['horizonte', 'faixas', 'massas'], luas: false, ciclo: ['petroleo', 'ardosia', 'petroleo', 'ardosia', 'petroleo', 'ardosia'], nZonas: 6, f0: 0 };
 /** Recuos da margem que caem no meio das zonas frias (0–400 petróleo, 800–1200 ardósia, 1600–2000 ferrugem): a lombada dos índices. */
 export const LOMBADAS = ['0px', '-860px', '-1660px'];
 
