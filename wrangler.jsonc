@@ -2,10 +2,38 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "gusflopes-website",
   "compatibility_date": "2026-04-26",
+  // O site é estático (dist/); só /api/* (inscrição na lista própria) passa pelo Worker.
+  "main": "worker/src/index.ts",
   "assets": {
     "directory": "./dist",
-    "not_found_handling": "404-page"
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
   },
+  // Lista própria de e-mails (inscrição no site, dupla confirmação). Migrações: worker/migrations.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "gusflopes-leads",
+      "database_id": "ac8efe87-5e4b-4c5d-893b-66863309fee0",
+      "migrations_dir": "worker/migrations"
+    }
+  ],
+  // POST /api/subscribe: 5 envios por minuto por IP.
+  "ratelimits": [
+    { "name": "SUBSCRIBE_RATE_LIMIT", "namespace_id": "2620", "simple": { "limit": 5, "period": 60 } }
+  ],
+  // Cloudflare Email Service; o domínio de envio news.gusflopes.dev já é usado pela reforma.
+  "send_email": [{ "name": "EMAIL" }],
+  "vars": {
+    "SITE_URL": "https://gusflopes.dev",
+    "EMAIL_FROM": "Gustavo Lopes <newsletter@news.gusflopes.dev>",
+    "EMAIL_REPLY_TO": "gustavo@gusflopes.dev",
+    "TURNSTILE_EXPECTED_HOSTNAME": "gusflopes.dev,www.gusflopes.dev"
+  },
+  // Secrets (`wrangler secret put <NOME>`): TURNSTILE_SECRET_KEY (o mesmo widget da reforma) e
+  // LINK_SECRET (string aleatória longa: assina os links de confirmação e descadastro).
+  // Dev: .dev.vars com as chaves de teste do Turnstile, EMAIL_DEV=log e DEV_ORIGINS.
   "observability": {
     "enabled": false,
     "head_sampling_rate": 1,

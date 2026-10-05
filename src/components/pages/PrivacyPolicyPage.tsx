@@ -1,4 +1,3 @@
-import { newsletter } from '../../config/site';
 
 export function PrivacyPolicyPage() {
   return (
@@ -31,7 +30,7 @@ export function PrivacyPolicyPage() {
             <h2>2. Quais dados este site coleta</h2>
             <ul>
               <li>
-                <strong>Nenhum formulário aqui:</strong> o gusflopes.dev não tem formulário de cadastro nem de contato. O contato é feito por e-mail, e você decide o que enviar.
+                <strong>Um único formulário, o da newsletter:</strong> o gusflopes.dev só pede o seu e-mail para a inscrição na newsletter (seção 3). Não há formulário de contato: o contato é feito por e-mail, e você decide o que enviar.
               </li>
               <li>
                 <strong>Sem cookies de rastreamento:</strong> o site não usa Google Analytics, pixels de anúncio nem cookies de rastreamento ou de publicidade.
@@ -48,14 +47,15 @@ export function PrivacyPolicyPage() {
           <section>
             <h2>3. Newsletter</h2>
             <p>
-              A inscrição na newsletter não acontece neste site.{' '}
-              {newsletter.substack ? (
-                <>
-                  Ela é feita no <a href={newsletter.substack} >Substack</a>, que guarda o seu e-mail, envia as edições e traz o link de descadastro em todo envio, conforme a <a href="https://substack.com/privacy" >política de privacidade do Substack</a>.
-                </>
-              ) : (
-                <>As inscrições abrem em breve; quando abrirem, esta seção dirá onde elas são feitas e geridas.</>
-              )}{' '}
+              A inscrição acontece aqui mesmo, no formulário do fim dos textos e do rodapé. Guardo o seu e-mail, a data e o texto do consentimento que você viu, a página em que se inscreveu e de onde chegou ao site (link de origem e parâmetros de campanha, quando houver). Para isso, o site guarda na sessão do navegador (sessionStorage, não é cookie) a página de entrada e a origem da visita, apagadas ao fechar a aba. A verificação anti-robô é feita pelo Cloudflare Turnstile.
+            </p>
+            <p>
+              A inscrição só vale depois que você confirma pelo link enviado ao seu e-mail. Sem confirmação, nada é enviado. Os dados ficam em banco de dados da Cloudflare, que atua como operadora.
+            </p>
+            <p>
+              Com a inscrição confirmada, você recebe a newsletter, avisos de textos novos do site e de cursos e projetos meus (eventualmente pagos). As edições são enviadas pelo <a href="https://substack.com" >Substack</a>, para onde o seu e-mail é copiado com esse fim, conforme a <a href="https://substack.com/privacy" >política de privacidade do Substack</a>. Todo envio traz o link de descadastro; ao cancelar, você sai da lista e deixa de receber os e-mails.
+            </p>
+            <p>
               Quem se inscreveu pela página <a href="https://reforma-tributaria.gusflopes.dev" >reforma-tributaria.gusflopes.dev</a> tem os dados, os consentimentos e a forma de cancelar descritos na <a href="https://reforma-tributaria.gusflopes.dev/privacidade" >política de privacidade daquela página</a>.
             </p>
           </section>
@@ -84,7 +84,7 @@ export function PrivacyPolicyPage() {
           <section>
             <h2>7. Transferência internacional</h2>
             <p>
-              A Cloudflare opera uma rede global, então os dados técnicos de acesso podem ser processados em servidores fora do Brasil, sob as garantias contratuais e de segurança do provedor.
+              A Cloudflare e o Substack operam redes globais, então os dados técnicos de acesso e os da newsletter podem ser processados em servidores fora do Brasil, sob as garantias contratuais e de segurança de cada provedor.
             </p>
           </section>
         </div></div>

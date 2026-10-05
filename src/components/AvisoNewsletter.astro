@@ -1,0 +1,25 @@
+---
+// Página curta de retorno dos links do e-mail (confirmar, cancelar): fora do índice, em papel,
+// com o fio laranja e uma saída para continuar lendo.
+import Default from '../layouts/Default.astro';
+
+interface Props {
+  title: string;
+  rotulo: string;
+}
+const { title, rotulo } = Astro.props;
+---
+
+<Default title={title} noindex>
+  <main id="conteudo" tabindex="-1" class="bg-papel papel min-h-[70vh]">
+    <div class="max-w-3xl mx-auto px-4 md:px-6 pt-14 pb-20 md:pt-20 md:pb-28">
+      <p class="rotulo text-petroleo mb-5 flex items-center gap-2.5"><span class="marca" aria-hidden="true"></span>{rotulo}</p>
+      <h1 class="font-serif text-[2.2rem] md:text-5xl leading-[1.08] tracking-[-0.015em] text-tinta mb-6 pb-6 border-b-[3px] border-laranja">
+        {title}
+      </h1>
+      <div class="font-sans text-lg text-tinta-2 leading-relaxed max-w-xl space-y-6">
+        <slot />
+      </div>
+    </div>
+  </main>
+</Default>
