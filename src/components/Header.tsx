@@ -18,12 +18,8 @@ export function Header({ pathname: rawPathname, eixosAtivos = [] }: HeaderProps)
   const pathname = normalizePath(rawPathname);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isHome = pathname === '/';
-  // Páginas de artigo escondem o Header — match por prefixo para cobrir
-  // tanto /insights/article (legado) quanto /insights/article/<id> e /radar/article/<id>.
-  const isArticlePage =
-    pathname.startsWith('/insights/article') || pathname.startsWith('/radar/article/');
-
-  if (isArticlePage) return null;
+  // O artigo também leva o header do site: é a porta de entrada por busca e redes, e o leitor
+  // precisa ver a marca e os eixos sem rolar até o rodapé.
 
   // Eixos primeiro (o "para quem"), depois os formatos e a oferta.
   const navItems = [

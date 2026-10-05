@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { ArrowLeft, Check, Share2 } from 'lucide-react';
+import { Check, Share2 } from 'lucide-react';
 import { EIXOS, type EixoId } from '../../lib/eixos';
 import { author } from '../../config/site';
 import type { Tela } from '../../lib/telas';
@@ -17,7 +17,8 @@ export interface ArtigoPageProps {
   duration: string;
   /** Capa: a tela gerada do slug. */
   tela: Tela;
-  voltar: { href: string; label: string };
+  /** Sem uso desde que o artigo leva o header do site; mantido para os chamadores. */
+  voltar?: { href: string; label: string };
   /** Identificador do ponto de clique da newsletter (UTM). */
   origem: string;
   /** Margem pintada do texto (variáveis CSS da classe `.margem`), costurada à coluna pelo fio laranja. */
@@ -32,7 +33,7 @@ export interface ArtigoPageProps {
  * Página de texto (Insights e Radar): o título em faixa azul-escuro com a capa do texto em retrato
  * ao lado (fio laranja vertical) e, abaixo, a coluna de leitura em papel quente #FFF8F2 — nada atrás do texto.
  */
-export function ArtigoPage({ title, excerpt, category, eixo, dateFormatted, duration, tela, voltar, origem, margem, capitulos, children }: ArtigoPageProps) {
+export function ArtigoPage({ title, excerpt, category, eixo, dateFormatted, duration, tela, origem, margem, capitulos, children }: ArtigoPageProps) {
   const [linkCopied, setLinkCopied] = useState(false);
 
   const handleShare = async () => {
@@ -58,25 +59,6 @@ export function ArtigoPage({ title, excerpt, category, eixo, dateFormatted, dura
 
   return (
     <main className="bg-papel min-h-screen">
-      {/* Barra do texto */}
-      <div className="sticky top-0 z-40 bg-noite border-b border-linha">
-        <div className="max-w-7xl mx-auto px-4 md:px-6 h-14 flex items-center justify-between">
-          <a href={voltar.href} className="inline-flex items-center gap-2 font-sans text-sm font-semibold text-nevoa hover:text-white transition-colors">
-            <ArrowLeft size={16} aria-hidden="true" />
-            {voltar.label}
-          </a>
-          <button
-            type="button"
-            onClick={handleShare}
-            aria-label="Compartilhar artigo"
-            className="inline-flex items-center gap-2 p-2 -mr-2 text-nevoa hover:text-white transition-colors"
-          >
-            {linkCopied ? <Check size={18} className="text-laranja-claro" aria-hidden="true" /> : <Share2 size={18} aria-hidden="true" />}
-            {linkCopied && <span className="font-sans text-xs font-bold text-laranja-claro">Link copiado</span>}
-          </button>
-        </div>
-      </div>
-
       <article>
         {/* Abertura do texto: a faixa azul-noite com o título e, ao lado, a capa em retrato até a borda
             direita, costurada pelo fio vertical (no celular a capa vem antes, com o fio por baixo). */}
@@ -101,6 +83,16 @@ export function ArtigoPage({ title, excerpt, category, eixo, dateFormatted, dura
                   <span>{dateFormatted}</span>
                   <span aria-hidden="true">·</span>
                   <span>{duration} leitura</span>
+                  <span aria-hidden="true">·</span>
+                  <button
+                    type="button"
+                    onClick={handleShare}
+                    aria-label="Compartilhar artigo"
+                    className="inline-flex items-center gap-1.5 min-h-11 -my-3 px-1 text-nevoa hover:text-white transition-colors"
+                  >
+                    {linkCopied ? <Check size={16} className="text-laranja-claro" aria-hidden="true" /> : <Share2 size={16} aria-hidden="true" />}
+                    {linkCopied && <span className="font-sans text-xs font-bold text-laranja-claro">Link copiado</span>}
+                  </button>
                 </p>
               </div>
             </div>
