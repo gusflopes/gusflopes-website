@@ -152,7 +152,7 @@ export function RadarPage({ items }: RadarPageProps) {
                           : item.category}
                       </span>
                       {externo && <span className="text-tinta-2">{item.source}</span>}
-                      <span className="acao text-laranja-fundo text-sm uppercase tracking-[0.1em] mt-2">
+                      <span className="acao text-laranja-fundo text-sm mt-2">
                         {externo
                           ? item.type === 'video' ? 'Assistir Agora' : 'Ler na Fonte'
                           : item.type === 'video' ? 'Assistir Vídeo' : 'Ler Artigo'}
