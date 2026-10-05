@@ -22,7 +22,7 @@ as cores e as fontes fazem o resto.
 
 | Arquivo | Uso no Substack |
 |---|---|
-| `logo.svg`, `logo-512.png` | Logo/ícone da publicação (quadrado). "g" em Literata com o ponto laranja e o fio laranja na base — o mesmo gesto do favicon do site. Suba o PNG. |
+| `logo.svg`, `logo-512.png` | Logo/ícone da publicação (quadrado). "g" em Literata com o ponto laranja e o fio laranja na base — é também o favicon do site (`public/favicon.svg`, cópia deste arquivo). Suba o PNG. |
 | `wordmark.svg`, `wordmark.png` | Wordmark horizontal com fundo transparente e texto azul-escuro: para o cabeçalho sobre fundo claro (`#FFF8F2` ou branco). |
 | `wordmark-noite.svg`, `wordmark-noite.png` | Mesma marca sobre azul-escuro `#0B1A33`, para onde o fundo for escuro (redes, e-mail com cabeçalho escuro). |
 | `capa-publicacao.png` (2400×1350) | Capa/cover da publicação (página "about", cartões de compartilhamento da home da publicação). Tela gerada (semente "Radar de IA") + faixa papel com nome e promessa. |
