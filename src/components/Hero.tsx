@@ -39,7 +39,7 @@ export function Hero({ recente }: { recente?: TextoRecente }) {
               <p className="font-sans text-lg md:text-xl leading-snug text-white">
                 Tecnologia e IA aplicadas onde resolvem o problema do negócio, e deixadas de fora onde só complicam.
               </p>
-              <p className="font-sans text-base text-nevoa">Advogado, contador e engenheiro de software.</p>
+              <p className="font-sans text-base text-nevoa">Líder de tecnologia, com formação em Direito e Contabilidade.</p>
             </div>
             {recente && (
               <div className="flex flex-col gap-3 pt-1">
