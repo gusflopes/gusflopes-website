@@ -61,7 +61,7 @@ export function Themes({ fundo }: { fundo: FundoResponsivo }) {
                 Analiso domínio, arquitetura, times e fluxo de entrega como partes do mesmo problema: criar capacidade para o negócio evoluir.
               </p>
               <p className="font-sans text-base text-tinta-2 leading-relaxed mt-5 max-w-[60ch]">
-                Hoje, aplico essa perspectiva como líder técnico no sistema de precificação de locação veicular de uma plataforma de mobilidade do Grupo Volkswagen.
+                Hoje, aplico essa perspectiva como líder técnico de precificação no mais completo ecossistema de mobilidade do Brasil.
               </p>
             </div>
           </div>
