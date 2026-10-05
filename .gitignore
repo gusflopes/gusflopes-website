@@ -8,3 +8,7 @@ dist/
 # Telas e OG gerados no build (scripts/tela/integracao.mjs)
 public/telas/
 public/og/
+
+# Capturas de revisão de design (geradas por scripts/tela/capturas.mjs e pelo Impeccable): ficam só locais
+docs/design-review/
+.impeccable/review/
