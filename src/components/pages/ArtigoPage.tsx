@@ -63,11 +63,13 @@ export function ArtigoPage({ title, excerpt, category, eixo, dateFormatted, dura
         {/* Abertura do texto: a faixa azul-noite com o título e, ao lado, a capa em retrato até a borda
             direita, costurada pelo fio vertical (no celular a capa vem antes, com o fio por baixo). */}
         <header className="bg-noite lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,38%)] xl:grid-cols-[minmax(0,1fr)_minmax(0,34%)]">
-          <div className="h-[30svh] min-h-[180px] md:h-[40svh] lg:h-auto lg:min-h-[520px] overflow-hidden lg:order-last border-b-[3px] lg:border-b-0 lg:border-l-[3px] border-laranja">
-            <TelaPicture tela={tela} sizes="(min-width: 1280px) 34vw, (min-width: 1024px) 38vw, 100vw" priority />
+          {/* No desktop a capa preenche a coluna (absoluta) sem ditar a altura: a abertura tem a altura
+              do texto, não a do retrato — senão cresce com a largura da janela. */}
+          <div className="relative h-[30svh] min-h-[180px] md:h-[40svh] lg:h-auto lg:min-h-[440px] overflow-hidden lg:order-last border-b-[3px] lg:border-b-0 lg:border-l-[3px] border-laranja">
+            <TelaPicture tela={tela} sizes="(min-width: 1280px) 34vw, (min-width: 1024px) 38vw, 100vw" priority className="lg:absolute lg:inset-0" />
           </div>
           <div className="flex items-end">
-            <div className="w-full max-w-[46rem] px-4 md:px-6 lg:pl-[max(1.5rem,calc((100vw-80rem)/2+1.5rem))] lg:pr-14 xl:max-w-none pt-7 pb-10 md:pt-10 md:pb-14 lg:py-16 mx-auto lg:mx-0">
+            <div className="w-full max-w-[46rem] px-4 md:px-6 lg:pl-[max(1.5rem,calc((100vw-80rem)/2+1.5rem))] lg:pr-14 xl:max-w-none pt-7 pb-10 md:pt-10 md:pb-14 lg:py-12 mx-auto lg:mx-0">
               <div className="max-w-[43rem]">
                 <h1 className="font-serif text-[2rem] leading-[1.1] md:text-[3.1rem] md:leading-[1.06] tracking-[-0.012em] text-white mb-5">
                   {title}
