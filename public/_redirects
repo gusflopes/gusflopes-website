@@ -4,3 +4,9 @@
 # Link curto de inscrição (bios, vídeos, falas): gusflopes.dev/assinar → formulário da lista própria no site.
 # O Substack só pelo link direto dele (gusflopes.substack.com), sem atalho aqui.
 /assinar /newsletter/?utm_medium=atalho&utm_campaign=newsletter 302
+# Links de bio por rede (mkt-ops, guidelines/editorial.md §5): o perfil mostra o atalho, o GA4 recebe a origem.
+/ig /?utm_source=instagram&utm_medium=social&utm_campaign=bio 302
+/x /?utm_source=x&utm_medium=social&utm_campaign=bio 302
+/bsky /?utm_source=bluesky&utm_medium=social&utm_campaign=bio 302
+/yt /?utm_source=youtube&utm_medium=social&utm_campaign=bio 302
+/in /?utm_source=linkedin&utm_medium=social&utm_campaign=bio 302
