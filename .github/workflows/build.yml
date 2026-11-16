@@ -33,14 +33,3 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - run: pnpm build
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: verif
-          path: |
-            dist/_redirects
-            dist/sitemap-0.xml
-            dist/radar/index.html
-            dist/noticias/**/*.html
-            dist/analise/**/*.html
-            dist/index.html

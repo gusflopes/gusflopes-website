@@ -15,7 +15,7 @@ fonte:
   data: "2026-11-04"
 apuradoEm: "2026-11-13"
 base: "agentforce-coworker-185-mil-usuarios-chega-ao-teams"
-rascunho: false
+rascunho: true
 ---
 
 Segundo a Salesforce, o uso do Agentforce Coworker cresceu 21 vezes em três meses. A empresa oferece o produto como opção de US$ 50 por usuário por mês.

@@ -17,7 +17,7 @@ fonte:
   tipo: imprensa
 apuradoEm: "2026-11-13"
 base: "centauro-900-agentes-feitos-pelas-areas"
-rascunho: false
+rascunho: true
 ---
 
 Segundo a Centauro, cerca de 310 dos mais de 900 agentes são usados todos os dias, por 1.400 usuários. A empresa diz ter treinado 2.300 pessoas antes de abrir a plataforma para as áreas montarem os próprios agentes.
