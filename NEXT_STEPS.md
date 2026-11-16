@@ -60,8 +60,20 @@ Estado das grandes fases:
 ## Estratégia v2 (16/11/2026): Notícias, Análise da semana e Tech radar
 
 Branch `recalibracao-v2`. Três seções novas, escritas pelo agente de marketing (`mkt-agent`) a partir da base de
-conhecimento (`mkt-branding-gusflopes: content/base/`). Nada entra no ar antes do aval do Gustavo: os exemplos estão
-com `rascunho: true` e o menu só mostra uma seção quando ela tem algo publicado.
+conhecimento (`mkt-branding-gusflopes: content/base/`). Decisões do Gustavo em 16/11/2026 (A1–A8 e B3 do plano da
+recalibração) já estão no código. O site começa limpo em 23/11: os exemplos do repo são `rascunho: true` com data
+anterior ao início, então não vão ao ar mesmo se alguém tirar o `rascunho`.
+
+### Decisões de 16/11 aplicadas aqui
+
+| # | Decisão | Onde está |
+|---|---|---|
+| A1 | O agente publica notícias no site. Notícia individual sai `noindex, follow` e fora do sitemap nas primeiras 8 semanas; o índice `/noticias/`, a página da semana e a análise ficam indexados. Só vira notícia publicada item com score ≥ 12 (regra do agente, não do site). | `politicaNoticias.noindexAte` em `src/config/site.ts` (hoje `2027-01-18`, comparado com a data do build); `noticiaSemIndice()` em `src/lib/noticias.ts`; `scripts/pos-build.mjs` tira páginas noindex do sitemap |
+| A4 | Reforma Tributária: só o fato e o link para o simulador, sem explicar regra. | Notícia com tema `fiscal-br` e análise com bloco `fiscal-br` mostram a caixa "Abrir o Simulador da Reforma Tributária" (UTM `utm_content=noticia-<slug>` / `analise-<id>`) |
+| A6 | Sem notícias retroativas. | `politicaNoticias.inicio = 2026-11-23`: notícia/análise com `date` anterior nunca entra no build de produção |
+| A7 | Tema `agentes` dividido em `agentes-negocio` e `agentes-engenharia` (revisão em 20/12). | `src/lib/temas.ts`; os exemplos foram migrados |
+| A8 | `/tech-radar/` separado; Notícias toma o lugar do Radar no menu e no rodapé quando houver notícia publicada, e `/radar/` passa a redirecionar (301) para `/noticias/` nessa hora; assinatura "Agente de IA do Gustavo Lopes · Não revisado / Revisado por Gustavo em dd/mm"; JSON-LD e `article:author` com o site (Organization gusflopes.dev) como autor quando a assinatura não é do Gustavo. | `Default.astro` (`autoria`, menu), `Header.tsx`, `Footer.tsx`, `src/pages/radar.astro` + `scripts/pos-build.mjs` (linha no `dist/_redirects`), `textoAssinatura` em `src/lib/temas.ts` |
+| B3 | Deploy a cada push no `main`, com portão. | `.github/workflows/deploy.yml` + `scripts/ci/deploy-liberado.sh` (ver "Deploy" abaixo) |
 
 ### Encaixe (o que foi decidido)
 
@@ -76,21 +88,41 @@ com `rascunho: true` e o menu só mostra uma seção quando ela tem algo publica
   `/tech-radar/<aaaa>-<mm>/` as anteriores. Lista por anel (adotar, experimentar, avaliar, evitar) em vez do disco
   clássico (lê no celular e no leitor de tela), com abas para as 3 visões: Tecnologia (A+B), Empresa com TI enxuta
   (C), Empresa sem TI (D). `#visao=<id>` abre a visão; `#<id-do-blip>` abre o blip (link vindo da notícia).
-- **`/radar/` (curadoria antiga) fica como está**: 12 itens, URLs preservadas, sem item novo. O papel de "diário de
-  bordo" passa para Notícias, que herda o mesmo desenho (data na margem, item, tema · fonte). Não reaproveitei o nome
-  "Radar" para o Tech radar para não quebrar links nem confundir com a newsletter "Radar de IA". Decisão de menu
-  (tirar "Radar" do menu quando Notícias entrar, redirecionar `/radar/` para `/noticias/`) fica para o Gustavo.
-- **Publicado:** `src/lib/publicado.ts` ganhou a regra `rascunho: true` → fora do build de produção (sem página,
-  RSS, sitemap nem menu). No `pnpm dev` tudo aparece com a marca "Rascunho". Data futura continua fora, como antes.
+- **`/radar/` (curadoria antiga)**: 12 itens, sem item novo; os itens em `/radar/article/<id>/` ficam no ar. Notícias
+  herda o papel de "diário de bordo" e o desenho (data na margem, item, tema · fonte). Com a primeira notícia
+  publicada, o build troca "Radar" por "Notícias" no menu e no rodapé e gera o 301 `/radar/` → `/noticias/` (A8).
+  O Tech radar não reaproveita o nome "Radar" (links antigos e a newsletter "Radar de IA", nome ainda em aberto).
+- **Publicado:** `src/lib/publicado.ts`: `rascunho: true` → fora do build de produção (sem página, RSS, sitemap nem
+  menu); data futura também fica fora. Notícia e análise têm ainda o corte de início (A6, `getNoticias`/`getAnalises`).
+  No `pnpm dev` tudo aparece com a marca "Rascunho".
 - Vocabulário (temas, públicos, visões, anéis, quadrantes) em `src/lib/temas.ts`, espelhando
   `content/base/taxonomia.yaml` do repo da marca. Tema novo na taxonomia entra aqui no mesmo dia; id em uso não se renomeia.
-- Build validado no GitHub Actions (`.github/workflows/build.yml`: push em branch que não é `main` e PR; sem deploy,
-  sem segredo). O deploy de produção continua manual (`pnpm run deploy`).
+- Build de checagem no GitHub Actions (`.github/workflows/build.yml`: push em branch que não é `main` e PR; sem
+  deploy, sem segredo). O pod não roda build do site.
+
+### Deploy (B3)
+
+- `.github/workflows/deploy.yml`: push no `main` (e `workflow_dispatch`) → portão → `pnpm build` → `wrangler deploy`
+  (site estático **e** o Worker de `/api/*`; migração de D1 continua manual) → move a tag `deploy-producao`.
+- **Portão** (`scripts/ci/deploy-liberado.sh`): para cada commit da linha principal desde a tag `deploy-producao`,
+  libera se ele mexe só em `src/content/**` **ou** se é do Gustavo (autor `gustavo@gusflopes.dev` ou
+  `gusflopes86@gmail.com`, variável de repo `DEPLOY_AUTORES` para trocar, e sem o trailer `Co-Authored-By: Claude`).
+  Mudança de código feita com o Claude entra por merge do Gustavo (o commit de merge é dele). Commit recusado trava os
+  deploys seguintes até o Gustavo resolver: rodar o workflow pela tela com `forcar: true`, ou reverter.
+- Autor de commit é convenção (o token do agente é da conta do Gustavo); a barreira dura é o ruleset do `main` (B1) e o
+  `scripts/site-publish.sh` do mkt-agent, que só empurra `src/content/**`.
+- **Segredos** (Settings → Secrets and variables → Actions): `CLOUDFLARE_API_TOKEN` (permissão de editar Workers na
+  conta) e `CLOUDFLARE_ACCOUNT_ID`. Sem eles o job falha no primeiro passo com a lista do que falta, sem publicar nada.
+- O deploy manual (`pnpm run deploy`) continua valendo e não move a tag.
 
 ### Contrato com o agente de marketing
 
-Quem escreve: o agente (`mkt-agent`, skills de notícia/análise/tech radar), sempre numa branch ou commit revisável
-neste repo. Toda notícia/análise nasce `rascunho: true` até a regra de publicação automática ser aprovada.
+Quem escreve: o agente (`mkt-agent`, skills de notícia/análise/tech radar). Com `publish: true` na agenda do agente
+(aval do Gustavo de 16/11, A1), notícia e análise saem com `rascunho: false` e entram por push direto no `main`
+mexendo só em `src/content/**` (`scripts/site-publish.sh` do mkt-agent); o push dispara o deploy. Com
+`publish: false`, ficam `rascunho: true` ou no staging da marca. O que é do agente, não do site: score ≥ 12 para virar
+notícia, janela de veto de 12h na página Produção para opinião em 1ª pessoa (A2), no máximo 3 fatos da fonte e
+"por que importa" com 1–2 públicos.
 Datas em ISO `AAAA-MM-DD`; slugs em kebab-case minúsculo; o schema (`src/content.config.ts`) é a fonte da verdade e o
 build falha se o frontmatter não bater.
 
@@ -101,7 +133,7 @@ base e vira a URL `/noticias/<slug>/`, então precisa ser único no repo inteiro
 title: "Sujeito + verbo + o que muda"        # até 100 caracteres (alvo ~70)
 excerpt: "Lead em uma frase"                  # até 320 caracteres (~40 palavras)
 date: "2026-11-23"                            # publicação no site
-temas: ["agentes", "plataformas"]             # 1–3 ids de TEMA_IDS; o 1º é o principal
+temas: ["agentes-negocio", "plataformas"]     # 1–3 ids de TEMA_IDS; o 1º é o principal
 ferramentas: ["mcp"]                          # ids da taxonomia (ligam ao tech radar); opcional
 porQueImporta:                                # pelo menos um público; só os com relevância ≥ 2
   A: "Liderança: ..."
@@ -117,12 +149,15 @@ outrasFontes: []                              # mesma forma de `fonte`; opcional
 apuradoEm: "2026-11-23"                       # quando o agente conferiu o fato na fonte
 base: "<slug-do-item-na-base>"                # vínculo de volta (vinculos.noticias no item)
 correcoes: []                                 # [{ data, texto }] — aparece como "Corrigido em dd/mm"
+assinatura: agente                            # padrão; agente-revisado (exige revisadoEm) | gustavo (só texto dele)
+revisadoEm: "2026-11-23"                      # obrigatório com agente-revisado
 image: { src: "https://...", alt: "...", credito: "Divulgação X" }   # opcional; só capa própria ou imagem oficial com crédito
-rascunho: true
+rascunho: false                               # true enquanto publish: false
 ```
 
 Corpo: 2 a 4 parágrafos curtos, reescritos com as palavras da casa (nunca cópia da fonte), número sempre com a
-origem ("segundo a empresa"). A linha "Conforme publicado em <fonte> em dd/mm", o "Por que importa" e o rodapé
+origem ("segundo a empresa"). Tema `fiscal-br` (Reforma Tributária): só o fato, sem explicar regra nem fazer conta; a
+página põe o link do simulador (A4). `date` não pode ser anterior a 2026-11-23 (A6). A linha "Conforme publicado em <fonte> em dd/mm", o "Por que importa" e o rodapé
 (tema, ferramentas, apuração, outras fontes, semana) são montados pela página — não repita no corpo.
 
 **Análise da semana** — `src/content/analises/<aaaa>-w<ss>.md` (semana ISO em minúsculas; rota `/analise/<aaaa>-w<ss>/`).
@@ -175,11 +210,12 @@ muda o status do item para `publicado`. UTM não é responsabilidade do site: os
 
 ### Pendências desta frente
 
-- Aval do Gustavo para: nomes e ordem no menu, decks das páginas, assinatura "Agente de IA do Gustavo Lopes", destino
-  do `/radar/` antigo e a primeira publicação real (tirar `rascunho`).
-- Publicação diária exige deploy diário: hoje o deploy é manual (`pnpm run deploy`). Ligar o deploy por GitHub
-  Actions (rascunho em `.github/workflows-drafts/deploy.yml`, precisa dos segredos `CLOUDFLARE_API_TOKEN` e
-  `CLOUDFLARE_ACCOUNT_ID`) ou Workers Builds no painel da Cloudflare.
+- **Gustavo:** criar os segredos `CLOUDFLARE_API_TOKEN` e `CLOUDFLARE_ACCOUNT_ID` no repo; mergear a
+  `recalibracao-v2` no `main` (o merge é dele, então o portão libera); aplicar o ruleset do `main` (B1).
+- Desligar o GitHub Pages do repo (branch `gh-pages`, deploy na fila desde 26/04), para não haver duas origens.
+- Em ~18/01/2027 (fim das 8 semanas de noindex): decidir a regra de indexação depois do corte (ex.: só notícia com
+  150 palavras ou mais) antes de deixar a data passar; hoje, passada a data, o próximo deploy indexa todas.
+- Nome da newsletter "Radar de IA" ainda em aberto (conflito com Tech radar).
 - Faixas de abertura (`noticias`, `analise`, `tech-radar`) já estão no gerador de telas; revisar visualmente no `pnpm dev`.
 - Com centenas de notícias, avaliar paginação do arquivo de semanas e do RSS (hoje: 100 mais recentes).
 
