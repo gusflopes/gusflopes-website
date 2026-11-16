@@ -137,6 +137,11 @@ export function NoticiaPage(p: NoticiaPageProps) {
             <p>
               <span className="font-bold text-petroleo">Apurado em:</span> {p.apuradoEm}
             </p>
+            {/* Transparência (regra 6 da estratégia v2): a notícia é escrita pelo agente, não assinada pelo Gustavo. */}
+            <p>
+              <span className="font-bold text-petroleo">Redação:</span> agente de IA do Gustavo Lopes, a partir da fonte
+              citada. Erro de fato é corrigido nesta página, com data.
+            </p>
             {p.outrasFontes.length > 0 && (
               <p>
                 <span className="font-bold text-petroleo">Outras fontes:</span>{' '}
