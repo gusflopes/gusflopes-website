@@ -2,7 +2,8 @@
 import { render } from 'astro:content';
 import Default from '../../layouts/Default.astro';
 import { NoticiaPage } from '../../components/pages/NoticiaPage';
-import { getNoticias, getAnalises, getEdicoesRadar, hrefAnalise, hrefSemanaNoticias, type NoticiaEntry } from '../../lib/noticias';
+import { getNoticias, getAnalises, getEdicoesRadar, hrefAnalise, hrefSemanaNoticias, noticiaSemIndice, type NoticiaEntry } from '../../lib/noticias';
+import { autoriaDe } from '../../lib/temas';
 import { formatDatePtBR } from '../../lib/format';
 import { semanaIso, rotuloSemana, diaMes } from '../../lib/semana';
 
@@ -32,7 +33,15 @@ const ferramentas = d.ferramentas.flatMap((id) => {
 const fonte = (f: typeof d.fonte) => ({ nome: f.nome, url: f.url, diaMes: diaMes(f.data) });
 ---
 
-<Default title={d.title} description={d.excerpt} image={d.image?.src} type="article" publishedDate={d.date}>
+<Default
+  title={d.title}
+  description={d.excerpt}
+  image={d.image?.src}
+  type="article"
+  publishedDate={d.date}
+  autoria={autoriaDe(d.assinatura)}
+  noindex={noticiaSemIndice()}
+>
   <NoticiaPage
     slug={entry.id}
     title={d.title}
@@ -49,6 +58,8 @@ const fonte = (f: typeof d.fonte) => ({ nome: f.nome, url: f.url, diaMes: diaMes
     analise={analise ? { href: hrefAnalise(analise.data.semana), title: analise.data.title } : undefined}
     image={d.image}
     rascunho={d.rascunho}
+    assinatura={d.assinatura}
+    revisadoEm={d.revisadoEm ? diaMes(d.revisadoEm) : undefined}
     client:load
   >
     <Content />

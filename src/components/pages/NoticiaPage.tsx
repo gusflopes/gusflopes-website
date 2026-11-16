@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react';
-import { TEMAS, PUBLICOS, PUBLICO_IDS, type TemaId, type PublicoId } from '../../lib/temas';
+import { TEMAS, PUBLICOS, PUBLICO_IDS, textoAssinatura, type TemaId, type PublicoId, type AssinaturaId } from '../../lib/temas';
+import { projetos, comUtm } from '../../config/site';
 import { NewsletterCta } from '../NewsletterCta';
 
 export interface FonteNoticia {
@@ -29,6 +30,9 @@ export interface NoticiaPageProps {
   analise?: { href: string; title: string };
   image?: { src: string; alt: string; credito?: string };
   rascunho: boolean;
+  assinatura: AssinaturaId;
+  /** "dd/mm" da revisão, quando `agente-revisado`. */
+  revisadoEm?: string;
   /** Corpo (2 a 4 parágrafos) já renderizado. */
   children?: ReactNode;
 }
@@ -40,6 +44,9 @@ export interface NoticiaPageProps {
  */
 export function NoticiaPage(p: NoticiaPageProps) {
   const publicos = PUBLICO_IDS.filter((id) => p.porQueImporta[id]);
+  const ass = textoAssinatura(p.assinatura, p.revisadoEm);
+  // A4: Reforma Tributária no site é só o fato e o link para o simulador; a regra fica com a ferramenta.
+  const fiscal = p.temas.includes('fiscal-br');
   return (
     <main id="conteudo" tabIndex={-1} className="bg-papel min-h-screen">
       <article>
@@ -61,6 +68,10 @@ export function NoticiaPage(p: NoticiaPageProps) {
               <span>{p.temas.map((t) => TEMAS[t]).join(', ')}</span>
               <span aria-hidden="true">·</span>
               <span>{p.dateFormatted}</span>
+            </p>
+            <p className="font-sans text-sm text-bruma mt-2">
+              {ass.autor}
+              {ass.nota && <> · {ass.nota}</>}
             </p>
           </div>
         </header>
@@ -101,6 +112,15 @@ export function NoticiaPage(p: NoticiaPageProps) {
               </>
             )}
 
+            {fiscal && (
+              <aside aria-label="Simulador da Reforma Tributária" className="correcoes">
+                <p className="mb-2">Quer ver o efeito na sua empresa? O simulador usa o motor oficial da Receita.</p>
+                <a href={comUtm(projetos.reforma.url, projetos.reforma.campanha, `noticia-${p.slug}`)} className="acao text-laranja-fundo">
+                  Abrir o {projetos.reforma.nome} <ArrowRight size={14} aria-hidden="true" />
+                </a>
+              </aside>
+            )}
+
             {p.correcoes.length > 0 && (
               <aside aria-label="Correções" className="correcoes">
                 {p.correcoes.map((c) => (
@@ -139,8 +159,9 @@ export function NoticiaPage(p: NoticiaPageProps) {
             </p>
             {/* Transparência (regra 6 da estratégia v2): a notícia é escrita pelo agente, não assinada pelo Gustavo. */}
             <p>
-              <span className="font-bold text-petroleo">Redação:</span> agente de IA do Gustavo Lopes, a partir da fonte
-              citada. Erro de fato é corrigido nesta página, com data.
+              <span className="font-bold text-petroleo">Assinatura:</span> {ass.autor}
+              {ass.nota && <> · {ass.nota}</>}. Escrita a partir da fonte citada; erro de fato é corrigido nesta página,
+              com data.
             </p>
             {p.outrasFontes.length > 0 && (
               <p>

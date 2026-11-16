@@ -7,7 +7,7 @@ import { telaRodape } from '../lib/telas';
 import { TelaPicture } from './TelaPicture';
 import logoLight from '../assets/logo.webp?url';
 
-export function Footer({ rodape = 'padrao' }: { rodape?: string }) {
+export function Footer({ rodape = 'padrao', noticiasNoLugarDoRadar = false }: { rodape?: string; noticiasNoLugarDoRadar?: boolean }) {
   return (
     <footer>
       {/* A passagem: toda página termina num campo claro, e o rodapé chega por esta fita pintada
@@ -45,7 +45,13 @@ export function Footer({ rodape = 'padrao' }: { rodape?: string }) {
                   <a href={eixo.href} className="text-nevoa hover:text-white underline decoration-transparent hover:decoration-laranja transition-colors">{eixo.label}</a>
                 </li>
               ))}
-              <li><a href="/radar" className="text-nevoa hover:text-white underline decoration-transparent hover:decoration-laranja transition-colors">Radar</a></li>
+              <li>
+                {noticiasNoLugarDoRadar ? (
+                  <a href="/noticias/" className="text-nevoa hover:text-white underline decoration-transparent hover:decoration-laranja transition-colors">Notícias</a>
+                ) : (
+                  <a href="/radar" className="text-nevoa hover:text-white underline decoration-transparent hover:decoration-laranja transition-colors">Radar</a>
+                )}
+              </li>
               <li><a href="/insights" className="text-nevoa hover:text-white underline decoration-transparent hover:decoration-laranja transition-colors">Insights</a></li>
               <li><a href="/newsletter" className="text-nevoa hover:text-white underline decoration-transparent hover:decoration-laranja transition-colors">Newsletter</a></li>
               <li><a href="/#about" className="text-nevoa hover:text-white underline decoration-transparent hover:decoration-laranja transition-colors">Sobre</a></li>

@@ -3,7 +3,7 @@
 title: "Agentforce Coworker passa de 185 mil usuários e chega ao Teams"
 excerpt: "A Salesforce diz que o Agentforce Coworker passou de 185 mil usuários e, em novembro, chega ao Microsoft Teams, aos apps de iOS, Mac e Windows e ao MCP."
 date: "2026-11-13"
-temas: ["agentes", "plataformas"]
+temas: ["agentes-negocio", "plataformas"]
 ferramentas: ["salesforce-agentforce", "microsoft-365", "mcp"]
 porQueImporta:
   A: "O agente da Salesforce passa a morar onde o time já trabalha (Teams); a decisão deixa de ser só do CRM e passa a ser de colaboração e de governança."

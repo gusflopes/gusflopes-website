@@ -69,3 +69,23 @@ export function comUtm(url: string, campaign: string, content: string): string {
   u.searchParams.set("utm_content", content);
   return u.toString();
 }
+
+/**
+ * Política de publicação das Notícias e da Análise da semana (estratégia v2, decisões do Gustavo em 16/11/2026).
+ * As datas são ISO (AAAA-MM-DD) e comparadas com a data do build no fuso do autor (src/lib/publicado.ts).
+ */
+export const politicaNoticias = {
+  /**
+   * A6 — o site começa limpo: notícia ou análise com `date` anterior a esta data nunca entra no build de
+   * produção, mesmo sem `rascunho` (sem notícias retroativas dos itens que já estavam na base).
+   */
+  inicio: "2026-11-23",
+  /**
+   * A1 — enquanto a data do build for anterior a esta, toda notícia individual (/noticias/<slug>/) sai com
+   * `noindex, follow` e fora do sitemap. A página da semana (/noticias/semana/…), o índice /noticias/ e a
+   * análise continuam indexados. 2027-01-18 = 8 semanas depois de 23/11. Para estender, mude a data; ao passar
+   * dela, o próximo deploy indexa todas as notícias publicadas (decidir antes a regra de depois, ex.: só corpo
+   * com 150 palavras ou mais).
+   */
+  noindexAte: "2027-01-18",
+} as const;

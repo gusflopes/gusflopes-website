@@ -1,5 +1,5 @@
 /** Hoje (YYYY-MM-DD) no fuso do autor, avaliado no momento do build. */
-const hoje = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Campo_Grande' });
+export const hoje = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Campo_Grande' });
 
 const avisados = new Set<string>();
 

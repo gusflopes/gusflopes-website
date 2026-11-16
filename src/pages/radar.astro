@@ -5,6 +5,13 @@ import Default from '../layouts/Default.astro';
 import { RadarPage, type RadarItem } from '../components/pages/RadarPage';
 import { compareIsoDateDesc, formatDatePtBR } from '../lib/format';
 import { telaCapa, fundoMargem, lombadaImg } from '../lib/telas';
+import { getNoticias } from '../lib/noticias';
+
+// A8 (16/11/2026): com notícia publicada, /radar/ vira redirecionamento para /noticias/. O 301 de verdade é a
+// linha que scripts/pos-build.mjs acrescenta ao dist/_redirects quando acha este marcador; esta página é o
+// plano B (meta refresh + canonical). Os itens antigos em /radar/article/<id>/ continuam no ar.
+const redirecionar = !import.meta.env.DEV && (await getNoticias()).length > 0;
+const destino = '/noticias/';
 
 const entries = await getCollection('radar', publicado);
 const items: RadarItem[] = entries
@@ -20,9 +27,24 @@ const items: RadarItem[] = entries
   }));
 ---
 
+{redirecionar ? (
+  <html lang="pt-BR" data-redirect-radar={destino}>
+    <head>
+      <meta charset="UTF-8" />
+      <title>Radar agora é Notícias — gusflopes.dev</title>
+      <meta http-equiv="refresh" content={`0; url=${destino}`} />
+      <meta name="robots" content="noindex, follow" />
+      <link rel="canonical" href={new URL(destino, Astro.site)} />
+    </head>
+    <body>
+      <p>O Radar agora é <a href={destino}>Notícias</a>.</p>
+    </body>
+  </html>
+) : (
 <Default
   title="Radar"
   description="Curadoria comentada por Gustavo Lopes: o que mudou em IA, engenharia de software e negócios — e por que importa."
 >
   <RadarPage items={items} client:load />
 </Default>
+)}

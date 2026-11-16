@@ -8,7 +8,10 @@
  */
 
 export const TEMA_IDS = [
-  'agentes',
+  // "agentes" foi dividido em dois em 16/11/2026 (decisão A7 do Gustavo; revisão da matriz em 20/12):
+  // agente fazendo trabalho de negócio × agente no ciclo de desenvolvimento. Nenhum conteúdo publicado usava o id antigo.
+  'agentes-negocio',
+  'agentes-engenharia',
   'contexto-e-metodo',
   'engenharia-de-software',
   'modelos',
@@ -25,7 +28,8 @@ export type TemaId = (typeof TEMA_IDS)[number];
 
 /** Rótulo curto de cada tema (metadado e filtro). */
 export const TEMAS: Record<TemaId, string> = {
-  agentes: 'Agentes',
+  'agentes-negocio': 'Agentes no negócio',
+  'agentes-engenharia': 'Agentes na engenharia',
   'contexto-e-metodo': 'Contexto e método',
   'engenharia-de-software': 'Engenharia de software',
   modelos: 'Modelos',
@@ -112,6 +116,22 @@ export const MOVIMENTOS: Record<MovimentoId, string> = {
   igual: 'Sem mudança',
 };
 
-/** Assinatura da análise da semana (playbook §2.5): nunca "Gustavo Lopes" num texto que ele não escreveu nem leu. */
+/**
+ * Assinatura de notícias e análises (playbook §2.5): nunca "Gustavo Lopes" num texto que ele não escreveu nem leu.
+ * Texto aprovado pelo Gustavo em 16/11/2026 (A8): "Agente de IA do Gustavo Lopes · Não revisado" ou
+ * "· Revisado por Gustavo em dd/mm".
+ */
 export const ASSINATURA_IDS = ['gustavo', 'agente-revisado', 'agente'] as const;
 export type AssinaturaId = (typeof ASSINATURA_IDS)[number];
+
+export const AUTOR_AGENTE = 'Agente de IA do Gustavo Lopes';
+
+/** Linha de assinatura; `revisadoEm` em "dd/mm". */
+export function textoAssinatura(assinatura: AssinaturaId, revisadoEm?: string): { autor: string; nota?: string } {
+  if (assinatura === 'gustavo') return { autor: 'Gustavo Lopes', nota: 'Pesquisa e rascunho feitos com o meu agente de IA.' };
+  if (assinatura === 'agente-revisado') return { autor: AUTOR_AGENTE, nota: `Revisado por Gustavo em ${revisadoEm}` };
+  return { autor: AUTOR_AGENTE, nota: 'Não revisado' };
+}
+
+/** Quem assina o texto para os metadados (JSON-LD e article:author): o Gustavo só quando a assinatura é dele. */
+export const autoriaDe = (assinatura: AssinaturaId): 'gustavo' | 'site' => (assinatura === 'gustavo' ? 'gustavo' : 'site');

@@ -3,7 +3,8 @@
  * `publicado` e prontas para as páginas. Só roda em build (páginas .astro).
  */
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { publicado } from './publicado';
+import { publicado, hoje } from './publicado';
+import { politicaNoticias } from '../config/site';
 import { compareIsoDateDesc, formatDatePtBR } from './format';
 import { semanaIso, rotuloSemana, slugSemana } from './semana';
 import type { TemaId } from './temas';
@@ -42,13 +43,22 @@ export interface SemanaNoticias {
 const porDataDesc = <T extends { data: { date: string; title: string } }>(a: T, b: T) =>
   compareIsoDateDesc(a.data.date, b.data.date) || a.data.title.localeCompare(b.data.title, 'pt-BR');
 
+/**
+ * Notícia e análise só entram a partir do início da v2 (A6: sem retroativo). No `pnpm dev` aparecem todas,
+ * como o resto dos rascunhos.
+ */
+const desdeOInicio = (e: { data: { date: string } }) => import.meta.env.DEV || e.data.date >= politicaNoticias.inicio;
+
 export async function getNoticias(): Promise<NoticiaEntry[]> {
-  return (await getCollection('noticias', publicado)).sort(porDataDesc);
+  return (await getCollection('noticias', (e) => publicado(e) && desdeOInicio(e))).sort(porDataDesc);
 }
 
 export async function getAnalises(): Promise<AnaliseEntry[]> {
-  return (await getCollection('analises', publicado)).sort(porDataDesc);
+  return (await getCollection('analises', (e) => publicado(e) && desdeOInicio(e))).sort(porDataDesc);
 }
+
+/** A1: notícia individual fora do índice dos buscadores até `politicaNoticias.noindexAte` (data do build). */
+export const noticiaSemIndice = () => hoje < politicaNoticias.noindexAte;
 
 export async function getEdicoesRadar(): Promise<EdicaoRadarEntry[]> {
   return (await getCollection('techRadar', publicado)).sort(porDataDesc);

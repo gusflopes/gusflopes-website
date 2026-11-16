@@ -3,7 +3,7 @@
 title: "Centauro diz ter 900 agentes de IA montados pelas próprias áreas"
 excerpt: "A varejista do Grupo SBF afirma ter mais de 900 agentes de IA numa plataforma interna em que cada área monta os seus, com 1.400 usuários e 2.300 pessoas treinadas."
 date: "2026-11-13"
-temas: ["agentes", "adocao-e-mercado", "areas-de-negocio"]
+temas: ["agentes-negocio", "adocao-e-mercado", "areas-de-negocio"]
 ferramentas: []
 porQueImporta:
   A: "O ganho saiu da TI e chegou ao pós-venda e à operação porque houve treino e um lugar só para controlar acesso e custo — não só uma licença."

@@ -158,8 +158,19 @@ const noticias = defineCollection({
       base: slug,
       /** Correções visíveis na página ("corrigido em dd/mm"). */
       correcoes: z.array(z.object({ data: isoDate, texto: z.string() })).default([]),
+      /**
+       * Assinatura (A8): `agente` (padrão) → "Agente de IA do Gustavo Lopes · Não revisado"; `agente-revisado`
+       * (exige revisadoEm) → "· Revisado por Gustavo em dd/mm"; `gustavo` só para texto escrito por ele.
+       * Fora de `gustavo`, o autor nos metadados (JSON-LD, article:author) é o site, não a pessoa.
+       */
+      assinatura: z.enum(ASSINATURA_IDS).default('agente'),
+      revisadoEm: isoDate.optional(),
       image: imagemOpcional,
       rascunho,
+    })
+    .refine((n) => n.assinatura !== 'agente-revisado' || !!n.revisadoEm, {
+      message: 'assinatura agente-revisado exige revisadoEm',
+      path: ['revisadoEm'],
     }),
 });
 

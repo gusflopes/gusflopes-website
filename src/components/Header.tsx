@@ -11,12 +11,14 @@ interface HeaderProps {
   eixosAtivos?: EixoId[];
   /** Seções da estratégia v2 (Notícias, Análise da semana, Tech radar) com conteúdo publicado — vazia não entra no menu. */
   secoesAtivas?: { label: string; href: string }[];
+  /** O Radar antigo sai do menu quando Notícias tem conteúdo publicado (A8). */
+  radarNoMenu?: boolean;
 }
 
 /** Normaliza paths para comparação: remove barras finais ('/radar/' → '/radar'). */
 const normalizePath = (p: string) => p.replace(/\/+$/, '') || '/';
 
-export function Header({ pathname: rawPathname, eixosAtivos = [], secoesAtivas = [] }: HeaderProps) {
+export function Header({ pathname: rawPathname, eixosAtivos = [], secoesAtivas = [], radarNoMenu = true }: HeaderProps) {
   const pathname = normalizePath(rawPathname);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isHome = pathname === '/';
@@ -27,7 +29,7 @@ export function Header({ pathname: rawPathname, eixosAtivos = [], secoesAtivas =
   const navItems = [
     ...eixosAtivos.map((id) => ({ label: EIXOS[id].label, href: EIXOS[id].href })),
     ...secoesAtivas,
-    { label: 'Radar', href: '/radar' },
+    ...(radarNoMenu ? [{ label: 'Radar', href: '/radar' }] : []),
     { label: 'Insights', href: '/insights' },
     { label: 'Trabalhe Comigo', href: '/#consulting' },
   ];

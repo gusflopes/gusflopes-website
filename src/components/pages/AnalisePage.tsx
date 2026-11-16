@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { TEMAS, type TemaId, type AssinaturaId } from '../../lib/temas';
+import { TEMAS, textoAssinatura, type TemaId, type AssinaturaId } from '../../lib/temas';
 import { NewsletterCta } from '../NewsletterCta';
+import { projetos, comUtm } from '../../config/site';
 
 export interface AnalisePageProps {
   id: string;
@@ -22,13 +23,6 @@ export interface AnalisePageProps {
   image?: { src: string; alt: string; credito?: string };
   rascunho: boolean;
   children?: ReactNode;
-}
-
-/** Linha de assinatura (playbook §2.5): nunca só "Gustavo Lopes" num texto que ele não escreveu nem leu. */
-export function textoAssinatura(assinatura: AssinaturaId, revisadoEm?: string): { autor: string; nota?: string } {
-  if (assinatura === 'gustavo') return { autor: 'Gustavo Lopes', nota: 'Pesquisa e rascunho feitos com o meu agente de IA.' };
-  if (assinatura === 'agente-revisado') return { autor: 'Agente de IA do Gustavo Lopes', nota: `Revisado por Gustavo em ${revisadoEm}.` };
-  return { autor: 'Agente de IA do Gustavo Lopes', nota: 'Não revisado.' };
 }
 
 /**
@@ -87,6 +81,16 @@ export function AnalisePage(p: AnalisePageProps) {
               </ul>
             </section>
             {p.children}
+
+            {/* A4: a Reforma Tributária aparece só como fato; a regra e a conta ficam com o simulador. */}
+            {p.temas.some((t) => t.tema === 'fiscal-br') && (
+              <aside aria-label="Simulador da Reforma Tributária" className="correcoes">
+                <p className="mb-2">Quer ver o efeito da reforma na sua empresa? O simulador usa o motor oficial da Receita.</p>
+                <a href={comUtm(projetos.reforma.url, projetos.reforma.campanha, `analise-${p.id}`)} className="acao text-laranja-fundo">
+                  Abrir o {projetos.reforma.nome} <ArrowRight size={14} aria-hidden="true" />
+                </a>
+              </aside>
+            )}
 
             {comNoticias.length > 0 && (
               <>
