@@ -57,6 +57,134 @@ Estado das grandes fases:
 
 ---
 
+## Estratégia v2 (16/11/2026): Notícias, Análise da semana e Tech radar
+
+Branch `recalibracao-v2`. Três seções novas, escritas pelo agente de marketing (`mkt-agent`) a partir da base de
+conhecimento (`mkt-branding-gusflopes: content/base/`). Nada entra no ar antes do aval do Gustavo: os exemplos estão
+com `rascunho: true` e o menu só mostra uma seção quando ela tem algo publicado.
+
+### Encaixe (o que foi decidido)
+
+- **`/noticias/`** — volume diário (~25–40 por semana). Índice compacto agrupado por semana ISO (as 4 semanas mais
+  recentes inteiras; as anteriores numa lista), uma página por semana em `/noticias/semana/<aaaa>-w<ss>/` e uma página
+  por notícia em `/noticias/<slug>/`. Feed próprio em `/noticias/rss.xml` (fora do `/rss.xml` geral, para não afogar
+  os textos autorais). Sem tela gerada por notícia (volume): imagem é opcional e só com crédito.
+- **`/analise/`** — Análise da semana (sexta): tese, "a semana em 3 linhas", ~5 temas ligados, leitura por público e
+  as notícias citadas. Rota `/analise/<aaaa>-w<ss>/`. Entra no `/rss.xml` geral. Assinatura com transparência
+  (`gustavo` | `agente-revisado` | `agente`).
+- **`/tech-radar/`** — edição mensal/trimestral, uma por arquivo; `/tech-radar/` mostra a mais recente e
+  `/tech-radar/<aaaa>-<mm>/` as anteriores. Lista por anel (adotar, experimentar, avaliar, evitar) em vez do disco
+  clássico (lê no celular e no leitor de tela), com abas para as 3 visões: Tecnologia (A+B), Empresa com TI enxuta
+  (C), Empresa sem TI (D). `#visao=<id>` abre a visão; `#<id-do-blip>` abre o blip (link vindo da notícia).
+- **`/radar/` (curadoria antiga) fica como está**: 12 itens, URLs preservadas, sem item novo. O papel de "diário de
+  bordo" passa para Notícias, que herda o mesmo desenho (data na margem, item, tema · fonte). Não reaproveitei o nome
+  "Radar" para o Tech radar para não quebrar links nem confundir com a newsletter "Radar de IA". Decisão de menu
+  (tirar "Radar" do menu quando Notícias entrar, redirecionar `/radar/` para `/noticias/`) fica para o Gustavo.
+- **Publicado:** `src/lib/publicado.ts` ganhou a regra `rascunho: true` → fora do build de produção (sem página,
+  RSS, sitemap nem menu). No `pnpm dev` tudo aparece com a marca "Rascunho". Data futura continua fora, como antes.
+- Vocabulário (temas, públicos, visões, anéis, quadrantes) em `src/lib/temas.ts`, espelhando
+  `content/base/taxonomia.yaml` do repo da marca. Tema novo na taxonomia entra aqui no mesmo dia; id em uso não se renomeia.
+- Build validado no GitHub Actions (`.github/workflows/build.yml`: push em branch que não é `main` e PR; sem deploy,
+  sem segredo). O deploy de produção continua manual (`pnpm run deploy`).
+
+### Contrato com o agente de marketing
+
+Quem escreve: o agente (`mkt-agent`, skills de notícia/análise/tech radar), sempre numa branch ou commit revisável
+neste repo. Toda notícia/análise nasce `rascunho: true` até a regra de publicação automática ser aprovada.
+Datas em ISO `AAAA-MM-DD`; slugs em kebab-case minúsculo; o schema (`src/content.config.ts`) é a fonte da verdade e o
+build falha se o frontmatter não bater.
+
+**Notícia** — `src/content/noticias/<AAAA>/<MM>/<slug>.md` (ano e mês da publicação no site; o `slug` é o do item da
+base e vira a URL `/noticias/<slug>/`, então precisa ser único no repo inteiro).
+
+```yaml
+title: "Sujeito + verbo + o que muda"        # até 100 caracteres (alvo ~70)
+excerpt: "Lead em uma frase"                  # até 320 caracteres (~40 palavras)
+date: "2026-11-23"                            # publicação no site
+temas: ["agentes", "plataformas"]             # 1–3 ids de TEMA_IDS; o 1º é o principal
+ferramentas: ["mcp"]                          # ids da taxonomia (ligam ao tech radar); opcional
+porQueImporta:                                # pelo menos um público; só os com relevância ≥ 2
+  A: "Liderança: ..."
+  B: "Quem executa: ..."
+  C: "Empresa com TI enxuta: ..."
+  D: "Empresa sem TI: ..."
+fonte:                                        # a primária sempre que existir
+  nome: "AWS"
+  url: "https://..."
+  data: "2026-11-20"                          # quando a fonte publicou ("conforme publicado em AWS em 20/11")
+  tipo: primaria                              # primaria | imprensa | agregador (agregador nunca é a principal)
+outrasFontes: []                              # mesma forma de `fonte`; opcional
+apuradoEm: "2026-11-23"                       # quando o agente conferiu o fato na fonte
+base: "<slug-do-item-na-base>"                # vínculo de volta (vinculos.noticias no item)
+correcoes: []                                 # [{ data, texto }] — aparece como "Corrigido em dd/mm"
+image: { src: "https://...", alt: "...", credito: "Divulgação X" }   # opcional; só capa própria ou imagem oficial com crédito
+rascunho: true
+```
+
+Corpo: 2 a 4 parágrafos curtos, reescritos com as palavras da casa (nunca cópia da fonte), número sempre com a
+origem ("segundo a empresa"). A linha "Conforme publicado em <fonte> em dd/mm", o "Por que importa" e o rodapé
+(tema, ferramentas, apuração, outras fontes, semana) são montados pela página — não repita no corpo.
+
+**Análise da semana** — `src/content/analises/<aaaa>-w<ss>.md` (semana ISO em minúsculas; rota `/analise/<aaaa>-w<ss>/`).
+
+```yaml
+title: "A tese da semana"
+excerpt: "Subtítulo"
+semana: "2026-W47"                            # semana ISO coberta
+date: "2026-11-27"                            # a sexta da publicação
+duration: "7 min"
+emTresLinhas: ["...", "...", "..."]           # 1–3 linhas
+temas:                                        # 1–6, na ordem do texto (alvo: 5)
+  - titulo: "Título do bloco (igual ao H2 do corpo)"
+    tema: custo-e-precificacao                # id de TEMA_IDS
+    noticias: ["<slug-da-noticia>"]           # só notícias publicadas viram link; rascunho some sem quebrar
+assinatura: agente                            # gustavo | agente-revisado (exige revisadoEm) | agente
+revisadoEm: "2026-11-27"                      # obrigatório com agente-revisado
+base: ["<slug>", "..."]                       # itens da base usados
+newsletter: 12                                # nº da edição que levou o texto, quando houver; opcional
+image: { src, alt, credito }                  # opcional
+rascunho: true
+```
+
+Corpo: um `##` por tema, na ordem de `temas`, com a "ponte" para o tema seguinte; depois "Leitura por público" e
+"O que observar na próxima semana".
+
+**Tech radar** — `src/content/tech-radar/<aaaa>-<mm>.md` (rota `/tech-radar/<aaaa>-<mm>/`; a mais recente publicada
+também em `/tech-radar/`). Corpo = apresentação curta da edição.
+
+```yaml
+title: "Edição de janeiro de 2027"
+excerpt: "..."
+date: "2027-01-29"
+rascunho: true
+blips:
+  - id: mcp                                   # id da taxonomia (também é a âncora #mcp)
+    nome: "MCP (Model Context Protocol)"
+    quadrante: tecnica                        # tecnica | ferramenta | plataforma | modelo
+    movimento: novo                           # novo | subiu | desceu | igual
+    visoes:                                   # pelo menos uma; a ferramenta pode ficar fora de uma visão
+      tecnologia: { anel: adotar, texto: "por quê, em uma ou duas frases" }
+      ti-enxuta:  { anel: experimentar, texto: "..." }
+      sem-ti:     { anel: avaliar, texto: "..." }
+    noticias: ["<slug-da-noticia>"]           # evidência (só as publicadas aparecem)
+    base: ["<slug-do-item>"]
+```
+
+Depois de publicar, o agente grava o vínculo de volta no item da base (`vinculos.noticias` / `analises` / `radar`) e
+muda o status do item para `publicado`. UTM não é responsabilidade do site: os links das redes já chegam com UTM.
+
+### Pendências desta frente
+
+- Aval do Gustavo para: nomes e ordem no menu, decks das páginas, assinatura "Agente de IA do Gustavo Lopes", destino
+  do `/radar/` antigo e a primeira publicação real (tirar `rascunho`).
+- Publicação diária exige deploy diário: hoje o deploy é manual (`pnpm run deploy`). Ligar o deploy por GitHub
+  Actions (rascunho em `.github/workflows-drafts/deploy.yml`, precisa dos segredos `CLOUDFLARE_API_TOKEN` e
+  `CLOUDFLARE_ACCOUNT_ID`) ou Workers Builds no painel da Cloudflare.
+- Faixas de abertura (`noticias`, `analise`, `tech-radar`) já estão no gerador de telas; revisar visualmente no `pnpm dev`.
+- Com centenas de notícias, avaliar paginação do arquivo de semanas e do RSS (hoje: 100 mais recentes).
+
+---
+
 ## Importante — qualidade que afeta o produto
 
 ### 3. Imagens locais otimizadas com `<Image />`

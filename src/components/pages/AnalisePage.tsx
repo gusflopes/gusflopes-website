@@ -114,7 +114,7 @@ export function AnalisePage(p: AnalisePageProps) {
               {ass.nota && <> · {ass.nota}</>}
             </p>
             <p>
-              A pesquisa sai da base de conhecimento do site: cada fato foi conferido na fonte e virou notícia antes de entrar
+              A pesquisa sai da base de conhecimento do agente: cada fato foi conferido na fonte e virou notícia antes de entrar
               nesta análise.
             </p>
             {p.noticiasDaSemana && (

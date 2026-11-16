@@ -15,6 +15,7 @@ Site pessoal do Gustavo — marca "ponte entre Negócios e Tecnologia". Astro 6 
 - Toda leitura de coleção passa pelo filtro `publicado` (`src/lib/publicado.ts`): no build de produção fica fora artigo com data futura (entra num deploy feito na data) ou com `[CONFIRMAR: …]` pendente.
 - Eixo editorial (`engenharia` | `negocios` | `bastidores`) é a fonte única em `src/lib/eixos.ts`; datas no frontmatter em ISO, exibição pt-BR só via `src/lib/format.ts`.
 - Os aliases versionados em `astro.config.mjs` (`vaul@1.1.2 → vaul` etc.) são herança do export do Figma, com cleanup pendente (`NEXT_STEPS.md`).
+- Notícias (`src/content/noticias/`), Análise da semana (`src/content/analises/`) e Tech radar (`src/content/tech-radar/`) são escritos pelo agente de marketing, nascem com `rascunho: true` (fora do build de produção) e seguem o contrato em `NEXT_STEPS.md` ("Contrato com o agente de marketing").
 - Novo artigo de Radar/Insights: skill `novo-conteudo`. Edição da newsletter (espelho do marketing em `/newsletter`): skill `sync-newsletter`. Estado editorial, pendências e pauta: `docs/CONTINUAR.md`.
 
 ## Verificação
