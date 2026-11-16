@@ -1,7 +1,7 @@
 name: build
 
-# Valida o build (schema das coleções, páginas, telas) fora do pod. Não publica: o deploy de
-# produção continua manual (`pnpm run deploy`, wrangler) e nada aqui usa segredo.
+# Valida o build (schema das coleções, páginas, telas) fora do pod, em branch que não é o main e em PR.
+# Não publica nem usa segredo: o deploy de produção é o deploy.yml (push no main).
 on:
   push:
     branches-ignore: [main]
