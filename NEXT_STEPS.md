@@ -216,6 +216,13 @@ muda o status do item para `publicado`. UTM não é responsabilidade do site: os
 - Em ~18/01/2027 (fim das 8 semanas de noindex): decidir a regra de indexação depois do corte (ex.: só notícia com
   150 palavras ou mais) antes de deixar a data passar; hoje, passada a data, o próximo deploy indexa todas.
 - Nome da newsletter "Radar de IA" ainda em aberto (conflito com Tech radar).
+- Copy (zona protegida): o card "Conteúdo & Insights" da home (`src/components/Services.tsx`) diz "Acessar o Radar" e
+  aponta para `/radar`; depois da virada ele cai no 301 para Notícias. Decidir o texto e o destino (Notícias ou
+  `/insights`).
+- Conferido em 16/11 num build de verificação no CI (run 43982070126, revertido em seguida): notícia com
+  `noindex, follow`, autor `gusflopes.dev` no JSON-LD e em `article:author`, assinatura "Revisado por Gustavo em
+  dd/mm", caixa do simulador em `fiscal-br` (notícia e análise), sitemap sem notícias individuais e sem `/radar/`,
+  `_redirects` com o 301, menu e rodapé com Notícias no lugar do Radar; página da semana e índice indexados.
 - Faixas de abertura (`noticias`, `analise`, `tech-radar`) já estão no gerador de telas; revisar visualmente no `pnpm dev`.
 - Com centenas de notícias, avaliar paginação do arquivo de semanas e do RSS (hoje: 100 mais recentes).
 
