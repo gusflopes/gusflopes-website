@@ -1,0 +1,28 @@
+---
+import Default from '../../../layouts/Default.astro';
+import { NoticiasPage } from '../../../components/pages/NoticiasPage';
+import { noticiasPorSemana, type SemanaNoticias } from '../../../lib/noticias';
+import { slugSemana } from '../../../lib/semana';
+
+export async function getStaticPaths() {
+  const semanas = await noticiasPorSemana();
+  // semanas vem da mais recente para a mais antiga
+  return semanas.map((s, i) => ({
+    params: { semana: slugSemana(s.semana) },
+    props: { s, seguinte: semanas[i - 1], anterior: semanas[i + 1] },
+  }));
+}
+
+interface Props {
+  s: SemanaNoticias;
+  anterior?: SemanaNoticias;
+  seguinte?: SemanaNoticias;
+}
+
+const { s, anterior, seguinte } = Astro.props;
+const link = (x?: SemanaNoticias) => (x ? { rotulo: x.rotulo, href: x.href } : undefined);
+---
+
+<Default title={`Notícias da semana de ${s.rotulo}`} description={`As ${s.itens.length} notícias de IA para empresas publicadas na semana de ${s.rotulo}.`}>
+  <NoticiasPage semanas={[s]} vizinhas={{ anterior: link(anterior), seguinte: link(seguinte) }} />
+</Default>

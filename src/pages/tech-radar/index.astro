@@ -1,0 +1,23 @@
+---
+import { render } from 'astro:content';
+import Default from '../../layouts/Default.astro';
+import { TechRadarPage } from '../../components/pages/TechRadarPage';
+import { getEdicoesRadar } from '../../lib/noticias';
+import { edicaoView, outrasEdicoes } from '../../lib/tech-radar';
+
+// /tech-radar/ mostra a edição publicada mais recente; as outras ficam em /tech-radar/<id>/.
+const edicoes = await getEdicoesRadar();
+const atual = edicoes[0];
+const Content = atual ? (await render(atual)).Content : undefined;
+const edicao = atual ? await edicaoView(atual) : undefined;
+---
+
+<Default
+  title="Tech radar"
+  description="Ferramentas e práticas de IA em quatro anéis — adotar, experimentar, avaliar, evitar — com uma leitura para cada tipo de empresa."
+  noindex={!atual}
+>
+  <TechRadarPage edicao={edicao} outras={outrasEdicoes(edicoes, atual?.id)} client:load>
+    {Content && <Content />}
+  </TechRadarPage>
+</Default>

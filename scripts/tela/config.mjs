@@ -144,6 +144,9 @@ export const ARQUETIPO_FAIXA = {
   negocios: 'ondas', // ciclos longos
   bastidores: 'faixas', // camadas do processo
   newsletter: 'horizonte', // o arquivo da newsletter: um horizonte baixo, como a fita que ele tinha
+  noticias: 'vento', // o fluxo diário que atravessa (o mesmo gesto do Radar, de quem herda o papel)
+  analise: 'faixas', // camadas: os temas da semana empilhados e ligados
+  'tech-radar': 'manchas', // discos espalhados, sem centro: os blips
   'nao-encontrada': 'vento',
 };
 

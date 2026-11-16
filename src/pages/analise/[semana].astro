@@ -1,0 +1,53 @@
+---
+import { render } from 'astro:content';
+import Default from '../../layouts/Default.astro';
+import { AnalisePage } from '../../components/pages/AnalisePage';
+import { getAnalises, getNoticias, hrefNoticia, hrefSemanaNoticias, type AnaliseEntry } from '../../lib/noticias';
+import { formatDatePtBR } from '../../lib/format';
+import { rotuloSemana, slugSemana, semanaIso, diaMes } from '../../lib/semana';
+
+export async function getStaticPaths() {
+  return (await getAnalises()).map((entry) => ({ params: { semana: slugSemana(entry.data.semana) }, props: { entry } }));
+}
+
+interface Props {
+  entry: AnaliseEntry;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+// Só notícia publicada vira link (rascunho ou slug inexistente some da lista, sem quebrar o build).
+const noticias = await getNoticias();
+const porSlug = new Map(noticias.map((n) => [n.id, n]));
+const temas = d.temas.map((t) => ({
+  titulo: t.titulo,
+  tema: t.tema,
+  noticias: t.noticias.flatMap((s) => {
+    const n = porSlug.get(s);
+    return n ? [{ title: n.data.title, href: hrefNoticia(s) }] : [];
+  }),
+}));
+const temNoticiasNaSemana = noticias.some((n) => semanaIso(n.data.date) === d.semana);
+---
+
+<Default title={d.title} description={d.excerpt} image={d.image?.src} type="article" publishedDate={d.date}>
+  <AnalisePage
+    id={entry.id}
+    title={d.title}
+    excerpt={d.excerpt}
+    semanaRotulo={rotuloSemana(d.semana)}
+    dateFormatted={formatDatePtBR(d.date)}
+    duration={d.duration}
+    emTresLinhas={d.emTresLinhas}
+    temas={temas}
+    assinatura={d.assinatura}
+    revisadoEm={d.revisadoEm ? diaMes(d.revisadoEm) : undefined}
+    noticiasDaSemana={temNoticiasNaSemana ? hrefSemanaNoticias(d.semana) : undefined}
+    image={d.image}
+    rascunho={d.rascunho}
+    client:load
+  >
+    <Content />
+  </AnalisePage>
+</Default>

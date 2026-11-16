@@ -1,0 +1,56 @@
+---
+import { render } from 'astro:content';
+import Default from '../../layouts/Default.astro';
+import { NoticiaPage } from '../../components/pages/NoticiaPage';
+import { getNoticias, getAnalises, getEdicoesRadar, hrefAnalise, hrefSemanaNoticias, type NoticiaEntry } from '../../lib/noticias';
+import { formatDatePtBR } from '../../lib/format';
+import { semanaIso, rotuloSemana, diaMes } from '../../lib/semana';
+
+export async function getStaticPaths() {
+  return (await getNoticias()).map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+interface Props {
+  entry: NoticiaEntry;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+const semana = semanaIso(d.date);
+
+// Análise publicada que cita esta notícia (a mais recente, se mais de uma).
+const analise = (await getAnalises()).find((a) => a.data.temas.some((t) => t.noticias.includes(entry.id)));
+// Ferramentas que estão no tech radar publicado mais recente aparecem com link para o blip; as
+// outras ficam só no frontmatter (o site não guarda os nomes da taxonomia, e um id cru não é texto de leitor).
+const radar = (await getEdicoesRadar())[0];
+const blips = new Map((radar?.data.blips ?? []).map((b) => [b.id, b]));
+const ferramentas = d.ferramentas.flatMap((id) => {
+  const b = blips.get(id);
+  return b ? [{ id, nome: b.nome, href: `/tech-radar/#${id}` }] : [];
+});
+const fonte = (f: typeof d.fonte) => ({ nome: f.nome, url: f.url, diaMes: diaMes(f.data) });
+---
+
+<Default title={d.title} description={d.excerpt} image={d.image?.src} type="article" publishedDate={d.date}>
+  <NoticiaPage
+    slug={entry.id}
+    title={d.title}
+    excerpt={d.excerpt}
+    dateFormatted={formatDatePtBR(d.date)}
+    temas={d.temas}
+    fonte={fonte(d.fonte)}
+    outrasFontes={d.outrasFontes.map(fonte)}
+    porQueImporta={d.porQueImporta}
+    apuradoEm={formatDatePtBR(d.apuradoEm)}
+    ferramentas={ferramentas}
+    correcoes={d.correcoes.map((c) => ({ data: diaMes(c.data), texto: c.texto }))}
+    semana={{ rotulo: rotuloSemana(semana), href: hrefSemanaNoticias(semana) }}
+    analise={analise ? { href: hrefAnalise(analise.data.semana), title: analise.data.title } : undefined}
+    image={d.image}
+    rascunho={d.rascunho}
+    client:load
+  >
+    <Content />
+  </NoticiaPage>
+</Default>

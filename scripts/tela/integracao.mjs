@@ -21,7 +21,7 @@ import sharp from 'sharp';
 
 const EIXO_LABEL = { engenharia: 'Engenharia & IA', negocios: 'Negócios', bastidores: 'Bastidores' };
 /** Faixas de abertura dos hubs: semente = nome da página. */
-export const FAIXAS = ['insights', 'radar', 'engenharia', 'negocios', 'bastidores', 'newsletter'];
+export const FAIXAS = ['insights', 'radar', 'engenharia', 'negocios', 'bastidores', 'newsletter', 'noticias', 'analise', 'tech-radar'];
 /**
  * Telas com papel próprio fora dos textos: [grupo, nome, papel, semente]. Cada papel tem a sua
  * semente — nunca a mesma tela repetida como textura. Ver src/lib/telas.ts.
@@ -39,7 +39,8 @@ export const TELAS_PAPEL = [
 ];
 
 /** Páginas fixas (fora das coleções) que ganham fita de rodapé própria. */
-const PAGINAS_FIXAS = ['/', '/insights/', '/radar/', '/engenharia/', '/negocios/', '/bastidores/', '/newsletter/', '/privacy/', '/terms/', '/404'];
+// Notícias, análises e edições do tech radar não ganham fita própria (volume): usam a padrão.
+const PAGINAS_FIXAS = ['/', '/insights/', '/radar/', '/engenharia/', '/negocios/', '/bastidores/', '/newsletter/', '/noticias/', '/analise/', '/tech-radar/', '/privacy/', '/terms/', '/404'];
 
 function frontmatter(arquivo) {
   const txt = fs.readFileSync(arquivo, 'utf8');
