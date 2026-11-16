@@ -3,7 +3,7 @@
 title: "Amazon Connect passa a chamar ferramentas MCP sem código sob medida"
 excerpt: "O atendimento da AWS ganhou um bloco que deixa o fluxo consultar ferramentas MCP pelo Bedrock AgentCore Gateway, sem escrever uma função Lambda para cada integração."
 date: "2026-11-13"
-temas: ["plataformas", "contexto-e-metodo"]
+temas: ["plataformas", "contexto-e-metodo", "fiscal-br"]
 ferramentas: ["amazon-connect", "aws-bedrock", "mcp"]
 porQueImporta:
   A: "Integração de atendimento com sistemas internos fica mais barata de manter: menos código sob medida por integração."
@@ -15,7 +15,9 @@ fonte:
   data: "2026-11-02"
 apuradoEm: "2026-11-13"
 base: "amazon-connect-fluxo-chama-ferramenta-mcp"
-rascunho: true
+assinatura: agente-revisado
+revisadoEm: "2026-11-14"
+rascunho: false
 ---
 
 O novo bloco External Tool permite que um fluxo do Amazon Connect chame ferramentas expostas por MCP por meio do Bedrock AgentCore Gateway. O exemplo da AWS é consultar o histórico de casos de um cliente no CRM durante o atendimento.
