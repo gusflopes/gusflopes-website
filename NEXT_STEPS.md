@@ -57,7 +57,68 @@ Estado das grandes fases:
 
 ---
 
-## Estratégia v2 (16/11/2026): Notícias, Análise da semana e Tech radar
+## Reorganização das seções (16/11/2026)
+
+Decisão do Gustavo em 16/11. Branch `recalibracao-v2`; validado no CI da branch (`build.yml`).
+
+**Menu:** Notícias · Análise · Radar · Artigos · Ferramentas. As três primeiras só aparecem quando têm algo publicado
+(no build de produção, rascunho e data anterior a 23/11 não contam); Artigos e Ferramentas sempre. Newsletter e
+"Trabalhe comigo" saíram do menu e viraram chamadas à direita do topo (`CHAMADAS` em `src/components/Header.tsx`) e no
+rodapé. Os eixos saíram do menu e do rodapé.
+
+| Rota | O que é | Fonte |
+|---|---|---|
+| `/noticias/` | fluxo diário, com filtro por tema e por público (`?tema=<id>&publico=<slug>`) | `src/content/noticias/` |
+| `/noticias/curadoria/` | **novo:** arquivo da curadoria do Radar antigo (8 links externos, sem item novo) | `src/content/curadoria/` |
+| `/analise/` | semanal, a mesma edição da newsletter; cada análise linka o Sobre | `src/content/analises/` |
+| `/radar/`, `/radar/<aaaa>-<mm>/` | **tech radar** (antes em `/tech-radar/`) | `src/content/radar/` (antes `src/content/tech-radar/`) |
+| `/insights/`, `/insights/article/<id>/` | **Artigos** (rótulo novo, rota mantida); filtro por público (`?publico=`) e tag Bastidores (`?tag=bastidores`) | `src/content/insights/` |
+| `/ferramentas/` | **novo:** Simulador da Reforma Tributária e servidor MCP rt2026 | `src/components/pages/FerramentasPage.tsx` + `projetos` em `src/config/site.ts` |
+| `/sobre/` | **novo**, fora do menu, no rodapé e em cada análise; `rascunho: true` | `src/content/paginas/sobre.md` |
+| `/engenharia/`, `/negocios/`, `/bastidores/` | mantidas como páginas de filtro (mesma lista de antes, com aviso de que os textos estão em Artigos); RSS por eixo mantido | `src/pages/[eixo]/` |
+
+**Redirects (301, `public/_redirects`):** `/tech-radar`, `/tech-radar/` e `/tech-radar/*` → `/radar/:splat`;
+`/radar/article/<id>` dos 4 textos autorais → `/insights/article/<id>/` (`eu-ai-act-checklist-engenharia`,
+`opus-45-gemini-3-gpt-51-como-escolher`, `plataforma-interna-era-dos-agentes`, `retrospectiva-2025-agentes-fora-do-hype`);
+qualquer outro `/radar/article/*` → `/noticias/curadoria/` (os externos nunca tiveram página). Saiu o 301
+`/radar/` → `/noticias/` da A8 (o passo 2 de `scripts/pos-build.mjs`): `/radar/` agora é o tech radar.
+
+**Coleções:** `radar` (curadoria antiga) virou `curadoria` (só externos, `isExternal: true`); os 4 locais foram para
+`insights` sem os campos `type/isExternal/link/source`; `techRadar` virou `radar` (pasta `src/content/radar/`);
+`insights` ganhou `publicos` opcional; nova coleção `paginas` (hoje só `sobre`).
+
+**Por que a curadoria não foi para `noticias`:** o formato não cabe (notícia exige `porQueImporta`, `fonte` com data,
+`apuradoEm`, `base`, temas da taxonomia) e a A6 proíbe notícia com data anterior a 23/11 — os 12 itens nunca iriam ao ar.
+
+**Públicos:** Liderança (A), Quem executa (B), Empresa com TI enxuta (C), Empresa sem TI (D); slugs de URL
+`lideranca`, `quem-executa`, `ti-enxuta`, `sem-ti` (`PUBLICO_SLUGS` em `src/lib/temas.ts`). Em Notícias, o público
+vem das chaves preenchidas de `porQueImporta`. Em Artigos, de `publicos` no frontmatter ou, sem ele, do eixo
+(`PUBLICOS_DO_EIXO` em `src/lib/eixos.ts`: engenharia → A+B, negócios → C+D, bastidores → A+B). Bastidores vira a
+tag `bastidores` (derivada do eixo; não precisa repetir no frontmatter).
+
+**Ferramentas — o que ficou fora:** o Business Game não tem nenhuma evidência no repositório do site (nem página, nem
+URL, nem texto), então não entrou. Outros servidores MCP também não: só o rt2026 tem endereço e artigo.
+
+### Pendências da reorganização (Gustavo)
+
+- **Revisar o texto do `/sobre`** (`src/content/paginas/sobre.md`) e tirar o `rascunho: true`. Base: PR #7 (fechado),
+  partes Trajetória, Formação (a acadêmica) e "três provas", ajustadas para liderança de tecnologia. Os fatos vieram
+  do PR e não foram confirmados por ele (cargo, três squads, pricing do varejo automotivo, OAB/MS, Porto Hack Santos
+  2025, "SQL Server de 2009" virou "sistema legado"). Ficaram de fora os cards de produto do PR (curso, workshop,
+  mentoria), porque não existem no site. Enquanto for rascunho, `/sobre/` redireciona para `/#about` e o rodapé e as
+  análises apontam para `/#about`.
+- **Mapeamento eixo → público** dos artigos (`PUBLICOS_DO_EIXO`): provisório. Para um artigo específico, basta pôr
+  `publicos: ["A", "C"]` no frontmatter.
+- **Business Game:** se for para entrar em Ferramentas, mandar a URL pública e uma linha do que é.
+- Copy nova, curta, a confirmar: deck de Ferramentas, deck do Radar, rótulos "Para quem"/"Tema" dos filtros, aviso
+  nas páginas dos eixos ("Os textos agora ficam em Artigos, com filtro por público"), texto da curadoria em arquivo,
+  "Quem é Gustavo Lopes" no fim da análise, e o card "Conteúdo & Insights" da home (`Services.tsx`), que agora diz
+  "Ler os artigos" e aponta para `/insights` (antes "Acessar o Radar" → `/radar`).
+- A seção "Eixos" da home (`Eixos.tsx`, "O que eu escrevo, e para quem") ainda apresenta os três eixos e linka as
+  páginas de filtro. Decidir se ela passa a mostrar as seções novas.
+- Topo: "Contato" (mailto) saiu do cabeçalho para dar lugar a Newsletter e Trabalhe comigo; o e-mail segue no rodapé.
+
+## Estratégia v2 (16/11/2026): Notícias, Análise da semana e Radar
 
 Branch `recalibracao-v2`. Três seções novas, escritas pelo agente de marketing (`mkt-agent`) a partir da base de
 conhecimento (`mkt-branding-gusflopes: content/base/`). Decisões do Gustavo em 16/11/2026 (A1–A8 e B3 do plano da
@@ -72,7 +133,7 @@ anterior ao início, então não vão ao ar mesmo se alguém tirar o `rascunho`.
 | A4 | Reforma Tributária: só o fato e o link para o simulador, sem explicar regra. | Notícia com tema `fiscal-br` e análise com bloco `fiscal-br` mostram a caixa "Abrir o Simulador da Reforma Tributária" (UTM `utm_content=noticia-<slug>` / `analise-<id>`) |
 | A6 | Sem notícias retroativas. | `politicaNoticias.inicio = 2026-11-23`: notícia/análise com `date` anterior nunca entra no build de produção |
 | A7 | Tema `agentes` dividido em `agentes-negocio` e `agentes-engenharia` (revisão em 20/12). | `src/lib/temas.ts`; os exemplos foram migrados |
-| A8 | `/tech-radar/` separado; Notícias toma o lugar do Radar no menu e no rodapé quando houver notícia publicada, e `/radar/` passa a redirecionar (301) para `/noticias/` nessa hora; assinatura "Agente de IA do Gustavo Lopes · Não revisado / Revisado por Gustavo em dd/mm"; JSON-LD e `article:author` com o site (Organization gusflopes.dev) como autor quando a assinatura não é do Gustavo. | `Default.astro` (`autoria`, menu), `Header.tsx`, `Footer.tsx`, `src/pages/radar.astro` + `scripts/pos-build.mjs` (linha no `dist/_redirects`), `textoAssinatura` em `src/lib/temas.ts` |
+| A8 | ~~`/tech-radar/` separado; `/radar/` → `/noticias/`~~ (substituído pela reorganização de 16/11: o tech radar é `/radar/`, a curadoria antiga está em `/noticias/curadoria/`); assinatura "Agente de IA do Gustavo Lopes · Não revisado / Revisado por Gustavo em dd/mm"; JSON-LD e `article:author` com o site (Organization gusflopes.dev) como autor quando a assinatura não é do Gustavo. | `Default.astro` (`autoria`, menu), `Header.tsx`, `Footer.tsx`, `public/_redirects`, `textoAssinatura` em `src/lib/temas.ts` |
 | B3 | Deploy a cada push no `main`, com portão. | `.github/workflows/deploy.yml` + `scripts/ci/deploy-liberado.sh` (ver "Deploy" abaixo) |
 
 ### Encaixe (o que foi decidido)
@@ -84,14 +145,15 @@ anterior ao início, então não vão ao ar mesmo se alguém tirar o `rascunho`.
 - **`/analise/`** — Análise da semana (sexta): tese, "a semana em 3 linhas", ~5 temas ligados, leitura por público e
   as notícias citadas. Rota `/analise/<aaaa>-w<ss>/`. Entra no `/rss.xml` geral. Assinatura com transparência
   (`gustavo` | `agente-revisado` | `agente`).
-- **`/tech-radar/`** — edição mensal/trimestral, uma por arquivo; `/tech-radar/` mostra a mais recente e
-  `/tech-radar/<aaaa>-<mm>/` as anteriores. Lista por anel (adotar, experimentar, avaliar, evitar) em vez do disco
-  clássico (lê no celular e no leitor de tela), com abas para as 3 visões: Tecnologia (A+B), Empresa com TI enxuta
-  (C), Empresa sem TI (D). `#visao=<id>` abre a visão; `#<id-do-blip>` abre o blip (link vindo da notícia).
-- **`/radar/` (curadoria antiga)**: 12 itens, sem item novo; os itens em `/radar/article/<id>/` ficam no ar. Notícias
-  herda o papel de "diário de bordo" e o desenho (data na margem, item, tema · fonte). Com a primeira notícia
-  publicada, o build troca "Radar" por "Notícias" no menu e no rodapé e gera o 301 `/radar/` → `/noticias/` (A8).
-  O Tech radar não reaproveita o nome "Radar" (links antigos e a newsletter "Radar de IA", nome ainda em aberto).
+- **`/radar/`** — tech radar no estilo Thoughtworks: edição trimestral com ajustes mensais, uma por arquivo; `/radar/`
+  mostra a mais recente e `/radar/<aaaa>-<mm>/` as anteriores. Disco com quadrantes (Técnicas, Ferramentas,
+  Plataformas, Modelos) e anéis (Adotar, Experimentar, Avaliar, Evitar), blips numerados com marca de novo ou de
+  mudança de anel, e a lista por quadrante (a mesma numeração) com justificativa, "antes: <anel>" e as notícias que
+  servem de evidência — a lista é o que o leitor de tela e o celular leem. Seletor das 3 visões: Tecnologia (A+B),
+  Empresa com TI enxuta (C), Empresa sem TI (D). `#visao=<id>` abre a visão; `#<id-do-blip>` abre o blip (link vindo
+  da notícia). Até 16/11 a rota era `/tech-radar/` (301).
+- **Curadoria antiga** (12 itens): 4 textos autorais em Artigos, 8 links externos em `/noticias/curadoria/`
+  (arquivo, sem item novo). Notícias herdou o papel de "diário de bordo" e o desenho.
 - **Publicado:** `src/lib/publicado.ts`: `rascunho: true` → fora do build de produção (sem página, RSS, sitemap nem
   menu); data futura também fica fora. Notícia e análise têm ainda o corte de início (A6, `getNoticias`/`getAnalises`).
   No `pnpm dev` tudo aparece com a marca "Rascunho".
@@ -117,7 +179,7 @@ anterior ao início, então não vão ao ar mesmo se alguém tirar o `rascunho`.
 
 ### Contrato com o agente de marketing
 
-Quem escreve: o agente (`mkt-agent`, skills de notícia/análise/tech radar). Com `publish: true` na agenda do agente
+Quem escreve: o agente (`mkt-agent`, skills de notícia/análise/radar). Com `publish: true` na agenda do agente
 (aval do Gustavo de 16/11, A1), notícia e análise saem com `rascunho: false` e entram por push direto no `main`
 mexendo só em `src/content/**` (`scripts/site-publish.sh` do mkt-agent); o push dispara o deploy. Com
 `publish: false`, ficam `rascunho: true` ou no staging da marca. O que é do agente, não do site: score ≥ 12 para virar
@@ -127,7 +189,8 @@ Datas em ISO `AAAA-MM-DD`; slugs em kebab-case minúsculo; o schema (`src/conten
 build falha se o frontmatter não bater.
 
 **Notícia** — `src/content/noticias/<AAAA>/<MM>/<slug>.md` (ano e mês da publicação no site; o `slug` é o do item da
-base e vira a URL `/noticias/<slug>/`, então precisa ser único no repo inteiro).
+base e vira a URL `/noticias/<slug>/`, então precisa ser único no repo inteiro e não pode ser `curadoria` nem
+`semana`, que são rotas fixas). O filtro por público de `/noticias/` usa as chaves preenchidas de `porQueImporta`.
 
 ```yaml
 title: "Sujeito + verbo + o que muda"        # até 100 caracteres (alvo ~70)
@@ -184,26 +247,38 @@ rascunho: true
 Corpo: um `##` por tema, na ordem de `temas`, com a "ponte" para o tema seguinte; depois "Leitura por público" e
 "O que observar na próxima semana".
 
-**Tech radar** — `src/content/tech-radar/<aaaa>-<mm>.md` (rota `/tech-radar/<aaaa>-<mm>/`; a mais recente publicada
-também em `/tech-radar/`). Corpo = apresentação curta da edição.
+**Radar (tech radar)** — `src/content/radar/<aaaa>-<mm>.md` (**mudou em 16/11/2026:** era
+`src/content/tech-radar/<aaaa>-<mm>.md`; rota `/radar/<aaaa>-<mm>/`, era `/tech-radar/<aaaa>-<mm>/`; a mais recente
+publicada também em `/radar/`; link para um blip: `/radar/#<id>`). Corpo = apresentação curta da edição. Uma edição
+trimestral cheia por trimestre; entre elas, ajustes mensais (`tipo: ajuste`), cada um num arquivo do seu mês.
 
 ```yaml
 title: "Edição de janeiro de 2027"
 excerpt: "..."
 date: "2027-01-29"
+tipo: trimestral                              # trimestral (padrão) | ajuste  (campo novo, opcional)
 rascunho: true
 blips:
   - id: mcp                                   # id da taxonomia (também é a âncora #mcp)
     nome: "MCP (Model Context Protocol)"
     quadrante: tecnica                        # tecnica | ferramenta | plataforma | modelo
-    movimento: novo                           # novo | subiu | desceu | igual
+    movimento: novo                           # novo (1ª edição em que aparece) | igual | subiu | desceu
     visoes:                                   # pelo menos uma; a ferramenta pode ficar fora de uma visão
       tecnologia: { anel: adotar, texto: "por quê, em uma ou duas frases" }
-      ti-enxuta:  { anel: experimentar, texto: "..." }
+      ti-enxuta:  { anel: experimentar, texto: "...", anterior: avaliar }   # anterior (novo, opcional): anel na edição anterior
       sem-ti:     { anel: avaliar, texto: "..." }
     noticias: ["<slug-da-noticia>"]           # evidência (só as publicadas aparecem)
     base: ["<slug-do-item>"]
 ```
+
+Mudança de anel é por visão: preencha `anterior` na visão que mudou (a página mostra "Subiu/Desceu de anel · antes:
+<anel>" e o blip com contorno tracejado). `movimento: novo` vale para o blip inteiro (contorno cheio) e ignora
+`anterior`. Sem `anterior` e com `movimento: subiu|desceu`, a página mostra só "Subiu/Desceu de anel".
+
+**Curadoria (arquivo)** — `src/content/curadoria/` é só leitura: a produção não escreve aí.
+
+**Artigos** — `src/content/insights/<slug>.md`, rota `/insights/article/<slug>/` (sem mudança de caminho). Campo novo
+opcional `publicos: ["A", "B"]` (sem ele, vale o padrão do eixo).
 
 Depois de publicar, o agente grava o vínculo de volta no item da base (`vinculos.noticias` / `analises` / `radar`) e
 muda o status do item para `publicado`. UTM não é responsabilidade do site: os links das redes já chegam com UTM.
@@ -215,15 +290,12 @@ muda o status do item para `publicado`. UTM não é responsabilidade do site: os
 - Desligar o GitHub Pages do repo (branch `gh-pages`, deploy na fila desde 26/04), para não haver duas origens.
 - Em ~18/01/2027 (fim das 8 semanas de noindex): decidir a regra de indexação depois do corte (ex.: só notícia com
   150 palavras ou mais) antes de deixar a data passar; hoje, passada a data, o próximo deploy indexa todas.
-- Nome da newsletter "Radar de IA" ainda em aberto (conflito com Tech radar).
-- Copy (zona protegida): o card "Conteúdo & Insights" da home (`src/components/Services.tsx`) diz "Acessar o Radar" e
-  aponta para `/radar`; depois da virada ele cai no 301 para Notícias. Decidir o texto e o destino (Notícias ou
-  `/insights`).
+- Nome da newsletter "Radar de IA" ainda em aberto (conflito com o Radar, agora o tech radar em `/radar/`).
 - Conferido em 16/11 num build de verificação no CI (run 43982070126, revertido em seguida): notícia com
   `noindex, follow`, autor `gusflopes.dev` no JSON-LD e em `article:author`, assinatura "Revisado por Gustavo em
   dd/mm", caixa do simulador em `fiscal-br` (notícia e análise), sitemap sem notícias individuais e sem `/radar/`,
   `_redirects` com o 301, menu e rodapé com Notícias no lugar do Radar; página da semana e índice indexados.
-- Faixas de abertura (`noticias`, `analise`, `tech-radar`) já estão no gerador de telas; revisar visualmente no `pnpm dev`.
+- Faixas de abertura (`noticias`, `analise`, `tech-radar` — usada por `/radar/` —, `ferramentas`, `sobre`) estão no gerador de telas; revisar visualmente no `pnpm dev`.
 - Com centenas de notícias, avaliar paginação do arquivo de semanas e do RSS (hoje: 100 mais recentes).
 
 ---

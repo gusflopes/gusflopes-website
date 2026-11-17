@@ -13,10 +13,10 @@ Site pessoal do Gustavo — marca "ponte entre Negócios e Tecnologia". Astro 6 
 
 - Páginas `.astro` são finas: leem a coleção e passam props para um componente-página React em `src/components/pages/` (`client:load`). O corpo markdown entra por slot via `render(entry)`, não pelo React.
 - Toda leitura de coleção passa pelo filtro `publicado` (`src/lib/publicado.ts`): no build de produção fica fora artigo com data futura (entra num deploy feito na data) ou com `[CONFIRMAR: …]` pendente.
-- Eixo editorial (`engenharia` | `negocios` | `bastidores`) é a fonte única em `src/lib/eixos.ts`; datas no frontmatter em ISO, exibição pt-BR só via `src/lib/format.ts`.
+- Seções (16/11/2026): Notícias, Análise, Radar (tech radar), Artigos (`/insights`) e Ferramentas; mapa de rotas, redirects e coleções em `NEXT_STEPS.md` ("Reorganização das seções"). Eixo editorial (`engenharia` | `negocios` | `bastidores`, `src/lib/eixos.ts`) saiu do menu: virou filtro por público (`src/lib/temas.ts`) e a tag Bastidores. Datas no frontmatter em ISO, exibição pt-BR só via `src/lib/format.ts`.
 - Os aliases versionados em `astro.config.mjs` (`vaul@1.1.2 → vaul` etc.) são herança do export do Figma, com cleanup pendente (`NEXT_STEPS.md`).
-- Notícias (`src/content/noticias/`), Análise da semana (`src/content/analises/`) e Tech radar (`src/content/tech-radar/`) são escritos pelo agente de marketing, nascem com `rascunho: true` (fora do build de produção) e seguem o contrato em `NEXT_STEPS.md` ("Contrato com o agente de marketing").
-- Novo artigo de Radar/Insights: skill `novo-conteudo`. Edição da newsletter (espelho do marketing em `/newsletter`): skill `sync-newsletter`. Estado editorial, pendências e pauta: `docs/CONTINUAR.md`.
+- Notícias (`src/content/noticias/`), Análise da semana (`src/content/analises/`) e Radar (`src/content/radar/`, o tech radar) são escritos pelo agente de marketing, nascem com `rascunho: true` (fora do build de produção) e seguem o contrato em `NEXT_STEPS.md` ("Contrato com o agente de marketing").
+- Novo artigo (Artigos = `src/content/insights/`): skill `novo-conteudo`. A curadoria antiga (`src/content/curadoria/`) é arquivo, sem item novo. Edição da newsletter (espelho do marketing em `/newsletter`): skill `sync-newsletter`. Estado editorial, pendências e pauta: `docs/CONTINUAR.md`.
 
 ## Verificação
 
