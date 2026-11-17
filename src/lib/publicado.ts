@@ -8,7 +8,7 @@ const avisados = new Set<string>();
  * nem sitemap) o item que:
  * - tem data futura — entra num deploy feito na data;
  * - ainda tem marcador `[CONFIRMAR: …]` no corpo — relato pessoal pendente;
- * - está marcado `rascunho: true` (Notícias, Análise da semana e Tech radar, escritos pelo agente).
+ * - está marcado `rascunho: true` (Notícias, Análise da semana e Radar, escritos pelo agente; página /sobre).
  * No `pnpm dev` tudo aparece, para revisar antes.
  */
 export const publicado = ({ id, data, body }: { id: string; data: { date: string; rascunho?: boolean }; body?: string }) => {

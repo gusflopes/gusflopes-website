@@ -11,8 +11,9 @@ export function getStaticPaths() {
 
 const eixo = Astro.params.eixo as EixoId;
 const def = EIXOS[eixo];
-// Hub do eixo = textos autorais dos dois formatos (Insights + Radar local).
-const articles = await getArtigos({ eixo, incluirRadarLocal: true });
+// Página de filtro (16/11/2026): os eixos saíram do menu e viraram filtro por público em Artigos; esta rota
+// continua no ar para não quebrar links (a mesma lista de antes, os artigos do eixo).
+const articles = await getArtigos({ eixo });
 const reforma = projetos.reforma;
 ---
 

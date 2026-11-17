@@ -1,9 +1,7 @@
 ---
-import { getCollection } from 'astro:content';
-import { publicado } from '../lib/publicado';
 import { getNoticias, getAnalises, getEdicoesRadar } from '../lib/noticias';
+import { hrefSobre } from '../lib/paginas';
 import { Header } from '../components/Header';
-import { EIXO_IDS } from '../lib/eixos';
 import { Footer } from '../components/Footer';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -52,23 +50,20 @@ const {
   autoria = 'gustavo',
 } = Astro.props;
 
-// Eixos com conteúdo autoral publicado: só esses aparecem no menu.
-const autorais = [
-  ...(await getCollection('insights', publicado)),
-  ...(await getCollection('radar', (e) => publicado(e) && !e.data.isExternal)),
-];
-const eixosAtivos = EIXO_IDS.filter((id) => autorais.some((e) => e.data.eixo === id));
-// Seções da estratégia v2: só entram no menu quando têm algo publicado (rascunho e data anterior ao início não
-// contam no build de produção).
-const SECOES_V2 = [
-  { label: 'Notícias', href: '/noticias', itens: await getNoticias() },
-  { label: 'Análise', href: '/analise', itens: await getAnalises() },
-  { label: 'Tech radar', href: '/tech-radar', itens: await getEdicoesRadar() },
-];
-const secoesComConteudo = SECOES_V2.filter((s) => s.itens.length > 0).map(({ label, href }) => ({ label, href }));
-// A8: quando houver notícia publicada, Notícias toma o lugar do Radar antigo no menu e no rodapé (e /radar/
-// redireciona para /noticias/: src/pages/radar.astro + scripts/pos-build.mjs). Os itens antigos ficam no ar.
-const noticiasNoLugarDoRadar = !import.meta.env.DEV && SECOES_V2[0].itens.length > 0;
+// Menu (decisão do Gustavo em 16/11/2026): cinco seções — Notícias, Análise, Radar, Artigos e Ferramentas. As três
+// escritas pelo agente só entram quando têm algo publicado (rascunho e data anterior ao início não contam no build de
+// produção). Os eixos saíram do menu (viraram filtro por público); Newsletter e "Trabalhe comigo" viraram chamadas
+// no topo e no rodapé.
+const secoes = [
+  { label: 'Notícias', href: '/noticias', ativa: (await getNoticias()).length > 0 },
+  { label: 'Análise', href: '/analise', ativa: (await getAnalises()).length > 0 },
+  { label: 'Radar', href: '/radar', ativa: (await getEdicoesRadar()).length > 0 },
+  { label: 'Artigos', href: '/insights', ativa: true },
+  { label: 'Ferramentas', href: '/ferramentas', ativa: true },
+]
+  .filter((s) => s.ativa)
+  .map(({ label, href }) => ({ label, href }));
+const sobre = await hrefSobre();
 
 const pathname = Astro.url.pathname;
 // Fita do rodapé desta página (semente própria); a padrão se a página não estiver na lista do gerador.
@@ -186,8 +181,8 @@ const jsonLd = {
   </head>
   <body class="bg-noite min-h-screen text-nevoa overflow-x-hidden font-sans antialiased">
     <a href="#conteudo" class="pular">Pular para o conteúdo</a>
-    <Header pathname={pathname} eixosAtivos={eixosAtivos} secoesAtivas={secoesComConteudo} radarNoMenu={!noticiasNoLugarDoRadar} client:load />
+    <Header pathname={pathname} secoes={secoes} client:load />
     <slot />
-    <Footer rodape={rodape} noticiasNoLugarDoRadar={noticiasNoLugarDoRadar} client:load />
+    <Footer rodape={rodape} secoes={secoes} sobre={sobre} client:load />
   </body>
 </html>

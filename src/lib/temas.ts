@@ -1,5 +1,5 @@
 /**
- * Vocabulário da estratégia v2 (16/11/2026) usado por Notícias, Análise da semana e Tech radar.
+ * Vocabulário da estratégia v2 (16/11/2026) usado por Notícias, Análise da semana, Radar e Artigos.
  *
  * Os ids de TEMAS e as ferramentas/práticas vêm da taxonomia da base de conhecimento do marketing
  * (mkt-branding-gusflopes: content/base/taxonomia.yaml). O site guarda só os temas (para validar o
@@ -46,7 +46,7 @@ export const TEMAS: Record<TemaId, string> = {
 export const PUBLICO_IDS = ['A', 'B', 'C', 'D'] as const;
 export type PublicoId = (typeof PUBLICO_IDS)[number];
 
-/** Rótulo do público no "Por que importa" das notícias. */
+/** Rótulo do público no "Por que importa" das notícias e nos filtros de Notícias e Artigos. */
 export const PUBLICOS: Record<PublicoId, string> = {
   A: 'Liderança',
   B: 'Quem executa',
@@ -54,7 +54,18 @@ export const PUBLICOS: Record<PublicoId, string> = {
   D: 'Empresa sem TI',
 };
 
-/** Visões do tech radar: Tecnologia (A + B), Empresa com TI enxuta (C), Empresa sem TI (D). */
+/** Público na URL dos filtros (`?publico=quem-executa`). Não renomeie: links de fora usam estes valores. */
+export const PUBLICO_SLUGS: Record<PublicoId, string> = {
+  A: 'lideranca',
+  B: 'quem-executa',
+  C: 'ti-enxuta',
+  D: 'sem-ti',
+};
+
+export const publicoDoSlug = (slug: string | null): PublicoId | undefined =>
+  PUBLICO_IDS.find((id) => PUBLICO_SLUGS[id] === slug);
+
+/** Visões do radar: Tecnologia (A + B), Empresa com TI enxuta (C), Empresa sem TI (D). */
 export const VISAO_IDS = ['tecnologia', 'ti-enxuta', 'sem-ti'] as const;
 export type VisaoId = (typeof VISAO_IDS)[number];
 
@@ -99,11 +110,20 @@ export const CRITERIO_ANEL: Record<VisaoId, Record<AnelId, string>> = {
 export const QUADRANTE_IDS = ['tecnica', 'ferramenta', 'plataforma', 'modelo'] as const;
 export type QuadranteId = (typeof QUADRANTE_IDS)[number];
 
+/** Quadrantes do radar (rótulo no plural, como no Technology Radar da Thoughtworks). */
 export const QUADRANTES: Record<QuadranteId, string> = {
-  tecnica: 'Técnica',
-  ferramenta: 'Ferramenta',
-  plataforma: 'Plataforma',
-  modelo: 'Modelo',
+  tecnica: 'Técnicas',
+  ferramenta: 'Ferramentas',
+  plataforma: 'Plataformas',
+  modelo: 'Modelos',
+};
+
+/** Tipo de edição do radar: trimestral (cheia) ou ajuste mensal. */
+export const EDICAO_RADAR_IDS = ['trimestral', 'ajuste'] as const;
+export type EdicaoRadarId = (typeof EDICAO_RADAR_IDS)[number];
+export const EDICOES_RADAR: Record<EdicaoRadarId, string> = {
+  trimestral: 'Edição trimestral',
+  ajuste: 'Ajuste mensal',
 };
 
 export const MOVIMENTO_IDS = ['novo', 'subiu', 'desceu', 'igual'] as const;

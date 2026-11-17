@@ -5,10 +5,6 @@ date: "2025-12-09"
 duration: "6 min"
 category: "IA"
 eixo: "engenharia"
-type: "article"
-isExternal: false
-link: "/radar/article/opus-45-gemini-3-gpt-51-como-escolher"
-source: "Local"
 image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1080&q=80"
 ---
 

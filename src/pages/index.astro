@@ -17,27 +17,26 @@ import { telaVideo } from '../lib/telas';
 // A abertura da home é a tela gerada (src/lib/telas.ts).
 const fundo = await fundoResponsivo(heroImg);
 
-// Abertura: leva ao texto autoral mais recente (Insights ou Radar local), não ao Substack.
-const [maisRecente] = await getArtigos({ incluirRadarLocal: true });
+// Abertura: leva ao artigo mais recente, não ao Substack.
+const [maisRecente] = await getArtigos();
 const recente = maisRecente ? { title: maisRecente.title, href: maisRecente.href } : undefined;
 
 const insights = (await getCollection('insights', publicado)).sort((a, b) =>
   compareIsoDateDesc(a.data.date, b.data.date)
 );
-const radar = (await getCollection('radar', publicado)).sort((a, b) =>
+// Vídeo em destaque: o mais recente da curadoria (arquivo do Radar antigo; todos externos).
+const curadoria = (await getCollection('curadoria', publicado)).sort((a, b) =>
   compareIsoDateDesc(a.data.date, b.data.date)
 );
 
-const latestVideo = radar.find((entry) => entry.data.type === 'video');
+const latestVideo = curadoria.find((entry) => entry.data.type === 'video');
 const video: FeaturedVideo | undefined = latestVideo
   ? {
       title: latestVideo.data.title,
       excerpt: latestVideo.data.excerpt,
       tela: telaVideo(),
-      link: latestVideo.data.isExternal
-        ? latestVideo.data.link
-        : `/radar/article/${latestVideo.id}`,
-      isExternal: latestVideo.data.isExternal,
+      link: latestVideo.data.link,
+      isExternal: true,
     }
   : undefined;
 
@@ -45,7 +44,7 @@ const video: FeaturedVideo | undefined = latestVideo
 // recentes" foi fundida aqui — os dois insights mais novos sempre aparecem no seu eixo).
 // Bastidores entra mesmo sem texto, apontando para o projeto em produção; eixo vazio sem
 // projeto fica de fora.
-const autorais = await getArtigos({ incluirRadarLocal: true });
+const autorais = await getArtigos();
 const ultimosInsights = insights.slice(0, 2).map((e) => `/insights/article/${e.id}`);
 const eixos: EixoResumo[] = EIXO_IDS.flatMap((id): EixoResumo[] => {
   const doEixo = autorais.filter((a) => a.eixo === id);

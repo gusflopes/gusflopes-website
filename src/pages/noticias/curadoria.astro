@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import { publicado } from '../../lib/publicado';
+import Default from '../../layouts/Default.astro';
+import { CuradoriaPage, type CuradoriaItem } from '../../components/pages/CuradoriaPage';
+import { compareIsoDateDesc, formatDatePtBR } from '../../lib/format';
+import { telaCapa, fundoMargem, lombadaImg } from '../../lib/telas';
+
+// Arquivo da curadoria do Radar antigo (16/11/2026: /radar/ passou a ser o tech radar). Os links antigos
+// /radar/article/<id> redirecionam para cá (itens externos) ou para /insights/article/<id> (textos autorais):
+// public/_redirects.
+const items: CuradoriaItem[] = (await getCollection('curadoria', publicado))
+  .sort((a, b) => compareIsoDateDesc(a.data.date, b.data.date))
+  .map((entry) => ({
+    id: entry.id,
+    ...entry.data,
+    date: formatDatePtBR(entry.data.date),
+    tela: telaCapa('curadoria', entry.id),
+    margem: fundoMargem('curadoria', entry.id),
+    lombadas: [0, 1, 2].map((k) => lombadaImg('curadoria', entry.id, k)),
+  }));
+---
+
+<Default
+  title="Curadoria (arquivo)"
+  description="Arquivo da curadoria comentada por Gustavo Lopes (dez/2025 a abr/2026): o que mudou em IA, engenharia de software e negócios, com o link para a fonte."
+>
+  <CuradoriaPage items={items} client:load />
+</Default>

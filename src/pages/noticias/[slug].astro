@@ -2,7 +2,7 @@
 import { render } from 'astro:content';
 import Default from '../../layouts/Default.astro';
 import { NoticiaPage } from '../../components/pages/NoticiaPage';
-import { getNoticias, getAnalises, getEdicoesRadar, hrefAnalise, hrefSemanaNoticias, noticiaSemIndice, type NoticiaEntry } from '../../lib/noticias';
+import { getNoticias, getAnalises, getEdicoesRadar, hrefAnalise, hrefSemanaNoticias, hrefBlip, noticiaSemIndice, type NoticiaEntry } from '../../lib/noticias';
 import { autoriaDe } from '../../lib/temas';
 import { formatDatePtBR } from '../../lib/format';
 import { semanaIso, rotuloSemana, diaMes } from '../../lib/semana';
@@ -22,13 +22,13 @@ const semana = semanaIso(d.date);
 
 // Análise publicada que cita esta notícia (a mais recente, se mais de uma).
 const analise = (await getAnalises()).find((a) => a.data.temas.some((t) => t.noticias.includes(entry.id)));
-// Ferramentas que estão no tech radar publicado mais recente aparecem com link para o blip; as
+// Ferramentas que estão no radar publicado mais recente aparecem com link para o blip; as
 // outras ficam só no frontmatter (o site não guarda os nomes da taxonomia, e um id cru não é texto de leitor).
 const radar = (await getEdicoesRadar())[0];
 const blips = new Map((radar?.data.blips ?? []).map((b) => [b.id, b]));
 const ferramentas = d.ferramentas.flatMap((id) => {
   const b = blips.get(id);
-  return b ? [{ id, nome: b.nome, href: `/tech-radar/#${id}` }] : [];
+  return b ? [{ id, nome: b.nome, href: hrefBlip(id) }] : [];
 });
 const fonte = (f: typeof d.fonte) => ({ nome: f.nome, url: f.url, diaMes: diaMes(f.data) });
 ---

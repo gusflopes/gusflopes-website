@@ -20,7 +20,7 @@ const { Content } = await render(entry);
 const edicao = await edicaoView(entry);
 ---
 
-<Default title={`Tech radar · ${entry.data.title}`} description={entry.data.excerpt} type="article" publishedDate={entry.data.date}>
+<Default title={`Radar · ${entry.data.title}`} description={entry.data.excerpt} type="article" publishedDate={entry.data.date}>
   <TechRadarPage edicao={edicao} outras={outrasEdicoes(edicoes, entry.id)} client:load>
     <Content />
   </TechRadarPage>

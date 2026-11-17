@@ -2,12 +2,22 @@ import { ImageWithFallback } from './figma/ImageWithFallback';
 import { NewsletterForm } from './NewsletterForm';
 import { SocialLinks } from './SocialLinks';
 import { site, newsletter, projetos, comUtm } from '../config/site';
-import { EIXO_LIST } from '../lib/eixos';
+import { CHAMADAS } from './Header';
 import { telaRodape } from '../lib/telas';
 import { TelaPicture } from './TelaPicture';
 import logoLight from '../assets/logo.webp?url';
 
-export function Footer({ rodape = 'padrao', noticiasNoLugarDoRadar = false }: { rodape?: string; noticiasNoLugarDoRadar?: boolean }) {
+interface FooterProps {
+  rodape?: string;
+  /** As mesmas seções do menu (só as com conteúdo publicado). */
+  secoes?: { label: string; href: string }[];
+  /** Link do "Sobre": /sobre/ quando publicada, senão a seção da home (src/lib/paginas.ts). */
+  sobre?: string;
+}
+
+const LINK = 'text-nevoa hover:text-white underline decoration-transparent hover:decoration-laranja transition-colors';
+
+export function Footer({ rodape = 'padrao', secoes = [], sobre = '/#about' }: FooterProps) {
   return (
     <footer>
       {/* A passagem: toda página termina num campo claro, e o rodapé chega por esta fita pintada
@@ -40,21 +50,12 @@ export function Footer({ rodape = 'padrao', noticiasNoLugarDoRadar = false }: { 
           <div>
             <h2 className="rotulo text-areia mb-4 flex items-center gap-2.5"><span className="marca" aria-hidden="true" />Navegação</h2>
             <ul className="grid grid-cols-2 md:grid-cols-1 gap-x-6 gap-y-2.5 text-[0.9375rem]">
-              {EIXO_LIST.map((eixo) => (
-                <li key={eixo.id}>
-                  <a href={eixo.href} className="text-nevoa hover:text-white underline decoration-transparent hover:decoration-laranja transition-colors">{eixo.label}</a>
+              {secoes.map((s) => (
+                <li key={s.href}>
+                  <a href={s.href} className={LINK}>{s.label}</a>
                 </li>
               ))}
-              <li>
-                {noticiasNoLugarDoRadar ? (
-                  <a href="/noticias/" className="text-nevoa hover:text-white underline decoration-transparent hover:decoration-laranja transition-colors">Notícias</a>
-                ) : (
-                  <a href="/radar" className="text-nevoa hover:text-white underline decoration-transparent hover:decoration-laranja transition-colors">Radar</a>
-                )}
-              </li>
-              <li><a href="/insights" className="text-nevoa hover:text-white underline decoration-transparent hover:decoration-laranja transition-colors">Insights</a></li>
-              <li><a href="/newsletter" className="text-nevoa hover:text-white underline decoration-transparent hover:decoration-laranja transition-colors">Newsletter</a></li>
-              <li><a href="/#about" className="text-nevoa hover:text-white underline decoration-transparent hover:decoration-laranja transition-colors">Sobre</a></li>
+              <li><a href={sobre} className={LINK}>Sobre</a></li>
               <li>
                 <a
                   href={comUtm(projetos.reforma.url, projetos.reforma.campanha, 'footer')}
@@ -74,6 +75,9 @@ export function Footer({ rodape = 'padrao', noticiasNoLugarDoRadar = false }: { 
               <li className="text-bruma">Brasil | Global</li>
             </ul>
             <SocialLinks className="mt-4" linkClassName="text-nevoa hover:text-laranja-claro" />
+            <a href={CHAMADAS.trabalhe.href} className="botao mt-6 min-h-11 px-5 text-[0.9375rem]">
+              {CHAMADAS.trabalhe.label}
+            </a>
           </div>
 
           {/* Newsletter */}
@@ -81,6 +85,9 @@ export function Footer({ rodape = 'padrao', noticiasNoLugarDoRadar = false }: { 
             <h2 className="rotulo text-areia mb-4 flex items-center gap-2.5"><span className="marca" aria-hidden="true" />{newsletter.name}</h2>
             <p className="text-nevoa text-sm leading-relaxed mb-4">{newsletter.pitch}</p>
             <NewsletterForm />
+            <p className="mt-4 text-sm">
+              <a href={CHAMADAS.newsletter.href} className={LINK}>Edições anteriores</a>
+            </p>
           </div>
         </div>
 

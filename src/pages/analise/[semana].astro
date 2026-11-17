@@ -4,6 +4,7 @@ import Default from '../../layouts/Default.astro';
 import { AnalisePage } from '../../components/pages/AnalisePage';
 import { getAnalises, getNoticias, hrefNoticia, hrefSemanaNoticias, type AnaliseEntry } from '../../lib/noticias';
 import { formatDatePtBR } from '../../lib/format';
+import { hrefSobre } from '../../lib/paginas';
 import { autoriaDe } from '../../lib/temas';
 import { rotuloSemana, slugSemana, semanaIso, diaMes } from '../../lib/semana';
 
@@ -29,6 +30,7 @@ const temas = d.temas.map((t) => ({
     return n ? [{ title: n.data.title, href: hrefNoticia(s) }] : [];
   }),
 }));
+const sobre = await hrefSobre();
 const temNoticiasNaSemana = noticias.some((n) => semanaIso(n.data.date) === d.semana);
 ---
 
@@ -47,6 +49,7 @@ const temNoticiasNaSemana = noticias.some((n) => semanaIso(n.data.date) === d.se
     noticiasDaSemana={temNoticiasNaSemana ? hrefSemanaNoticias(d.semana) : undefined}
     image={d.image}
     rascunho={d.rascunho}
+    sobre={sobre}
     client:load
   >
     <Content />

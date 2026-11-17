@@ -4,7 +4,7 @@ import { EIXOS, EIXO_LIST, type EixoId } from '../../lib/eixos';
 import { telaFaixa, type Tela, type LombadaImg } from '../../lib/telas';
 import { AberturaHub } from '../AberturaHub';
 
-export interface RadarItem {
+export interface CuradoriaItem {
   id: string;
   title: string;
   excerpt: string;
@@ -26,11 +26,15 @@ export interface RadarItem {
   lombadas?: LombadaImg[];
 }
 
-interface RadarPageProps {
-  items: RadarItem[];
+interface CuradoriaPageProps {
+  items: CuradoriaItem[];
 }
 
-export function RadarPage({ items }: RadarPageProps) {
+/**
+ * Curadoria antiga do Radar (dez/2025 a abr/2026), em arquivo desde 16/11/2026: o Radar virou o tech radar e o
+ * fluxo diário passou para Notícias. Os itens são links comentados para a fonte; não entra item novo.
+ */
+export function CuradoriaPage({ items }: CuradoriaPageProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Todos');
   const [selectedEixo, setSelectedEixo] = useState<EixoId | 'todos'>('todos');
@@ -53,8 +57,13 @@ export function RadarPage({ items }: RadarPageProps) {
     <main id="conteudo" tabIndex={-1} className="bg-papel min-h-screen">
       <AberturaHub
         tela={telaFaixa('radar')}
-        titulo="Radar"
-        deck="Curadoria comentada: o que mudou em IA, engenharia e negócios — e por que importa."
+        titulo="Curadoria"
+        deck="Arquivo da curadoria comentada que ficava no Radar até novembro de 2026. As notícias do dia a dia agora ficam em Notícias."
+        nota={
+          <p className="font-sans text-sm font-semibold">
+            <a href="/noticias/" className="text-laranja-claro hover:text-pessego transition-colors">Ir para Notícias →</a>
+          </p>
+        }
       />
 
       {/* Corpo em papel: o diário de bordo se lê de dia; o rodapé chega pela fita depois dele. */}
@@ -85,8 +94,8 @@ export function RadarPage({ items }: RadarPageProps) {
           <label className="flex items-center gap-3 border-b border-ardosia focus-within:border-laranja md:w-72 shrink-0 transition-colors">
             <Search size={16} className="text-tinta-2" aria-hidden="true" />
             <input
-              placeholder="Buscar no radar..."
-              aria-label="Buscar no radar"
+              placeholder="Buscar na curadoria..."
+              aria-label="Buscar na curadoria"
               className="bg-transparent border-none w-full py-2.5 text-[0.9375rem] text-tinta placeholder:text-tinta-2 font-sans"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -117,7 +126,7 @@ export function RadarPage({ items }: RadarPageProps) {
             {filteredItems.map((item, i) => {
               const externo = item.isExternal;
               return (
-                <li key={item.id} className="relative border-b-2 border-laranja">
+                <li key={item.id} id={item.id} className="relative border-b-2 border-laranja scroll-mt-24">
                   {item.lombadas && (() => {
                   const l = item.lombadas[i % item.lombadas.length];
                   return (

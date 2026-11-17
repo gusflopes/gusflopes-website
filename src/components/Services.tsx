@@ -18,8 +18,9 @@ export function Services() {
     {
       title: "Conteúdo & Insights",
       description: "Artigos e análises sobre arquitetura, engenharia de software e IA aplicada para quem busca profundidade, contexto e ideias úteis além do hype.",
-      action: "Acessar o Radar",
-      link: "/radar"
+      action: "Ler os artigos",
+      // 16/11/2026: /radar/ passou a ser o tech radar; o card de conteúdo aponta para Artigos (texto a confirmar).
+      link: "/insights"
     }
   ];
 

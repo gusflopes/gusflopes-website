@@ -1,5 +1,5 @@
 /**
- * Leitura das coleções da estratégia v2 (Notícias, Análise da semana, Tech radar) já filtradas por
+ * Leitura das coleções da estratégia v2 (Notícias, Análise da semana, Radar) já filtradas por
  * `publicado` e prontas para as páginas. Só roda em build (páginas .astro).
  */
 import { getCollection, type CollectionEntry } from 'astro:content';
@@ -7,16 +7,18 @@ import { publicado, hoje } from './publicado';
 import { politicaNoticias } from '../config/site';
 import { compareIsoDateDesc, formatDatePtBR } from './format';
 import { semanaIso, rotuloSemana, slugSemana } from './semana';
-import type { TemaId } from './temas';
+import { PUBLICO_IDS, type PublicoId, type TemaId } from './temas';
 
 export type NoticiaEntry = CollectionEntry<'noticias'>;
 export type AnaliseEntry = CollectionEntry<'analises'>;
-export type EdicaoRadarEntry = CollectionEntry<'techRadar'>;
+export type EdicaoRadarEntry = CollectionEntry<'radar'>;
 
 export const hrefNoticia = (slug: string) => `/noticias/${slug}/`;
 export const hrefSemanaNoticias = (semana: string) => `/noticias/semana/${slugSemana(semana)}/`;
 export const hrefAnalise = (semana: string) => `/analise/${slugSemana(semana)}/`;
-export const hrefEdicaoRadar = (id: string) => `/tech-radar/${id}/`;
+export const hrefEdicaoRadar = (id: string) => `/radar/${id}/`;
+/** Blip no radar mais recente (âncora = id do blip). */
+export const hrefBlip = (id: string) => `/radar/#${id}`;
 
 /** Linha de notícia no índice (compacta: data, título, fonte e tema). */
 export interface NoticiaResumo {
@@ -27,6 +29,8 @@ export interface NoticiaResumo {
   /** "16 Nov, 2026". */
   data: string;
   temas: TemaId[];
+  /** Públicos com "por que importa" preenchido (o filtro por público). */
+  publicos: PublicoId[];
   fonte: string;
   rascunho: boolean;
 }
@@ -61,7 +65,7 @@ export async function getAnalises(): Promise<AnaliseEntry[]> {
 export const noticiaSemIndice = () => hoje < politicaNoticias.noindexAte;
 
 export async function getEdicoesRadar(): Promise<EdicaoRadarEntry[]> {
-  return (await getCollection('techRadar', publicado)).sort(porDataDesc);
+  return (await getCollection('radar', publicado)).sort(porDataDesc);
 }
 
 export const resumoNoticia = (e: NoticiaEntry): NoticiaResumo => ({
@@ -71,6 +75,7 @@ export const resumoNoticia = (e: NoticiaEntry): NoticiaResumo => ({
   excerpt: e.data.excerpt,
   data: formatDatePtBR(e.data.date),
   temas: e.data.temas,
+  publicos: PUBLICO_IDS.filter((p) => !!e.data.porQueImporta[p]),
   fonte: e.data.fonte.nome,
   rascunho: e.data.rascunho,
 });

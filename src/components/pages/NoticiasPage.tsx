@@ -1,6 +1,7 @@
+import { useEffect, useState } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { telaFaixa } from '../../lib/telas';
-import { TEMAS } from '../../lib/temas';
+import { TEMAS, TEMA_IDS, PUBLICOS, PUBLICO_IDS, PUBLICO_SLUGS, publicoDoSlug, type PublicoId, type TemaId } from '../../lib/temas';
 import type { SemanaNoticias } from '../../lib/noticias';
 import { AberturaHub } from '../AberturaHub';
 
@@ -13,13 +14,57 @@ export interface NoticiasPageProps {
   vizinhas?: { anterior?: { rotulo: string; href: string }; seguinte?: { rotulo: string; href: string } };
 }
 
+/** Botão de filtro (mesmo desenho dos filtros de categoria de Artigos). */
+function Filtro({ ativo, onClick, children }: { ativo: boolean; onClick: () => void; children: string }) {
+  return (
+    <button
+      type="button"
+      aria-pressed={ativo}
+      onClick={onClick}
+      className={`shrink-0 px-3.5 h-11 md:h-8 md:px-3 border font-sans text-[0.8125rem] font-semibold transition-colors whitespace-nowrap ${
+        ativo ? 'bg-laranja border-laranja text-noite' : 'border-regua text-tinta-2 hover:border-petroleo hover:text-tinta'
+      }`}
+    >
+      {children}
+    </button>
+  );
+}
+
 /**
  * Notícias: volume diário, por isso a lista é compacta e agrupada por semana — data na margem,
  * título, fonte e tema numa linha só. Sem tela por notícia (a pintura fica na faixa do hub).
- * Renderizada sem hidratação: nada aqui precisa de JS no cliente.
+ * Filtro por tema e por público (quem tem "por que importa" na notícia); o filtro vai na URL
+ * (`?tema=modelos&publico=ti-enxuta`), para dar para mandar o link filtrado. Sem JS, a lista aparece inteira.
  */
 export function NoticiasPage({ semanas, arquivo = [], vizinhas }: NoticiasPageProps) {
   const umaSemana = !!vizinhas;
+  const [tema, setTema] = useState<TemaId | undefined>();
+  const [publico, setPublico] = useState<PublicoId | undefined>();
+
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    const t = q.get('tema');
+    if (t && (TEMA_IDS as readonly string[]).includes(t)) setTema(t as TemaId);
+    setPublico(publicoDoSlug(q.get('publico')));
+  }, []);
+
+  const filtrar = (t: TemaId | undefined, p: PublicoId | undefined) => {
+    setTema(t);
+    setPublico(p);
+    const q = new URLSearchParams(window.location.search);
+    t ? q.set('tema', t) : q.delete('tema');
+    p ? q.set('publico', PUBLICO_SLUGS[p]) : q.delete('publico');
+    const busca = q.toString();
+    history.replaceState(null, '', `${window.location.pathname}${busca ? `?${busca}` : ''}${window.location.hash}`);
+  };
+
+  const todas = semanas.flatMap((s) => s.itens);
+  const temasPresentes = TEMA_IDS.filter((t) => todas.some((n) => n.temas.includes(t)));
+  const publicosPresentes = PUBLICO_IDS.filter((p) => todas.some((n) => n.publicos.includes(p)));
+  const visiveis = semanas
+    .map((s) => ({ ...s, itens: s.itens.filter((n) => (!tema || n.temas.includes(tema)) && (!publico || n.publicos.includes(publico))) }))
+    .filter((s) => s.itens.length > 0);
+  const filtrando = !!(tema || publico);
   return (
     <main id="conteudo" tabIndex={-1} className="bg-papel min-h-screen">
       <AberturaHub
@@ -42,14 +87,46 @@ export function NoticiasPage({ semanas, arquivo = [], vizinhas }: NoticiasPagePr
             <p className="py-16 border-t border-regua font-sans text-tinta-2">Ainda não há notícias publicadas.</p>
           )}
 
-          {semanas.map((s) => (
+          {todas.length > 0 && (temasPresentes.length > 1 || publicosPresentes.length > 0) && (
+            <div className="mb-12 md:mb-14 grid gap-4">
+              {publicosPresentes.length > 0 && (
+                <div role="group" aria-label="Filtrar por público" className="rolagem-x flex flex-nowrap md:flex-wrap items-center gap-2 -mx-4 px-4 md:mx-0 md:px-0">
+                  <span className="shrink-0 font-sans text-sm font-semibold text-tinta mr-2">Para quem</span>
+                  <Filtro ativo={!publico} onClick={() => filtrar(tema, undefined)}>Todos</Filtro>
+                  {publicosPresentes.map((p) => (
+                    <Filtro key={p} ativo={publico === p} onClick={() => filtrar(tema, p)}>{PUBLICOS[p]}</Filtro>
+                  ))}
+                </div>
+              )}
+              {temasPresentes.length > 1 && (
+                <div role="group" aria-label="Filtrar por tema" className="rolagem-x flex flex-nowrap md:flex-wrap items-center gap-2 -mx-4 px-4 md:mx-0 md:px-0">
+                  <span className="shrink-0 font-sans text-sm font-semibold text-tinta mr-2">Tema</span>
+                  <Filtro ativo={!tema} onClick={() => filtrar(undefined, publico)}>Todos</Filtro>
+                  {temasPresentes.map((t) => (
+                    <Filtro key={t} ativo={tema === t} onClick={() => filtrar(t, publico)}>{TEMAS[t]}</Filtro>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {filtrando && visiveis.length === 0 && (
+            <div className="py-16 border-t border-regua font-sans text-tinta-2">
+              <p>Nenhuma notícia com esses filtros nesta página.</p>
+              <button type="button" className="acao text-laranja-fundo mt-3 min-h-11" onClick={() => filtrar(undefined, undefined)}>
+                Limpar filtros
+              </button>
+            </div>
+          )}
+
+          {visiveis.map((s) => (
             <section key={s.semana} aria-labelledby={`semana-${s.semana}`} className="mb-16 md:mb-20">
               <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-6">
                 <h2 id={`semana-${s.semana}`} className="capitulo font-serif text-2xl md:text-[2rem] leading-tight text-tinta">
                   {umaSemana ? 'Notícias da semana' : <a href={s.href} className="hover:text-laranja-fundo transition-colors">Semana de {s.rotulo}</a>}
                 </h2>
                 <p className="font-sans text-sm text-tinta-2 flex flex-wrap items-center gap-x-4 gap-y-1">
-                  <span className="tabular-nums">{s.itens.length} {s.itens.length === 1 ? 'notícia' : 'notícias'}</span>
+                  <span className="tabular-nums">{s.itens.length} {s.itens.length === 1 ? 'notícia' : 'notícias'}{filtrando && ' com esses filtros'}</span>
                   {s.analise && (
                     <a href={s.analise.href} className="acao text-laranja-fundo">
                       Análise da semana <ArrowRight size={14} aria-hidden="true" />
@@ -111,6 +188,16 @@ export function NoticiasPage({ semanas, arquivo = [], vizinhas }: NoticiasPagePr
                 ))}
               </ul>
             </section>
+          )}
+
+          {!umaSemana && (
+            <p className="mt-16 border-t border-regua pt-8 font-sans text-sm text-tinta-2">
+              Até novembro de 2026, a curadoria comentada ficava no Radar.{' '}
+              <a href="/noticias/curadoria/" className="text-laranja-fundo underline underline-offset-2 hover:no-underline">
+                Ver o arquivo da curadoria
+              </a>
+              .
+            </p>
           )}
         </div>
       </div>

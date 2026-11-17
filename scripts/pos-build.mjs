@@ -4,15 +4,15 @@
  * 1. Sitemap sem página fora do índice: tira do sitemap toda URL cuja página saiu com
  *    `<meta name="robots" content="noindex…">` (notícia individual nas primeiras 8 semanas — A1 —, índice vazio,
  *    páginas de retorno da newsletter) ou que é só um redirecionamento.
- * 2. /radar/ → /noticias/ (A8): quando src/pages/radar.astro sai como redirecionamento (há notícia publicada),
- *    acrescenta o 301 ao dist/_redirects. Os itens antigos em /radar/article/<id>/ não mudam.
+ *
+ * (Até 16/11/2026 havia um passo 2, o 301 de /radar/ → /noticias/ (A8). Saiu na reorganização das seções: /radar/
+ * passou a ser o tech radar, e os redirecionamentos fixos ficam em public/_redirects.)
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const NOINDEX = /<meta\s+name="robots"\s+content="noindex/i;
-const REDIRECT_RADAR = 'data-redirect-radar';
 
 /** Caminho do HTML gerado para uma URL do site (build com `build.format: 'directory'`, o padrão). */
 function htmlDaUrl(dist, loc) {
@@ -39,7 +39,7 @@ export default function posBuild() {
             const html = loc && htmlDaUrl(dist, loc);
             if (!html) return bloco;
             const conteudo = fs.readFileSync(html, 'utf8');
-            if (NOINDEX.test(conteudo) || conteudo.includes(REDIRECT_RADAR)) {
+            if (NOINDEX.test(conteudo) || /<meta\s+http-equiv="refresh"/i.test(conteudo)) {
               removidas += 1;
               return '';
             }
@@ -48,16 +48,6 @@ export default function posBuild() {
           if (novo !== xml) fs.writeFileSync(arq, novo);
         }
         logger.info(`sitemap: ${removidas} URL(s) fora do índice removida(s)`);
-
-        // 2. /radar/ → /noticias/
-        const radar = path.join(dist, 'radar', 'index.html');
-        if (fs.existsSync(radar) && fs.readFileSync(radar, 'utf8').includes(REDIRECT_RADAR)) {
-          const redirects = path.join(dist, '_redirects');
-          const atual = fs.existsSync(redirects) ? fs.readFileSync(redirects, 'utf8') : '';
-          const linhas = '\n# A8: Notícias substitui o Radar antigo (gerado no build por scripts/pos-build.mjs)\n/radar /noticias/ 301\n/radar/ /noticias/ 301\n';
-          fs.writeFileSync(redirects, atual.trimEnd() + '\n' + linhas);
-          logger.info('_redirects: /radar/ → /noticias/ (301)');
-        }
       },
     },
   };

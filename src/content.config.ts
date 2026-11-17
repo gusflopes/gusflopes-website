@@ -1,7 +1,7 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { EIXO_IDS } from './lib/eixos';
-import { TEMA_IDS, ANEL_IDS, QUADRANTE_IDS, ASSINATURA_IDS, MOVIMENTO_IDS } from './lib/temas';
+import { TEMA_IDS, ANEL_IDS, QUADRANTE_IDS, ASSINATURA_IDS, MOVIMENTO_IDS, PUBLICO_IDS, EDICAO_RADAR_IDS } from './lib/temas';
 
 /** Data ISO no frontmatter; a formatação pt-BR acontece no código de renderização. */
 const isoDate = z
@@ -37,8 +37,12 @@ const tags = z
   .array(z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'tag deve ser kebab-case minúsculo'))
   .default([]);
 
-const radar = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/radar' }),
+/**
+ * Curadoria antiga do Radar (dez/2025 a abr/2026), em arquivo desde 16/11/2026: links comentados para fontes externas.
+ * Sem item novo. Os 4 textos autorais que estavam no Radar foram para `insights`. Página: /noticias/curadoria/.
+ */
+const curadoria = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/curadoria' }),
   schema: z.object({
     title: z.string(),
     excerpt: z.string(),
@@ -48,8 +52,8 @@ const radar = defineCollection({
     eixo,
     tags,
     type: z.enum(['article', 'video']),
-    isExternal: z.boolean(),
-    link: z.string(),
+    isExternal: z.literal(true),
+    link: z.string().url(),
     source: z.string(),
     image: z.string().url(),
   }),
@@ -65,6 +69,11 @@ const insights = defineCollection({
     category,
     eixo,
     tags,
+    /**
+     * Públicos do texto (A Liderança, B Quem executa, C Empresa com TI enxuta, D Empresa sem TI): o filtro de
+     * Artigos. Opcional: sem ele, vale o padrão do eixo (`publicosDoEixo` em src/lib/eixos.ts).
+     */
+    publicos: z.array(z.enum(PUBLICO_IDS)).min(1).optional(),
     image: z.string().url(),
   }),
 });
@@ -214,19 +223,26 @@ const analises = defineCollection({
     }),
 });
 
-const posicao = z.object({ anel: z.enum(ANEL_IDS), texto: z.string() });
+const posicao = z.object({
+  anel: z.enum(ANEL_IDS),
+  texto: z.string(),
+  /** Anel desta visão na edição anterior, quando mudou (a página mostra "Antes: <anel>"). */
+  anterior: z.enum(ANEL_IDS).optional(),
+});
 
 /**
- * Tech radar: uma edição por arquivo (src/content/tech-radar/<aaaa>-<mm>.md; corpo = apresentação),
- * com os blips (ferramentas e práticas) e o anel em cada uma das 3 visões. Rota /tech-radar/ (edição
- * mais recente) e /tech-radar/<aaaa>-<mm>/.
+ * Radar (tech radar no estilo Thoughtworks): uma edição por arquivo (src/content/radar/<aaaa>-<mm>.md; corpo =
+ * apresentação), com os blips e o anel em cada uma das 3 visões. Edição trimestral, com ajustes mensais.
+ * Rota /radar/ (edição mais recente) e /radar/<aaaa>-<mm>/. Até 16/11/2026 a rota era /tech-radar/ (redirect 301).
  */
-const techRadar = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/tech-radar' }),
+const radar = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/radar' }),
   schema: z.object({
     title: z.string(),
     excerpt: z.string(),
     date: isoDate,
+    /** `trimestral` = edição cheia; `ajuste` = ajuste mensal entre duas trimestrais. */
+    tipo: z.enum(EDICAO_RADAR_IDS).default('trimestral'),
     blips: z
       .array(
         z.object({
@@ -234,6 +250,7 @@ const techRadar = defineCollection({
           id: slug,
           nome: z.string(),
           quadrante: z.enum(QUADRANTE_IDS),
+          /** `novo` = primeira edição em que aparece; mudança de anel por visão vai em `visoes.<v>.anterior`. */
           movimento: z.enum(MOVIMENTO_IDS).default('novo'),
           /** Anel e justificativa em cada visão; a ferramenta pode ficar fora de uma visão. */
           visoes: z
@@ -249,4 +266,19 @@ const techRadar = defineCollection({
   }),
 });
 
-export const collections = { radar, insights, newsletter, noticias, analises, techRadar };
+/**
+ * Páginas institucionais em markdown (hoje só /sobre). `rascunho: true` deixa a página fora do build de produção
+ * (e os links para ela caem no plano B).
+ */
+const paginas = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/paginas' }),
+  schema: z.object({
+    title: z.string(),
+    excerpt: z.string(),
+    /** Data da última revisão do texto. */
+    date: isoDate,
+    rascunho,
+  }),
+});
+
+export const collections = { curadoria, insights, newsletter, noticias, analises, radar, paginas };

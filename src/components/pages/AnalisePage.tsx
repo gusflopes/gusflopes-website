@@ -22,6 +22,8 @@ export interface AnalisePageProps {
   noticiasDaSemana?: string;
   image?: { src: string; alt: string; credito?: string };
   rascunho: boolean;
+  /** Link do "Sobre" (/sobre/ quando publicada; src/lib/paginas.ts). */
+  sobre: string;
   children?: ReactNode;
 }
 
@@ -128,6 +130,11 @@ export function AnalisePage(p: AnalisePageProps) {
                 </a>
               </p>
             )}
+            <p>
+              <a href={p.sobre} className="acao text-laranja-fundo">
+                Quem é Gustavo Lopes <ArrowRight size={14} aria-hidden="true" />
+              </a>
+            </p>
           </footer>
 
           <div className="max-w-[40rem] mx-auto mt-14">

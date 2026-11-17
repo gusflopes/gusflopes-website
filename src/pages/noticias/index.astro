@@ -14,5 +14,5 @@ const arquivo = semanas.slice(SEMANAS_NO_INDICE).map((s) => ({ rotulo: s.rotulo,
   description="Notícias de IA para empresas, todos os dias: apuradas na fonte, reescritas em português e com o porquê de importar."
   noindex={semanas.length === 0}
 >
-  <NoticiasPage semanas={semanas.slice(0, SEMANAS_NO_INDICE)} arquivo={arquivo} />
+  <NoticiasPage semanas={semanas.slice(0, SEMANAS_NO_INDICE)} arquivo={arquivo} client:load />
 </Default>
