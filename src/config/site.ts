@@ -79,7 +79,7 @@ export const politicaNoticias = {
    * A6 — o site começa limpo: notícia ou análise com `date` anterior a esta data nunca entra no build de
    * produção, mesmo sem `rascunho` (sem notícias retroativas dos itens que já estavam na base).
    */
-  inicio: "2026-11-23",
+  inicio: "2026-11-01",
   /**
    * A1 — enquanto a data do build for anterior a esta, toda notícia individual (/noticias/<slug>/) sai com
    * `noindex, follow` e fora do sitemap. A página da semana (/noticias/semana/…), o índice /noticias/ e a
