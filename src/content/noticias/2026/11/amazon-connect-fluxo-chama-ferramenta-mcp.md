@@ -15,7 +15,7 @@ fonte:
   data: "2026-11-02"
 apuradoEm: "2026-11-13"
 base: "amazon-connect-fluxo-chama-ferramenta-mcp"
-rascunho: false
+rascunho: true
 ---
 
 O novo bloco External Tool permite que um fluxo do Amazon Connect chame ferramentas expostas por MCP por meio do Bedrock AgentCore Gateway. O exemplo da AWS é consultar o histórico de casos de um cliente no CRM durante o atendimento.

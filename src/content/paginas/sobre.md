@@ -5,7 +5,7 @@
 title: "Sobre"
 excerpt: "Gustavo Lopes: dez anos de Direito Tributário, engenharia desde 2018 e, hoje, Tech Lead e Staff Engineer em financial services. Escreve sobre levar IA da demonstração à produção dentro de empresa que já existe."
 date: "2026-11-16"
-rascunho: false
+rascunho: true
 ---
 
 Sou Tech Lead e Staff Engineer em financial services. Lidero três squads e o sistema de pricing do varejo automotivo, um domínio em que decisão técnica e decisão comercial são a mesma decisão. Escrevo aqui para quem lidera tecnologia e precisa decidir o que fazer com IA sem apostar a operação numa demonstração.
