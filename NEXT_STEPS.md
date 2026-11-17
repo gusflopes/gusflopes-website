@@ -99,6 +99,12 @@ tag `bastidores` (derivada do eixo; não precisa repetir no frontmatter).
 **Ferramentas — o que ficou fora:** o Business Game não tem nenhuma evidência no repositório do site (nem página, nem
 URL, nem texto), então não entrou. Outros servidores MCP também não: só o rt2026 tem endereço e artigo.
 
+Conferido em 16/11 num build de verificação no CI (run 43985819614, revertido em seguida), com notícias, análise,
+radar e sobre publicados: menu com as cinco seções e as duas chamadas; rodapé com as seções, Sobre e Trabalhe comigo;
+disco do radar com quadrantes, blips numerados, "Novo nesta edição" e "Desceu de anel · antes: Experimentar",
+evidências das notícias; filtros de Notícias e Artigos; análise linkando `/sobre/`; `_redirects` com os 301; sitemap
+com `/radar/`, `/ferramentas/`, `/sobre/` e `/noticias/curadoria/`.
+
 ### Pendências da reorganização (Gustavo)
 
 - **Revisar o texto do `/sobre`** (`src/content/paginas/sobre.md`) e tirar o `rascunho: true`. Base: PR #7 (fechado),
