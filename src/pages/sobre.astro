@@ -1,0 +1,18 @@
+---
+// /sobre (16/11/2026): fora do menu, linkada no rodapé e em cada análise. Texto em src/content/paginas/sobre.md.
+// Enquanto a página for rascunho, o build de produção não a publica: /sobre/ redireciona para a seção da home.
+import { render } from 'astro:content';
+import Default from '../layouts/Default.astro';
+import { SobrePage } from '../components/pages/SobrePage';
+import { getPagina } from '../lib/paginas';
+
+const pagina = await getPagina('sobre');
+if (!pagina) return Astro.redirect('/#about');
+const { Content } = await render(pagina);
+---
+
+<Default title={pagina.data.title} description={pagina.data.excerpt}>
+  <SobrePage excerpt={pagina.data.excerpt} rascunho={pagina.data.rascunho} client:load>
+    <Content />
+  </SobrePage>
+</Default>
