@@ -5,10 +5,6 @@ date: "2025-12-30"
 duration: "7 min"
 category: "IA"
 eixo: "engenharia"
-type: "article"
-isExternal: false
-link: "/radar/article/retrospectiva-2025-agentes-fora-do-hype"
-source: "Local"
 image: "https://images.unsplash.com/photo-1535378917042-10a22c95931a?auto=format&fit=crop&w=1080&q=80"
 ---
 

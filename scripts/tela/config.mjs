@@ -139,11 +139,16 @@ export const ABERTURA = { semente: 'Tecnologia e negócio, partes do mesmo siste
  */
 export const ARQUETIPO_FAIXA = {
   insights: 'manchas', // muitas ideias espalhadas, nenhuma no centro
-  radar: 'vento', // o fluxo de notícias atravessando
+  radar: 'vento', // o fluxo de notícias atravessando (hoje a faixa da curadoria em arquivo)
   engenharia: 'massas', // blocos que se encontram
   negocios: 'ondas', // ciclos longos
   bastidores: 'faixas', // camadas do processo
   newsletter: 'horizonte', // o arquivo da newsletter: um horizonte baixo, como a fita que ele tinha
+  noticias: 'vento', // o fluxo diário que atravessa (o mesmo gesto do Radar, de quem herda o papel)
+  analise: 'faixas', // camadas: os temas da semana empilhados e ligados
+  'tech-radar': 'manchas', // discos espalhados, sem centro: os blips (faixa do Radar, /radar/)
+  ferramentas: 'massas', // blocos que se encontram: a IA e o software que calcula
+  sobre: 'horizonte', // uma trajetória: o horizonte longo
   'nao-encontrada': 'vento',
 };
 

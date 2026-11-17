@@ -1,0 +1,24 @@
+---
+import Default from '../../layouts/Default.astro';
+import { AnalisesPage, type AnaliseResumo } from '../../components/pages/AnalisesPage';
+import { getAnalises, hrefAnalise } from '../../lib/noticias';
+import { rotuloSemana } from '../../lib/semana';
+
+const itens: AnaliseResumo[] = (await getAnalises()).map((a) => ({
+  id: a.id,
+  href: hrefAnalise(a.data.semana),
+  title: a.data.title,
+  excerpt: a.data.excerpt,
+  semanaRotulo: rotuloSemana(a.data.semana),
+  temas: a.data.temas.map((t) => t.tema),
+  rascunho: a.data.rascunho,
+}));
+---
+
+<Default
+  title="Análise da semana"
+  description="Toda sexta, os temas da semana em IA para empresas, ligados entre si: o que aconteceu, o que muda e para quem."
+  noindex={itens.length === 0}
+>
+  <AnalisesPage itens={itens} />
+</Default>

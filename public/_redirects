@@ -10,3 +10,21 @@
 /bsky /?utm_source=bluesky&utm_medium=social&utm_campaign=bio 302
 /yt /?utm_source=youtube&utm_medium=social&utm_campaign=bio 302
 /in /?utm_source=linkedin&utm_medium=social&utm_campaign=bio 302
+
+# Reorganização das seções (decisão do Gustavo em 16/11/2026). Cloudflare lê de cima para baixo: o específico vem antes do *.
+# O tech radar saiu de /tech-radar/ para /radar/ (mesmo id de edição).
+/tech-radar /radar/ 301
+/tech-radar/ /radar/ 301
+/tech-radar/* /radar/:splat 301
+# A curadoria antiga do /radar/ virou arquivo. Os 4 textos autorais foram para Artigos (/insights/article/<id>/);
+# os itens externos nunca tiveram página, mas qualquer /radar/article/<id> cai no arquivo da curadoria.
+/radar/article/eu-ai-act-checklist-engenharia /insights/article/eu-ai-act-checklist-engenharia/ 301
+/radar/article/eu-ai-act-checklist-engenharia/ /insights/article/eu-ai-act-checklist-engenharia/ 301
+/radar/article/opus-45-gemini-3-gpt-51-como-escolher /insights/article/opus-45-gemini-3-gpt-51-como-escolher/ 301
+/radar/article/opus-45-gemini-3-gpt-51-como-escolher/ /insights/article/opus-45-gemini-3-gpt-51-como-escolher/ 301
+/radar/article/plataforma-interna-era-dos-agentes /insights/article/plataforma-interna-era-dos-agentes/ 301
+/radar/article/plataforma-interna-era-dos-agentes/ /insights/article/plataforma-interna-era-dos-agentes/ 301
+/radar/article/retrospectiva-2025-agentes-fora-do-hype /insights/article/retrospectiva-2025-agentes-fora-do-hype/ 301
+/radar/article/retrospectiva-2025-agentes-fora-do-hype/ /insights/article/retrospectiva-2025-agentes-fora-do-hype/ 301
+/radar/article /noticias/curadoria/ 301
+/radar/article/* /noticias/curadoria/ 301

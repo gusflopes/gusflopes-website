@@ -1,4 +1,6 @@
 ---
+// Artigos (16/11/2026): a seção autoral manteve a rota /insights/ (e /insights/article/<id>) para não quebrar links;
+// só o rótulo mudou para "Artigos".
 import Default from '../layouts/Default.astro';
 import { InsightsPage } from '../components/pages/InsightsPage';
 import { getArtigos } from '../lib/artigos';
@@ -7,8 +9,8 @@ const articles = await getArtigos();
 ---
 
 <Default
-  title="Insights"
-  description="Textos autorais de Gustavo Lopes sobre engenharia, negócio e IA aplicada — em três eixos: Engenharia & IA, Negócios e Bastidores."
+  title="Artigos"
+  description="Textos autorais de Gustavo Lopes sobre engenharia, negócio e IA aplicada, com filtro por público: liderança, quem executa, empresa com TI enxuta e empresa sem TI."
 >
   <InsightsPage articles={articles} client:load />
 </Default>

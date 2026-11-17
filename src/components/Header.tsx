@@ -1,34 +1,31 @@
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import { site } from '../config/site';
-import { EIXOS, type EixoId } from '../lib/eixos';
 import logo from '../assets/logo.webp?url';
 
 interface HeaderProps {
   pathname: string;
-  /** Eixos com ao menos um texto publicado — eixo vazio não entra no menu. */
-  eixosAtivos?: EixoId[];
+  /** Seções do menu (Notícias, Análise, Radar, Artigos, Ferramentas), já sem as que não têm conteúdo publicado. */
+  secoes?: { label: string; href: string }[];
 }
+
+/** Chamadas do topo (16/11/2026): saíram do menu e ficam à direita, como ações. */
+export const CHAMADAS = {
+  newsletter: { label: 'Newsletter', href: '/newsletter' },
+  trabalhe: { label: 'Trabalhe comigo', href: '/#consulting' },
+} as const;
 
 /** Normaliza paths para comparação: remove barras finais ('/radar/' → '/radar'). */
 const normalizePath = (p: string) => p.replace(/\/+$/, '') || '/';
 
-export function Header({ pathname: rawPathname, eixosAtivos = [] }: HeaderProps) {
+export function Header({ pathname: rawPathname, secoes = [] }: HeaderProps) {
   const pathname = normalizePath(rawPathname);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isHome = pathname === '/';
   // O artigo também leva o header do site: é a porta de entrada por busca e redes, e o leitor
-  // precisa ver a marca e os eixos sem rolar até o rodapé.
-
-  // Eixos primeiro (o "para quem"), depois os formatos e a oferta.
-  const navItems = [
-    ...eixosAtivos.map((id) => ({ label: EIXOS[id].label, href: EIXOS[id].href })),
-    { label: 'Radar', href: '/radar' },
-    { label: 'Insights', href: '/insights' },
-    { label: 'Trabalhe Comigo', href: '/#consulting' },
-  ];
-  const isActive = (href: string) => href !== '/' && !href.includes('#') && pathname.startsWith(href);
+  // precisa ver a marca e as seções sem rolar até o rodapé.
+  const navItems = secoes;
+  const isActive = (href: string) => href !== '/' && !href.includes('#') && (pathname === href || pathname.startsWith(`${href}/`));
 
   const handleClick = (e: React.MouseEvent, href: string) => {
     setIsMenuOpen(false);
@@ -59,12 +56,21 @@ export function Header({ pathname: rawPathname, eixosAtivos = [] }: HeaderProps)
               {item.label}
             </a>
           ))}
-          <a
-            href={`mailto:${site.email}`}
-            className="font-sans text-[0.9375rem] font-bold text-laranja-claro border border-laranja/70 px-4 h-10 inline-flex items-center hover:bg-laranja hover:text-noite hover:border-laranja transition-colors"
-          >
-            Contato
-          </a>
+          <span className="flex items-center gap-3">
+            <a
+              href={CHAMADAS.newsletter.href}
+              className="font-sans text-[0.9375rem] font-bold text-laranja-claro border border-laranja/70 px-4 h-10 inline-flex items-center hover:bg-laranja hover:text-noite hover:border-laranja transition-colors whitespace-nowrap"
+            >
+              {CHAMADAS.newsletter.label}
+            </a>
+            <a
+              href={CHAMADAS.trabalhe.href}
+              onClick={() => setIsMenuOpen(false)}
+              className="font-sans text-[0.9375rem] font-bold text-noite bg-laranja border border-laranja px-4 h-10 inline-flex items-center hover:bg-laranja-claro hover:border-laranja-claro transition-colors whitespace-nowrap"
+            >
+              {CHAMADAS.trabalhe.label}
+            </a>
+          </span>
         </nav>
 
         <button
@@ -95,9 +101,18 @@ export function Header({ pathname: rawPathname, eixosAtivos = [] }: HeaderProps)
                 {item.label}
               </a>
             ))}
-            <a href={`mailto:${site.email}`} className="botao mt-5 w-full">
-              Contato
-            </a>
+            <div className="mt-5 grid grid-cols-2 gap-3">
+              <a
+                href={CHAMADAS.newsletter.href}
+                onClick={() => setIsMenuOpen(false)}
+                className="font-sans font-bold text-laranja-claro border border-laranja/70 h-12 inline-flex items-center justify-center"
+              >
+                {CHAMADAS.newsletter.label}
+              </a>
+              <a href={CHAMADAS.trabalhe.href} onClick={() => setIsMenuOpen(false)} className="botao w-full">
+                {CHAMADAS.trabalhe.label}
+              </a>
+            </div>
           </nav>
         </div>
       )}

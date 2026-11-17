@@ -1,0 +1,86 @@
+name: deploy
+
+# Deploy de produção (Cloudflare Workers + assets estáticos) a cada push no main (B3, decisão do Gustavo em 16/11/2026).
+# O agente de marketing publica notícias e análises com push direto de src/content/** no main
+# (scripts/site-publish.sh no mkt-agent); o resto do site entra por commit ou merge do Gustavo.
+# O portão (scripts/ci/deploy-liberado.sh) confere cada commit desde o último deploy (tag deploy-producao).
+#
+# Segredos do repositório (Settings → Secrets and variables → Actions), criados pelo Gustavo:
+#   CLOUDFLARE_API_TOKEN   token com "Edit Cloudflare Workers" (e D1/Email só se o deploy precisar) na conta
+#   CLOUDFLARE_ACCOUNT_ID  id da conta Cloudflare
+# Sem eles o job falha com mensagem clara, antes do build.
+# O build de checagem das outras branches e dos PRs é o build.yml.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      forcar:
+        description: "Pular o portão de autoria (só o Gustavo, pela tela do GitHub)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write # mover a tag deploy-producao depois do deploy
+
+concurrency:
+  group: deploy-producao
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      # E-mails de autor do Gustavo (commit sem trailer do Claude). Pode ser trocado pela variável DEPLOY_AUTORES do repo.
+      DEPLOY_AUTORES: ${{ vars.DEPLOY_AUTORES || 'gustavo@gusflopes.dev gusflopes86@gmail.com' }}
+    steps:
+      - name: Segredos da Cloudflare presentes
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          falta=()
+          [ -n "$CLOUDFLARE_API_TOKEN" ] || falta+=(CLOUDFLARE_API_TOKEN)
+          [ -n "$CLOUDFLARE_ACCOUNT_ID" ] || falta+=(CLOUDFLARE_ACCOUNT_ID)
+          if [ ${#falta[@]} -gt 0 ]; then
+            echo "::error title=Deploy sem credenciais::Faltam os segredos ${falta[*]} em Settings → Secrets and variables → Actions. Nada foi publicado; o deploy manual (pnpm run deploy) continua valendo."
+            exit 1
+          fi
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Portão — só src/content/** ou commit do Gustavo
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.forcar) }}
+        run: |
+          base=$(git rev-parse -q --verify 'refs/tags/deploy-producao^{commit}' || true)
+          if [ -z "$base" ] && [ "${{ github.event_name }}" = "push" ]; then base="${{ github.event.before }}"; fi
+          bash scripts/ci/deploy-liberado.sh "$base" HEAD
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm build
+
+      - name: Deploy no Cloudflare (wrangler deploy)
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
+
+      - name: Marca o commit publicado (tag deploy-producao)
+        run: |
+          git tag -f deploy-producao HEAD
+          git push -f origin refs/tags/deploy-producao

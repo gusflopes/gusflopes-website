@@ -1,0 +1,18 @@
+---
+import Default from '../../layouts/Default.astro';
+import { NoticiasPage } from '../../components/pages/NoticiasPage';
+import { noticiasPorSemana } from '../../lib/noticias';
+
+// O índice mostra as 4 semanas mais recentes inteiras; as anteriores ficam numa lista, uma página por semana.
+const SEMANAS_NO_INDICE = 4;
+const semanas = await noticiasPorSemana();
+const arquivo = semanas.slice(SEMANAS_NO_INDICE).map((s) => ({ rotulo: s.rotulo, href: s.href, total: s.itens.length }));
+---
+
+<Default
+  title="Notícias"
+  description="Notícias de IA para empresas, todos os dias: apuradas na fonte, reescritas em português e com o porquê de importar."
+  noindex={semanas.length === 0}
+>
+  <NoticiasPage semanas={semanas.slice(0, SEMANAS_NO_INDICE)} arquivo={arquivo} client:load />
+</Default>

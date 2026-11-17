@@ -1,6 +1,7 @@
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { ArrowRight, Search } from 'lucide-react';
-import { EIXOS, EIXO_LIST, type EixoId } from '../../lib/eixos';
+import { EIXOS, type EixoId } from '../../lib/eixos';
+import { PUBLICOS, PUBLICO_IDS, PUBLICO_SLUGS, publicoDoSlug, type PublicoId } from '../../lib/temas';
 import { telaFaixa, type Tela, type LombadaImg } from '../../lib/telas';
 import { TelaPicture } from '../TelaPicture';
 import { AberturaHub } from '../AberturaHub';
@@ -11,7 +12,11 @@ export interface InsightArticle {
   excerpt: string;
   category: string;
   eixo: EixoId;
-  /** Rota do artigo (insights ou radar local). */
+  /** Públicos do texto (frontmatter `publicos` ou o padrão do eixo): o filtro "Para quem". */
+  publicos: PublicoId[];
+  /** Tags (inclui `bastidores` quando o eixo antigo era Bastidores). */
+  tags: string[];
+  /** Rota do artigo (/insights/article/<id>). */
   href: string;
   /** Data já formatada para exibição pt-BR (ex: "10 Jun, 2026"). */
   date: string;
@@ -30,10 +35,10 @@ export interface InsightArticle {
 
 interface InsightsPageProps {
   articles: InsightArticle[];
-  /** Título da página (default: "Insights"). Usado pelas páginas de eixo. */
+  /** Título da página (default: "Artigos"). Usado pelas páginas de filtro dos eixos antigos. */
   heading?: string;
   subheading?: string;
-  /** Quando definido, a página é o hub de um eixo: some o filtro de eixo e aparece a linha de público. */
+  /** Quando definido, a página é a de um eixo antigo (/engenharia…): some o filtro por público e aparece a linha de público. */
   eixo?: EixoId;
   /** Conteúdo extra abaixo do cabeçalho (ex.: destaque de projeto no eixo Bastidores). */
   aside?: ReactNode;
@@ -41,17 +46,38 @@ interface InsightsPageProps {
 
 export function InsightsPage({
   articles,
-  heading = 'Insights',
-  subheading = 'Textos autorais sobre engenharia, negócio e IA aplicada — organizados em três eixos.',
+  heading = 'Artigos',
+  subheading = 'Textos autorais sobre engenharia, negócio e IA aplicada.',
   eixo,
   aside,
 }: InsightsPageProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Todos');
-  const [selectedEixo, setSelectedEixo] = useState<EixoId | 'todos'>('todos');
+  // Filtro por público (os eixos saíram do menu em 16/11/2026) e a tag Bastidores. Vão na URL:
+  // /insights/?publico=quem-executa, /insights/?tag=bastidores.
+  const [publico, setPublico] = useState<PublicoId | undefined>();
+  const [bastidores, setBastidores] = useState(false);
 
-  const eixoFilter = eixo ?? selectedEixo;
-  const inEixo = articles.filter((a) => eixoFilter === 'todos' || a.eixo === eixoFilter);
+  useEffect(() => {
+    if (eixo) return;
+    const q = new URLSearchParams(window.location.search);
+    setPublico(publicoDoSlug(q.get('publico')));
+    setBastidores(q.get('tag') === 'bastidores');
+  }, [eixo]);
+
+  const naUrl = (p: PublicoId | undefined, b: boolean) => {
+    const q = new URLSearchParams(window.location.search);
+    p ? q.set('publico', PUBLICO_SLUGS[p]) : q.delete('publico');
+    b ? q.set('tag', 'bastidores') : q.delete('tag');
+    const busca = q.toString();
+    history.replaceState(null, '', `${window.location.pathname}${busca ? `?${busca}` : ''}${window.location.hash}`);
+  };
+
+  const inEixo = articles.filter(
+    (a) => (!eixo || a.eixo === eixo) && (!publico || a.publicos.includes(publico)) && (!bastidores || a.tags.includes('bastidores'))
+  );
+  const publicosPresentes = PUBLICO_IDS.filter((p) => articles.some((a) => a.publicos.includes(p)));
+  const temBastidores = articles.some((a) => a.tags.includes('bastidores'));
   // Categorias derivadas do conteúdo visível no eixo — nunca um pill que leve a lista vazia.
   const categories = ['Todos', ...Array.from(new Set(inEixo.map((a) => a.category)))];
 
@@ -63,9 +89,15 @@ export function InsightsPage({
     return matchesSearch && matchesCategory;
   });
 
-  const selectEixo = (id: EixoId | 'todos') => {
-    setSelectedEixo(id);
+  const selectPublico = (p: PublicoId | undefined) => {
+    setPublico(p);
     setSelectedCategory('Todos');
+    naUrl(p, bastidores);
+  };
+  const toggleBastidores = () => {
+    setBastidores(!bastidores);
+    setSelectedCategory('Todos');
+    naUrl(publico, !bastidores);
   };
 
   const [primeiro, ...demais] = filteredArticles;
@@ -76,24 +108,37 @@ export function InsightsPage({
         tela={telaFaixa(eixo ?? 'insights')}
         titulo={heading}
         deck={subheading}
-        nota={eixo ? <p className="font-sans text-sm font-semibold text-areia">{EIXOS[eixo].publico}</p> : undefined}
+        nota={
+          eixo ? (
+            <>
+              <p className="font-sans text-sm font-semibold text-areia">{EIXOS[eixo].publico}</p>
+              <p className="font-sans text-sm text-nevoa">
+                Os textos agora ficam em{' '}
+                <a href={eixo === 'bastidores' ? '/insights/?tag=bastidores' : '/insights/'} className="font-semibold text-laranja-claro hover:text-pessego transition-colors">
+                  Artigos
+                </a>
+                , com filtro por público.
+              </p>
+            </>
+          ) : undefined
+        }
       />
 
       {/* O corpo do hub é papel, como a coluna do artigo: o índice se lê de dia; a noite fica na
           abertura e no rodapé, que chega pela fita depois deste campo claro. */}
       <div className="bg-papel papel">
       <div className="max-w-7xl mx-auto px-4 md:px-6 pt-6 md:pt-8 pb-20 md:pb-28">
-        {/* Eixos — só na listagem geral; nos hubs o eixo já está fixo */}
-        {!eixo && (
-          <nav aria-label="Filtrar por eixo" className="rolagem-x flex flex-nowrap md:flex-wrap gap-x-6 gap-y-1 border-b border-regua -mx-4 px-4 md:mx-0 md:px-0">
-            {[{ id: 'todos' as const, label: 'Todos os eixos' }, ...EIXO_LIST].map((e) => (
+        {/* Para quem — só na listagem geral; nas páginas dos eixos antigos o eixo já está fixo */}
+        {!eixo && publicosPresentes.length > 0 && (
+          <nav aria-label="Filtrar por público" className="rolagem-x flex flex-nowrap md:flex-wrap gap-x-6 gap-y-1 border-b border-regua -mx-4 px-4 md:mx-0 md:px-0">
+            {[{ id: undefined, label: 'Para todos' }, ...publicosPresentes.map((p) => ({ id: p, label: PUBLICOS[p] }))].map((e) => (
               <button
-                key={e.id}
+                key={e.label}
                 type="button"
-                aria-pressed={selectedEixo === e.id}
-                onClick={() => selectEixo(e.id)}
+                aria-pressed={publico === e.id}
+                onClick={() => selectPublico(e.id)}
                 className={`relative shrink-0 whitespace-nowrap py-3 font-sans text-[0.9375rem] font-semibold transition-colors after:absolute after:left-0 after:-bottom-px after:h-[3px] after:bg-laranja after:w-full after:origin-left after:transition-transform after:duration-300 ${
-                  selectedEixo === e.id ? 'text-tinta after:scale-x-100' : 'text-tinta-2 hover:text-tinta after:scale-x-0'
+                  publico === e.id ? 'text-tinta after:scale-x-100' : 'text-tinta-2 hover:text-tinta after:scale-x-0'
                 }`}
               >
                 {e.label}
@@ -117,6 +162,18 @@ export function InsightsPage({
               />
             </label>
             <div className="rolagem-x flex flex-nowrap md:flex-wrap gap-2 -mx-4 px-4 md:mx-0 md:px-0">
+              {!eixo && temBastidores && (
+                <button
+                  type="button"
+                  aria-pressed={bastidores}
+                  onClick={toggleBastidores}
+                  className={`shrink-0 px-3.5 h-11 md:h-8 md:px-3 border font-sans text-[0.8125rem] font-semibold transition-colors whitespace-nowrap ${
+                    bastidores ? 'bg-petroleo border-petroleo text-white' : 'border-petroleo text-petroleo hover:bg-petroleo/10'
+                  }`}
+                >
+                  #Bastidores
+                </button>
+              )}
               {categories.map((cat) => (
                 <button
                   key={cat}
@@ -157,7 +214,7 @@ export function InsightsPage({
               <div className="flex flex-wrap items-center justify-between gap-4 border-t border-regua pt-5">
                 <p className="font-sans text-sm text-tinta-2 flex flex-wrap items-center gap-x-1.5">
                   <span className="marca mr-1" aria-hidden="true" />
-                  <span className="font-bold text-petroleo">{eixo ? primeiro.category : `${EIXOS[primeiro.eixo].shortLabel} · ${primeiro.category}`}</span>
+                  <span className="font-bold text-petroleo">{primeiro.tags.includes('bastidores') && !eixo ? `Bastidores · ${primeiro.category}` : primeiro.category}</span>
                   <span aria-hidden="true"> · </span>
                   {primeiro.date} · {primeiro.duration}
                 </p>
@@ -193,7 +250,7 @@ export function InsightsPage({
                     <span className="font-sans text-tinta-2 leading-relaxed line-clamp-2 max-w-[68ch]">{article.excerpt}</span>
                   </span>
                   <span className="md:col-span-4 min-w-0 flex flex-col gap-1 md:items-end md:text-right md:pt-1.5 font-sans text-sm">
-                    <span className="font-bold text-petroleo inline-flex items-center gap-2"><span className="marca" aria-hidden="true" />{eixo ? article.category : `${EIXOS[article.eixo].shortLabel} · ${article.category}`}</span>
+                    <span className="font-bold text-petroleo inline-flex items-center gap-2"><span className="marca" aria-hidden="true" />{article.tags.includes('bastidores') && !eixo ? `Bastidores · ${article.category}` : article.category}</span>
                     <span className="text-tinta-2">
                       {article.date} · {article.duration}
                     </span>
@@ -212,7 +269,7 @@ export function InsightsPage({
           <div className="py-24 md:py-32 max-w-xl">
             <p className="font-serif text-2xl md:text-3xl italic text-tinta">O silêncio faz parte da música.</p>
             <p className="font-sans text-tinta-2 mt-3">
-              {articles.length === 0 ? 'Os primeiros textos deste eixo estão a caminho.' : 'Nenhum artigo encontrado.'}
+              {articles.length === 0 ? 'Os primeiros textos estão a caminho.' : 'Nenhum artigo encontrado.'}
             </p>
             {articles.length > 0 && (
               <button
@@ -221,7 +278,11 @@ export function InsightsPage({
                 onClick={() => {
                   setSearchTerm('');
                   setSelectedCategory('Todos');
-                  setSelectedEixo('todos');
+                  if (!eixo) {
+                    setPublico(undefined);
+                    setBastidores(false);
+                    naUrl(undefined, false);
+                  }
                 }}
               >
                 Limpar filtros

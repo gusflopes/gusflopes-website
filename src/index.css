@@ -328,6 +328,62 @@
   .leitura :where(a):hover {
     text-decoration-thickness: 2px;
   }
+
+  /* Notícias e análise da semana (estratégia v2). */
+  /* A fonte logo abaixo do lead: metadado em Hanken, com a marca laranja antes. */
+  .leitura .fonte-noticia {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    color: var(--color-tinta-2);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 0.35rem;
+  }
+  .leitura .fonte-noticia::before {
+    content: '';
+    flex: none;
+    width: 8px;
+    height: 8px;
+    margin-right: 0.3rem;
+    background: var(--color-laranja);
+  }
+  /* "Por que importa": uma linha por público, o público como rótulo em petróleo. */
+  .leitura .por-que-importa > div + div {
+    margin-top: 0.9em;
+  }
+  .leitura .por-que-importa dt {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-petroleo);
+  }
+  .leitura .por-que-importa dd {
+    margin: 0.15em 0 0;
+  }
+  /* Correção visível: campo creme, sem borda lateral. */
+  .leitura .correcoes {
+    background: var(--color-campo);
+    padding: 1rem 1.25rem;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+  }
+  /* "A semana em 3 linhas" da análise: campo creme com filete laranja no topo. */
+  .leitura .em-tres-linhas {
+    background: var(--color-campo);
+    border-top: 3px solid var(--color-laranja);
+    padding: 1.1rem 1.4rem 1.2rem;
+  }
+  .leitura .em-tres-linhas ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5em 0 0;
+  }
+  .leitura .em-tres-linhas li + li {
+    margin-top: 0.5em;
+  }
   .leitura :where(strong) {
     color: var(--color-tinta);
     font-weight: 650;

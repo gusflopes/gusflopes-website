@@ -1,6 +1,6 @@
 ---
 name: novo-conteudo
-description: Cria ou revisa um artigo do gusflopes.dev (Radar ou Insights, em um dos eixos Engenharia & IA, Negócios ou Bastidores) com frontmatter validado e a linha editorial do site. Use ao escrever, revisar ou publicar conteúdo.
+description: Cria ou revisa um artigo do gusflopes.dev (Artigos, em `src/content/insights/`; eixo Engenharia & IA, Negócios ou Bastidores) com frontmatter validado e a linha editorial do site. Use ao escrever, revisar ou publicar conteúdo.
 ---
 
 # Novo conteúdo
@@ -17,8 +17,8 @@ description: Cria ou revisa um artigo do gusflopes.dev (Radar ou Insights, em um
 
 ## Arquivo
 
-- Insights (autoral): `src/content/insights/<slug>.md`. Radar (curadoria ou nota curta): `src/content/radar/<slug>.md`.
-- `<slug>` em kebab-case; vira a rota `/insights/article/<slug>` ou `/radar/article/<slug>`.
+- Artigos (autoral): `src/content/insights/<slug>.md`. Desde 16/11/2026 a curadoria antiga do Radar é arquivo (`src/content/curadoria/`, sem item novo) e `src/content/radar/` é o tech radar, escrito pelo agente de marketing (contrato em `NEXT_STEPS.md`).
+- `<slug>` em kebab-case; vira a rota `/insights/article/<slug>`. Público do texto: `publicos` opcional (A–D); sem ele vale o padrão do eixo.
 - Schema, enums de `category` e regras de `tags` em `src/content.config.ts`; eixos em `src/lib/eixos.ts`. É a fonte de verdade — `pnpm build` falha se o frontmatter não bater.
 - Data futura é permitida: o artigo fica fora do build de produção até um deploy feito na data (`src/lib/publicado.ts`), mas aparece no `pnpm dev`.
 
@@ -37,11 +37,11 @@ image: "https://..."
 ---
 ```
 
-### Radar
+### Curadoria (arquivo, sem item novo)
 
-Mesmos campos, mais `type` (`article` | `video`), `isExternal`, `link` e `source`.
-- `isExternal: false` → o build gera `/radar/article/<slug>` com o corpo; `link` aponta para ela e `source: "Local"`.
-- `isExternal: true` → o card leva ao `link` externo; `source` = nome do veículo.
+Até 16/11/2026 o Radar era curadoria (`type`, `isExternal`, `link`, `source`). Os 8 itens externos ficaram em
+`src/content/curadoria/` (página `/noticias/curadoria/`); os 4 autorais foram para Artigos. Notícia nova é do agente
+de marketing (`src/content/noticias/`).
 
 Imagem: a capa exibida no site, o OG e a margem pintada são **gerados no build a partir do slug** (`scripts/tela/`); não procure foto. O campo `image` continua obrigatório no schema e fica só como dado: use uma URL real e estável (Unsplash com `?auto=format&fit=crop&w=1080&q=80`). Como o slug é a semente da capa, escolha-o bem antes de publicar: trocar o slug troca a capa. Links externos reais e verificados.
 

@@ -3,6 +3,7 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import telas from './scripts/tela/integracao.mjs';
+import posBuild from './scripts/pos-build.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -26,6 +27,8 @@ export default defineConfig({
     react(),
     // Páginas de retorno dos links do e-mail (noindex) ficam fora do sitemap.
     sitemap({ filter: (url) => !/\/newsletter\/(confirmada|cancelar|cancelada|link-invalido)\/?$/.test(url) }),
+    // Depois do sitemap: tira do sitemap as páginas noindex e gera o 301 de /radar/ quando for a hora (A1, A8).
+    posBuild(),
   ],
   server: { port: 3001 },
   markdown: { rehypePlugins: [rehypeTabelaFocavel] },

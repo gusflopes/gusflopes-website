@@ -37,7 +37,7 @@ export function telaPapel(grupo: string, nome: string, papel: Papel, janela: str
 }
 
 /** Capa de um texto nos cards: o recorte 16:9 da capa, no mesmo tamanho de traço (semente = slug). */
-export const telaCapa = (colecao: 'insights' | 'radar', id: string): Tela => telaPapel(colecao, id, 'capa', 'recorte');
+export const telaCapa = (colecao: 'insights' | 'curadoria', id: string): Tela => telaPapel(colecao, id, 'capa', 'recorte');
 
 /** Faixa panorâmica de abertura de hub/eixo. */
 export const telaFaixa = (nome: string): Tela => telaPapel('faixa', nome, 'faixa', 'larga', 'estreita');
@@ -69,13 +69,13 @@ export { chaveRodape };
 export const telaPainel404 = (): Tela => telaPapel('marca', 'nao-encontrada', 'painel', 'quadro', 'estreita');
 
 /** Retrato 4:5 da capa: destaque dos hubs e coluna da abertura do texto (com o recorte 16:9 no celular). */
-export const telaRetrato = (colecao: 'insights' | 'radar', id: string): Tela => telaPapel(colecao, id, 'capa', 'retrato', 'recorte');
+export const telaRetrato = (colecao: 'insights' | 'curadoria', id: string): Tela => telaPapel(colecao, id, 'capa', 'retrato', 'recorte');
 
 /**
  * Margem pintada do texto como fundo CSS (tira de 96px × 2400px que repete em y): variáveis para a
  * classe `.margem` (src/index.css) — JPG como reserva, image-set AVIF/WebP onde houver suporte.
  */
-export function fundoMargem(colecao: 'insights' | 'radar' | 'newsletter', id: string): Record<string, string> {
+export function fundoMargem(colecao: 'insights' | 'curadoria' | 'newsletter', id: string): Record<string, string> {
   const base = `${id}-margem-coluna`;
   const u = (w: number, ext: string) => `url("${caminhoTela(colecao, base, w, ext)}")`;
   return {
@@ -89,7 +89,7 @@ export const lombada = (margem: Record<string, string>, i: number): Record<strin
 
 /** Lombada do índice como imagem (recorte da margem gerado no build): AVIF/WebP em 1× e 2×, para `<img loading="lazy">`. */
 export interface LombadaImg { avif: string; webp: string; src: string; width: number; height: number }
-export const lombadaImg = (colecao: 'insights' | 'radar', id: string, i: number): LombadaImg => {
+export const lombadaImg = (colecao: 'insights' | 'curadoria', id: string, i: number): LombadaImg => {
   const k = i % LOMBADAS.length;
   const set = (ext: string) => `${caminhoLombada(colecao, id, k, 1, ext)} 1x, ${caminhoLombada(colecao, id, k, 2, ext)} 2x`;
   return { avif: set('avif'), webp: set('webp'), src: caminhoLombada(colecao, id, k, 1, 'webp'), width: LOMBADA.w, height: LOMBADA.h };
@@ -99,7 +99,7 @@ export const lombadaImg = (colecao: 'insights' | 'radar', id: string, i: number)
  * Faixa pintada dos H2 (pincelada horizontal da capa do texto sobre cada capítulo): variáveis para
  * `.leitura h2::before` — o recorte 16:9 da capa como fundo.
  */
-export function fundoCapitulos(colecao: 'insights' | 'radar', id: string): Record<string, string> {
+export function fundoCapitulos(colecao: 'insights' | 'curadoria', id: string): Record<string, string> {
   const u = (w: number, ext: string) => `url("${caminhoTela(colecao, `${id}-recorte`, w, ext)}")`;
   return {
     '--faixa-on': 'block',
@@ -109,7 +109,7 @@ export function fundoCapitulos(colecao: 'insights' | 'radar', id: string): Recor
 }
 
 /** Imagem OG 1200×630 gerada para o texto. */
-export const ogDoTexto = (colecao: 'insights' | 'radar', id: string): string => caminhoOg(colecao, id);
+export const ogDoTexto = (colecao: 'insights' | 'curadoria', id: string): string => caminhoOg(colecao, id);
 
 /** Foto de banco genérica (Unsplash) é trocada pela tela; capa autoral (ex.: newsletter) fica. */
 export const usaTela = (imagem?: string): boolean => !imagem || ehFotoGenerica(imagem);

@@ -5,10 +5,6 @@ date: "2026-02-24"
 duration: "7 min"
 category: "DevOps"
 eixo: "engenharia"
-type: "article"
-isExternal: false
-link: "/radar/article/plataforma-interna-era-dos-agentes"
-source: "Local"
 image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1080&q=80"
 ---
 

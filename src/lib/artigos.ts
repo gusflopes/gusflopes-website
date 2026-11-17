@@ -1,34 +1,26 @@
 import { getCollection } from 'astro:content';
 import { publicado } from './publicado';
 import type { InsightArticle } from '../components/pages/InsightsPage';
-import type { EixoId } from './eixos';
+import { PUBLICOS_DO_EIXO, type EixoId } from './eixos';
 import { compareIsoDateDesc, formatDatePtBR } from './format';
 import { telaCapa, telaRetrato, fundoMargem, lombadaImg } from './telas';
 
 interface ArtigoOptions {
-  /** Filtra por eixo. */
+  /** Filtra por eixo (páginas de filtro /engenharia, /negocios, /bastidores). */
   eixo?: EixoId;
-  /** Inclui os itens autorais do Radar (isExternal: false). Default: false. */
-  incluirRadarLocal?: boolean;
 }
 
 /**
- * Lista de textos autorais pronta para os cards editoriais (InsightsPage),
- * ordenada do mais recente para o mais antigo. Só roda em build (páginas .astro).
+ * Artigos (textos autorais, coleção `insights`; rota /insights/article/<id>) prontos para os cards editoriais
+ * (InsightsPage), do mais recente para o mais antigo. Desde 16/11/2026 inclui os 4 textos autorais que
+ * estavam no Radar antigo. Só roda em build (páginas .astro).
  */
-export async function getArtigos({ eixo, incluirRadarLocal = false }: ArtigoOptions = {}) {
+export async function getArtigos({ eixo }: ArtigoOptions = {}) {
   const insights = await getCollection('insights', (e) => publicado(e) && (!eixo || e.data.eixo === eixo));
-  const radar = incluirRadarLocal
-    ? await getCollection(
-        'radar',
-        (e) => publicado(e) && !e.data.isExternal && (!eixo || e.data.eixo === eixo)
-      )
-    : [];
 
-  const itens = [
-    ...insights.map((entry) => ({ entry, href: `/insights/article/${entry.id}` })),
-    ...radar.map((entry) => ({ entry, href: `/radar/article/${entry.id}` })),
-  ].sort((a, b) => compareIsoDateDesc(a.entry.data.date, b.entry.data.date));
+  const itens = insights
+    .map((entry) => ({ entry, href: `/insights/article/${entry.id}` }))
+    .sort((a, b) => compareIsoDateDesc(a.entry.data.date, b.entry.data.date));
 
   return itens.map(
     ({ entry, href }): InsightArticle => ({
@@ -37,6 +29,9 @@ export async function getArtigos({ eixo, incluirRadarLocal = false }: ArtigoOpti
       excerpt: entry.data.excerpt,
       category: entry.data.category,
       eixo: entry.data.eixo,
+      publicos: entry.data.publicos ?? PUBLICOS_DO_EIXO[entry.data.eixo],
+      // Bastidores virou tag (16/11/2026): o eixo antigo vale como tag, sem repetir no frontmatter.
+      tags: [...new Set([...entry.data.tags, ...(entry.data.eixo === 'bastidores' ? ['bastidores'] : [])])],
       href,
       date: formatDatePtBR(entry.data.date),
       isoDate: entry.data.date,
@@ -58,7 +53,7 @@ export type ProximoTexto = Pick<InsightArticle, 'title' | 'excerpt' | 'href' | '
  * lê o que veio antes dele); no mais antigo do eixo, volta ao mais recente; eixo com um texto só cai no
  * mais recente do site. Só roda em build.
  */
-export async function proximoTexto(colecao: 'insights' | 'radar', id: string, eixo: EixoId): Promise<ProximoTexto | undefined> {
+export async function proximoTexto(colecao: 'insights', id: string, eixo: EixoId): Promise<ProximoTexto | undefined> {
   const chave = `${colecao}-${id}`;
   const escolher = (lista: InsightArticle[]) => {
     const outros = lista.filter((a) => a.id !== chave);
@@ -66,7 +61,7 @@ export async function proximoTexto(colecao: 'insights' | 'radar', id: string, ei
     const i = lista.findIndex((a) => a.id === chave);
     return (i >= 0 && lista[i + 1]) || outros[0];
   };
-  const p = escolher(await getArtigos({ eixo, incluirRadarLocal: true })) ?? escolher(await getArtigos({ incluirRadarLocal: true }));
+  const p = escolher(await getArtigos({ eixo })) ?? escolher(await getArtigos());
   if (!p) return undefined;
   const { title, excerpt, href, category, date, duration, lombadas } = p;
   return { title, excerpt, href, eixo: p.eixo, category, date, duration, lombadas };

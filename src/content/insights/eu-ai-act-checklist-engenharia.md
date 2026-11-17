@@ -5,10 +5,6 @@ date: "2026-05-19"
 duration: "7 min"
 category: "IA"
 eixo: "engenharia"
-type: "article"
-isExternal: false
-link: "/radar/article/eu-ai-act-checklist-engenharia"
-source: "Local"
 image: "https://images.unsplash.com/photo-1589254065878-42c9da997008?auto=format&fit=crop&w=1080&q=80"
 ---
 

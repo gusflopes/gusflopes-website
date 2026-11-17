@@ -21,7 +21,8 @@ import sharp from 'sharp';
 
 const EIXO_LABEL = { engenharia: 'Engenharia & IA', negocios: 'Negócios', bastidores: 'Bastidores' };
 /** Faixas de abertura dos hubs: semente = nome da página. */
-export const FAIXAS = ['insights', 'radar', 'engenharia', 'negocios', 'bastidores', 'newsletter'];
+// 'radar' é a faixa da curadoria em arquivo (/noticias/curadoria/); 'tech-radar' é a do Radar (/radar/).
+export const FAIXAS = ['insights', 'radar', 'engenharia', 'negocios', 'bastidores', 'newsletter', 'noticias', 'analise', 'tech-radar', 'ferramentas', 'sobre'];
 /**
  * Telas com papel próprio fora dos textos: [grupo, nome, papel, semente]. Cada papel tem a sua
  * semente — nunca a mesma tela repetida como textura. Ver src/lib/telas.ts.
@@ -39,7 +40,8 @@ export const TELAS_PAPEL = [
 ];
 
 /** Páginas fixas (fora das coleções) que ganham fita de rodapé própria. */
-const PAGINAS_FIXAS = ['/', '/insights/', '/radar/', '/engenharia/', '/negocios/', '/bastidores/', '/newsletter/', '/privacy/', '/terms/', '/404'];
+// Notícias, análises e edições do Radar não ganham fita própria (volume): usam a padrão.
+const PAGINAS_FIXAS = ['/', '/insights/', '/radar/', '/engenharia/', '/negocios/', '/bastidores/', '/newsletter/', '/noticias/', '/noticias/curadoria/', '/analise/', '/ferramentas/', '/sobre/', '/privacy/', '/terms/', '/404'];
 
 function frontmatter(arquivo) {
   const txt = fs.readFileSync(arquivo, 'utf8');
@@ -150,7 +152,8 @@ export async function gerarTelas({ raiz, producao, log = console.log }) {
   const saidas = new Set();
 
   const corte = hoje();
-  const entradas = [...lerColecao(raiz, 'insights'), ...lerColecao(raiz, 'radar')].filter(
+  // curadoria = arquivo do Radar antigo (só links externos: capa e margem para a lista, sem página nem OG)
+  const entradas = [...lerColecao(raiz, 'insights'), ...lerColecao(raiz, 'curadoria')].filter(
     (e) => e.title && (!producao || (e.date <= corte && !e.body.includes('[CONFIRMAR')))
   );
 
@@ -182,7 +185,7 @@ export async function gerarTelas({ raiz, producao, log = console.log }) {
 
   // Fita do rodapé: uma por página (semente = caminho), mais a padrão para o que não estiver na lista
   const rotas = new Set(PAGINAS_FIXAS);
-  for (const e of entradas) if (!(e.colecao === 'radar' && e.isExternal)) rotas.add(`/${e.colecao}/article/${e.id}/`);
+  for (const e of entradas) if (e.colecao !== 'curadoria') rotas.add(`/${e.colecao}/article/${e.id}/`);
   for (const e of lerColecao(raiz, 'newsletter')) {
     rotas.add(`/newsletter/${e.id}/`);
     papel(`margem:newsletter/${e.id}`, 'newsletter', `${e.id}-margem`, 'margem', `${e.id}|margem`, PARAMS_MARGEM);
@@ -192,9 +195,9 @@ export async function gerarTelas({ raiz, producao, log = console.log }) {
   // Capas e OG por texto (semente = slug: estável mesmo se o título for revisado)
   for (const e of entradas) {
     papel(`capa:${e.colecao}/${e.id}`, e.colecao, e.id, 'capa', e.id, paramsCapa(e.eixo));
-    // margem pintada: ao lado da coluna do texto e como lombada no índice (o Radar lista também os externos)
+    // margem pintada: ao lado da coluna do texto e como lombada no índice (a curadoria lista os externos)
     papel(`margem:${e.colecao}/${e.id}`, e.colecao, `${e.id}-margem`, 'margem', `${e.id}|margem`, PARAMS_MARGEM);
-    if (e.colecao === 'radar' && e.isExternal) continue; // item externo não tem página nem OG
+    if (e.colecao === 'curadoria') continue; // item externo não tem página nem OG
     const og = caminhoOg(e.colecao, e.id);
     job(`og:${e.colecao}/${e.id}`, `${e.id}|${e.title}|${e.eixo}`, [og], { tipo: 'og', arquivo: path.join(pub, og), semente: e.id, titulo: e.title, rotulo: EIXO_LABEL[e.eixo], params: paramsCapa(e.eixo) });
   }
