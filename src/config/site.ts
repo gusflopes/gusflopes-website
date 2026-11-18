@@ -79,11 +79,11 @@ export const politicaNoticias = {
    * A6 — o site começa limpo: notícia ou análise com `date` anterior a esta data nunca entra no build de
    * produção, mesmo sem `rascunho` (sem notícias retroativas dos itens que já estavam na base).
    */
-  inicio: "2026-11-23",
+  inicio: "2026-11-18",
   /**
    * A1 — enquanto a data do build for anterior a esta, toda notícia individual (/noticias/<slug>/) sai com
    * `noindex, follow` e fora do sitemap. A página da semana (/noticias/semana/…), o índice /noticias/ e a
-   * análise continuam indexados. 2027-01-18 = 8 semanas depois de 23/11. Para estender, mude a data; ao passar
+   * análise continuam indexados. 2027-01-18 = 8 semanas depois de 23/11 (o início foi antecipado para 18/11 em 18/11/2026; o prazo do noindex ficou). Para estender, mude a data; ao passar
    * dela, o próximo deploy indexa todas as notícias publicadas (decidir antes a regra de depois, ex.: só corpo
    * com 150 palavras ou mais).
    */
