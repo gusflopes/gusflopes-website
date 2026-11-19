@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
-import { unified } from '@astrojs/markdown-remark';
+import { satteri } from '@astrojs/markdown-satteri';
 import tailwindcss from '@tailwindcss/vite';
 import telas from './scripts/tela/integracao.mjs';
 import posBuild from './scripts/pos-build.mjs';
@@ -11,13 +11,10 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Tabela larga rola na horizontal no celular (.leitura table): precisa ser focável para quem usa teclado.
-function rehypeTabelaFocavel() {
-  const andar = (no) => {
-    if (no.type === 'element' && no.tagName === 'table') no.properties = { ...no.properties, tabIndex: 0 };
-    (no.children ?? []).forEach(andar);
-  };
-  return (arvore) => andar(arvore);
-}
+const tabelaFocavel = {
+  name: 'tabela-focavel',
+  element: { filter: ['table'], visit: (no, ctx) => ctx.setProperty(no, 'tabIndex', 0) },
+};
 
 export default defineConfig({
   site: 'https://gusflopes.dev',
@@ -32,8 +29,7 @@ export default defineConfig({
     posBuild(),
   ],
   server: { port: 3001 },
-  // Astro 7: o padrão virou o Sätteri; o site segue no unified (remark/rehype) por causa do plugin acima.
-  markdown: { processor: unified({ rehypePlugins: [rehypeTabelaFocavel] }) },
+  markdown: { processor: satteri({ hastPlugins: [tabelaFocavel] }) },
   vite: {
     plugins: [tailwindcss()],
     resolve: {
