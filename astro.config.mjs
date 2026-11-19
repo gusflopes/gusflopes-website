@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
+import { unified } from '@astrojs/markdown-remark';
 import tailwindcss from '@tailwindcss/vite';
 import telas from './scripts/tela/integracao.mjs';
 import posBuild from './scripts/pos-build.mjs';
@@ -31,7 +32,8 @@ export default defineConfig({
     posBuild(),
   ],
   server: { port: 3001 },
-  markdown: { rehypePlugins: [rehypeTabelaFocavel] },
+  // Astro 7: o padrão virou o Sätteri; o site segue no unified (remark/rehype) por causa do plugin acima.
+  markdown: { processor: unified({ rehypePlugins: [rehypeTabelaFocavel] }) },
   vite: {
     plugins: [tailwindcss()],
     resolve: {
