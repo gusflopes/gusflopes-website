@@ -4,7 +4,7 @@ Site pessoal do Gustavo — marca "ponte entre Negócios e Tecnologia". Astro 6 
 
 ## Regras
 
-- **Deploy é manual:** `pnpm run deploy` (build + `wrangler deploy`) publica direto em produção. Push não publica — não há build conectado ao Git, apesar do que o histórico do README sugeria. Só rode com aval explícito.
+- **Push no `main` publica em produção** (`.github/workflows/deploy.yml`, desde 17/11/2026), atrás do portão `scripts/ci/deploy-liberado.sh`: passa commit que só mexe em `src/content/**` (agente de marketing) ou commit/merge do Gustavo sem trailer do Claude. Código feito com o Claude vai por branch + PR e o Gustavo faz o merge; não dê push direto no `main`. `pnpm run deploy` (manual) continua valendo, só com aval explícito. GitHub Pages desligado.
 - **Copy e posicionamento são zona protegida.** Melhorias funcionais (bugs, SEO mecânico, render de conteúdo) podem ir direto; mudar texto visível, naming ou direção de marca exige aval explícito antes — de preferência em commit isolado, fácil de reverter.
 - Analytics do site (Cloudflare Web Analytics, GA4 da landing) é tratado neste repo; métricas das redes sociais ficam no repo de marketing (`../marketing-brands/gusflopes`).
 - `src/config/site.ts` é a fonte única de nome, e-mail, socials e newsletter e tem TODOs do dono: não invente valores (handle, mailbox, conta de newsletter). Pendências em `NEXT_STEPS.md`.
