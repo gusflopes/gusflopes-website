@@ -252,10 +252,16 @@ const radar = defineCollection({
           quadrante: z.enum(QUADRANTE_IDS),
           /** `novo` = primeira edição em que aparece; mudança de anel por visão vai em `visoes.<v>.anterior`. */
           movimento: z.enum(MOVIMENTO_IDS).default('novo'),
-          /** Anel e justificativa em cada visão; a ferramenta pode ficar fora de uma visão. */
+          /** Anel e justificativa em cada perfil de empresa (`VISAO_IDS`); o item pode ficar fora de um perfil. */
           visoes: z
-            .object({ tecnologia: posicao.optional(), 'ti-enxuta': posicao.optional(), 'sem-ti': posicao.optional() })
-            .refine((o) => Object.values(o).some(Boolean), 'o blip precisa estar em ao menos uma visão'),
+            .object({
+              nativa: posicao.optional(),
+              diferencial: posicao.optional(),
+              suporte: posicao.optional(),
+              contratada: posicao.optional(),
+            })
+            .strict()
+            .refine((o) => Object.values(o).some(Boolean), 'o blip precisa estar em ao menos um perfil'),
           /** Evidência: notícias do site (slugs) e itens da base (slugs). */
           noticias: z.array(slug).default([]),
           base: z.array(slug).default([]),

@@ -155,9 +155,14 @@ anterior ao início, então não vão ao ar mesmo se alguém tirar o `rascunho`.
   mostra a mais recente e `/radar/<aaaa>-<mm>/` as anteriores. Disco com quadrantes (Técnicas, Ferramentas,
   Plataformas, Modelos) e anéis (Adotar, Experimentar, Avaliar, Evitar), blips numerados com marca de novo ou de
   mudança de anel, e a lista por quadrante (a mesma numeração) com justificativa, "antes: <anel>" e as notícias que
-  servem de evidência — a lista é o que o leitor de tela e o celular leem. Seletor das 3 visões: Tecnologia (A+B),
-  Empresa com TI enxuta (C), Empresa sem TI (D). `#visao=<id>` abre a visão; `#<id-do-blip>` abre o blip (link vindo
-  da notícia). Até 16/11 a rota era `/tech-radar/` (301).
+  servem de evidência — a lista é o que o leitor de tela e o celular leem. **Desde 19/11/2026, em duas etapas:**
+  (1) diagnóstico do perfil da empresa (`src/components/DiagnosticoPerfil.tsx`: 5 perguntas, cada uma uma lente —
+  o que o cliente compra, DDD, Wardley/Team Topologies, DevOps, orçamento) e (2) o radar lido para o perfil. Perfis
+  (`VISOES` em `src/lib/temas.ts`): `nativa` (Nativa digital), `diferencial` (Digital como diferencial), `suporte`
+  (TI de suporte), `contratada` (Tecnologia contratada). Eles substituíram as visões de 16/11 (tecnologia /
+  ti-enxuta / sem-ti), que misturavam papel de pessoa com tipo de empresa; os públicos A–D das notícias continuam.
+  `#perfil=<id>` abre o perfil (`#visao=` antigo vale) e o perfil fica lembrado no navegador; `#<id-do-blip>` abre o
+  blip (link vindo da notícia). Até 16/11 a rota era `/tech-radar/` (301).
 - **Curadoria antiga** (12 itens): 4 textos autorais em Artigos, 8 links externos em `/noticias/curadoria/`
   (arquivo, sem item novo). Notícias herdou o papel de "diário de bordo" e o desenho.
 - **Publicado:** `src/lib/publicado.ts`: `rascunho: true` → fora do build de produção (sem página, RSS, sitemap nem
@@ -269,15 +274,20 @@ blips:
     nome: "MCP (Model Context Protocol)"
     quadrante: tecnica                        # tecnica | ferramenta | plataforma | modelo
     movimento: novo                           # novo (1ª edição em que aparece) | igual | subiu | desceu
-    visoes:                                   # pelo menos uma; a ferramenta pode ficar fora de uma visão
-      tecnologia: { anel: adotar, texto: "por quê, em uma ou duas frases" }
-      ti-enxuta:  { anel: experimentar, texto: "...", anterior: avaliar }   # anterior (novo, opcional): anel na edição anterior
-      sem-ti:     { anel: avaliar, texto: "..." }
+    visoes:                                   # perfis de empresa (19/11): pelo menos um; o item pode ficar fora de um perfil
+      nativa:      { anel: adotar, texto: "por quê, em uma ou duas frases" }
+      diferencial: { anel: experimentar, texto: "...", anterior: avaliar }   # anterior (opcional): anel na edição anterior
+      suporte:     { anel: experimentar, texto: "..." }
+      contratada:  { anel: avaliar, texto: "..." }
     noticias: ["<slug-da-noticia>"]           # evidência (só as publicadas aparecem)
     base: ["<slug-do-item>"]
 ```
 
-Mudança de anel é por visão: preencha `anterior` na visão que mudou (a página mostra "Subiu/Desceu de anel · antes:
+Chave fora dos quatro perfis quebra o build (schema `strict`). O texto de cada perfil responde ao que ele faz: a
+nativa constrói, a diferencial constrói em volta do legado e passa pela auditoria, a de suporte configura o que já
+tem (e ganha com agentes em processos sem time de software), a contratada compra e exige do fornecedor.
+
+Mudança de anel é por perfil: preencha `anterior` no perfil que mudou (a página mostra "Subiu/Desceu de anel · antes:
 <anel>" e o blip com contorno tracejado). `movimento: novo` vale para o blip inteiro (contorno cheio) e ignora
 `anterior`. Sem `anterior` e com `movimento: subiu|desceu`, a página mostra só "Subiu/Desceu de anel".
 

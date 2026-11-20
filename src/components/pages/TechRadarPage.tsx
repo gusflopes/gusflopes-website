@@ -16,6 +16,7 @@ import {
   type VisaoId,
 } from '../../lib/temas';
 import { AberturaHub } from '../AberturaHub';
+import { DiagnosticoPerfil } from '../DiagnosticoPerfil';
 
 export interface BlipView {
   id: string;
@@ -134,7 +135,7 @@ function Disco({ blips, visao }: { blips: BlipNumerado[]; visao: VisaoId }) {
     <svg
       viewBox={`0 0 ${TAM} ${TAM}`}
       role="img"
-      aria-label={`Radar na visão ${VISOES[visao].label}: ${blips.length} itens. A lista abaixo traz cada um com o anel e a justificativa.`}
+      aria-label={`Radar para o perfil ${VISOES[visao].label}: ${blips.length} itens. A lista abaixo traz cada um com o anel e a justificativa.`}
       className="w-full max-w-[34rem] h-auto mx-auto block"
     >
       {[3, 2, 1, 0].map((k) => (
@@ -195,24 +196,33 @@ function Marca({ tracejado, anel = true }: { tracejado?: boolean; anel?: boolean
 
 /**
  * Radar (tech radar no estilo Thoughtworks): técnicas, ferramentas, plataformas e modelos em quatro anéis (adotar,
- * experimentar, avaliar, evitar), com uma visão por público. O disco mostra a posição de cada item; a lista por
- * quadrante (mesma numeração) traz a justificativa, o que mudou desde a edição anterior e as notícias que servem de
- * evidência — e é o que o leitor de tela lê. A visão vai no hash (#visao=ti-enxuta), para dar para mandar o link
- * certo para cada público; #<id-do-blip> (link vindo de uma notícia) abre a primeira visão em que o blip está.
+ * experimentar, avaliar, evitar), em duas etapas: o diagnóstico do perfil da empresa (`DiagnosticoPerfil`) e o radar
+ * lido para esse perfil. O disco mostra a posição de cada item; a lista por quadrante (mesma numeração) traz a
+ * justificativa, o que mudou desde a edição anterior e as notícias que servem de evidência — e é o que o leitor de tela
+ * lê. O perfil vai no hash (#perfil=suporte; #visao= antigo também vale) e fica lembrado neste navegador;
+ * #<id-do-blip> (link vindo de uma notícia) abre o primeiro perfil em que o blip está.
  */
+const CHAVE_PERFIL = 'radar-perfil';
 export function TechRadarPage({ edicao, outras, children }: TechRadarPageProps) {
-  const [visao, setVisao] = useState<VisaoId>('tecnologia');
+  const [visao, setVisao] = useState<VisaoId>('nativa');
 
   const [alvo, setAlvo] = useState<string | null>(null);
   useEffect(() => {
     const hash = decodeURIComponent(window.location.hash.slice(1));
-    const m = hash.match(/^visao=([a-z-]+)$/);
+    const m = hash.match(/^(?:perfil|visao)=([a-z-]+)$/);
     if (m && (VISAO_IDS as readonly string[]).includes(m[1])) return setVisao(m[1] as VisaoId);
     const blip = edicao?.blips.find((b) => b.id === hash);
     const v = blip && VISAO_IDS.find((id) => blip.visoes[id]);
     if (v) {
       setVisao(v);
       setAlvo(hash);
+      return;
+    }
+    try {
+      const salvo = localStorage.getItem(CHAVE_PERFIL);
+      if (salvo && (VISAO_IDS as readonly string[]).includes(salvo)) setVisao(salvo as VisaoId);
+    } catch {
+      /* sem armazenamento: fica no primeiro perfil */
     }
   }, [edicao]);
   useEffect(() => {
@@ -221,7 +231,16 @@ export function TechRadarPage({ edicao, outras, children }: TechRadarPageProps) 
 
   const escolher = (v: VisaoId) => {
     setVisao(v);
-    history.replaceState(null, '', `#visao=${v}`);
+    history.replaceState(null, '', `#perfil=${v}`);
+    try {
+      localStorage.setItem(CHAVE_PERFIL, v);
+    } catch {
+      /* sem armazenamento: vale só nesta visita */
+    }
+  };
+  const irParaRadar = (v: VisaoId) => {
+    escolher(v);
+    requestAnimationFrame(() => document.getElementById('etapa-radar')?.scrollIntoView());
   };
 
   const blips = edicao ? numerar(edicao.blips, visao) : [];
@@ -236,6 +255,93 @@ export function TechRadarPage({ edicao, outras, children }: TechRadarPageProps) 
 
       <div className="bg-papel papel">
         <div className="max-w-7xl mx-auto px-4 md:px-6 pt-10 md:pt-14 pb-20 md:pb-28">
+          <section aria-labelledby="etapa-diagnostico" className="mb-20">
+            <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+              <div className="lg:col-span-5">
+                <p className="rotulo text-laranja-fundo">Etapa 1 · Diagnóstico</p>
+                <h2 id="etapa-diagnostico" className="capitulo mt-3 font-serif text-[1.9rem] md:text-[2.4rem] leading-tight text-tinta">
+                  Qual é o perfil da sua empresa?
+                </h2>
+                <div className="mt-6 grid gap-4 font-sans text-tinta-2 leading-relaxed">
+                  <p>
+                    O mesmo item de IA pede decisões diferentes para quem constrói software, para quem configura o que comprou e
+                    para quem só contrata. O que separa os perfis é o papel do software em como a empresa gera valor, não o
+                    tamanho nem o setor.
+                  </p>
+                  <p>
+                    Cinco perguntas situam a empresa num dos quatro perfis. Na etapa 2, o radar muda de leitura conforme o
+                    perfil.
+                  </p>
+                </div>
+              </div>
+              <div className="lg:col-span-7">
+                <DiagnosticoPerfil onPerfil={irParaRadar} />
+              </div>
+            </div>
+
+            <details className="mt-14 border-t border-regua pt-6 group">
+              <summary className="cursor-pointer font-serif text-[1.3rem] text-tinta marker:text-laranja">
+                Os quatro perfis e de onde vem o diagnóstico
+              </summary>
+              <div className="mt-6 grid gap-4 font-sans text-tinta-2 leading-relaxed max-w-[72ch]">
+                <p>Três leituras conhecidas chegam ao mesmo lugar:</p>
+                <ul className="grid gap-3 list-disc pl-5">
+                  <li>
+                    <strong className="text-tinta">DDD (Domain-Driven Design):</strong> a tecnologia é o domínio central, onde a
+                    empresa se diferencia, ou um subdomínio de suporte ou genérico, necessário mas não é onde ela ganha?
+                  </li>
+                  <li>
+                    <strong className="text-tinta">Wardley Map:</strong> no caminho entre a necessidade do cliente e o que a
+                    empresa entrega, o software é construído sob medida ou comprado como produto e commodity?
+                  </li>
+                  <li>
+                    <strong className="text-tinta">DevOps e Team Topologies:</strong> quem constrói e quem opera? Times de
+                    produto que respondem pelo que escrevem, uma TI que abre chamado ou o fornecedor.
+                  </li>
+                </ul>
+                <p>
+                  Perfil não é estágio de maturidade. A cultura DevOps diz que toda empresa precisa pôr a tecnologia no centro,
+                  e muita empresa não fez essa transição. Às vezes nem deveria: se o software não é onde ela ganha, construir
+                  sob medida custa mais do que devolve.
+                </p>
+                <p>
+                  Isso não deixa a empresa fora da IA. O desenvolvimento de software tradicional pode não compensar, mas
+                  agentes de IA aplicados aos processos de negócio, sobre as ferramentas que a empresa já usa, compensam.
+                </p>
+              </div>
+              <div className="mt-10 grid gap-8 md:grid-cols-2">
+                {VISAO_IDS.map((v) => {
+                  const p = VISOES[v];
+                  return (
+                    <div key={v} className="border-t-2 border-t-laranja pt-4">
+                      <h3 className="font-serif text-[1.4rem] text-tinta">{p.label}</h3>
+                      <p className="mt-1 font-sans text-tinta leading-relaxed">{p.tese}</p>
+                      <p className="mt-1 font-sans text-sm text-tinta-2">{p.exemplos}</p>
+                      <dl className="mt-4 grid gap-2 font-sans text-sm leading-relaxed">
+                        {(
+                          [
+                            ['DDD', p.ddd],
+                            ['Wardley', p.wardley],
+                            ['Quem constrói e opera', p.operacao],
+                            ['Com IA', p.ia],
+                          ] as const
+                        ).map(([t, d]) => (
+                          <div key={t}>
+                            <dt className="inline font-bold text-petroleo">{t}: </dt>
+                            <dd className="inline text-tinta-2">{d}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    </div>
+                  );
+                })}
+              </div>
+            </details>
+          </section>
+
+          <section aria-labelledby="etapa-radar-titulo" id="etapa-radar" className="scroll-mt-24">
+          <p className="rotulo text-laranja-fundo">Etapa 2 · Radar</p>
+          <h2 id="etapa-radar-titulo" className="sr-only">O radar para o seu perfil</h2>
           {!edicao ? (
             <div className="py-16 border-t border-regua font-sans text-tinta-2 grid gap-3">
               <p>Ainda não há edição publicada do Radar.</p>
@@ -249,7 +355,7 @@ export function TechRadarPage({ edicao, outras, children }: TechRadarPageProps) 
             </div>
           ) : (
             <>
-              <header className="grid gap-4 lg:grid-cols-12 lg:gap-12 mb-10">
+              <header className="grid gap-4 lg:grid-cols-12 lg:gap-12 mb-10 mt-3">
                 <div className="lg:col-span-7">
                   <h2 className="capitulo font-serif text-[1.9rem] md:text-[2.4rem] leading-tight text-tinta">
                     {edicao.rascunho && <span className="rotulo text-laranja-fundo mr-3 align-middle">Rascunho</span>}
@@ -266,7 +372,7 @@ export function TechRadarPage({ edicao, outras, children }: TechRadarPageProps) 
 
               {children && <div className="leitura mb-12">{children}</div>}
 
-              <nav aria-label="Visão do radar" className="rolagem-x flex flex-nowrap md:flex-wrap gap-x-6 gap-y-1 border-b border-regua -mx-4 px-4 md:mx-0 md:px-0">
+              <nav aria-label="Perfil da empresa" className="rolagem-x flex flex-nowrap md:flex-wrap gap-x-6 gap-y-1 border-b border-regua -mx-4 px-4 md:mx-0 md:px-0">
                 {VISAO_IDS.map((v) => (
                   <button
                     key={v}
@@ -281,7 +387,7 @@ export function TechRadarPage({ edicao, outras, children }: TechRadarPageProps) 
                   </button>
                 ))}
               </nav>
-              <p className="mt-4 mb-10 font-sans text-sm text-tinta-2">Para quem: {VISOES[visao].publico}.</p>
+              <p className="mt-4 mb-10 font-sans text-sm text-tinta-2">{VISOES[visao].tese}</p>
 
               <div className="grid gap-10 lg:grid-cols-12 lg:gap-12 mb-14">
                 <div className="lg:col-span-7">
@@ -311,7 +417,7 @@ export function TechRadarPage({ edicao, outras, children }: TechRadarPageProps) 
                         {QUADRANTES[q]}
                       </h3>
                       {doQuadrante.length === 0 ? (
-                        <p className="border-t-2 border-t-laranja py-5 font-sans text-sm text-tinta-2">Nada neste quadrante nesta visão.</p>
+                        <p className="border-t-2 border-t-laranja py-5 font-sans text-sm text-tinta-2">Nada neste quadrante para este perfil.</p>
                       ) : (
                         <ol className="border-t-2 border-t-laranja">
                           {doQuadrante.map((b) => {
@@ -354,6 +460,7 @@ export function TechRadarPage({ edicao, outras, children }: TechRadarPageProps) 
               </div>
             </>
           )}
+          </section>
 
           {outras.length > 0 && (
             <section aria-labelledby="edicoes-anteriores" className="mt-20 border-t border-regua pt-10">
