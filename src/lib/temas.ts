@@ -65,14 +65,73 @@ export const PUBLICO_SLUGS: Record<PublicoId, string> = {
 export const publicoDoSlug = (slug: string | null): PublicoId | undefined =>
   PUBLICO_IDS.find((id) => PUBLICO_SLUGS[id] === slug);
 
-/** Visões do radar: Tecnologia (A + B), Empresa com TI enxuta (C), Empresa sem TI (D). */
-export const VISAO_IDS = ['tecnologia', 'ti-enxuta', 'sem-ti'] as const;
+/**
+ * Perfis de empresa do Radar (19/11/2026, decisão do Gustavo): o radar tem duas etapas, o diagnóstico do perfil e o
+ * radar lido para o perfil. O eixo é o papel do software em como a empresa gera valor, não o tamanho nem o setor:
+ * em DDD, se a tecnologia é o domínio central ou um subdomínio de suporte/genérico; no Wardley Map, se a empresa
+ * constrói o componente que atende o cliente (gênese, sob medida) ou compra produto e commodity; em DevOps, quem
+ * constrói e quem opera. Perfil não é estágio de maturidade: ficar em `suporte` ou `contratada` pode ser a escolha
+ * econômica certa, e mesmo assim agentes de IA em processos de negócio dão resultado ali.
+ * Substituiu as visões de 16/11 (tecnologia / ti-enxuta / sem-ti), que misturavam papel de pessoa com tipo de empresa.
+ * O campo no frontmatter continua `visoes`; o hash da página é `#perfil=<id>` (aceita `#visao=` antigo).
+ */
+export const VISAO_IDS = ['nativa', 'diferencial', 'suporte', 'contratada'] as const;
 export type VisaoId = (typeof VISAO_IDS)[number];
 
-export const VISOES: Record<VisaoId, { label: string; publico: string }> = {
-  tecnologia: { label: 'Tecnologia', publico: 'Liderança de tecnologia e quem executa' },
-  'ti-enxuta': { label: 'Empresa com TI enxuta', publico: 'Tem CTO ou responsável de TI e uma equipe pequena' },
-  'sem-ti': { label: 'Empresa sem TI', publico: 'Contrata prestadores para a tecnologia' },
+export interface Perfil {
+  /** Rótulo da aba. */
+  label: string;
+  /** Uma linha: o que o software é para a empresa. */
+  tese: string;
+  /** Exemplos de empresa. */
+  exemplos: string;
+  /** Leitura em DDD. */
+  ddd: string;
+  /** Leitura no Wardley Map. */
+  wardley: string;
+  /** Quem constrói e quem opera (DevOps, Team Topologies). */
+  operacao: string;
+  /** O que muda com IA neste perfil. */
+  ia: string;
+}
+
+export const VISOES: Record<VisaoId, Perfil> = {
+  nativa: {
+    label: 'Nativa digital',
+    tese: 'O software é o produto: se ele para, a receita para.',
+    exemplos: 'SaaS, fintech, marketplace, empresa de software.',
+    ddd: 'A tecnologia é o próprio domínio central.',
+    wardley: 'Constrói o que diferencia (gênese e sob medida) e compra commodity: nuvem, pagamento, autenticação.',
+    operacao: 'Times de produto constroem e operam o que escrevem; deploy contínuo, medido pelas métricas DORA.',
+    ia: 'IA entra no produto e no ciclo de desenvolvimento: agentes de engenharia, avaliação, custo por uso.',
+  },
+  diferencial: {
+    label: 'Digital como diferencial',
+    tese: 'O negócio é físico ou financeiro, mas a empresa escolheu competir com software próprio.',
+    exemplos: 'Banco, seguradora, varejo com app e preço próprios, indústria com plataforma para o cliente.',
+    ddd: 'O domínio central é o negócio; o software próprio está onde a empresa se diferencia.',
+    wardley: 'Dois ritmos: o núcleo (core, ERP) é produto comprado e muda devagar; os produtos digitais em volta são sob medida.',
+    operacao: 'Times de produto no digital, TI e fornecedores no núcleo; integração, segurança e auditoria são o trabalho difícil.',
+    ia: 'IA tem de passar pelo legado e pela governança: acesso por papel, dado sensível fora do modelo, trilha de auditoria.',
+  },
+  suporte: {
+    label: 'TI de suporte',
+    tese: 'A empresa tem TI, mas para manter a operação, não para competir com software.',
+    exemplos: 'Indústria, distribuidora, rede de serviços, escritório, hospital de porte médio.',
+    ddd: 'A tecnologia é subdomínio de suporte ou genérico: necessária, mas não é onde a empresa ganha.',
+    wardley: 'Quase tudo é produto ou commodity: ERP, CRM, suíte de escritório; construir sob medida raramente compensa.',
+    operacao: 'TI interna pequena, por projeto e chamado: configura, integra e mantém; mede custo e disponibilidade.',
+    ia: 'Desenvolvimento tradicional pode não compensar, mas agentes sobre as ferramentas que já existem automatizam processos de negócio sem time de software.',
+  },
+  contratada: {
+    label: 'Tecnologia contratada',
+    tese: 'Não há time de tecnologia: tudo vem de fornecedor.',
+    exemplos: 'Comércio, clínica, construtora, escritório pequeno, prestador de serviço.',
+    ddd: 'Toda tecnologia é subdomínio genérico: problema resolvido, comprado pronto.',
+    wardley: 'Só commodity e produto: sistema de gestão na nuvem, contador, agência, prestador.',
+    operacao: 'Fornecedores constroem e operam; a decisão de tecnologia é uma decisão de compra e de contrato.',
+    ia: 'Assistentes e agentes prontos já resolvem tarefas do dia a dia; a pergunta é o que exigir do fornecedor e que dado expor.',
+  },
 };
 
 export const ANEL_IDS = ['adotar', 'experimentar', 'avaliar', 'evitar'] as const;
@@ -85,21 +144,27 @@ export const ANEIS: Record<AnelId, string> = {
   evitar: 'Evitar',
 };
 
-/** Critério de cada anel por visão (playbook da estratégia v2, §7.1). */
+/** Critério de cada anel por perfil: o mesmo anel quer dizer coisa diferente para quem constrói, configura ou compra. */
 export const CRITERIO_ANEL: Record<VisaoId, Record<AnelId, string>> = {
-  tecnologia: {
-    adotar: 'Disponível em GA, com casos de produção de fontes independentes e custo e limites conhecidos.',
+  nativa: {
+    adotar: 'Disponível em GA, com casos de produção de fontes independentes e custo e limites conhecidos: entra na stack.',
     experimentar: 'GA ou beta sólido, com casos aparecendo: vale um piloto com teto de custo e prazo.',
     avaliar: 'Preview ou promessa forte com pouca evidência: acompanhar.',
     evitar: 'Lock-in sem saída, custo imprevisível, falha documentada ou risco regulatório maior que o ganho.',
   },
-  'ti-enxuta': {
-    adotar: 'Já vem na ferramenta que a empresa tem ou custa pouco, configura sem time grande e o risco de dados é conhecido.',
-    experimentar: 'Piloto de 30 dias com uma área e um dono definido.',
-    avaliar: 'Ler e esperar o fornecedor estabilizar.',
-    evitar: 'Exige equipe que a empresa não tem, ou dados sensíveis sem controle.',
+  diferencial: {
+    adotar: 'Em GA, passa pelo crivo de segurança e auditoria e conversa com o legado: entra nos produtos digitais.',
+    experimentar: 'Piloto num produto digital, longe do sistema central, com dono, teto de custo e critério de aceite.',
+    avaliar: 'Acompanhar até aparecer caso parecido em empresa com legado ou regulada.',
+    evitar: 'Exige mexer no sistema central sem ganho claro, ou expõe dado sensível sem controle.',
   },
-  'sem-ti': {
+  suporte: {
+    adotar: 'Já vem na ferramenta que a empresa tem ou custa pouco, configura sem time de desenvolvimento e o risco de dados é conhecido.',
+    experimentar: 'Piloto de 30 dias com uma área, um processo e um dono.',
+    avaliar: 'Ler e esperar o fornecedor estabilizar.',
+    evitar: 'Exige time de desenvolvimento que a empresa não tem, ou dados sensíveis sem controle.',
+  },
+  contratada: {
     adotar: 'Usa direto, sem integração, com preço claro em reais e suporte no Brasil.',
     experimentar: 'Pedir ao prestador um teste com escopo fechado.',
     avaliar: 'Só saber que existe.',
