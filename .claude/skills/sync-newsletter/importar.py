@@ -8,7 +8,7 @@ Uso:
       --preheader "4 modelos em 9 dias, ..." [--substack-url https://...] [--duracao "6 min"]
 
 <pasta-da-edicao> é algo como
-../marketing-brands/gusflopes/content/newsletter/2026-10-03-radar-semanal-01 (tem edicao.md).
+../mkt-branding-gusflopes/content/newsletter/2026-10-03-radar-semanal-01 (tem edicao.md).
 A data sai do nome da pasta; o slug do arquivo, do resto do nome. Rodar de novo sobrescreve:
 o edicao.md do marketing é a fonte, o site é o espelho.
 """
