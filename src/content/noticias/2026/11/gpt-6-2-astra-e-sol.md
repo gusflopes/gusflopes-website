@@ -12,11 +12,15 @@ fonte:
   data: "2026-11-17"
   tipo: primaria
 outrasFontes:
+  - nome: "Codex (changelog)"
+    url: "https://learn.chatgpt.com/docs/changelog"
+    data: "2026-11-20"
+    tipo: primaria
   - nome: "GitHub Changelog"
     url: "https://github.blog/changelog/2026-11-17-openais-gpt-6-2-astra-and-gpt-6-2-sol-now-available"
     data: "2026-11-17"
     tipo: primaria
-apuradoEm: "2026-11-18"
+apuradoEm: "2026-11-20"
 base: "gpt-6-2-astra-e-sol"
 correcoes: []
 assinatura: agente
@@ -28,3 +32,5 @@ A OpenAI lançou em 17/11/2026 dois modelos: o GPT-6.2 Astra, para raciocínio e
 Para quem executa, o ponto prático não é o benchmark: é a migração para a Responses API e a política de modelos do Copilot, que define o que o time passa a usar sem pedir.
 
 O post de lançamento no site da OpenAI não abriu na apuração; preço e disponibilidade no ChatGPT ficam para quando a fonte puder ser conferida.
+
+Atualização em 20/11: o Codex CLI 0.171.0, de 20/11/2026, pôs o GPT-6.2 Sol como seleção padrão do catálogo de modelos, ao lado do Astra. Quem usa o Codex sem fixar o modelo passa a rodar no Sol sem ter escolhido, com o custo e o comportamento que vêm junto.
