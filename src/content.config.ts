@@ -80,7 +80,7 @@ const insights = defineCollection({
 
 /**
  * Edições da newsletter, espelhadas do repositório de marketing
- * (marketing-brands/gusflopes/content/newsletter/<data>-<slug>/edicao.md).
+ * (mkt-branding-gusflopes/content/newsletter/<data>-<slug>/edicao.md).
  * O e-mail sai pelo Substack; o site guarda o arquivo.
  */
 const newsletter = defineCollection({

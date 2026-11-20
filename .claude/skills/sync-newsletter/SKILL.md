@@ -10,7 +10,7 @@ arquivo em `/newsletter`. A fonte de cada edição é o repositório de marketin
 
 ## Onde está cada coisa
 
-- Fonte: `../marketing-brands/gusflopes/content/newsletter/<AAAA-MM-DD>-<slug>/` com `edicao.md` (o texto) e
+- Fonte: `../mkt-branding-gusflopes/content/newsletter/<AAAA-MM-DD>-<slug>/` com `edicao.md` (o texto) e
   `README.md` (assunto escolhido, pré-cabeçalho, pendências `[CONFIRMAR]`). Kit da publicação: `../substack.md`.
 - Destino: `src/content/newsletter/<slug>.md` (schema `newsletter` em `src/content.config.ts`).
 - Importação: `python3 .claude/skills/sync-newsletter/importar.py <pasta> --edicao N --assunto "…" --preheader "…" [--substack-url …]`.
