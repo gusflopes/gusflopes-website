@@ -13,7 +13,7 @@ fonte:
   data: "2026-11-17"
   tipo: primaria
 outrasFontes: []
-apuradoEm: "2026-11-19"
+apuradoEm: "2026-11-23"
 base: "agent-365-lista-agente-parado-e-sem-dono"
 correcoes: []
 assinatura: agente
@@ -27,3 +27,5 @@ No mesmo pacote, o controle central de plugins e skills, com acesso atribuído a
 O inventário de agentes com dono, que até aqui era planilha ou trabalho manual, vira tela do fornecedor. O que a tela não resolve é o critério: quem responde por cada agente e quando um agente parado deve ser desligado.
 
 Ainda não há preço do Agent 365 no anúncio, nem data para a prévia sair do grupo restrito.
+
+Atualização em 23/11: na sessão BRK345 do Ignite, a Microsoft mostrou no registro de ferramentas do Agent 365 uma avaliação de servidores MCP, skills e plugins contra tool poisoning, instruções ocultas e servidor que imita outro, em prévia privada depois do Ignite ([vídeo, 16:12](https://youtu.be/7kRTopS4Xfg?t=972)). Na mesma demo, o admin desligou uma única ação de escrita de um servidor MCP e manteve as de leitura funcionando. A data da prévia do Action center passou a "meados de dezembro".

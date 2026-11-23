@@ -20,7 +20,11 @@ outrasFontes:
     url: "https://github.blog/changelog/2026-11-17-openais-gpt-6-2-astra-and-gpt-6-2-sol-now-available"
     data: "2026-11-17"
     tipo: primaria
-apuradoEm: "2026-11-20"
+  - nome: "Microsoft Copilot Blog"
+    url: "https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-openai-s-gpt-6-2-sol-and-gpt-6-2-astra-in/ba-p/4574229"
+    data: "2026-11-20"
+    tipo: primaria
+apuradoEm: "2026-11-23"
 base: "gpt-6-2-astra-e-sol"
 correcoes: []
 assinatura: agente
@@ -34,3 +38,5 @@ Para quem executa, o ponto prático não é o benchmark: é a migração para a 
 O post de lançamento no site da OpenAI não abriu na apuração; preço e disponibilidade no ChatGPT ficam para quando a fonte puder ser conferida.
 
 Atualização em 20/11: o Codex CLI 0.171.0, de 20/11/2026, pôs o GPT-6.2 Sol como seleção padrão do catálogo de modelos, ao lado do Astra. Quem usa o Codex sem fixar o modelo passa a rodar no Sol sem ter escolhido, com o custo e o comportamento que vêm junto.
+
+Atualização em 23/11: a Microsoft começou a liberar em 20/11/2026 o GPT-6.2 Sol no Copilot Chat, no Copilot Cowork, no Copilot Studio e no Copilot do Word, do Excel e do PowerPoint; o Astra vai para o Cowork e o Studio, e no Chat e nos apps do Office só para clientes Frontier ([anúncio da Microsoft](https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-openai-s-gpt-6-2-sol-and-gpt-6-2-astra-in/ba-p/4574229)). Como no GitHub, quem decide o acesso é o admin, aqui no Microsoft 365 admin center, e a Microsoft avisa que a disponibilidade varia por região e organização.
