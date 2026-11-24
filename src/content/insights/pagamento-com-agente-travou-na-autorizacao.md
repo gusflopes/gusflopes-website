@@ -1,7 +1,7 @@
 ---
 title: "Pagamento com agente travou na autorização, não no modelo"
 excerpt: "Citi, PNC e Wells Fargo reescreveram o contrato para dizer que o cliente responde pelo agente de IA de terceiro. Lidos de perto, os textos mostram o que falta: uma credencial do agente com escopo, limite, prazo e revogação."
-date: "2026-11-25"
+date: "2026-11-24"
 duration: "7 min"
 category: "Agentes"
 eixo: "engenharia"
