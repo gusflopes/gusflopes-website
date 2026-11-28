@@ -40,7 +40,7 @@ export const REVISAO = "r5-revisor-5";
  * `ceu` e `nevoa` (azul-claro) ficaram só como acento raro nas manchas.
  */
 export const CORES = {
-  noite: '#0B1A33', // chão das páginas e faixa do OG (fora da tinta)
+  noite: '#1C1F28', // teste cidade (era #0B1A33) — chão das páginas e faixa do OG (fora da tinta)
   papel: '#FFF8F2', // claro padrão das páginas (Shelfye): as emendas tela → página casam com ele
   creme: '#FDEED9', // campo claro quente (Shelfye)
   nevoa: '#C9D6E6', // assinatura do OG; acento raro
